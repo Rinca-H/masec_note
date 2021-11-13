@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>HTML - Private Chamber</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/atelier-estuary-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="basic.css">
+  <link rel="stylesheet" type="text/css" href="my_sidemenu.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div style="margin: 8px;"><span class="desc">uploaded:2021/11/12</span></div>
+  <div>
+    <div class="main">
+      <h1>Private Chamber - HTML</h1>
+      <p>　ノーコメント.</p>
+      <div class="headline" id="sec01" style="border-left: solid 10px #ff5400;">構文</div>
+      <h3 id="sec01sec01">コメントアウト</h3>
+      <pre><code class="html">&lt;!-- コメント -->
+
+&lt;!--
+複数行コメント
+--></code></pre>
+      <h3 id="sec01sec02">CSSをタグに埋め込む</h3>
+      <pre><code class="html">&lt;○○ style="××: ABC;">&lt;/○○></code></pre>
+      <h3 id="sec01sec03">コードのヘッダにCSSのコードを書く</h3>
+      <pre><code class="html">&lt;style type="text/css">&lt;/style></code></pre>
+      <div class="headline" id="sec02" style="border-left: solid 10px #ff5400;">コンテンツの基礎・装飾</div>
+      <h3 id="sec02sec01">見出し</h3>
+      <p>　h1からh6まである</p>
+      <pre><code class="html">&lt;h1>見出し&lt;/h1></code></pre>
+      <h3 id="sec02sec02">段落</h3>
+      <pre><code class="html">&lt;p>段落&lt;/p></code></pre>
+      <h3 id="sec02sec03">太字・斜体・下線</h3>
+      <pre><code class="html">&lt;b>文字&lt;/b>
+&lt;i>文字&lt;/i>
+&lt;u>文字&lt;/u></code></pre>
+      <h3 id="sec02sec04">打消し線</h3>
+      <pre><code class="html">&lt;s>文字&lt;/s>
+&lt;strike>文字&lt;/strike></code></pre>
+      <h3 id="sec02sec05">改行</h3>
+      <pre><code class="html">&lt;br></code></pre>
+      <h3 id="sec02sec06">線</h3>
+      ↓
+      <hr>
+      ↑
+      <pre><code class="html">&lt;hr></code></pre>
+      <h3 id="sec02sec07">範囲指定</h3>
+      <pre><code>&lt;div>範囲&lt;/div>
+&lt;span>範囲&lt;/span></code></pre>
+      <h3 id="sec02sec08">画像</h3>
+      <pre><code class="html">&lt;img src="image.png" width=240px height=240px alt="代替テキスト"></code></pre>
+      <h3 id="sec02sec09">動画</h3>
+      <h3 id="sec02sec10">表</h3>
+      <pre><code class="html">&lt;table border="1">
+  &lt;tr>
+    &lt;th>見出し&lt;/th>
+    &lt;td>要素&lt;/td>
+  &lt;/tr>
+&lt;/table></code></pre>
+      <h3 id="sec02sec11">ルビ</h3>
+      <pre><code class="html">&lt;ruby>&lt;rb>薔薇&lt;/rb>&lt;rp>(&lt;/rp>&lt;rt>バラ&lt;/rt>&lt;rp>)&lt;/rp>&lt;/ruby></code></pre>
+      <h3 id="sec02sec12">半角スペース・改行適用</h3>
+      <pre><code>&lt;pre>a a&lt;/pre></code></pre>
+      <div class="headline" id="sec03" style="border-left: solid 10px #ff5400;">機能タグ</div>
+      <h3 id="sec03sec01">リンク</h3>
+      <pre><code class="html">&lt;a href="#">&lt;/a></code></pre>
+      <p>
+        ・# で同じページ(現在いるページ)<br>
+        ・同じページ内でリンクするなら
+      </p>
+      <pre><code class="html">「&lt;a href="#link">リンク&lt;/a>」セクションへ
+  &lt;h3 id="link">リンク&lt;/h3></code></pre>
+      <p>
+        「<a href="#link">リンク</a>」セクションへ<br>
+        ・新しいタブを開くなら
+      </p>
+      <pre><code class="html">&lt;a href="#" target="_blank">&lt;/a></code></pre>
+      <p>・カーソルを重ねてタイトル表示</p>
+      <pre><code class="html">&lt;a href="#" title="タイトル">&lt;/a></code></pre>
+      <h3 id="sec03sec02">ボタン</h3>
+      <pre><code class="html">&lt;button>
+&lt;button disabled="disabled">
+&lt;button name="名前">
+</code></pre>
+      <h3 id="sec03sec03">テキストボックス</h3>
+      <pre><code class="html">&lt;textarea>&lt;/textarea>
+&lt;textarea cols="20">&lt;/textarea>
+&lt;textarea disabled="disabled">&lt;/textarea>
+&lt;textarea maxlength="100">&lt;/textarea>
+&lt;textarea name="名前">&lt;/textarea>
+&lt;textarea readonly="readonly">&lt;/textarea>
+&lt;textarea required="required">&lt;/textarea>
+&lt;textarea rows="2">&lt;/textarea></code></pre>
+      <h3 id="sec03sec04">折りたたみ</h3>
+      <p>　summaryに折り畳みタブのテキストラベルを書く</p>
+      <pre><code class="html">&lt;details>&lt;summary>タイトル&lt;/summary>内容&lt;/details></code></pre>
+      <div class="headline" id="sec04" style="border-left: solid 10px #ff5400;">ユーティリティ</div>
+      <h3 id="sec04sec01">「&lt;」のエスケープ</h3>
+      <pre><code class="html">＆lt;</code></pre>
+      <h3 id="sec04sec02">半角スペース</h3>
+      <pre><code class="html">＆nbsp;</code></pre>
+      <div class="headline" id="sec05" style="border-left: solid 10px #ff5400;">JavaScriptを使う</div>
+      <p><a href="https://qiita.com/amamamaou/items/25e8b4e1b41c8d3211f4">参考</a></p>
+      <h3 id="sec05sec01">指定idの要素を取得</h3>
+      <pre><code class="js">var val = document.getElementById("id");</code></pre>
+      <h3 id="sec05sec02">指定classの要素を取得</h3>
+      <pre><code class="js">var val1 = document.getElementsByClassName("class");
+var val2 = element.getElementsByClassName("class");</code></pre>
+      <p>　HTMLCollectionというアレイで返ってくる</p>
+      <h3 id="sec05sec03">指定idのcssの値を取得</h3>
+      <pre><code class="js">var element1 = document.getElementById("id");
+var element2 = getComputedStyle(element).padding</code></pre>
+      <h3 id="sec05sec04">cssの値を変える</h3>
+      <pre><code class="js">documents.getElementById("id").style.fontSize = "20px";</code></pre>
+      <h3 id="sec05sec05">画面の大きさ</h3>
+      <pre><code class="js">var val = window.innerWidth;</code></pre>
+      <h3 id="sec05sec06">画面の形によってスタイルを変更</h3>
+      <p>　横長なら赤く、縦長なら青くなる例(リアルタイム)</p>
+      <pre><code class="html">&lt;script type="text/javascript">
+  //読み込み時の表示
+  window_load();
+    
+  //ウィンドウサイズ変更時に更新
+  window.onresize = window_load;
+
+  //サイズの表示
+  function window_load() {
+    if(window.innerWidth > window.innerHeight){ //横長
+      document.getElementById("test").style.color = "#f00";
+    } else { //縦長
+      document.getElementById("test").style.color = "#00f";
+    }
+  }
+&lt;/script></code></pre>
+    </div>
+  </div>
+  <div align="right" style="margin: 8px;"><span style="font-size: 70%;">constructed by: Rinca Hayamine</span></div>
+  <header>
+    <div class="menu-button no-select"><label for="check"><div style="margin-top: 0.75em;">三</div></label></div>
+    <input type="checkbox" name="check" id="check" style="display: none;">
+    <div class="move-box">
+      <div class="content">
+        <h2><a href="pChbr-home.html">Home</a></h2>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec01">構文</a></h4>
+        <p>
+          ・<a href="#sec01sec01">コメントアウト</a><br>
+          ・<a href="#sec01sec02">CSSをタグに埋め込む</a><br>
+          ・<a href="#sec01sec03">コードのヘッダにCSSのコードを書く</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec02">コンテンツの基礎・装飾</a></h4>
+        <p>
+          ・<a href="#sec02sec01">見出し</a><br>
+          ・<a href="#sec02sec02">段落</a><br>
+          ・<a href="#sec02sec03">太字・斜体・下線</a><br>
+          ・<a href="#sec02sec04">打消し線</a><br>
+          ・<a href="#sec02sec05">改行</a><br>
+          ・<a href="#sec02sec06">線</a><br>
+          ・<a href="#sec02sec07">範囲指定</a><br>
+          ・<a href="#sec02sec08">画像</a><br>
+          ・<a href="#sec02sec09">動画</a><br>
+          ・<a href="#sec02sec10">表</a><br>
+          ・<a href="#sec02sec11">ルビ</a><br>
+          ・<a href="#sec02sec12">半角スペース・改行適用</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec03">機能タグ</a></h4>
+        <p>
+          ・<a href="#sec03sec01">リンク</a><br>
+          ・<a href="#sec03sec02">ボタン</a><br>
+          ・<a href="#sec03sec03">テキストボックス</a><br>
+          ・<a href="#sec03sec04">折りたたみ</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec04">ユーティリティ</a></h4>
+        <p>
+          ・<a href="#sec04sec01">「&lt;」のエスケープ</a><br>
+          ・<a href="#sec04sec02">半角スペース</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec05">JavaScriptを使う</a></h4>
+        <p>
+          ・<a href="#sec05sec01">指定idの要素を取得</a><br>
+          ・<a href="#sec05sec02">指定classの要素を取得</a><br>
+          ・<a href="#sec05sec03">指定idのcssの値を取得</a><br>
+          ・<a href="#sec05sec04">cssの値を変える</a><br>
+          ・<a href="#sec05sec05">画面の大きさ</a><br>
+          ・<a href="#sec05sec06">画面の形によってスタイルを変更</a>
+        </p>
+      </div>
+    </div>
+  </header>
+  <!-- svg Script HERE -->
+</body>
+</html>

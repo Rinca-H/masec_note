@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<title>プログラミングの基礎</title>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/atelier-estuary-light.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+	<script>
+		hljs.initHighlightingOnLoad();
+	</script>
+	<link rel="shortcut icon" href="img/favicon.ico">
+	<style type="text/css">
+		.headline { padding: 0px 2em; margin: 2em 0em; border-top: solid 3px #FF5400; border-bottom: solid 3px #FF5400; width: 25%; }
+		td, th { padding: 0.5em; }
+	</style>
+	<!-- <link rel="stylesheet" type="text/css" href="general.css"> -->
+	<meta name="viewport" content="width=device-width">
+</head>
+
+<body bgcolor="#FFF5D0">
+	<div>
+		<span class="desc">uploaded:2020/08/10</span>
+	</div>
+	<h1>プログラミングの基礎</h1>
+	<font size="5">
+		<table border="4" style="border-style:solid; border-collapse:collapse; border-width:3; background: #FFFCEF;">
+			<tr><th><a href="#sec_js">JavaScript</a></th></tr>
+			<tr><th><a href="#sec_glsl">GLSL</a></th></tr>
+			<tr><th><a href="#sec_html">HTML</a></th></tr>
+			<tr><th><a href="#sec_css">CSS</a></th></tr>
+			<tr><th><a href="#sec_css_selecter">CSSセレクタ</a></th></tr>
+			<tr><th><a href="#sec_py">Python</a></th></tr>
+			<tr><th><a href="#sec_java">Java</a></th></tr>
+		</table>
+	</font>
+	<h3>応用</h3>
+	<font size="5">
+		<table border="4" style="border-style:solid; border-collapse:collapse; border-width:3; background: #FFFCEF;">
+			<tr><th><a href="#sec_html_js">HTMLでJavaScriptを使う</a></th></tr>
+		</table>
+	</font>
+
+
+	<div class="headline">
+		<h2 id="sec_js">JavaScript</h2>
+	</div>
+	<h3>性質</h3>
+	・大文字と小文字を区別する。<br>
+	・文末にはセミコロンを使う(単独の文の場合は不要)。<br>
+	・変数の型は自動で変わる。<br>
+	・足し算( + )でのみストリング型と数値型の結合を示す。引き算などは文字列が数であれば計算されてしまう。<br>
+	・バッククォートで囲んだ文字列に${変数}と書くことで、+で繋いでから出力する必要がなくなる。
+	<h3>コメントアウト</h3>
+	<pre><code class="js">//コメント
+
+/*
+複数行コメント
+*/</code></pre>
+	<h3>データ型</h3>
+	<table border="1" style="border: solid 3px #000; border-collapse:collapse; background: #FFFCEF;">
+		<tr><th>型</th><th>備考</th></tr>
+		<tr><td>Boolean</td><td>ブーリアン型、trueまたはfalse</td></tr>
+		<tr><td>null</td><td></td></tr>
+		<tr><td>undefined</td><td></td></tr>
+		<tr><td>Number</td><td>数値、20や3.1415など</td></tr>
+		<tr><td>BigInt</td><td>長整数、9007199254740992nなど</td></tr>
+		<tr><td>String</td><td>ストリング型、"Hello"など</td></tr>
+		<tr><td>Symbol</td><td></td></tr>
+		<tr><td>Object</td><td>オブジェクト。</td></tr>
+	</table>
+	<h3>変数定義</h3>
+	varは基本の変数、letは宣言した場所のスコープブロック内でのみ定義され、constは定数で後から中身を変更できない。<br>
+	「var a;」といったように、初期値なしで定義した場合、中身の値は「undefined」になる。
+	<pre><code class="js">var a = 1
+let b = 1
+const c = 1</code></pre>
+	<h3>配列リテラル</h3>
+	下の場合、二つ目の値はundefinedになる。
+	<pre><code class="js">let a = [ "apple", "banana", "lemmon" ];
+let b = [ "dog", , "cat" ];
+console.log(a[0]); //apple</code></pre>
+	<h3>数値リテラル</h3>
+	Number型、BigInt型において、「0o～」で8進数、「0x～」で16進数、「0b～」で2進数。
+	<h3>浮動小数リテラル</h3>
+	整数部分がゼロの場合は省略できる。「e」または「E」で指数表現ができる。
+	<pre><code class="js">3.1415926
+-.123456789
+-3.1E+12
+.1e-23</code></pre>
+	<h3>オブジェクトリテラル</h3>
+	<pre><code class="js">var food = { type: "fruits", color: "red", taste: "sweet" };
+console.log(food.type); //fruits</code></pre>
+	<h3>関数</h3>
+	下の「関数式」では「関数の巻き上げ」に対応しておらず、その文より下でないとその関数が使えない。
+	<pre><code class="js">function f(x) {
+  //処理;
+  //return 戻り値;
+};
+
+var g = function() {
+    //処理;
+};</code></pre>
+	<br>
+	<h3>条件分岐</h3>
+	・falseと評価される値<br>
+	「false」「undefied」「null」「0」「NaN」「""」
+	<pre><code class="js">if(条件){
+  //処理;
+} else {
+  //処理;
+}
+
+if(条件){
+    //処理;
+} else if(条件){
+    //処理;
+} else {
+    //処理;
+}</code></pre>
+	<h3>switch文</h3>
+	<pre><code class="js">switch(a){
+    case "apple":
+        console.log("red");
+        break;
+    case "lemmon":
+        console.log("yellow");
+        break;
+    default:
+        console.log(`I don't know about the color of the ${a}...`);
+}</code></pre>
+	<h3>繰り返し処理1</h3>
+	<pre><code class="js">while(条件){
+  //処理;
+}</code></pre>
+	<br>
+	<h3>繰り返し処理2</h3>
+	<pre><code class="js">for(let k = 0; k < 5; k++){
+  //処理;
+}</code></pre>
+	<br>
+	<h3>繰り返し処理3</h3>
+	条件がfalseになるまで繰り返す。
+	<pre><code class="js">do{
+  //処理;
+}while(条件);</code></pre>
+	<h3>特殊文字のエスケープ</h3>
+	<table border="1" style="border: solid 3px #000; border-collapse:collapse; background: #FFFCEF;">
+		<tr><th>文字</th><th>意味</th></tr>
+		<tr><td>\0</td><td>ヌル文字</td></tr>
+		<tr><td>\b</td><td>バックスペース</td></tr>
+		<tr><td>\f</td><td>改ページ</td></tr>
+		<tr><td>\n</td><td>改行</td></tr>
+		<tr><td>\r</td><td>復帰</td></tr>
+		<tr><td>\t</td><td>タブ</td></tr>
+		<tr><td>\v</td><td>垂直タブ</td></tr>
+		<tr><td>\'</td><td>アポストロフィ</td></tr>
+		<tr><td>\"</td><td>ダブルクォーテーション</td></tr>
+		<tr><td>\\</td><td>バックスラッシュ</td></tr>
+		<tr><td>\uXXXX</td><td>Unicodeエスケープシーケンス</td></tr>
+	</table>
+	<br>
+	・ifなどでくくったbreakやcontinueをそのままぶちこんでループの強制終了や条件に合った回のスキップができる<br>
+
+
+	<div class="headline">
+		<h2 id="sec_glsl">GLSL</h2>
+	</div>
+	<h3>コメントアウト</h3>
+	<pre><code class="c">//コメント
+
+/*
+複数行コメント
+*/</code></pre>
+	<h3>繰り返し</h3>
+	<pre><code class="c">for(float i = 0.0; i < 5.0; i++){
+    //処理
+}</code></pre>
+	<h3>関数</h3>
+	<pre><code class="c">vec3 myFunction(){
+    return vec3(0.0);
+}
+
+void myFuction2(){
+    //処理
+}
+
+void myFunction3(float a, vec2 b){
+    //処理
+}
+
+void main(){
+    vec3 v = myFunction();
+}</code></pre>
+	<h3>定数</h3>
+	<pre><code class="c">const float a = 3.14;</code></pre>
+	<h3>defineマクロ</h3>
+	　基本は定数宣言と同じだが、次のような使い方をすることができる。
+	<pre><code class="c">#define f float
+
+f a = 1.0;</code></pre>
+
+
+	<div class="headline">
+		<h2 id="sec_html">HTML</h2>
+	</div>
+	<h3>コメントアウト</h3>
+	<pre><code class="html">&lt;!-- コメント -->
+
+&lt;!--
+複数行コメント
+--></code></pre>
+	<h3>見出し</h3>
+	<pre><code class="html">&lt;h1>見出し&lt;/h1></code></pre>
+	h1からh6まである
+	<h3>段落</h3>
+	<pre><code class="html">&lt;p>段落&lt;/p></code></pre>
+	<h3>フォントの種類</h3>
+	<pre><code class="html">&lt;font face="MS ゴシック">文字&lt;/font></code></pre>
+	<h3>文字の大きさ</h3>
+	<pre><code class="html">&lt;font size="7">文字&lt;/font></code></pre>
+	<h3>文字の色</h3>
+	<pre><code class="html">&lt;font color="#64ec86">文字&lt;/font></code></pre>
+	<h3>太字・斜体・下線</h3>
+	<pre><code class="html">&lt;b>文字&lt;/b>
+&lt;i>文字&lt;/i>
+&lt;u>文字&lt;/u></code></pre>
+	<h3>打消し線</h3>
+	<pre><code class="html">&lt;s>文字&lt;/s>
+&lt;strike>文字&lt;/strike></code></pre>
+	<h3>ルビ</h3>
+	<pre><code class="html">&lt;ruby>&lt;rb>薔薇&lt;/rb>&lt;rp>(&lt;/rp>&lt;rt>バラ&lt;/rt>&lt;rp>)&lt;/rp>&lt;/ruby></code></pre>
+	<h3>改行</h3>
+	<pre><code class="html">&lt;br></code></pre>
+	<h3>強調</h3>
+	<pre><code class="html">&lt;em>文字&lt;/em>
+&lt;strong>文字&lt;/strong>
+</code></pre>
+	<h3 id="link">リンク</h3>
+	<pre><code class="html">&lt;a href="#">&lt;/a></code></pre>
+	・# で同じページ(現在いるページ)<br>
+	・同じページ内でリンクするなら
+	<pre><code class="html">「&lt;a href="#link">リンク&lt;/a>」セクションへ
+  &lt;h3 id="link">リンク&lt;/h3></code></pre>
+	「<a href="#link">リンク</a>」セクションへ
+	・新しいタブを開くなら
+	<pre><code class="html">&lt;a href="#" target="_blank">&lt;/a></code></pre>
+	・カーソルを重ねてタイトル表示
+	<pre><code class="html">&lt;a href="#" title="タイトル">&lt;/a></code></pre>
+	<h3>画像</h3>
+	<pre><code class="html">&lt;img src="image.png" width=240px height=240px alt="代替テキスト"></code></pre>
+	<h3>表</h3>
+	<pre><code class="html">&lt;table border="1">
+  &lt;tr>
+    &lt;th>見出し&lt;/th>
+    &lt;td>要素&lt;/td>
+  &lt;/tr>
+&lt;/table></code></pre>
+<h3>線</h3>
+	<pre><code class="html">&lt;hr></code></pre>
+	↓
+	<hr>
+	↑
+	<h3>ボタン</h3>
+	<pre><code class="html">&lt;button>
+&lt;button　disabled="disabled">
+&lt;button name="名前">
+</code></pre>
+	<h3>テキストボックス</h3>
+	<pre><code class="html">&lt;textarea>&lt;/textarea>
+&lt;textarea cols="20">&lt;/textarea>
+&lt;textarea disabled="disabled">&lt;/textarea>
+&lt;textarea maxlength="100">&lt;/textarea>
+&lt;textarea name="名前">&lt;/textarea>
+&lt;textarea readonly="readonly">&lt;/textarea>
+&lt;textarea required="required">&lt;/textarea>
+&lt;textarea rows="2">&lt;/textarea></code></pre>
+	<h3>CSSをタグに埋め込む</h3>
+	<pre><code class="html">&lt;○○ style="××: ABC;">&lt;/○○></code></pre>
+	<h3>HTMLのコードにCSSのコードを書く</h3>
+	<pre><code class="html">&lt;style type="text/css">&lt;/style></code></pre>
+	<h3>範囲指定</h3>
+	<pre><code>&lt;div>範囲&lt;/div>
+&lt;span>範囲&lt;/span></code></pre>
+	<h3>半角スペース適用</h3>
+	<pre><code>&lt;pre>a a&lt;/pre></code></pre>
+	<h3>「&lt;」のエスケープ</h3>
+	<pre><code class="html">＆lt;</code></pre>
+	<h3>折り畳み</h3>
+	<pre><code class="html">&lt;details>&lt;summary>タイトル&lt;/summary>内容&lt;/details></code></pre>
+	・summaryに折り畳みタブのテキストラベルを書く
+
+
+	<div class="headline">
+		<h2 id="sec_css">CSS</h2>
+	</div>
+	<h3>コメントアウト</h3>
+	<pre><code class="css">/*コメント*/
+
+/*
+複数行コメント
+*/</code></pre>
+	<h3>背景色</h3>
+	<pre><code class="css">background-color: #64ec86;</code></pre>
+	<h3>背景画像</h3>
+	<pre><code class="css">background-image: "img.png";</code></pre>
+	<h3>枠</h3>
+	<pre><code class="css">border: solid 3px #000000;</code></pre>
+	・一部の場合は「border-top」のようにする。top, bottom, right, leftから選択<br>
+	・「border-radius」で角を丸く<br>
+	・通常はsolid, 点線はdotted, 破線はdashed, 二重線はdouble
+	<h3>文字の色</h3>
+	<pre><code class="css">color: #64ec86;</code></pre>
+	<h3>ボックスの並べ方</h3>
+	<pre><code class="css">display: inline;</code></pre>
+	・inlineまたはblockまたはinline-block<br>
+	・div要素の横並びはこれを使う
+	<h3>色反転</h3>
+	<pre><code class="css">filter: invert();</code></pre>
+	<h3>フォントの種類</h3>
+	<pre><code class="css">font-family: "sans-serif";</code></pre>
+	<h3>文字の大きさ</h3>
+	<pre><code class="css">font-size: x-large;</code></pre>
+	・xx-small,x-small,small,medium,large,x-large,xx-largeから選ぶか、数値指定
+	<h3>要素の高さ</h3>
+	<pre><code class="css">height: 20px;</code></pre>
+	<h3>要素の幅</h3>
+	<pre><code class="css">width: 20px;</code></pre>
+	<h3>文字の幅</h3>
+	<pre><code class="css">letter-spacing: 0.5em;</code></pre>
+	<h3>行の幅</h3>
+	<pre><code class="css">line-height: 0.5em;</code></pre>
+	<h3>内側の余白</h3>
+	<pre><code class="css">padding: 10px;</code></pre>
+	・一部の場合は「padding-top」のようにする。top, bottom, right, leftから選択
+	<pre><code class="css">padding: 10px 20px;</code></pre>
+	・このようにすると、上下が10px、左右が20pxになる
+	<pre><code class="css">padding: 10px 20px;</code></pre>
+	・このようにすると、上下が10px、左右が20pxになる
+	<h3>外側の余白</h3>
+	<pre><code class="css">margin: 10px;</code></pre>
+	・一部の場合は「margin-top」のようにする。top, bottom, right, leftから選択
+	<h3>要素の最大の高さ・幅</h3>
+	<pre><code class="css">max-height: 0.5em;
+max-width: 0.5em;</code></pre>
+	<h3>要素の最小の高さ・幅</h3>
+	<pre><code class="css">min-height: 0.5em;
+min-width: 0.5em;</code></pre>
+	<h3>はみ出した部分</h3>
+	<pre><code class="css">overflow: visible;</code></pre>
+	・visibleで見えてはみ出す、hiddenで見えずにはみ出す、scrollでスクロール、autoでおさまらないときだけスクロール<br>
+	・「overflow-x」のようにして上下左右を指定。上下はy
+	<h3>○○揃え</h3>
+	<pre><code class="css">text-align: center;</code></pre>
+	・left, center, right, justifyから選択
+	<h3>上下ver</h3>
+	<pre><code class="css">vertical-align: top;</code></pre>
+	・top, middle, bottom, baselineから選択
+	<h3>インデントの大きさ</h3>
+	<pre><code class="css">text-indent: 1em;</code></pre>
+	<h3>テキストの影</h3>
+	<pre><code class="css">text-shadow: 3px 3px 2px #0000ff;</code></pre>
+	・左右、上下、半径、色
+	<h3>空白の扱い</h3>
+	<pre><code class="css">white-space: normal;</code></pre>
+	・normalで半角スペースを無視、改行を半角スペースで表示<br>
+	・preで半角スペースも改行もそのまま表示<br>
+	・pre-lineで半角スペース無視、改行はそのまま表示
+	<h3>レイヤー</h3>
+	<pre><code class="css">z-index: 100;</code></pre>
+	・大きいほど上
+	<h3>ズーム</h3>
+	<pre><code class="css">zoom: 150%;</code></pre>
+	<h3>影</h3>
+	<pre><code class="css">box-shadow: 0 3px 4px rgba(0, 0, 0, 0.32);
+text-shadow: 0 1px 0 rgba(0,0,0,0.2);</code></pre>
+	<h3>マーカー</h3>
+	<pre><code class="css">background: linear-gradient(transparent 50%, #64ec86 50%);</code></pre>
+	<h3>コピペ禁止</h3>
+	<pre><code class="css">body {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}</code></pre>
+	<h3>リンクを青くしない</h3>
+	<pre><code class="css">text-decoration: none;</code></pre>
+	<h3>カーソルを乗せて変化</h3>
+	<pre><code class="css">transition: background-color 1s linear 0 , width 1s linear 0 , height 1s linear 0;</code></pre>
+
+	<div class="headline">
+		<h2 id="sec_css_selecter">CSSセレクタ</h2>
+	</div>
+	<h3>すべての要素</h3>
+	<pre><code class="css">* { a: b; }</code></pre>
+	<h3>特定の要素</h3>
+	<pre><code class="css">div { a: b; }</code></pre>
+	<h3>特定の属性を持った特定の要素</h3>
+	<pre><code class="css">div[width] { a: b; }
+div[width=20px] { a: b; }</code></pre>
+	<h3>～で始まる値をもつ属性</h3>
+	<pre><code class="css">a[title^="a"] { a: b; }</code></pre>
+	<h3>～で終わる値をもつ属性</h3>
+	<pre><code class="css">a[title$="z"] { a: b; }</code></pre>
+	<h3>n番目の子要素</h3>
+	<pre><code class="css">div:nth-cild(2n+1) { a: b; }</code></pre>
+	<h3>最初の子要素</h3>
+	<pre><code class="css">div:first-child { a: b; }</code></pre>
+	<h3>最後の子要素</h3>
+	<pre><code class="css">div:last-child { a: b; }</code></pre>
+	<h3>未訪問のリンク</h3>
+	<pre><code class="css">a:link { a: b; }</code></pre>
+	<h3>訪問済みのリンク</h3>
+	<pre><code class="css">a:visited { a: b; }</code></pre>
+	<h3>クリックされた要素</h3>
+	<pre><code class="css">a:active { a: b; }</code></pre>
+	<h3>マウスホバーされた要素</h3>
+	<pre><code class="css">a:hover { a: b; }</code></pre>
+	<h3>要素の最初の行</h3>
+	<pre><code class="css">div::first-line { a: b; }</code></pre>
+	<h3>要素の最初の文字</h3>
+	<pre><code class="css">div::first-letter { a: b; }</code></pre>
+	<h3>要素の直前</h3>
+	<pre><code class="css">div::before { content: "内容"; }</code></pre>
+	<h3>要素の直後</h3>
+	<pre><code class="css">div::after { content: "内容"; }</code></pre>
+	<h3>特定のクラス名の要素</h3>
+	<pre><code class="css">div.class { a: b; }</code></pre>
+	<h3>特定のidの要素</h3>
+	<pre><code class="css">div#id { a: b; }</code></pre>
+	<h3>～に当てはまらない要素</h3>
+	<pre><code class="css">div:not(s) { a: b; }</code></pre>
+	例)<br>
+	<pre><code class="css">div:not([title^="a"]) { a: b; }</code></pre>
+	<h3>特定の要素にある特定の子要素</h3>
+	<pre><code class="css">div > span { a: b; }</code></pre>
+
+	<div class="headline">
+		<h2 id="sec_py">Python</h2>
+	</div>
+	<h3>コメントアウト</h3>
+	<pre><code class="py"># コメント
+
+```
+複数行コメント
+```</code></pre>
+	・#とコメント内容の間には半角スペースひとつ入れるのが好ましい
+	<h3>コードの折り込み</h3>
+	<pre><code class="py">a = 1 + 2 + 3 + 4\
+    + 5 + 6 + 7 + 8</code></pre>
+	・あらゆるカッコの中ではjsonのように自由に改行できる
+	<h3>変数定義</h3>
+	<pre><code class="py">a = 1</code></pre>
+	<h3>深層データ</h3>
+	<pre><code class="py">a.b = 1</code></pre>
+	<h3>比較演算子</h3>
+	<pre><code class="py">a == 1
+b != 1
+c not 1
+d < 1
+e > 1
+f <= 1
+g >= 1</code></pre>
+	<h3>論理演算</h3>
+	<pre><code class="py">a == 1 and b == 1
+c == 1 or d == 1</code></pre>
+	・三つ以上でもカッコは要らない
+	<h3>以下のどれでもない</h3>
+	<pre><code class="py">a not in (1, 2, 3, 4, 5)</code></pre>
+	<h3>ストリング型</h3>
+	<pre><code class="py">a = 'Hello world'</code></pre>
+	・シングルクォーテーションが好ましい
+	<h3>ストリング値の連結</h3>
+	<pre><code class="py">a = 'Hello ' + 'world'   # 'Hello world'
+b = 'Hello ' 'world'   # 'Hello world' (これでも可)</code></pre>
+	<h3>ブーリアン型</h3>
+	<pre><code class="py">a = True
+b = False</code></pre>
+	・大文字に注意。
+	<h3>無の型</h3>
+	<pre><code class="py">a = None</code></pre>
+	<h3>型を取得</h3>
+	<pre><code class="py">type('10') == str   # true</code></pre>
+	・この際の「str」は特殊な型でありストリング型ではない
+	<h3>型の変更</h3>
+	<pre><code class="py">a = int('100')   # ストリングの入力を演算に使う際など
+b = str(a)   # 数とストリングを連結する際など
+c = list('Hello')   # [ 'H', 'e', 'l', 'l', 'o' ]</code></pre>
+	<h3>リストの要素取得</h3>
+	<pre><code class="py">list_ = ['a', 'b', 'c']
+print(list_[1])   # 'b'</code></pre>
+	<h3>リストの要素追加</h3>
+	<pre><code class="py">a = [1, 2, 3, 4]
+a.append(5)
+print(a)   # [1, 2, 3, 4, 5]</code></pre>
+	<h3>文字列の一部を取得</h3>
+	<pre><code class="py">a = 'Hello world'
+print(a[3:])   # 'lo world'
+print(a[:3])   # 'Hel'
+print(a[2:5])   # 'llo '</code></pre>
+	<h3>スペース毎にストリング値を分ける</h3>
+	<pre><code class="py">a = 'Nice to meet you'
+print(a.split())   # ['Nice', 'to', 'meet', 'you']</code></pre>
+	<h3>辞書型の要素取得</h3>
+	<pre><code class="py">dict = {'a': 1, 'b': 'Hi', 'c': True}
+print(dict['b'])   # 'Hi'</code></pre>
+	<h3>辞書の長さ</h3>
+	<pre><code class="py">dict = {'a': 1, 'b': 'Hi', 'c': True}
+print(len(dict))   # 3</code></pre>
+	<h3>辞書からキーのみをリスト化</h3>
+	<pre><code class="py">dict = {'a': 1, 'b': 'Hi', 'c': True}
+print(list(dict.keys()))   # ['a', 'b', 'c']</code></pre>
+	<h3>辞書から値のみをリスト化</h3>
+	<pre><code class="py">dict = {'a': 1, 'b': 'Hi', 'c': True}
+print(list(dict.values()))   # [1, 'Hi', True]</code></pre>
+	<h3>要素の削除</h3>
+	<pre><code class="py">dict = {'a': 1, 'b': 2, 'c': 3}
+dict.pop('b')
+print(dict)   # {'a': 1, 'c': 3}</code></pre>
+	<h3>現在時刻を取得</h3>
+	<pre><code class="py">import datetime
+now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))
+print(now.hour)   # (現在の時間)</code></pre>
+	<h3>ランダムな整数</h3>
+	<pre><code class="py">import random
+rand = random.randint(a, b)</code></pre>
+	<h3>重複なしでランダムに取り出す</h3>
+	<pre><code class="py">import random
+print(random.sample(list_, 10)</code></pre>
+	<h3>jsonを開く</h3>
+	<pre><code class="py">import json
+a = json.load(open('○○.json'))</code></pre>
+	・辞書型として取得できる
+	<h3>jsonを書き換える</h3>
+	<pre><code class="py">import json
+dict = {'a': 'Hi'}
+with open('○○.json', 'w') as changed_file:
+    json.dump(dict, changed_file, indent=2)</code></pre>
+	<h3>条件分岐</h3>
+	<pre><code class="py">if a == b:
+    # 処理
+elif c == d:
+    # 処理
+else:
+    # 処理</code></pre>
+	<h3>関数定義</h3>
+	<pre><code class="py">def f(x, y):
+    print(x+y)
+print(f(1, 2))   # 3</code></pre>
+	<h3>繰り返し処理</h3>
+	<pre><code class="py">list_ = ['a', 'b', 'c']
+for i in list_:
+    print(i)
+# 'a' 'b' 'c' (三回の処理)
+int_ = 0
+for i in range(3)
+    int_ += i
+# 3</code></pre>
+	・range(a)は0～aの整数値を順に出力する
+	<h3>例外処理</h3>
+	<pre><code class="py">try:
+    print(int('Hi'))
+except ValueError:
+    print('Error')
+# 'Error'</code></pre>
+	・IndexErrorでリストの存在しない個数目を指定した場合のエラー
+
+
+	<div class="headline">
+		<h2 id="sec_java">java</h2>
+	</div>
+	<h3>性質</h3>
+	・整数/整数は整数、つまり「10/3」は「3」となってしまうため、「10.0f/3.0f」としなくてはならない。
+	<h3>HelloWorld</h3>
+	一行目「class」の右の単語はファイル名「○○.java」の「○○」と一致させなくてはならない。
+	<pre><code class="java">public class Main{
+    public static void main(String[] args){
+        System.out.println("Hello World!");
+    }
+}</code></pre>
+	<h3>ファイルの実行</h3>
+	一度.classファイルにコンパイルしてから、Main(クラス)を実行する
+	<pre><code>$ javac Main.java
+$ java Main</code></pre>
+	<h3>データ型</h3>
+	<table border="1" style="border: solid 3px #000; border-collapse:collapse; background: #FFFCEF;">
+		<tr><th>型</th><th>備考</th></tr>
+		<tr><td>byte</td><td>8ビット符号つき整数。-128　から　127　まで</td></tr>
+		<tr><td>short</td><td>16ビット符号つき整数。-32768　から　32767　まで</td></tr>
+		<tr><td>int</td><td>32ビット符号つき整数。-2147483648　から　2147483647　まで</td></tr>
+		<tr><td>long</td><td>64ビット符号つき整数。-9223372036854775808　から　9223372036854775807　まで</td></tr>
+		<tr><td>double</td><td>小数型、3.14など</td></tr>
+		<tr><td>float</td><td>浮動小数型、3.14Fなど</td></tr>
+		<tr><td>char</td><td>文字型、'A'など　シングルクォーテーションを使う</td></tr>
+		<tr><td>boolean</td><td>trueまたはfalse</td></tr>
+		<tr><td>String</td><td>ストリング型、"Hello"など　ダブルクォーテーションを使う　「S」は大文字</td></tr>
+	</table>
+	<h3>整数型リテラル</h3>
+	普通の整数型はint型として扱われ、末尾に「L」をつけるとlong型になる。<br>
+	「0b～」で2進数、「0～」で8進数、「0x～」で16進数を表す。<br>
+	また、表記内の「 _ 」は無視される
+	<h3>小数型リテラル</h3>
+	普通の小数はdouble型として扱われ、末尾に「F」をつけるとfloat型になる。<br>
+	また、表記内の「 _ 」は無視される。
+	<h3>配列</h3>
+	<pre><code class="java">int[] a = new int[5];
+a[0] = 1;
+
+int[] a = { 1, 2, 3 };</code></pre>
+	<h3>条件分岐</h3>
+	<pre><code class="java">if (条件) {
+    //処理;
+} else {
+    //処理;
+}
+
+if (条件) {
+    //処理;
+} else if(条件) {
+    //処理;
+} else {
+    //処理;
+}</code></pre>
+	<h3>関数(メソッド)</h3>
+	<pre><code class="java">private static double  calcS(double a,double b){
+    double S = a * b;
+    return S;
+}</code></pre>
+	プログラム全体ではこのようになる。
+	<pre><code class="java">public class Main{
+    public static void main(String[] args){
+        System.out.println(factr(6));
+    }
+    private static int factr(int x){
+        int k = 1;
+        int y = 1;
+        do{
+            y *= k;
+            k++;
+        } while(k<=x);
+        return y;
+    }
+}</code></pre>
+	<h3>switch文</h3>
+	<pre><code class="java">switch(変数) {
+case 値1:
+case 値2:
+  // 値1 か値 2 のときここが実行される
+  break;
+case 値3:
+  // 値3 のときにここが実行される
+  break;
+default:
+  // 値1, 2, 3 のいずれでもない時にここが実行される
+  break;               
+}</code></pre>
+	<h3>繰り返し処理</h3>
+	<pre><code class="java">while(条件){
+    //処理;
+}
+
+while (i < 3) {
+    System.out.println(i);
+    i++;
+} // 0 1 2</code></pre>
+	<h3>繰り返し処理2</h3>
+	何か処理を実行して処理の結果を評価し、成功するまで繰り返す、といったようなものを作るときに使う。
+	<pre><code class="java">do{
+    //処理;
+} while(条件);</code></pre>
+	<h3>繰り返し処理3</h3>
+	<pre><code class="java">for (int i = 0; i < 3; i++) {
+    //処理;
+}
+
+int[] a = {1, 2, 3};
+for (int i : a) {
+    //処理;
+}</code></pre>
+	<h3>特殊文字のエスケープ</h3>
+	<table border="1" style="border: solid 3px #000; border-collapse:collapse; background: #FFFCEF;">
+		<tr><th>文字</th><th>意味</th></tr>
+		<tr><td>\t</td><td>水平タブ文字</td></tr>
+		<tr><td>\b</td><td>バックスペース</td></tr>
+		<tr><td>\n</td><td>改行</td></tr>
+		<tr><td>\r</td><td>キャリッジリターン</td></tr>
+		<tr><td>\f</td><td>書式送り(Form Feed)</td></tr>
+		<tr><td>\'</td><td>アポストロフィ</td></tr>
+		<tr><td>\"</td><td>ダブルクォーテーション</td></tr>
+		<tr><td>\\</td><td>バックスラッシュ</td></tr>
+		<tr><td>\uXXXX</td><td>Unicodeエスケープシーケンス</td></tr>
+	</table>
+	<h3>文字列から数値を読み取る</h3>
+	<pre><code class="java">int i = Integer.parseInt("123");</code></pre>
+	<h3>ターミナルから整数の入力を受けとる</h3>
+	<pre><code class="java">import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class Main{
+    public static void main(String[] args){
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Input > ");
+            
+            int t = scanner.nextInt();
+            
+            System.out.println(t * t);
+            scanner.close();
+        } catch (InputMismatchException e) { 
+            System.out.println("Please input the integer.");
+        }
+}</code></pre>
+
+	<div class="headline">
+		<h2 id="sec_html_js">HTMLでJavaScriptを使う</h2>
+	</div>
+	<a href="https://qiita.com/amamamaou/items/25e8b4e1b41c8d3211f4">参考</a>
+	<h3>指定idの要素を取得</h3>
+	<pre><code class="js">var val = document.getElementById("id");</code></pre>
+	<h3>指定classの要素を取得</h3>
+	<pre><code class="js">var val1 = document.getElementsByClassName("class");
+var val2 = element.getElementsByClassName("class");</code></pre>
+	HTMLCollectionというアレイで返ってくる
+	<h3>指定idのcssの値を取得</h3>
+	<pre><code class="js">var element1 = document.getElementById("id");
+var element2 = getComputedStyle(element).padding</code></pre>
+	<h3>cssの値を変える</h3>
+	<pre><code class="js">documents.getElementById("id").style.fontSize = "20px";</code></pre>
+	<h3>画面の大きさ</h3>
+	<pre><code class="js">var val = window.innerWidth;</code></pre>
+	<h3>画面の形によってスタイルを変更</h3>
+	横長なら赤く、縦長なら青くなる例(リアルタイム)
+	<pre><code class="html">&lt;script type="text/javascript">
+  //読み込み時の表示
+  window_load();
+    
+  //ウィンドウサイズ変更時に更新
+  window.onresize = window_load;
+
+  //サイズの表示
+  function window_load() {
+    if(window.innerWidth > window.innerHeight){ //横長
+      document.getElementById("test").style.color = "#f00";
+    } else { //縦長
+      document.getElementById("test").style.color = "#00f";
+    }
+  }
+&lt;/script></code></pre>
+
+	<div align="right">
+		<span class="reg">constructed by: Masec Rinca</span>
+	</div>
+</body>
+
+</html>

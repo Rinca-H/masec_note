@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>Java - Private Chamber</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/atelier-estuary-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="basic.css">
+  <link rel="stylesheet" type="text/css" href="my_sidemenu.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div style="margin: 8px;"><span class="desc">uploaded:2021/11/12</span></div>
+  <div>
+    <div class="main">
+      <h1>Private Chamber - Java</h1>
+      <p>　ノーコメント.</p>
+
+      <div class="headline" id="sec01" style="border-left: solid 10px #ff5400;">性質</div>
+      <p>　整数/整数は整数、つまり「10/3」は「3」となってしまうため、「10.0f/3.0f」としなくてはならない</p>
+      <h3 id="sec01sec01">HelloWorld</h3>
+      <p>　一行目「class」の右の単語はファイル名「○○.java」の「○○」と一致させなくてはならない</p>
+      <pre><code class="java">public class Main{
+    public static void main(String[] args){
+        System.out.println("Hello World!");
+    }
+}</code></pre>
+      <h3 id="sec01sec02">ファイルの実行</h3>
+      <p>　一度.classファイルにコンパイルしてから、Main(クラス)を実行する</p>
+      <pre><code>$ javac Main.java
+$ java Main</code></pre>
+      <div class="headline" id="sec02" style="border-left: solid 10px #ff5400;">データ型</div><br>
+      <table border="1" style="border: solid 3px #000; border-collapse:collapse; background: #FFFCEF;">
+        <tr><th>型</th><th>備考</th></tr>
+        <tr><td>byte</td><td>8ビット符号つき整数。-128　から　127　まで</td></tr>
+        <tr><td>short</td><td>16ビット符号つき整数。-32768　から　32767　まで</td></tr>
+        <tr><td>int</td><td>32ビット符号つき整数。-2147483648　から　2147483647　まで</td></tr>
+        <tr><td>long</td><td>64ビット符号つき整数。-9223372036854775808　から　9223372036854775807　まで</td></tr>
+        <tr><td>double</td><td>小数型、3.14など</td></tr>
+        <tr><td>float</td><td>浮動小数型、3.14Fなど</td></tr>
+        <tr><td>char</td><td>文字型、'A'など　シングルクォーテーションを使う</td></tr>
+        <tr><td>boolean</td><td>trueまたはfalse</td></tr>
+        <tr><td>String</td><td>ストリング型、"Hello"など　ダブルクォーテーションを使う　「S」は大文字</td></tr>
+      </table>
+      <h3 id="sec02sec01">整数型リテラル</h3>
+      <p>
+        　普通の整数型はint型として扱われ、末尾に「L」をつけるとlong型になる<br>
+	      「0b～」で2進数、「0～」で8進数、「0x～」で16進数を表す<br>
+	      　また、表記内の「 _ 」は無視される
+      </p>
+      <h3 id="sec02sec02">小数型リテラル</h3>
+      <p>
+        　普通の小数はdouble型として扱われ、末尾に「F」をつけるとfloat型になる<br>
+	      　また、表記内の「 _ 」は無視される
+      </p>
+      <h3 id="sec02sec03">配列</h3>
+      <pre><code class="java">int[] a = new int[5];
+a[0] = 1;
+
+int[] a = { 1, 2, 3 };</code></pre>
+      <div class="headline" id="sec03" style="border-left: solid 10px #ff5400;">具体的な構文</div>
+      <h3 id="sec03sec01">条件分岐</h3>
+      <pre><code class="java">if (条件) {
+    //処理;
+} else {
+    //処理;
+}
+
+if (条件) {
+    //処理;
+} else if(条件) {
+    //処理;
+} else {
+    //処理;
+}</code></pre>
+      <h3 id="sec03sec02">switch文</h3>
+      <pre><code class="java">switch(変数) {
+case 値1:
+case 値2:
+  // 値1 か値 2 のときここが実行される
+  break;
+case 値3:
+  // 値3 のときにここが実行される
+  break;
+default:
+  // 値1, 2, 3 のいずれでもない時にここが実行される
+  break;               
+}</code></pre>
+      <h3 id="sec03sec03">関数(メソッド)</h3>
+      <pre><code class="java">private static double  calcS(double a,double b){
+    double S = a * b;
+    return S;
+}</code></pre>
+      <p>　プログラム全体ではこのようになる</p>
+      <pre><code class="java">public class Main{
+    public static void main(String[] args){
+        System.out.println(factr(6));
+    }
+    private static int factr(int x){
+        int k = 1;
+        int y = 1;
+        do{
+            y *= k;
+            k++;
+        } while(k<=x);
+        return y;
+    }
+}</code></pre>
+      <h3 id="sec03sec04">繰り返し処理</h3>
+      <pre><code class="java">while(条件){
+    //処理;
+}
+
+while (i < 3) {
+    System.out.println(i);
+    i++;
+} // 0 1 2</code></pre>
+      <p>　何か処理を実行して処理の結果を評価し, 成功するまで繰り返す, といったようなものを作るときに使う</p>
+      <pre><code class="java">do{
+    //処理;
+} while(条件);</code></pre>
+      <p>　また,</p>
+      <pre><code class="java">for (int i = 0; i < 3; i++) {
+    //処理;
+}
+
+int[] a = {1, 2, 3};
+for (int i : a) {
+    //処理;
+}</code></pre>
+      <div class="headline" id="sec04" style="border-left: solid 10px #ff5400;">ユーティリティ</div>
+      <h3 id="sec04sec01">文字列から数値を読み取る</h3>
+      <pre><code class="java">int i = Integer.parseInt("123");</code></pre>
+      <div class="headline" id="sec05" style="border-left: solid 10px #ff5400;">実例</div>
+      <h3 id="sec05sec01">ターミナルから整数の入力を受け取る</h3>
+      <pre><code class="java">import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class Main{
+    public static void main(String[] args){
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Input > ");
+            
+            int t = scanner.nextInt();
+            
+            System.out.println(t * t);
+            scanner.close();
+        } catch (InputMismatchException e) { 
+            System.out.println("Please input the integer.");
+        }
+}</code></pre>
+    </div>
+  </div>
+  <div align="right" style="margin: 8px;"><span style="font-size: 70%;">constructed by: Rinca Hayamine</span></div>
+  <header>
+    <div class="menu-button no-select"><label for="check"><div style="margin-top: 0.75em;">三</div></label></div>
+    <input type="checkbox" name="check" id="check" style="display: none;">
+    <div class="move-box">
+      <div class="content">
+        <h2><a href="pChbr-home.html">Home</a></h2>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec01">性質</a></h4>
+        <p>
+          ・<a href="#sec01sec01">HelloWorld</a><br>
+          ・<a href="#sec01sec02">ファイルの実行</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec02">データ型</a></h4>
+        <p>
+          ・<a href="#sec02sec01">整数型リテラル</a><br>
+          ・<a href="#sec02sec02">小数型リテラル</a><br>
+          ・<a href="#sec02sec03">配列</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec03">具体的な構文</a></h4>
+        <p>
+          ・<a href="#sec03sec01">条件分岐</a><br>
+          ・<a href="#sec03sec02">switch文</a><br>
+          ・<a href="#sec03sec03">関数(メソッド)</a><br>
+          ・<a href="#sec03sec04">繰り返し処理</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec04">ユーティリティ</a></h4>
+        <p>
+          ・<a href="#sec04sec01">文字列から数値を読み取る</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec05">実例</a></h4>
+        <p>
+          ・<a href="#sec05sec01">ターミナルから整数の入力を受け取る</a>
+        </p>
+      </div>
+    </div>
+  </header>
+  <!-- svg Script HERE -->
+</body>
+</html>

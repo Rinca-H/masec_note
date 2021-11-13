@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>Python - Private Chamber</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/atelier-estuary-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="basic.css">
+  <link rel="stylesheet" type="text/css" href="my_sidemenu.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div style="margin: 8px;"><span class="desc">uploaded:2021/11/11</span></div>
+  <div>
+    <div class="main">
+      <h1>Private Chamber - Python</h1>
+      <p>
+        　ノーコメント.
+      </p>
+
+      <div class="headline" id="sec01" style="border-left: solid 10px #ff5400;">性質</div>
+      <h3 id="sec01sec01">コードの折り込み</h3>
+      <p>　あらゆるカッコの中ではjsonのように自由に改行できる</p>
+      <pre><code class="py">a = 1 + 2 + 3 + 4\
+    + 5 + 6 + 7 + 8</code></pre>
+      <h3 id="sec01sec02">比較演算子</h3>
+      <pre><code class="py">a == 1
+b != 1
+c not 1
+d < 1
+e > 1
+f <= 1
+g >= 1</code></pre>
+      <h3 id="sec01sec03">論理演算</h3>
+      <p>　三つ以上でもカッコは要らない</p>
+      <pre><code class="py">a == 1 and b == 1
+c == 1 or d == 1</code></pre>
+      <h3 id="sec01sec04">以下のどれでもない</h3>
+      <pre><code class="py">a not in (1, 2, 3, 4, 5)</code></pre>
+      <div class="headline" id="sec02" style="border-left: solid 10px #ff5400;">データ型</div>
+      <h3 id="sec02sec01">ストリング型</h3>
+      <p>　シングルクォーテーションが好ましい</p>
+      <pre><code class="py">a = 'Hello world'</code></pre>
+      <h3 id="sec02sec02">ブーリアン型</h3>
+      <p>　大文字であることに注意</p>
+      <pre><code class="py">a = True
+b = False</code></pre>
+      <h3 id="sec02sec03">無の型</h3>
+      <pre><code class="py">a = None</code></pre>
+      <div class="headline" id="sec03" style="border-left: solid 10px #ff5400;">具体的な構文</div>
+      <h3 id="sec03sec01">コメントアウト</h3>
+      <p>　#とコメント内容の間には半角スペースひとつ入れるのが好ましい</p>
+      <pre><code class="py"># コメント
+
+```
+複数行コメント
+```</code></pre>
+      <h3 id="sec03sec02">変数定義</h3>
+      <pre><code class="py">a = 1</code></pre>
+      <h3 id="sec03sec03">関数</h3>
+      <pre><code class="py">def f(x, y):
+    print(x+y)
+print(f(1, 2))   # 3</code></pre>
+      <h3 id="sec03sec04">条件分岐</h3>
+      <pre><code class="py">if a == b:
+    # 処理
+elif c == d:
+    # 処理
+else:
+    # 処理</code></pre>
+      <h3 id="sec03sec05">繰り返し処理</h3>
+      <p>　range(a)は0～aの整数値を順に出力する</p>
+      <pre><code class="py">list_ = ['a', 'b', 'c']
+for i in list_:
+    print(i)
+# 'a' 'b' 'c' (三回の処理)
+int_ = 0
+for i in range(3)
+    int_ += i
+# 3</code></pre>
+      <h3 id="sec03sec06">例外処理</h3>
+      <p>　IndexErrorでリストの存在しない個数目を指定した場合のエラー</p>
+      <pre><code class="py">try:
+    print(int('Hi'))
+except ValueError:
+    print('Error')
+# 'Error'</code></pre>
+      <div class="headline" id="sec04" style="border-left: solid 10px #ff5400;">ユーティリティ</div>
+      <h3 id="sec04sec01">深層データ</h3>
+      <pre><code class="py">a.b = 1</code></pre>
+      <h3 id="sec04sec02">型を取得</h3>
+      <p>　この際の「str」は特殊な型でありストリング型ではない</p>
+      <pre><code class="py">type('10') == str   # true</code></pre>
+      <h3 id="sec04sec03">型の変更</h3>
+      <pre><code class="py">a = int('100')   # ストリングの入力を演算に使う際など
+b = str(a)   # 数とストリングを連結する際など
+c = list('Hello')   # [ 'H', 'e', 'l', 'l', 'o' ]</code></pre>
+      <h3 id="sec04sec04">文字列のライフハック</h3>
+      <p>　文字列の連結</p>
+      <pre><code class="py">a = 'Hello ' + 'world'   # 'Hello world'
+b = 'Hello ' 'world'   # 'Hello world' (これでも可)</code></pre>
+      <p>　一部を取得</p>
+      <pre><code class="py">a = 'Hello world'
+print(a[3:])   # 'lo world'
+print(a[:3])   # 'Hel'
+print(a[2:5])   # 'llo '</code></pre>
+      <p>　スペースごとに分割</p>
+      <pre><code class="py">a = 'Nice to meet you'
+print(a.split())   # ['Nice', 'to', 'meet', 'you']</code></pre>
+      <h3 id="sec04sec05">リストのライフハック</h3>
+      <p>　要素取得</p>
+      <pre><code class="py">list_ = ['a', 'b', 'c']
+print(list_[1])   # 'b'</code></pre>
+      <p>　要素追加</p>
+      <pre><code class="py">a = [1, 2, 3, 4]
+a.append(5)
+print(a)   # [1, 2, 3, 4, 5]</code></pre>
+      <h3 id="sec04sec06">辞書型のライフハック</h3>
+      <p>　要素取得</p>
+      <pre><code class="py">dict = {'a': 1, 'b': 'Hi', 'c': True}
+print(dict['b'])   # 'Hi'</code></pre>
+      <p>　長さを取得</p>
+      <pre><code class="py">dict = {'a': 1, 'b': 'Hi', 'c': True}
+print(len(dict))   # 3</code></pre>
+      <p>　キーのみをリスト化</p>
+      <pre><code class="py">dict = {'a': 1, 'b': 'Hi', 'c': True}
+print(list(dict.keys()))   # ['a', 'b', 'c']</code></pre>
+      <p>　値のみをリスト化</p>
+      <pre><code class="py">dict = {'a': 1, 'b': 'Hi', 'c': True}
+print(list(dict.values()))   # [1, 'Hi', True]</code></pre>
+      <p>　要素の削除</p>
+      <pre><code class="py">dict = {'a': 1, 'b': 2, 'c': 3}
+dict.pop('b')
+print(dict)   # {'a': 1, 'c': 3}</code></pre>
+      <div class="headline" id="sec05" style="border-left: solid 10px #ff5400;">要import</div>
+      <h3 id="sec05sec01">現在時刻を取得</h3>
+      <pre><code class="py">import datetime
+now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))
+print(now.hour)   # (現在の時間)</code></pre>
+      <h3 id="sec05sec02">ランダムな整数</h3>
+      <pre><code class="py">import random
+rand = random.randint(a, b)</code></pre>
+      <h3 id="sec05sec03">重複なしでランダムに取り出す</h3>
+      <pre><code class="py">import random
+print(random.sample(list_, 10)</code></pre>
+      <h3 id="sec05sec04">JSONを開く</h3>
+      <pre><code class="py">import json
+a = json.load(open('○○.json'))</code></pre>
+      <h3 id="sec05sec05">JSONを書き換える</h3>
+	    <pre><code class="py">import json
+dict = {'a': 'Hi'}
+with open('○○.json', 'w') as changed_file:
+    json.dump(dict, changed_file, indent=2)</code></pre>
+    </div>
+  </div>
+  <div align="right" style="margin: 8px;"><span style="font-size: 70%;">constructed by: Rinca Hayamine</span></div>
+  <header>
+    <div class="menu-button no-select"><label for="check"><div style="margin-top: 0.75em;">三</div></label></div>
+    <input type="checkbox" name="check" id="check" style="display: none;">
+    <div class="move-box">
+      <div class="content">
+        <h2><a href="pChbr-home.html">Home</a></h2>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec01">性質</a></h4>
+        <p>
+          ・<a href="#sec01sec01">コードの折り込み</a><br>
+          ・<a href="#sec01sec02">比較演算子</a><br>
+          ・<a href="#sec01sec03">論理演算</a><br>
+          ・<a href="#sec01sec04">以下のどれでもない</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec02">データ型</a></h4>
+        <p>
+          ・<a href="#sec02sec01">ストリング型</a><br>
+          ・<a href="#sec02sec02">ブーリアン型</a><br>
+          ・<a href="#sec02sec03">無の型</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec03">具体的な構文</a></h4>
+        <p>
+          ・<a href="#sec03sec01">コメントアウト</a><br>
+          ・<a href="#sec03sec02">変数定義</a><br>
+          ・<a href="#sec03sec03">関数</a><br>
+          ・<a href="#sec03sec04">条件分岐</a><br>
+          ・<a href="#sec03sec05">繰り返し処理</a><br>
+          ・<a href="#sec03sec06">例外処理</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec04">ユーティリティ</a></h4>
+        <p>
+          ・<a href="#sec04sec01">深層データ</a><br>
+          ・<a href="#sec04sec02">型を取得</a><br>
+          ・<a href="#sec04sec03">型の変更</a><br>
+          ・<a href="#sec04sec04">文字列のライフハック</a><br>
+          ・<a href="#sec04sec05">リストのライフハック</a><br>
+          ・<a href="#sec04sec06">辞書型のライフハック</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec05">要import</a></h4>
+        <p>
+          ・<a href="#sec05sec01">現在時刻を取得</a><br>
+          ・<a href="#sec05sec02">ランダムな整数</a><br>
+          ・<a href="#sec05sec03">重複なしでランダムに取り出す</a><br>
+          ・<a href="#sec05sec04">JSONを開く</a><br>
+          ・<a href="#sec05sec05">JSONを書き換える</a>
+        </p>
+      </div>
+    </div>
+  </header>
+  <!-- svg Script HERE -->
+</body>
+</html>

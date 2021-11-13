@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>CSS - Private Chamber</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/atelier-estuary-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="basic.css">
+  <link rel="stylesheet" type="text/css" href="my_sidemenu.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div style="margin: 8px;"><span class="desc">uploaded:2021/11/12</span></div>
+  <div>
+    <div class="main">
+      <h1>Private Chamber - CSS</h1>
+      <p>　ノーコメント.</p>
+      <div class="headline" id="sec01" style="border-left: solid 10px #ff5400;">構文</div>
+      <h3 id="sec01sec01">コメントアウト</h3>
+      <pre><code class="css">/*コメント*/
+
+/*
+複数行コメント
+*/</code></pre>
+      <h3 id="sec01sec02">値の単位</h3>
+      <h3 id="sec01sec03">アニメーション</h3>
+      <pre><code class="css">div {
+  animation: My_Animation 1s linear 0s infinite normal;
+}
+@keyframes My_Animation {
+  0% { background: red; }
+  100% { background: blue; }
+}</code></pre>
+      <div class="headline" id="sec02" style="border-left: solid 10px #ff5400;">テキスト装飾</div>
+      <h3 id="sec02sec01">文字の色</h3>
+      <pre><code class="css">color: #64ec86;</code></pre>
+      <h3 id="sec02sec02">フォント</h3>
+      <pre><code class="css">font-family: "sans-serif";</code></pre>
+      <p>　.ttfファイルを読み込んで新しいフォントを定義</p>
+      <pre><code class="css">@font-face {
+  font-family: 'MyFont';
+　src: url(〇〇.ttf);
+}</code></pre>
+      <h3 id="sec02sec03">文字の大きさ</h3>
+      <p>　xx-small,x-small,small,medium,large,x-large,xx-largeから選ぶか、数値指定</p>
+      <pre><code class="css">font-size: x-large;</code></pre>
+      <h3 id="sec02sec04">文字の幅</h3>
+      <pre><code class="css">letter-spacing: 0.5em;</code></pre>
+      <h3 id="sec02sec05">行間</h3>
+      <pre><code class="css">line-height: 0.5em;</code></pre>
+      <h3 id="sec02sec06">テキストの〇〇揃え</h3>
+      <p>　left, center, right, justifyから選択</p>
+      <pre><code class="css">text-align: center;</code></pre>
+      <h3 id="sec02sec07">上下の〇〇揃え</h3>
+      <p>　top, middle, bottom, baselineから選択</p>
+      <pre><code class="css">vertical-align: top;</code></pre>
+      <h3 id="sec02sec08">インデントの大きさ</h3>
+      <pre><code class="css">text-indent: 1em;</code></pre>
+      <h3 id="sec02sec09">テキストの影</h3>
+      <p>　左右、上下、半径、色</p>
+      <pre><code class="css">text-shadow: 3px 3px 2px #0000ff;</code></pre>
+      <h3 id="sec02sec10">テキスト装飾無効化</h3>
+      <pre><code class="css">text-decoration: none;</code></pre>
+      <div class="headline" id="sec03" style="border-left: solid 10px #ff5400;">ボックス装飾</div>
+      <h3 id="sec03sec01">要素の高さ・幅</h3>
+      <pre><code class="css">height: 20px;
+width: 20px;</code></pre>
+      <h3 id="sec03sec02">要素の最大・最小の高さ・幅</h3>
+      <pre><code class="css">max-height: 0.5em;
+min-height: 0.5em;
+max-width: 0.5em;
+min-width: 0.5em;</code></pre>
+      <h3 id="sec03sec03">背景色</h3>
+      <pre><code class="css">background-color: #64ec86;</code></pre>
+      <h3 id="sec03sec04">背景画像</h3>
+      <pre><code class="css">background-image: "img.png";</code></pre>
+      <h3 id="sec03sec05">枠</h3>
+      <p>
+        ・一部の場合は「border-top」のようにする。top, bottom, right, leftから選択<br>
+	      ・「border-radius」で角を丸く<br>
+	      ・通常はsolid, 点線はdotted, 破線はdashed, 二重線はdouble
+      </p>
+      <pre><code class="css">border: solid 3px #000000;</code></pre>
+      <h3 id="sec03sec07">内側の余白</h3>
+      <pre><code class="css">padding: 10px;
+padding-top: 10px;
+padding-right: 10px;
+padding-left: 10px;
+padding-bottom: 10px;</code></pre>
+      <p>　このようにすると、上下が10px、左右が20pxになる</p>
+      <pre><code class="css">padding: 10px 20px;</code></pre>
+      <p>　</p>
+      <pre><code class="css">padding: 10px 20px 30px 40px;</code></pre>
+      <h3 id="sec03sec08">外側の余白</h3>
+      <pre><code class="css">margin: 10px;
+margin-top: 10px;
+margin-right: 10px;
+margin-left: 10px;
+margin-bottom: 10px;</code></pre>
+      <p>　このようにすると、上下が10px、左右が20pxになる</p>
+      <pre><code class="css">margin: 10px 20px;</code></pre>
+      <p>　</p>
+      <pre><code class="css">margin: 10px 20px 30px 40px;</code></pre>
+      <h3 id="sec03sec09">はみ出した部分</h3>
+      <p>　visibleで見えてはみ出す、hiddenで見えずにはみ出す、scrollでスクロール、autoでおさまらないときだけスクロール</p>
+      <pre><code class="css">overflow: visible;
+overflow-x: visible;
+overflow-y: visible;</code></pre>
+      <h3 id="sec03sec10">影</h3>
+      <pre><code class="css">box-shadow: 0 3px 4px rgba(0, 0, 0, 0.32);
+text-shadow: 0 1px 0 rgba(0,0,0,0.2);</code></pre>
+      <div class="headline" id="sec04" style="border-left: solid 10px #ff5400;">特殊・その他装飾</div>
+      <h3 id="sec04sec01">レイヤー</h3>
+      <p>　大きいほど上</p>
+      <pre><code class="css">z-index: 100;</code></pre>
+      <h3 id="sec04sec02">ズーム</h3>
+      <pre><code class="css">zoom: 150%;</code></pre>
+      <h3 id="sec04sec03">トランジション</h3>
+      <pre><code class="css">transition: 1s;</code></pre>
+      <h3 id="sec04sec04">チェックボックスを消す</h3>
+      <pre><code class="css">display: none;</code></pre>
+      <h3 id="sec04sec05">色反転</h3>
+      <pre><code class="css">filter: invert();</code></pre>
+      <div class="headline" id="sec05" style="border-left: solid 10px #ff5400;">タグ指定</div>
+      <h3 id="sec05sec01">すべての要素</h3>
+      <pre><code class="css">* { a: b; }</code></pre>
+      <h3 id="sec05sec02">特定の要素</h3>
+      <pre><code class="css">div { a: b; }</code></pre>
+      <h3 id="sec05sec03">特定の要素にある特定の子要素</h3>
+      <pre><code class="css">div > span { a: b; }</code></pre>
+      <h3 id="sec05sec04">特定のクラス名の要素</h3>
+      <pre><code class="css">div.class { a: b; }</code></pre>
+      <h3 id="sec05sec05">特定のidの要素</h3>
+      <pre><code class="css">div#id { a: b; }</code></pre>
+      <h3 id="sec05sec06">マウスホバーされた要素</h3>
+      <pre><code class="css">a:hover { a: b; }</code></pre>
+      <h3 id="sec05sec07">クリックされた要素</h3>
+      <pre><code class="css">a:active { a: b; }</code></pre>
+      <h3 id="sec05sec08">未訪問のリンク</h3>
+      <pre><code class="css">a:link { a: b; }</code></pre>
+      <h3 id="sec05sec09">訪問済みのリンク</h3>
+      <pre><code class="css">a:visited { a: b; }</code></pre>
+      <h3 id="sec05sec10">～に当てはまらない要素</h3>
+      <pre><code class="css">div:not(:hover) { a: b; }</code></pre>
+      <h3 id="sec05sec11">特定の属性を持った特定の要素</h3>
+      <pre><code class="css">div[width] { a: b; }
+div[width=20px] { a: b; }</code></pre>
+      <h3 id="sec05sec12">～で始まる値をもつ属性</h3>
+      <pre><code class="css">a[title^="a"] { a: b; }</code></pre>
+      <h3 id="sec05sec13">～で終わる値をもつ属性</h3>
+      <pre><code class="css">a[title$="z"] { a: b; }</code></pre>
+      <h3 id="sec05sec14">n番目の子要素</h3>
+      <pre><code class="css">div:nth-cild(2n+1) { a: b; }</code></pre>
+      <h3 id="sec05sec15">最初の子要素</h3>
+      <pre><code class="css">div:first-child { a: b; }</code></pre>
+      <h3 id="sec05sec16">最後の子要素</h3>
+      <pre><code class="css">div:last-child { a: b; }</code></pre>
+      <h3 id="sec05sec17">要素の最初の行</h3>
+      <pre><code class="css">div::first-line { a: b; }</code></pre>
+      <h3 id="sec05sec18">要素の最初の文字</h3>
+      <pre><code class="css">div::first-letter { a: b; }</code></pre>
+      <h3 id="sec05sec19">要素の直前</h3>
+      <pre><code class="css">div::before { content: "内容"; }</code></pre>
+      <h3 id="sec05sec20">要素の直後</h3>
+      <pre><code class="css">div::after { content: "内容"; }</code></pre>
+      <div class="headline" id="sec06" style="border-left: solid 10px #ff5400;">小技</div>
+      <h3 id="sec06sec01">ボックスを並べる</h3>
+      <p>
+        ・inlineまたはblockまたはinline-block<br>
+	      ・div要素の横並びはこれを使う
+      </p>
+      <pre><code class="css">display: inline;</code></pre>
+      <h3 id="sec06sec02">空白の扱い</h3>
+      <p>
+        ・normalで半角スペースを無視、改行を半角スペースで表示<br>
+	      ・preで半角スペースも改行もそのまま表示<br>
+	      ・pre-lineで半角スペース無視、改行はそのまま表示
+      </p>
+      <pre><code class="css">white-space: normal;</code></pre>
+      <h3 id="sec06sec03">マーカー</h3>
+      <pre><code class="css">background: linear-gradient(transparent 50%, #64ec86 50%);</code></pre>
+      <h3 id="sec06sec04">コピペ禁止</h3>
+      <pre><code class="css">body {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}</code></pre>
+      <h3 id="sec06sec05">強制的に改行</h3>
+      <pre><code class="css">overflow-wrap: break-word;</code></pre>
+    </div>
+  </div>
+  <div align="right" style="margin: 8px;"><span style="font-size: 70%;">constructed by: Rinca Hayamine</span></div>
+  <header>
+    <div class="menu-button no-select"><label for="check"><div style="margin-top: 0.75em;">三</div></label></div>
+    <input type="checkbox" name="check" id="check" style="display: none;">
+    <div class="move-box">
+      <div class="content">
+        <h2><a href="pChbr-home.html">Home</a></h2>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec01">構文</a></h4>
+        <p>
+          ・<a href="#sec01sec01">コメントアウト</a><br>
+          ・<a href="#sec01sec02">値の単位</a><br>
+          ・<a href="#sec01sec03">アニメーション</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec02">テキスト装飾</a></h4>
+        <p>
+          ・<a href="#sec02sec01">文字の色</a><br>
+          ・<a href="#sec02sec02">フォント</a><br>
+          ・<a href="#sec02sec03">文字の大きさ</a><br>
+          ・<a href="#sec02sec04">文字の幅</a><br>
+          ・<a href="#sec02sec05">行間</a><br>
+          ・<a href="#sec02sec06">テキストの〇〇揃え</a><br>
+          ・<a href="#sec02sec07">上下の〇〇揃え</a><br>
+          ・<a href="#sec02sec08">インデントの大きさ</a><br>
+          ・<a href="#sec02sec09">テキストの影</a><br>
+          ・<a href="#sec02sec10">テキスト装飾無効化</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec03">ボックス装飾</a></h4>
+        <p>
+          ・<a href="#sec03sec01">要素の高さ・幅</a><br>
+          ・<a href="#sec03sec02">要素の最大・最小の高さ・幅</a><br>
+          ・<a href="#sec03sec03">背景色</a><br>
+          ・<a href="#sec03sec04">背景画像</a><br>
+          ・<a href="#sec03sec05">枠</a><br>
+          ・<a href="#sec03sec06">枠の角を丸くする</a><br>
+          ・<a href="#sec03sec07">内側の余白</a><br>
+          ・<a href="#sec03sec08">外側の余白</a><br>
+          ・<a href="#sec03sec09">はみ出した部分</a><br>
+          ・<a href="#sec03sec10">影</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec04">特殊・その他装飾</a></h4>
+        <p>
+          ・<a href="#sec04sec01">レイヤー</a><br>
+          ・<a href="#sec04sec02">ズーム</a><br>
+          ・<a href="#sec04sec03">トランジション</a><br>
+          ・<a href="#sec04sec04">チェックボックスを消す</a><br>
+          ・<a href="#sec04sec05">色反転</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec05">タグ指定</a></h4>
+        <p>
+          ・<a href="#sec05sec01">すべての要素</a><br>
+          ・<a href="#sec05sec02">特定の要素</a><br>
+          ・<a href="#sec05sec03">特定の要素にある特定の子要素</a><br>
+          ・<a href="#sec05sec04">特定のクラス名の要素</a><br>
+          ・<a href="#sec05sec05">特定のidの要素</a><br>
+          ・<a href="#sec05sec06">マウスホバーされた要素</a><br>
+          ・<a href="#sec05sec07">クリックされた要素</a><br>
+          ・<a href="#sec05sec08">未訪問のリンク</a><br>
+          ・<a href="#sec05sec09">訪問済みのリンク</a><br>
+          ・<a href="#sec05sec10">～に当てはまらない要素</a><br>
+          ・<a href="#sec05sec11">特定の属性を持った特定の要素</a><br>
+          ・<a href="#sec05sec12">～で始まる値をもつ属性</a><br>
+          ・<a href="#sec05sec13">～で終わる値をもつ属性</a><br>
+          ・<a href="#sec05sec14">n番目の子要素</a><br>
+          ・<a href="#sec05sec15">最初の子要素</a><br>
+          ・<a href="#sec05sec16">最後の子要素</a><br>
+          ・<a href="#sec05sec17">要素の最初の行</a><br>
+          ・<a href="#sec05sec18">要素の最初の文字</a><br>
+          ・<a href="#sec05sec19">要素の直前</a><br>
+          ・<a href="#sec05sec20">要素の直後</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec06">小技</a></h4>
+        <p>
+          ・<a href="#sec06sec01">ボックスを並べる</a><br>
+          ・<a href="#sec06sec02">空白の扱い</a><br>
+          ・<a href="#sec06sec03">マーカー</a><br>
+          ・<a href="#sec06sec04">コピペ禁止</a><br>
+          ・<a href="#sec06sec05">強制的に改行</a>
+        </p>
+      </div>
+    </div>
+  </header>
+  <!-- svg Script HERE -->
+</body>
+</html>

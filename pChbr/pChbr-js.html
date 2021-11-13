@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>JavaScript - Private Chamber</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/atelier-estuary-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="basic.css">
+  <link rel="stylesheet" type="text/css" href="my_sidemenu.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div style="margin: 8px;"><span class="desc">uploaded:2021/11/12</span></div>
+  <div>
+    <div class="main">
+      <h1>Private Chamber - JavaScript</h1>
+      <p>　ノーコメント.</p>
+
+      <div class="headline" id="sec01" style="border-left: solid 10px #ff5400;">性質</div>
+      <p>
+        ・大文字と小文字を区別する.<br>
+        ・文末にはセミコロンを使う(単独の文の場合は不要).<br>
+        ・変数の型は自動で変わる.<br>
+        ・足し算でのみストリング型と数値型の結合を担う. 引き算などは文字列が数であれば計算されてしまう.<br>
+        ・バッククォートで囲んだ文字列に「${変数}」と書いて足し算を用いてつなぐ必要がなくなる.
+      </p>
+      <div class="headline" id="sec02" style="border-left: solid 10px #ff5400;">データ型</div><br>
+      <table border="1">
+        <tr><th>型</th><th>備考</th></tr>
+        <tr><td>Boolean</td><td>ブーリアン型, true または false.</td></tr>
+        <tr><td>null</td><td>　</td></tr>
+        <tr><td>undefined</td><td>　</td></tr>
+        <tr><td>Number</td><td>数値, 20 や 3.1415 など</td></tr>
+        <tr><td>BigInt</td><td>長整数, 9007199254740992n など</td></tr>
+        <tr><td>String</td><td>ストリング型, "Hello" など</td></tr>
+        <tr><td>Symbol</td><td>　</td></tr>
+        <tr><td>Object</td><td>オブジェクト.</td></tr>
+      </table><br>
+      <div class="headline" id="sec03" style="border-left: solid 10px #ff5400;">具体的な構文</div>
+      <h3 id="sec03sec01">コメントアウト</h3>
+      <pre><code class="js">//コメント
+
+/*
+複数行コメント
+*/</code></pre>
+      <h3 id="sec03sec02">変数定義</h3>
+      <p>
+        　varは基本の変数、letは宣言した場所のスコープブロック内でのみ定義され、constは定数で後から中身を変更できない。<br>
+        「var a;」といったように、初期値なしで定義した場合、中身の値は「undefined」になる。
+      </p>
+	    <pre><code class="js">var a = 1;
+let b = 1;
+const c = 1;</code></pre>
+      <h3 id="sec03sec03">関数</h3>
+      <p>　下の「関数式」では「関数の巻き上げ」に対応しておらず、その文より下でないとその関数が使えない。</p>
+      <pre><code class="js">function f(x) {
+  //処理;
+  //return 戻り値;
+};
+
+var g = function() {
+  //処理;
+};</code></pre>
+      <h3 id="sec03sec09">アロー関数</h3>
+      <p></p>
+      <pre><code class="js">//従来の関数
+function f(x,y) {
+  return x + y;
+};
+
+//アロー関数
+(x,y) => x + y;</code></pre>
+      <p></p>
+      <h3 id="sec03sec04">条件分岐</h3>
+      <p>
+        ・falseと評価される値<br>
+        「false」「undefied」「null」「0」「NaN」「""」
+      </p>
+      <pre><code class="js">if(条件){
+  //処理;
+} else {
+  //処理;
+}
+
+if(条件){
+  //処理;
+} else if(条件){
+  //処理;
+} else {
+  //処理;
+}</code></pre>
+      <h3 id="sec03sec05">switch文</h3>
+      <pre><code class="js">switch(a){
+  case "apple":
+    console.log("red");
+    break;
+  case "lemmon":
+    console.log("yellow");
+    break;
+  default:
+    console.log(`I don't know about the color of the ${a}...`);
+}</code></pre>
+      <h3 id="sec03sec06">繰り返し処理</h3>
+      <pre><code class="js">while(条件){
+  //処理;
+}</code></pre>
+      <p>　または</p>
+      <pre><code class="js">for(let k = 0; k < 5; k++){
+  //処理;
+}</code></pre>
+      <p>　条件がfalseになるまで繰り返す場合：</p>
+      <pre><code class="js">do{
+  //処理;
+}while(条件);</code></pre>
+      <h3 id="sec03sec07">クラス定義</h3>
+      <p></p>
+      <pre><code class="js">class Rectangle {
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
+}</code></pre>
+      <p></p>
+      <h3 id="sec03sec08">new演算子</h3>
+      <p></p>
+      <pre><code class="js">const square = new Rectangle(3,4);
+
+console.log(square.width);  // 4</code></pre>
+      <p></p>
+      <div class="headline" id="sec04" style="border-left: solid 10px #ff5400;">ユーティリティ</div>
+      <h3 id="sec04sec01">配列リテラル</h3>
+      <p>　下の場合、二つ目の値はundefinedになる。</p>
+      <pre><code class="js">let a = [ "apple", "banana", "lemmon" ];
+let b = [ "dog", , "cat" ];
+console.log(a[0]); //apple</code></pre>
+      <h3 id="sec04sec02">数値リテラル</h3>
+      <p>　Number型、BigInt型において、「0o～」で8進数、「0x～」で16進数、「0b～」で2進数。</p>
+      <h3 id="sec04sec03">浮動小数リテラル</h3>
+      <p>　整数部分がゼロの場合は省略できる。「e」または「E」で指数表現ができる。</p>
+      <pre><code class="js">3.1415926
+-.123456789
+-3.1E+12
+.1e-23</code></pre>
+      <h3 id="sec04sec04">オブジェクトリテラル</h3>
+      <pre><code class="js">var food = { type: "fruits", color: "red", taste: "sweet" };
+console.log(food.type); //fruits</code></pre>
+      <h3 id="sec04sec05">文字列のライフハック</h3>
+      <p>　文字列Aを文字B(ストリング)で分ける(Bは消える)(返り値はアレイ)</p>
+      <pre><code class="js">let x = A.split(B);</code></pre>
+      <p>　文字列Aが数値で<u>ない</u>かどうか</p>
+      <pre><code class="js">let x = isNaN(A);</code></pre>
+      <p>　文字列Aに含まれる文字列Bを文字列Cに置き換える</p>
+      <pre><code class="js">let x = A.replace(B, C);</code></pre>
+      <p>　文字列Aを数値型に変える</p>
+      <pre><code class="js">let x = Number(A);</code></pre>
+      <h3 id="sec04sec06">アレイのライフハック</h3>
+      <p>　アレイAの長さ</p>
+      <pre><code class="js">let x = A.length;</code></pre>
+      <p>　アレイAの末尾に要素Bを追加</p>
+      <pre><code class="js">A.push(B);  //メソッドなのでこの一文のみ</code></pre>
+      <p>　アレイAの末尾の要素を削除</p>
+      <pre><code class="js">A.pop();  //メソッドなのでこの一文のみ</code></pre>
+      <p>　アレイAの先頭の要素を削除</p>
+      <pre><code class="js">A.shift();  //メソッドなのでこの一文のみ</code></pre>
+      <p>　アレイAをA[B]からA[C]までのアレイにする</p>
+      <pre><code class="js">let x = A.slice(B,C);</code></pre>
+      <h3 id="sec04sec07">数値のライフハック</h3>
+      <p>　数値AをB桁の数にする</p>
+      <pre><code class="js">let x = A.toFixed(B);</code></pre>
+      <h3 id="sec04sec08">特殊文字のエスケープ</h3>
+      <table border="1">
+        <tr><th>文字</th><th>意味</th></tr>
+        <tr><td>\0</td><td>ヌル文字</td></tr>
+        <tr><td>\b</td><td>バックスペース</td></tr>
+        <tr><td>\f</td><td>改ページ</td></tr>
+        <tr><td>\n</td><td>改行</td></tr>
+        <tr><td>\r</td><td>復帰</td></tr>
+        <tr><td>\t</td><td>タブ</td></tr>
+        <tr><td>\v</td><td>垂直タブ</td></tr>
+        <tr><td>\'</td><td>アポストロフィ</td></tr>
+        <tr><td>\"</td><td>ダブルクォーテーション</td></tr>
+        <tr><td>\\</td><td>バックスラッシュ</td></tr>
+        <tr><td>\uXXXX</td><td>Unicodeエスケープシーケンス</td></tr>
+      </table>
+    </div>
+  </div>
+  <div align="right" style="margin: 8px;"><span style="font-size: 70%;">constructed by: Rinca Hayamine</span></div>
+  <header>
+    <div class="menu-button no-select"><label for="check"><div style="margin-top: 0.75em;">三</div></label></div>
+    <input type="checkbox" name="check" id="check" style="display: none;">
+    <div class="move-box">
+      <div class="content">
+        <h2><a href="pChbr-home.html">Home</a></h2>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec01">性質</a></h4>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec02">データ型</a></h4>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec03">具体的な構文</a></h4>
+        <p>
+          ・<a href="#sec03sec01">コメントアウト</a><br>
+          ・<a href="#sec03sec02">変数定義</a><br>
+          ・<a href="#sec03sec03">関数</a><br>
+          ・<a href="#sec03sec09">アロー関数</a><br> <!-- Be careful when you add the section -->
+          ・<a href="#sec03sec04">条件分岐</a><br>
+          ・<a href="#sec03sec05">switch文</a><br>
+          ・<a href="#sec03sec06">繰り返し処理</a><br>
+          ・<a href="#sec03sec07">クラス定義</a><br>
+          ・<a href="#sec03sec08">new演算子</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec04">ユーティリティ</a></h4>
+        <p>
+          ・<a href="#sec04sec01">配列リテラル</a><br>
+          ・<a href="#sec04sec02">数値リテラル</a><br>
+          ・<a href="#sec04sec03">浮動小数リテラル</a><br>
+          ・<a href="#sec04sec04">オブジェクトリテラル</a><br>
+          ・<a href="#sec04sec05">文字列のライフハック</a><br>
+          ・<a href="#sec04sec06">アレイのライフハック</a><br>
+          ・<a href="#sec04sec07">数値のライフハック</a><br>
+          ・<a href="#sec04sec08">特殊文字のエスケープ</a>
+        </p>
+      </div>
+    </div>
+  </header>
+  <!-- svg Script HERE -->
+</body>
+</html>
