@@ -1,0 +1,101 @@
+header {
+	background: #fffdf2;
+	border-bottom: solid 5px #C6C5BC;
+	padding: 0.5em;
+	position: fixed;
+	width: 100%;
+	z-index: 100;
+  align-items: center;
+  height: 4vw;
+  min-height: 40px;
+}
+.always-show {
+  display: table-cell;
+  vertical-align: middle;
+}
+#whole {
+  display: flex;
+  justify-content: space-between;
+}
+#main {
+  width: 70%;
+  margin: 1em 0em 0em 1em;
+  display: inline-block;
+  overflow: auto;
+}
+#sidebar {
+  text-align: center;
+  padding: 1em;
+  display: inline-block;
+  vertical-align: top;
+  line-height: 25px;
+  max-width: 275px;
+}
+#logo {
+  margin-top: 0.5vw;
+  min-height: 30px;
+  height: 3vw;
+}
+#sidebar > iframe {
+  width: 100%;
+  height: 750px;
+  border: 0px solid #fff;
+}
+
+hr { margin: 3em 0em; }
+pre { margin: 0em; }
+.dir { background: #595959; color: #64ec86; padding: 4px 8px; display: inline-block; }
+.pDat { background: #FF6169; color: #ffffff; padding: 4px 8px; display: inline-block; }
+.pRes { background: #31AF37; color: #ffffff; padding: 4px 8px; display: inline-block; }
+
+.datM {
+  background: linear-gradient(transparent 75%, #FF6169 25%);
+}
+.resM {
+  background: linear-gradient(transparent 75%, #31AF37 25%);
+}
+.scrollBox {
+  min-width: 300px;
+  overflow: auto;
+}
+.caution {
+  margin: 1em 0em;
+  padding: 1em;
+  color: #c00;
+  background: #FFCCCC;
+  display: inline-block;
+  line-height: 30px;
+  width: 80%;
+  overflow-wrap: break-word;
+}
+.caution > img { height: 1.5em; width: 1.5em; vertical-align: sub; }
+.demoCode {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  background-color: #f4f3ec;
+  color: #5f5e4e;
+  padding: 0.5em;
+  white-space: pre;
+  width: 95%;
+  overflow: auto;
+}
+.demoMark_r {
+  border: 2px solid #f00;
+  margin: 3px 0px;
+  padding: 3px;
+  display: inline-block;
+  line-height: 20px;
+}
+.demoMark_g {
+  border: 2px solid #0f0;
+  margin: 3px 0px;
+  padding: 3px;
+  display: inline-block;
+  line-height: 20px;
+}
+.demoMark_b {
+  border: 2px solid #00f;
+  margin: 3px 0px;
+  padding: 3px;
+  display: inline-block;
+  line-height: 20px;
+}

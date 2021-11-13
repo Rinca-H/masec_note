@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>ブロックの作り方 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/atelier-estuary-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="basic.css">
+  <link rel="stylesheet" type="text/css" href="masec_note.css">
+  <link rel="stylesheet" type="text/css" href="masec_note_mokuzi.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div style="padding: 0.5em;"><img id="logo" src="img/masec_note_black.png"></div>
+  <div style="margin: 8px;"><span class="desc">uploaded:2021/11/13</span></div>
+  <div id="whole">
+    <div id="main">
+      <div class="caution">
+        <img src="img/caution.png" class="ignore"> 内容の変更が予定されている記事です！
+      </div>
+      <h1 id="top">アドオン作成 - ブロックの作り方</h1>
+      <p>
+        　オリジナルのブロックの作り方・追加方法を紹介します。
+        オリジナルのものを「追加する」ことになるので、ある程度アドオンに慣れていないとつまずくかもしれません。<br>
+        　複雑なものほど急に難しくなるので注意してください。
+      </p>
+      <div class="headline" style="border-left: solid 10px #FF6169;">基本的な流れ</div>
+      <p>
+        　もともとマイクラになかったものを追加するので、ブロック本体に加えてテクスチャも追加する必要があります。
+        つまり、ビヘイビアとリソース両方が必要になります。<br>
+        　まず、<b><span class="datM">ビヘイビアパック</span>内にblocksフォルダを追加</b>します。
+      </p>
+      <div style="text-align: center;">
+        <div style="text-align: left;" class="gray_box">
+          ━ ┳ manifest.json<br>
+          　 ┣ <b>blocks</b><br>
+          　 ┗ pack_icon.png
+        </div>
+      </div>
+      <p>
+        　このフォルダの中にJSONファイルを追加してブロックを追加します。<br>
+        　以降の作業はこんな感じです：
+      </p>
+      <div class="blue_box">
+        <b>ビヘイビア</b><br>
+        ・blocksフォルダに新しくJSONを追加する<br>
+        ・ルートテーブルのJSONを追加する(任意)<br>
+        <b>リソース</b><br>
+        ・blocks.jsonを編集・作成する<br>
+        ・texturesフォルダのterrain_texture.jsonを編集・作成する<br>
+        ・ブロックのテクスチャを追加する<br>
+        ・ブロックのジオメトリを追加する(任意)<br>
+      </div>
+      <p>
+        　上から順に説明していきます。ほとんどどれも抜かしてはいけない手順なので注意してください。
+      </p>
+      <div class="headline" style="border-left: solid 10px #FF6169;">ブロック本体(レベル1)</div>
+      <p>
+        　まずは基本的なブロックです。簡単な性質だけを持ったシンプルなブロックを追加して作業行程を身につけましょう。
+      </p>
+      <div class="pDat">Dat</div><div class="dir">../blocks/my_block.json</div>
+      <pre><code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:my_block"
+    },
+    "components": {
+      "minecraft:block_light_emission": 1.0,
+      "minecraft:creative_category": {
+        "category": "construction",
+        "group": "itemGroup.name.slab"
+      },
+      "minecraft:destroy_time": 1.0,
+      "minecraft:explosion_resistance": 5.0,
+      "minecraft:loot": "loot_tables/blocks/my_block.loot_table.json",
+      "minecraft:map_color": "#64ec86",
+      "tag:my_block_tag": {}
+    }
+  }
+}</code></pre>
+      <p>
+        　概形はこんな感じです。シンプルなJSONになるように性質を選んできています。<br>
+        　このお手本ブロックは↓のような性質を持ちます。
+      </p>
+      <div class="gray_box">
+        ・明るさレベル最大で光る<br>
+        ・クリエイティブインベントリでは「建造物」カテゴリにある<br>
+        ・壊すのにかかる時間は1.0秒<br>
+        ・爆発耐性は5.0<br>
+        ・ルートテーブルは「loot_tables/blocks/my_block.json」を参照<br>
+        ・地図での表示色は <span style="background: #64ec86; padding: 2px;">#64ec86</span><br>
+        ・「my_block_tag」というブロックタグがついている
+      </div>
+      <p>
+        　はじめはこれをコピペして値を自分で変えて試すのがいいかもしれません。
+        4行目のidentifierは自分のものに変えておきましょう。
+      </p>
+      <details><summary><b>identifier(id・ID)の決め方</b></summary>
+        <div class="blue_box">
+          　基本的には「<b>(アドオンid):(本id)</b>」といった感じ。<br>
+          　アドオンidは<b>アドオン全体で統一</b>する。苗字のようなもの。ネームスペースとかプリフィックスとか呼ばれることがある。<br>
+          　本idは文字通り<b>本体のid</b>。みんな違うものをつけましょう。<br>
+          <b>--注意--</b><br>
+          ・どちらも先頭を数字にしない。<br>
+          ・数字かアルファベットのみを使う。<br>
+          ・アドオンidに「minecraft」は使ってはならない。<br>
+          ・アドオンidは、ほかのアドオンとの競合を考えてオリジナル性の高いものにする。
+        </div>
+      </details>
+      <p>
+        　それぞれの性質についてもっと詳しく説明します。
+      </p>
+      <details><summary>記号の説明</summary>
+        <table border="1">
+          <tr><th>記号</th><th>対応する型</th></tr>
+          <tr><td>Str</td><td>ストリング型</td></tr>
+          <tr><td>Int</td><td>整数型</td></tr>
+          <tr><td>Float</td><td>小数型</td></tr>
+          <tr><td>Bool</td><td>ブーリアン型</td></tr>
+          <tr><td>Obj</td><td>オブジェクト型</td></tr>
+          <tr><td>Vec-n</td><td>配列型</td></tr>
+        </table>
+      </details>
+      <div class="scrollBox">
+        <table border="1">
+          <tr><td>
+            <h3>minecraft:block_light_emission　[Float(0.0~1.0)]</h3>
+            <p>　光源となってどれぐらい光るかか0.0~1.0の値で指定します。0.0で光らない、1.0で明るさレベル15。範囲を超えるとエラー。</p>
+          </td></tr>
+          <tr><td>
+            <h3>minecraft:creative_category　[Obj]</h3>
+            <p>
+              　クリエイティブインベントリでどこに表示するか。
+            </p>
+          </td></tr>
+          <tr><td>
+            <h3>minecraft:destroy_time　[Float(≥0.0)]</h3>
+            <p>　このブロックの破壊にかかる秒数。破壊不可にはできません。</p>
+          </td></tr>
+          <tr><td>
+            <h3>minecraft:explosion_resistance　[Float(≥0.0)]</h3>
+            <p>　このブロックの爆発耐性。大きいほど強い爆発に耐えます。</p>
+          </td></tr>
+          <tr><td>
+            <h3>minecraft:loot　[Str(ルートテーブル)]</h3>
+            <p>　ルートテーブルのJSONの場所(ファイルパス)を指定します。<br>　オススメはloot_tables/blocks/〇〇.jsonです。</p>
+          </td></tr>
+          <tr><td>
+            <h3>minecraft:map_color　[Str(16進カラーコード)]</h3>
+            <p>　マップでの表示色を16進カラーコードで指定します。16進カラーコードについてはググればすぐ出てきます。</p>
+          </td></tr>
+        </table>
+      </div>
+      <p>
+        　<b>レベル2以降は飛ばして次の手順に移ります。レベル2以降についてはこのページの下のほうに書きます。</b>
+      </p>
+      <div class="headline" style="border-left: solid 10px #31AF37;">blocks.jsonを編集・作成</div>
+      <h3 style="color: #d08">●新しく作る場合</h3>
+      <p>
+        　<span class="resM">リソースパック</span>のmanifest.jsonと同じ層にblocks.jsonがない場合は新しく作ります。
+      </p>
+      <div style="text-align: center;">
+        <div style="text-align: left;" class="gray_box">
+          ━ ┳ <b>blocks.json</b><br>
+          　 ┣ manifest.json<br>
+          　 ┗ pack_icon.png
+        </div>
+      </div>
+      <div class="pRes">Res</div><div class="dir">../blocks.json</div>
+      <pre><code class="json">{
+  "format_version": [ 1, 1, 0 ],
+  "test:my_block": {
+    "textures": "my_block",
+    "sound": "stone"
+  }
+}</code></pre>
+      <p>
+        　中身はこれをコピペでいいです。
+      </p>
+      <h3 style="color: #d08">●既にある場合</h3>
+      <p>
+        　中身を書き加える場合です。
+        ちなみに、バニラの情報が書いてあるならいらないので全部消して「新しく作る場合」を参照してください。
+      </p>
+      <div class="pRes">Res</div><div class="dir">../blocks.json</div>
+      <pre><code class="json">{
+  "format_version": [ 1, 1, 0 ],
+  "〇〇": {
+    "textures": "〇〇",
+    "sound": "〇〇"
+  },
+  　⫶
+  "〇〇": {
+    "textures": "〇〇",
+    "sound": "〇〇"
+  }
+}</code></pre>
+      <p>
+        　このように既に書いてあるとします。<br>
+        　基本はどこに追加してもいいですが、分かりやすく一番上へ書くことにします。
+      </p>
+    </div>
+    <div id="sidebar">
+      <iframe src="side_bar.html"></iframe>
+    </div>
+  </div>
+  <div align="right" style="margin: 8px;"><span style="font-size: 70%;">constructed by: Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <a href="masec_note_home.html"><img id="logo" src="img/masec_note_black.png"></a>
+      <div class="menu-button no-select"><label for="check"><div style="display: table-cell; vertical-align: middle;">≡</div></label></div>
+    </div>
+    <input type="checkbox" name="check" id="check" style="display: none;">
+    <div id="move-box">
+      <div class="menu-close no-select"><label for="check">×</label></div>
+      <div class="content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec01">基本的な流れ</a></h4>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec02">ブロック本体(レベル1)</a></h4>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec03">blocks.jsonを編集</a></h4>
+      </div>
+    </div>
+  </header>
+  <script src="responsive.js"></script>
+</body>
+</html>

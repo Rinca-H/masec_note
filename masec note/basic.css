@@ -1,0 +1,119 @@
+/*
+
+Be careful to edit this code!
+You copied this file from C:/Users/masec/Desctop/html/integrated/basic.css
+
+*/
+
+.desc {
+  font-size: 70%;
+  color: #767676;
+  margin: 0.5em 1em;
+}
+body {
+  margin: 0px;
+  background: #FFF5D0;
+}
+.main { margin: 1em; }
+.headline {
+  padding: 0.25em 0.5em;
+  font-size: x-large;
+  background: #fffdf2;
+  font-weight: bold;
+  margin: 0.5em 0em;
+  display: inline-block;
+}
+p {
+  margin: 1em 0em;
+  line-height: 30px;
+  max-width: 90%;
+}
+table {
+  margin: 1em 0em;
+  border: solid 3px #000;
+  border-collapse: collapse;
+  background: #FFFCEF;
+  display: inline-block;
+  vertical-align: top;
+}
+th, td {
+  padding: 0.75em;
+  /* text-align: center; */
+}
+.main img:not(.ignore){
+  width: 80%;
+  min-width: 300px;
+  display: inline-block;
+  text-align: center;
+}
+#main img:not(.ignore) {
+  width: 80%;
+  min-width: 300px;
+  display: inline-block;
+  text-align: center;
+}
+video:not(.ignore) {
+  width: 80%;
+  min-width: 300px;
+  display: inline-block;
+  text-align: center;
+}
+.no-select {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.blue_box {
+  margin: 1em 0em;
+  padding: 1em;
+  background: #CCCCFF;
+  display: inline-block;
+  line-height: 30px;
+}
+
+.gray_box {
+  margin: 1em 0em;
+  padding: 1em;
+  background: #ddd;
+  display: inline-block;
+  line-height: 30px;
+}
+
+pre code {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+.mini_idx {
+  position: relative;
+  margin: 0em 1em;
+  padding: 0.5em 0.5em;
+  line-height: 30px;
+  min-width: 6em;
+  border: dashed 3px #000;
+  border-radius: 10px;
+  display: inline-block;
+}
+.mini_idx .mokuzi {
+  position: absolute;
+  display: inline-block;
+  top: -13px;
+  left: 10px;
+  padding: 0 9px;
+  line-height: 1;
+  font-size: medium;
+  background: #FFF5D0;
+  color: #000;
+  font-weight: bold;
+}
+summary div {
+  color: #000;
+  font-size: medium;
+  padding: 0.3em;
+  background: #fff;
+  border: solid 4px #B9B9B9;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 0em 0em 0em -0.7em; 
+}
