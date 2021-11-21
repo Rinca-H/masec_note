@@ -79,21 +79,21 @@ pre { margin: 0em; }
   overflow: auto;
 }
 .demoMark_r {
-  border: 2px solid #f00;
+  border: 1.5px solid #f00;
   margin: 3px 0px;
   padding: 3px;
   display: inline-block;
   line-height: 20px;
 }
 .demoMark_g {
-  border: 2px solid #0f0;
+  border: 1.5px solid #0f0;
   margin: 3px 0px;
   padding: 3px;
   display: inline-block;
   line-height: 20px;
 }
 .demoMark_b {
-  border: 2px solid #00f;
+  border: 1.5px solid #00f;
   margin: 3px 0px;
   padding: 3px;
   display: inline-block;
