@@ -4,7 +4,11 @@ header {
   right: -16px;
   top: 0;
 }
-hr { margin: 1em 0em; }
+.content > hr {
+  margin: 1em 0em;
+  background-color: #64ec86;
+  border: 1px solid #64ec86;
+}
 .menu-button { 
   width: 5vw;
   height: 5vw;
