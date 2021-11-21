@@ -73,6 +73,7 @@ pre { margin: 0em; }
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   background-color: #f4f3ec;
   color: #5f5e4e;
+  line-height: 23px;
   padding: 0.5em;
   white-space: pre;
   width: 95%;
