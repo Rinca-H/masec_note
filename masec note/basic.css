@@ -40,6 +40,9 @@ th, td {
   padding: 0.75em;
   /* text-align: center; */
 }
+details {
+  margin: 1em;
+}
 .main img:not(.ignore){
   width: 80%;
   min-width: 300px;
@@ -58,7 +61,7 @@ video:not(.ignore) {
   display: inline-block;
   text-align: center;
 }
-.no-select {
+.no-select, summary {
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
