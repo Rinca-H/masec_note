@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta property="og:site_name" content="Masec's Note" />
-  <meta property="og:title" content="terrain_texture.jsonについて" />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
-  <meta property="og:description" content="terrain_texture.jsonの作り方・使い方を解説します" />
-  <meta property="og:locale" content="ja_JP" />
-  <meta name="twitter:card" content="summary" />
   <title>terrain_texture.jsonについて - Masec's Note</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width">
@@ -26,6 +19,7 @@
   <div id="whole">
     <div id="main">
       <h1 id="top">アドオン作成 - terrain_textures.jsonについて</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
       <p>
         　このファイルはブロックのテクスチャに関するファイルで、リソースパックのtexturesフォルダに一つだけあります。
       </p>
@@ -51,6 +45,8 @@
           テクスチャ
         </div>
       </div>
+      <div class="question">？</div>
+      TerrainIDについては<a href="#sec02sec03">後</a>に説明します<br>
       <div id="sec02" class="headline" style="border-left: solid 10px #31AF37;">ファイル内容</div>
       <p>
         　本来は、テクスチャを紐付けしたいブロックすべてについて書きますが、はじめは例として一つのブロックの場合を示します。
@@ -67,7 +63,7 @@
 }</code></pre>
       <p>
         　概形はこんな感じです。<br>
-        　自分で新しく作る場合はこれ↑をコピペするといいでしょう。
+        　<u>自分で新しく作る場合はこれ↑をコピペ</u>するといいでしょう。
       </p>
       <hr id="sec02sec01">
       <div class="demoCode">{
@@ -80,7 +76,7 @@
   }
 }</div>
       <p>
-        　この赤線で囲った部分が一つのカタマリです。これを適当に「ユニット」と呼ぶことにします。<br>
+        　この<b>赤線で囲った部分が一つのカタマリ</b>です。これを適当に「<b>ユニット</b>」と呼ぶことにします。<br>
         (このサイト独自の呼び方です)
       </p>
       <hr id="sec02sec02">
@@ -108,8 +104,8 @@
   }
 }</div>
       <p>
-        　便宜上、この部分をTerrainIDと呼びます。(このサイト独自の呼び方です)<br>
-        　そしてこれは各自で自由に決められます。
+        　便宜上、このマーカー部分を<b>TerrainID</b>と呼びます。(このサイト独自の呼び方です(けっこう言います))<br>
+        　そしてこれは<b>各自で自由に決められます</b>。
       </p>
       <hr>
       <h4 id="sec02sec04">テクスチャを指定</h4>
@@ -123,7 +119,7 @@
   }
 }</div>
       <p>
-        　ここにテクスチャのファイルの場所(ファイルパス)を指定します。
+        　ここに<b>テクスチャのファイルの場所(ファイルパス)を指定</b>します。
       </p>
       <hr>
       <h4 id="sec02sec05">指定するブロックを増やす</h4>
@@ -138,13 +134,15 @@
   }
 }</div>
       <p>
-        　複数のブロックについて記述する場合は、ユニット自体を増やします。<br>
-        　ユニットとユニットをつなぐときだけカンマ( , )を書きます。<span style="color: red;">忘れるとエラーになります。</span>
+        　複数のブロックについて記述する場合は、<b>ユニット自体を増やします</b>。<br>
+        　ユニットとユニットをつなぐときのカンマ( , )は<b style="color: red;">忘れるとエラーになります。</b>
       </p>
-      <div id="sec03" class="headline" style="border-left: solid 10px #31AF37;">ブロックにテクスチャがつくまで</div>
+      <div id="sec03" class="headline" style="border-left: solid 10px #31AF37;">ブロックにテクスチャがつくまで</div><br>
+      <a href="mcbe_addon_blocks-json.html" target="_blank">あわせて読んでおきたい(blocks.jsonについて)</a>
+      <img src="img/external_link_icon.png" class="ignore text_icon"><br>
       <p>
-        　普通に6面同じテクスチャなら単純です。textures/blocksにある「abc.png」を「test:my_block」というidのブロックに貼るとします。<br>
-        　そして、TerrainIDも自分で決められるのでyamaimoとします。すると、
+        　普通に6面同じテクスチャなら単純です。textures/blocksにある「<b>img.png</b>」を「<b>test:my_block</b>」というidのブロックに貼るとします。<br>
+        　そして、TerrainIDも自分で決められるので<b>yamaimo</b>とします。すると、
       </p>
       <div class="pRes">Res</div><div class="dir">textures/terrain_textures.json</div>
       <div class="demoCode">{
@@ -153,7 +151,7 @@
   "resource_pack_name": "vanilla",
   "texture_name": "atlas.terrain",
   "texture_data": {
-    <div class="demoMark_r">"<span style="background: #88CC88;">yamaimo</span>": { "textures": <span style="background: #FFCCCC;">"textures/blocks/abc"</span> }</div>
+    <div class="demoMark_r">"<span style="background: #88CC88;">yamaimo</span>": { "textures": <span style="background: #FFCCCC;">"textures/blocks/img"</span> }</div>
   }
 }</div><br>
       <div class="pRes">Res</div><div class="dir">blocks.json</div>
@@ -166,7 +164,8 @@
 }</div>
       <p>
         　このようにTerrainIDを介してテクスチャとブロック本体が結びつきます。<br>
-        　一方、面で異なる場合は慣れていないと一見複雑に感じます。例として、上面、側面、下面で異なるテクスチャ「abc.png」「def.png」「ghi.png」であるとしましょう。この場合、
+        　一方、<b>面で異なる場合</b>は慣れていないと一見複雑に感じます。
+        例として、上面、側面、下面で異なるテクスチャ「<b>img_up.png</b>」「<b>img_side.png</b>」「<b>img_down.png</b>」であるとしましょう。この場合、
       </p>
       <div class="pRes">Res</div><div class="dir">textures/terrain_textures.json</div>
       <div class="demoCode">{
@@ -175,11 +174,12 @@
   "resource_pack_name": "vanilla",
   "texture_name": "atlas.terrain",
   "texture_data": {
-    <div class="demoMark_r">"<span style="background: #88CC88;">yamaimo_up</span>": { "textures": <span style="background: #FFCCCC;">"textures/blocks/abc"</span> },</div>
-    <div class="demoMark_r">"<span style="background: #88CC88;">yamaimo_side</span>": { "textures": <span style="background: #FFCCCC;">"textures/blocks/def"</span> },</div>
-    <div class="demoMark_r">"<span style="background: #88CC88;">yamaimo_down</span>": { "textures": <span style="background: #FFCCCC;">"textures/blocks/ghi"</span> }</div>
+    <div class="demoMark_r">"<span style="background: #88CC88;">yamaimo_up</span>": { "textures": <span style="background: #FFCCCC;">"textures/blocks/img_up"</span> },</div>
+    <div class="demoMark_r">"<span style="background: #88CC88;">yamaimo_side</span>": { "textures": <span style="background: #FFCCCC;">"textures/blocks/img_side"</span> },</div>
+    <div class="demoMark_r">"<span style="background: #88CC88;">yamaimo_down</span>": { "textures": <span style="background: #FFCCCC;">"textures/blocks/img_down"</span> }</div>
   }
-}</div><br>
+}</div>
+      <div style="text-align: right; font-size: small;">※ TerrainIDは自由に決められます</div>
       <div class="pRes">Res</div><div class="dir">blocks.json</div>
       <div class="demoCode">{
   "format_version": [ 1, 1, 0 ],
@@ -193,7 +193,7 @@
 }</div>
 }</div>
       <p>
-        　というようにTerrainIDを分岐させて指定します。
+        　というように<b>TerrainIDを分岐させて指定</b>します。
       </p>
       <div id="sec04" class="headline" style="border-left: solid 10px #31AF37;">発展的な内容</div>
       <h4 id="sec04sec01">複数のテクスチャ指定</h4>
@@ -214,7 +214,7 @@
   }
 }</div>
       <p>
-        　もともとデータ値をもっているブロックならば、上から順にデータ値0,1,2,...のテクスチャになります。<br>
+        　<u>もともとデータ値をもっているブロックならば</u>、上から順に<b>データ値0,1,2,...のテクスチャ</b>になります。<br>
         　また、別のところで何番目か選択できる場合はこのように書いて選択肢を持たせます。
       </p>
       <hr>
@@ -279,9 +279,9 @@
           <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
           <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
         </div>
-        <hr>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
         <h4><a href="#sec01">機能</a></h4>
-        <hr>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
         <h4><a href="#sec02">ファイル内容</a></h4>
         <p>
           ・<a href="#sec02sec01">ユニット</a><br>
@@ -290,9 +290,9 @@
           ・<a href="#sec02sec04">テクスチャを指定</a><br>
           ・<a href="#sec02sec05">指定するブロックを増やす</a>
         </p>
-        <hr>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
         <h4><a href="#sec03">ブロックにテクスチャがつくまで</a></h4>
-        <hr>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
         <h4><a href="#sec04">発展的な内容</a></h4>
         <p>
           ・<a href="#sec04sec01">複数のテクスチャ指定</a><br>
