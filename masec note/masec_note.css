@@ -69,6 +69,31 @@ pre { margin: 0em; }
   overflow-wrap: break-word;
 }
 .caution > img { height: 1.5em; width: 1.5em; vertical-align: sub; }
+.announce {
+  border: 3px dashed #ff5400;
+  background: #fffdf2;
+  padding: 0.75em;
+  text-align: center;
+  font-weight: bolder;
+  font-size: small;
+  width: fit-content;
+}
+.question {
+  margin: 5px;
+  background: #79c9ff;
+  border-radius: 1em;
+  color: #fff;
+  width: 1.6em;
+  text-align: center;
+  padding-top: 1px;
+  font-weight: bolder;
+  display: inline-block;
+}
+.text_icon {
+  width: 1em;
+  vertical-align: -3px;
+  margin-left: 2px;
+}
 .demoCode {
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   background-color: #f4f3ec;
