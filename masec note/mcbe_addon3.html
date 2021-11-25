@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <title>アドオンのためのJSON - Masec's Note</title>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="簡単！アドオンのためのJSON" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="アドオン作りに欠かせないJSONを簡単に解説します！" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <title>簡単！アドオンのためのJSON - Masec's Note</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/atelier-estuary-light.min.css">
@@ -11,7 +18,9 @@
   <link rel="stylesheet" type="text/css" href="basic.css">
   <link rel="stylesheet" type="text/css" href="masec_note.css">
   <link rel="stylesheet" type="text/css" href="masec_note_mokuzi.css">
-  <!-- <style type="text/css"></style> -->
+  <style type="text/css">
+    .demoMark_o { border: 1.5px solid #f80; margin: 3px 0px; padding: 3px; display: inline-block; }
+  </style>
 </head>
 <body>
   <div style="padding: 0.5em;"><img id="logo" src="img/masec_note_black.png"></div>
@@ -21,228 +30,255 @@
       <div class="caution">
         <img src="img/caution.png" class="ignore"> 内容の変更が予定されている記事です！
       </div>
-      <h1>アドオン作成 - アドオンのためのJSON</h1>
+      <h1>アドオン作成 - 簡単！アドオンのためのJSON</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
       <p>
-        　JSONの知識はアドオンで様々なものを「追加」するときに多く使います。<b>アドオンで何かを追加しようと思っているならば絶対に身に着けてください</b>。
-        　ちゃんと理解すれば<b>簡単</b>です。<b>面倒くさくない</b>。適当にやってエラーの迷宮入りするほうが面倒くさい。
+        　アイテムやブロックなどを「追加」するためにJSONの知識は欠かせません。これを後回しにすると確実にツラい目にあいます。<br>
+        　<span style="color: #ccc;">面倒だと思ってやるから面倒になる、難しいと思ってやるから難しくなる。逃げちゃダメ</span>
       </p>
       <div id="sec01" class="headline" style="border-left: solid 10px #587EFF;">レベル1</div>
+      <h3>値を変える</h3>
       <p>
         　まずは値を「変える」ところからです。こんなJSONがあったとします↓
       </p>
-      <pre><code class="json">{
-  "integer": 1,
+      <div class="demoCode">{
+  "integer": <span style="background: #83ffd9;">1</span>,
   "float": 3.14,
   "string": "文字列",
   "boolean": true
-}</code></pre>
+}</div>
       <p>
         　たとえば、2行目の1を99に変えるとします。その場合、このサイトでは「<b>integerを99にする</b>」といいます。<br>
         　ここで、「stringを"こんにちは"にした」JSONがこれです↓
       </p>
-      <pre><code class="json">{
+      <div class="demoCode">{
   "integer": 1,
   "float": 3.14,
-  "string": "こんにちは",
+  "string": <span style="background: #83ffd9;">"こんにちは"</span>,
   "boolean": true
-}</code></pre>
+}</div>
+      <h3>「型」について</h3>
       <p>
-        　JSONには「型」というものがあります。値のタイプみたいなもので、指定できる型の種類が場合によっては(ほとんど)限られていることがあり、
-        <b>間違った型の値にするとエラーになる</b>ので注意しましょう。
-        「あなたは何歳？」と問われて「野菜」とか答えたら怒られるみたいな感じです。
+        　JSONには「<b>型</b>」というものがあります。値のタイプみたいなもので、指定できる型の種類が場合によっては(ほとんど)限られていることがあり、
+        <b>間違った型の値にするとエラーになる</b>ので注意しましょう。<br>
+        「あなたは何歳？」と問われて「野菜」などと答えたら怒られるみたいな感じです。
       </p>
       <table border=1>
         <tr><th>型の名前</th><th>説明</th></tr>
         <tr>
-          <td>ストリング型</td>
-          <td>文字列。ダブルクォーテーション( " )で必ず囲んでください。</td>
+          <td>ストリング型</td> <td>文字列。ダブルクォーテーション( " )で必ず囲んでください。</td>
         </tr>
         <tr>
-          <td>整数型</td>
-          <td>整数。0,±1,±2,±3,...</td>
+          <td>整数型</td> <td>整数。0,±1,±2,±3,...</td>
         </tr>
         <tr>
-          <td>小数型</td>
-          <td>小数。1.0などでも、「.0」を書いておくと忘れません。</td>
+          <td>小数型</td> <td>小数。1.0などでも、「.0」を書いておくと忘れません。</td>
         </tr>
         <tr>
           <td>ブーリアン型</td>
-          <td>真偽値。「そう」なら「true」、「そうじゃない」なら「false」。<br>ダブルクォーテーションはもちろんいらない。</td>
-        </tr>
-        <tr>
-          <td>オブジェクト型</td>
-          <td>{ } で囲まれたカタマリ。後ほど詳しく説明。</td>
-        </tr>
-        <tr>
-          <td>配列型</td>
           <td>
-            [ ] の中に値をカンマ( , )で区切って配列にします。どんな値も入りますが、決められていることがほとんどです。<br>
-            例
-            <pre><code class="json">[ 1, 3.14, "文字列", true, {}, [ 0, 1 ] ]</code></pre>
+            真偽値。「そう」なら「true」、「そうじゃない」なら「false」。<br>
+            ダブルクォーテーションはもちろんいらない。
           </td>
         </tr>
+        <tr>
+          <td>オブジェクト型</td> <td>{ } で囲まれたカタマリ。後ほど詳しく説明。</td>
+        </tr>
+        <tr>
+          <td>配列型</td> <td>[ ] の中に値をカンマ( , )で区切って配列にします。後ほど詳しく説明。</td>
+        </tr>
       </table>
+      <p>
+        　何より、<b style="color: red; font-size: larger;">誤字・脱字は禁物です！</b><br>
+        　何かエラーが起こったらまず<b>自分の誤字・脱字を疑いましょう</b>。
+      </p>
+      <h3>コメントアウト</h3>
+      <p>
+        　本来JSONの構文ではないですが、マイクラのアドオンのJSONでは<b>コメントアウト</b>が使えるようになっています。
+        コメントアウトした部分は<b>プログラムから無視されます</b>。<br>
+        　アドオンを勉強するうえで忘れそうなこと、分かりづらいことを補助するメモとして大いに活躍するでしょう。
+      </p>
+      <div class="demoCode">{
+  "integer": 1,
+  "float": 3.14,  <span style="background: #83ffd9;">// 一行の場合はスラッシュ二つ</span>
+  "string": "こんにちは",
+  <div style="background: #83ffd9; display: inline-block;">/*
+  複数行の場合は
+  スラッシュとアスタリスク
+  (閉じ忘れないように！)
+*/</div>
+  "boolean": true
+}</div>
       <div id="sec02" class="headline" style="border-left: solid 10px #587EFF;">レベル2</div>
+      <h3>主なJSONの構造</h3>
       <p>
         　次はJSONに書き加えるということをします。<br>
-        　JSONには「"integer": 1」などといった「<b>"変数名": 値</b>」という形が並んでいます(このサイトではこの形をプロパティと呼びます)。
+        　JSONには「"integer": 1」などといった「<b><span style="color: #ff5252;">"変数名"</span>: <span style="color: #4e51ff;">値</span></b>」という形が並んでいます(このサイトではこの形をプロパティと呼びます)。
       </p>
-      <pre><code class="json">{
+      <div class="demoCode">{
+  <span style="color: #ff5252;">"integer"</span>: <span style="color: #4e51ff;">1</span>,
+  <span style="color: #ff5252;">"float"</span>: <span style="color: #4e51ff;">3.14</span>,
+  <span style="color: #ff5252;">"string"</span>: <span style="color: #4e51ff;">"こんにちは"</span>,
+  <span style="color: #ff5252;">"boolean"</span>: <span style="color: #4e51ff;">true</span>
+}</div>
+      <p>
+        　基本的にはこのプロパティを新しく書いたり消したりしてJSONを編集します。
+      </p>
+      <h3>プロパティを追加してみよう</h3>
+      <p>
+        　試しにbooleanの次にひとつプロパティを追加してみましょう。
+      </p>
+      <div class="demoCode">{
   "integer": 1,
   "float": 3.14,
   "string": "こんにちは",
-  "boolean": true
-}</code></pre>
+  "boolean": true<span style="background: #83ffd9;">,</span>
+  <span style="background: #83ffd9;">"additional": "property"</span>
+}</div>
       <p>
-        　基本的にはこのプロパティを新しく書いたり消したりしてJSONを編集します。<br>
-        　試しにbooleanの次にひとつプロパティを追加してみましょう。
+        　簡単ですね、と言いたいところですが「true」の右にある<b>カンマ( , )を忘れやすい</b>ので気を付けてください。
+        そしてもちろん、最後の行にカンマは必要ないですね。<br>
+        　<b>次にプロパティが続くときは必ずカンマを書きます</b>。<br>
+        　そしてこのカンマ、<b>書き忘れるとエラーになる</b>のでよく気を付けてください。
       </p>
-      <pre><code class="json">{
+      <div id="sec03" class="headline" style="border-left: solid 10px #587EFF;">レベル3-1</div>
+      <p>
+        　オブジェクトとは、<b>{ } で囲まれたカタマリ</b>のことでしたね。もう少し詳しく解説をします。
+      </p>
+      <h3>カラのオブジェクト</h3>
+      <div class="demoCode">{
   "integer": 1,
   "float": 3.14,
   "string": "こんにちは",
   "boolean": true,
-  "additional": "property"
-}</code></pre>
+  "object1": <span style="background: #83ffd9;">{}</span>
+}</div>
       <p>
-        　簡単ですね、と言いたいところですが「true」の右にある<b>カンマ( , )を忘れやすい</b>ので気を付けてください。
-        でも「"property"」の右にはカンマはいらないですね。<br>
-        　<b>次にプロパティが続くときは必ずカンマを書きます</b>。いっぽう最後のプロパティには当然いらないですよね。<br>
-        　そしてこのカンマ、<b>書き忘れるとエラーになる</b>のでよく気を付けてください。
+        　まず<b>「{}」と書いてからっぽのオブジェクトを表す</b>ことができます。
       </p>
-      <div id="sec03" class="headline" style="border-left: solid 10px #587EFF;">レベル3</div>
-      <p>
-        　次はオブジェクトに要素を追加していきます。
-      </p>
-      <pre><code class="json">{
+      <h3>実はJSON全体がオブジェクト</h3>
+      <div class="demoCode"><span style="background: #83ffd9;">{</span>
   "integer": 1,
   "float": 3.14,
   "string": "こんにちは",
   "boolean": true,
   "object1": {}
-}</code></pre>
+<span style="background: #83ffd9;">}</span></div>
       <p>
-        　オブジェクトは { } で囲まれたカタマリのことですが、6行目のように<b>「{}」と書いてからっぽのオブジェクトを表す</b>ことができます。<br>
         　そして最初と最後の行に { } があるので、<b>実は上のJSONは全体がオブジェクトだった</b>ということになります。
       </p>
+      <h3>オブジェクトの中身</h3>
       <pre><code class="json">{ "integer": 1 }</code></pre>
       <p>
-        　中には、いままでやってきたように<b>プロパティが入ります</b>。
+        　オブジェクトの中には、いままでやってきたように<b>プロパティが入ります</b>。
       </p>
       <pre><code class="json">{ "integer": 1, "float": 3.14 }</code></pre>
       <p>
-        　レベル2でやったように、カンマでつないでいくらでも増やせるので、どんどん横に並べると、場合によっては見づらくなります。そこで、改行をして「整形」をします。
+        　レベル2でやったように、カンマでつないでいくらでも増やせるので、どんどん横に並べると、場合によっては見づらくなります。
+        そこで、改行をして「<b>整形</b>」をします。
       </p>
       <pre><code class="json">{
   "integer": 1,
   "float": 3.14
 }</code></pre>
       <p>
+        　これで見たことのあるJSONになりましたね。
+      </p>
+      <h3>JSON名物・入れ子構造</h3>
+      <p>
         　また、どんな形のプロパティでもオブジェクトに入るわけなので、こんなことができてしまいます↓
       </p>
-      <pre><code class="json">{ "obj1": { "obj2": { "obj3": { "obj4": {} } } } }</code></pre>
+      <pre><code class="json">{ "obj1": { "obj2": { "obj3": { "integer": 1 } } } }</code></pre>
       <p>
         　これだと見づらいのでこれも整形します。
-        さきほどサラッとやりましたが整形するときは単に改行するだけでなく、<b>行の頭に半角スペースをいれて階層がわかるように</b>します(インデント)。
+        さきほどサラッとやりましたが、整形するときは単に改行するだけでなく<b>行の頭に半角スペースをいれて階層がわかるように</b>します(インデント)。
         オブジェクトで最も大事なのは「<b>階層構造</b>」です。<br>
-        　スペースの数は一階層下がるたびに2個ずつか4個ずつ(がほとんど)です。何個ずつか決めて、バラバラにしないようにしましょう(わたしは2個ずつ)。
+        　このサイトでは、階層を見やすくするために四角で囲うことがあります
+        <span style="color: #ccc;">(今回のは特に見づらいのであまり効果がないように感じますが......)</span>。
       </p>
-      <pre><code class="json">{
-  "obj1": {
-    "obj2": {
-      "obj3": {
-        "obj4": {}
-      }
-    }
-  }
-}</code></pre>
+      <div class="demoCode">{
+  <div class="demoMark_r">"obj1": {
+  <div class="demoMark_b">"obj2": {
+  <div class="demoMark_g">"obj3": {
+  "integer": 1
+}</div>
+}</div>
+}</div>
+}</div>
       <p>
-        　JSONは基本的にプロパティをどの順番で書いてもいいですが、<b>どのカッコの中に書くかを間違えてはいけません</b>。<br>
-        　JSONの文法的にはあっていても、階層によって意味が大きく変わってMinecraft側が理解できなくなります。<br>
+        　ちなみに、スペースの数は一階層下がるたびに<b>2個ずつか4個ずつ</b>(がほとんど)です。何個ずつか決めて、バラバラにしないようにしましょう(このサイトは2個ずつ)。
+      </p>
+      <h3>「意味」が変わってしまう</h3>
+      <p>
+        　JSONは基本的にプロパティをどの順番で書いてもいいですが、<b>どのカッコの中に書くかを間違えてはいけません</b>。
+        JSONの文法的にはあっていても、階層によって意味が大きく変わってMinecraft側が理解できなくなります。<br>
       </p>
       <div style="width: 45%; display: inline-block; vertical-align: top;">
         <b>正</b>
-        <pre><code class="json">{
-  "くだもの": {
-    "リンゴ": {
-      "色": "赤"
-    },
-    "レモン": {
-      "色": "黄"
-    }
-  },
-  "野菜": {
-    "キュウリ": {
-      "色": "緑"
-    }
-  }
-}</code></pre>
+        <div class="demoCode">{
+  <div class="demoMark_r">"くだもの": {
+  <div class="demoMark_b">"リンゴ": {
+  <span style="background: #83ffd9;">"色": "赤"</span>
+},</div>
+  <div class="demoMark_b">"レモン": {
+  "色": "黄"
+}</div>
+},</div>
+  <div class="demoMark_r">"野菜": {
+  <div class="demoMark_b">"キュウリ": {
+  "色": "緑"
+}</div>
+}</div>
+}</div>
       </div>　
       <div style="width: 45%; display: inline-block; vertical-align: top;">
         <b>誤</b>
-        <pre><code class="json">{
-  "くだもの": {
-    "色": "赤",
-    "リンゴ": {},
-    "レモン": {
-      "色": "黄"
-    }
-  },
-  "野菜": {
-    "キュウリ": {
-      "色": "緑"
-    }
-  }
-}</code></pre>
+        <div class="demoCode">{
+  <div class="demoMark_r">"くだもの": {
+  <span style="background: #83ffd9;">"色": "赤"</span>,
+  <div class="demoMark_b">"リンゴ": {},</div>
+  <div class="demoMark_b">"レモン": {
+  "色": "黄"
+}</div>
+},</div>
+  <div class="demoMark_r">"野菜": {
+  <div class="demoMark_b">"キュウリ": {
+  "色": "緑"
+}</div>
+}</div>
+}</div>
       </div><br>
       <div style="width: 45%; display: inline-block; vertical-align: top; background: #fa4; padding: 0.5em;">
         <div style="background: #fc8; padding: 0.5em;">
           くだもの<br>
-          <div style="background: #feb; padding: 0.5em;">
-            リンゴ<br>
-            色：赤
-          </div><br>
-          <div style="background: #feb; padding: 0.5em;">
-            レモン<br>
-            色：黄色
-          </div>
+          <div style="background: #feb; padding: 0.5em;">リンゴ<br>色：赤</div><br>
+          <div style="background: #feb; padding: 0.5em;">レモン<br>色：黄色</div>
         </div><br>
         <div style="background: #fc8; padding: 0.5em;">
           野菜<br>
-          <div style="background: #feb; padding: 0.5em;">
-            キュウリ<br>
-            色：緑
-          </div>
+          <div style="background: #feb; padding: 0.5em;">キュウリ<br>色：緑</div>
         </div>
       </div>
       <div style="width: 45%; display: inline-block; vertical-align: top; background: #fa4; padding: 0.5em;">
         <div style="background: #fc8; padding: 0.5em;">
-          くだもの<br>
-          色：赤　　<b>←？</b>
-          <div style="background: #feb; padding: 0.5em;">
-            リンゴ<br>
-          </div><br>
-          <div style="background: #feb; padding: 0.5em;">
-            レモン<br>
-            色：黄色
-          </div>
+          くだもの<br>色：赤　　<b>←？</b>
+          <div style="background: #feb; padding: 0.5em;">リンゴ<br></div><br>
+          <div style="background: #feb; padding: 0.5em;">レモン<br>色：黄色</div>
         </div><br>
         <div style="background: #fc8; padding: 0.5em;">
           野菜<br>
-          <div style="background: #feb; padding: 0.5em;">
-            キュウリ<br>
-            色：緑
-          </div>
+          <div style="background: #feb; padding: 0.5em;">キュウリ<br>色：緑</div>
         </div>
       </div>
       <p>
-        　そしてやっぱり一番難しいのが、複雑な階層構造を見抜くことです。
+        　そしてやっぱり<b>JSONで一番難しい</b>のが、<b>複雑な階層構造を見抜くこと</b>です。
         慣れればある程度見えるようにはなりますが、わからなくなることはあります。<br>
-        　一行だけに注目するのではなく、<b>そのプロパティがどのオブジェクトの中身なのか</b>を把握することがとても重要です。
+        　一行だけに注目するのではなく、<b>そのプロパティがどの階層なのか</b>を把握することがとても重要です。
       </p>
-      <div id="sec04" class="headline" style="border-left: solid 10px #587EFF;">レベル4</div>
+      <div id="sec04" class="headline" style="border-left: solid 10px #587EFF;">レベル3-2</div>
+      <h3>配列型とは</h3>
       <p>
-        　次は、何気に飛ばしていた「<b>アレイ</b>」です。[・] で囲み、中に<b>「値」</b>を並べることができます。
+        　次も、スキップしていた「<b>配列型(アレイ)</b>」です。[ ] で囲み、中に<b>「値」</b>を並べることができます。
       </p>
       <pre><code class="json">{
   "array": [ 1, 2, 3 ]
@@ -250,24 +286,133 @@
       <p>
         　オブジェクトと何が違うんだ？？　となったら困りますね......<br>
         　これから書くことは流しちゃいけません。<br>
-        ・オブジェクトの中には<b>プロパティ</b>が<br>
-        ・アレイの中には<b>値</b>が<br>
+        ・オブジェクトの中には<b style="background: #83ffd9;">プロパティ</b>が<br>
+        ・アレイの中には<b style="color: #ff5294;">値</b>が<br>
         　入ります。
       </p>
-      <pre><code class="json">{
-  "object": { "property": "value" },
-  "array": [ "value1", "value2", "value3" ]
-}</code></pre>
+      <div class="demoCode">{
+  "object": { <span style="background: #83ffd9;">"property": <span style="color: #ff5294;">"value"</span></span> },
+  "array": [ <span style="color: #ff5294;">"value1"</span>, <span style="color: #ff5294;">"value2"</span>, <span style="color: #ff5294;">"value3"</span> ]
+}</div>
+      <h3>そしてやっぱり入れ子</h3>
       <p>
-
+        　配列型もオブジェクトも値なので、どちらも配列にいれて入れ子にできます。
       </p>
-      <div id="sec05" class="headline" style="border-left: solid 10px #587EFF;">レベル5</div>
+      <div class="demoCode">{
+  <div class="demoMark_r">"array1": [
+  [ 0, 1, 2 ],
+  <div class="demoMark_b">{
+  <div class="demoMark_g">"array2": [
+  [ "value1", "value2" ],
+  <div class="demoMark_o">{
+  "property1": "value3",
+  "property2": "value4"
+}</div>
+]</div>
+}</div>
+]</div>
+}</div>
       <p>
-        　ここからの内容がスラスラできればアドオンを作る最中にJSONで困ったりはしません。<br>
-        　アドオンでアイテムやらブロックやらオリジナルのものを新しく追加するときは「コンポーネント」というものを常々扱っていくことになります。<br>
-        　例えばブロックを追加するときに、壊すのにかかる時間を指定します。その指定はJSONのなかで「コンポーネント」として書かれます。
+        　考えなかったひとが多いと思いますが、四角い枠が「値」になったり「プロパティ」になったりしていることに気を付けてください。
       </p>
-      <pre><code class="json">{
+      <h3>よくある例</h3>
+      <p>
+        　さすがにあそこまでテキトーな入れ子はないと思いますが、アレイの中にオブジェクトが入る、ということは多々あります。<br>
+        　以下は実際にバニラのJSONの一部から取ってきたものです(長いものは編集しました)。
+      </p>
+      <p>
+        <details><summary>例①</summary>
+        <div class="demoCode">"minecraft:entity_spawned": {
+  "randomize": [
+    <div class="demoMark_r">{
+  "weight": 380,
+  "add": {
+    <div class="demoMark_b">"component_groups": [
+  "minecraft:zombie_adult",
+  "minecraft:can_have_equipment"
+]</div>
+  }
+},</div>
+    <div class="demoMark_r">{
+  "weight": 17,
+  "add": {
+    <div class="demoMark_b">"component_groups": [
+  "minecraft:zombie_baby",
+  "minecraft:can_have_equipment"
+]</div>
+  }
+}</div>
+  ]
+}</div>
+        </details>
+        <details><summary>例②</summary>
+        <div class="demoCode">{
+  "pools": [
+    <div class="demoMark_r">{
+  "rolls": 1,
+  "entries": [
+    <div class="demoMark_b">{
+  "type": "item",
+  "name": "minecraft:slime_ball",
+  "weight": 1,
+  "functions": [
+    <div class="demoMark_g">{
+  "function": "set_count",
+  "count": { "min": 0, "max": 2 }
+},</div>
+    <div class="demoMark_g">{
+  "function": "looting_enchant",
+  "count": { "min": 0, "max": 1 }
+}</div>
+  ]
+}</div>
+  ]
+}</div>
+  ]
+}</div>
+        </details>
+      </p>
+      <!--
+      <div id="sec05" class="headline" style="border-left: solid 10px #587EFF;">レベル4</div>
+      <p>
+        　アイテム、ブロック、エンティティ、パーティクル、バイオームのいずれかを追加しようと考えているならば、
+        ここからの内容が簡単に理解できるといいでしょう。または、理解できればスムーズに作ることができると思います。
+      </p>
+      <h3>内容の骨組み</h3>
+      <p>
+        　それぞれのコンテンツには内容の骨組みがそれぞれ決まっています。
+        その骨組みがよくわかっていれば、どこに何を書けばいいのかおおよそ見当がつけられます。<br>
+        　例えば、エンティティのJSON(ビヘイビア)の骨組みはこのような形です。
+      </p>
+      <div class="demoCode">{
+  "format_version": "1.17.20",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "ex:my_entity",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    <div class="demoMark_r">"component_groups": {
+  // コンポーネントグループ 
+},</div>
+    <div class="demoMark_r">"components": {
+  // コンポーネント
+},</div>
+    <div class="demoMark_r">"events": {
+  // イベント
+}</div>
+  }
+}</div>
+      <h3>骨組みの次は肉付け</h3>
+      <p>
+        　そのままエンティティで話をします。オリジナルのエンティティを作るならば「コンポーネント」とあるところへ、
+        文字通りコンポーネントと呼ばれるプロパティを並べていきます。<br>
+        　コンポーネント一つ一つが性質を構成するものとなってエンティティができていきます。<br>
+        　上の例の赤い枠部分がお皿で、コンポーネントがバイキングやビュッフェの料理みたいな感じです。
+      </p>
+      <details><summary>コンポーネントの例</summary>
+        <pre><code class="json">{
   "minecraft:block_light_absorption": 0
 }</code></pre>
 (1)短いやつ<br>　
@@ -300,10 +445,11 @@
     ]
   }
 }</code></pre>
-(4)まあまあ複雑<br>　
-      <p>
+(4)まあまあ複雑
+        <p>
         　ものによって1行ですむものから何十行にも及んで画面に入りきらなくなるものもあります。
-      </p>
+        </p>
+      </details>-->
     </div>
     <div id="sidebar">
       <iframe src="side_bar.html"></iframe>
@@ -325,14 +471,37 @@
         </div>
         <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
         <h4><a href="#sec01">レベル1</a></h4>
+        <p>
+          ・<a href="#sec01sec01">値を変える</a><br>
+          ・<a href="#sec01sec02">「型」について</a><br>
+          ・<a href="#sec01sec03">コメントアウト</a>
+        </p>
         <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
         <h4><a href="#sec02">レベル2</a></h4>
+        <p>
+          ・<a href="#sec02sec01">主なJSONの構造</a><br>
+          ・<a href="#sec02sec02">プロパティを追加してみよう</a>
+        </p>
         <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
-        <h4><a href="#sec03">レベル3</a></h4>
+        <h4><a href="#sec03">レベル3-1</a></h4>
+        <p>
+          ・<a href="#sec03sec01">カラのオブジェクト</a><br>
+          ・<a href="#sec03sec02">実はJSON全体がオブジェクト</a><br>
+          ・<a href="#sec03sec03">オブジェクトの中身</a><br>
+          ・<a href="#sec03sec04">JSON名物・入れ子構造</a><br>
+          ・<a href="#sec03sec05">「意味」が変わってしまう</a>
+        </p>
         <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
-        <h4><a href="#sec04">レベル4</a></h4>
+        <h4><a href="#sec04">レベル3-2</a></h4>
+        <p>
+          ・<a href="#sec04sec01">配列型とは</a><br>
+          ・<a href="#sec04sec02">そしてやっぱり入れ子</a><br>
+          ・<a href="#sec04sec03">よくある例</a><br>
+        </p>
+        <!--
         <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
-        <h4><a href="#sec05">レベル5</a></h4>
+        <h4><a href="#sec05">レベル4</a></h4>
+        -->
       </div>
     </div>
   </header>
