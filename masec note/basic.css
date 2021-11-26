@@ -43,6 +43,9 @@ th, td {
 details {
   margin: 1em;
 }
+summary {
+  cursor: pointer;
+}
 .main img:not(.ignore){
   width: 80%;
   min-width: 300px;
@@ -88,6 +91,7 @@ pre code {
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }
 
+/*
 .mini_idx {
   position: relative;
   margin: 0em 1em;
@@ -120,3 +124,4 @@ summary div {
   display: inline-block;
   margin: 0em 0em 0em -0.7em; 
 }
+*/
