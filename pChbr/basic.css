@@ -1,7 +1,7 @@
 /*
 
 Be careful to edit this code!
-You copied this file to C:/Users/masec/Desctop/html/masec note/basic.css
+You copied this file from C:/Users/masec/Desctop/html/integrated/basic.css
 
 */
 
@@ -40,6 +40,12 @@ th, td {
   padding: 0.75em;
   /* text-align: center; */
 }
+details {
+  margin: 1em;
+}
+summary {
+  cursor: pointer;
+}
 .main img:not(.ignore){
   width: 80%;
   min-width: 300px;
@@ -58,7 +64,7 @@ video:not(.ignore) {
   display: inline-block;
   text-align: center;
 }
-.no-select {
+.no-select, summary {
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -85,6 +91,7 @@ pre code {
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }
 
+/*
 .mini_idx {
   position: relative;
   margin: 0em 1em;
@@ -117,3 +124,4 @@ summary div {
   display: inline-block;
   margin: 0em 0em 0em -0.7em; 
 }
+*/
