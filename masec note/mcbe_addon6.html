@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>アイテムの作り方 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/atelier-estuary-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="basic.css">
+  <link rel="stylesheet" type="text/css" href="masec_note.css">
+  <link rel="stylesheet" type="text/css" href="masec_note_mokuzi.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div style="padding: 0.5em;"><img id="logo" src="img/masec_note_black.png"></div>
+  <div style="margin: 8px;"><span class="desc">uploaded:2021/11/27</span></div>
+  <div id="whole">
+    <div id="main">
+      <div class="caution">
+        <img src="img/caution.png" class="ignore"> 内容の変更が予定されている記事です！
+      </div>
+      <h1 id="top">アドオン作成 - アイテムの作り方</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <p>
+        　オリジナルのアイテムの作り方・追加方法を紹介します。
+        オリジナルのものを「追加する」ことになるので、ある程度アドオンに慣れていないとつまずくかもしれません。<br>
+        　複雑なものほど急に難しくなるので注意してください。
+      </p>
+      <div class="headline" style="border-left: solid 10px #FF6169;">基本的な流れ</div>
+      <p>
+        　もともとマイクラになかったものを追加するので、アイテム本体に加えてテクスチャも追加する必要があります。
+        つまり、<b>ビヘイビアとリソース両方が必要</b>になります。<br>
+        　全体の作業はこんな感じです：
+      </p>
+      <div class="blue_box">
+        <b>ビヘイビア</b><br>
+        ・itemsフォルダに新しくJSONを追加する<br>
+        <b>リソース</b><br>
+        ・texturesフォルダのitem_texture.jsonを編集・作成する<br>
+        ・アイテムのテクスチャを追加する
+      </div>
+      <h3 id="sec01sec01">アイテム本体を定義</h3>
+      <p>
+        　まず、<b><span class="datM">ビヘイビアパック</span>内にitemsフォルダを用意</b>します。<br>
+      </p>
+      <div style="text-align: center;">
+        <div style="text-align: left;" class="gray_box">
+          ━ ┳ manifest.json<br>
+          　 ┣ <b>items</b><br>
+          　 ┗ pack_icon.png
+        </div>
+      </div>
+      <p>
+        　そのフォルダのなかに<b>アイテム本体を定義するJSONを、追加するアイテムの数だけ作って入れる</b>ことになります。
+      </p>
+      <h3 id="sec01sec02">テクスチャを用意</h3>
+      <p>
+        　自分で場所を指定することができますが、オススメは「<b>(リソースパック)/textures/items</b>」の中です。
+      </p>
+      <div style="text-align: center;">
+        <div style="text-align: left;" class="gray_box">
+          ━ ┳ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ textures<br>
+          　 　 ┗items<br>
+          　 　 　 ┗<b>〇〇.png</b>
+        </div>
+      </div>
+      <h3 id="sec01sec03">テクスチャと本体を紐づけ</h3>
+      <p>
+        「(リソースパック)/textures」の中に「<b>item_texture.json</b>」を用意します。<br>
+        　元からあれば編集、なければ新しく作ります。<br>
+        　詳しくはこちら → <a href="mcbe_addon_item_texture-json.html">item_texture.jsonについて</a>
+      </p>
+      <div class="headline" style="border-left: solid 10px #FF6169;">アイテム本体(基礎)</div>
+      <p>
+        　これがまだ何も指定していない状態のアイテムです。ゼロから作る場合はこれをコピペするといいでしょう。
+      </p>
+      <div class="pDat">Dat</div><div class="dir">../blocks/my_item.json</div>
+      <pre><code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test:my_item",
+      "category": "Items"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "my_item"
+      }
+      // コンポーネント
+    }
+  }
+}</code></pre>
+      <hr>
+      <h3 id="sec02sec01">主な構成</h3>
+      <div class="demoCode">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test:my_item",
+      "category": "Items"
+    },
+    <div class="demoMark_r">"components": {
+  "minecraft:icon": {
+    "texture": "my_item"
+  }
+  // コンポーネント
+}</div>
+  }
+}</div>
+      <p>
+        　大きく関わってくるのがこの赤い枠で囲った部分で、もっと言えばその中の{ }内にコンポーネントを書き足していきます。<br>
+        　minecraft:iconもコンポーネントですが、<b>テクスチャを指定するために必須</b>なので書いておきました。
+      </p>
+      <hr>
+      <h3 id="sec02sec02">IDを決める</h3>
+      <div class="demoCode">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "<span style="background: #83ffd9;">test:my_item</span>",
+      "category": "Items"
+    },
+    <div class="demoMark_r">"components": {
+  "minecraft:icon": {
+    "texture": "my_item"
+  }
+  // コンポーネント
+}</div>
+  }
+}</div>
+      <p>
+        　IDを決め忘れないでください。
+      </p>
+      <details><summary style="color: transparent; transform: translate(-2em, 0px);">
+        <div class="question">？</div><span style="color: #000; font-weight: bolder;">identifier(ID)の決め方</span></summary>
+        <div class="blue_box">
+          　基本的には「<b>(アドオンid):(本id)</b>」といった感じ。<br>
+          　アドオンidは<b>アドオン全体で統一</b>する。苗字のようなもの。ネームスペースとかプリフィックスとか呼ばれることがある。<br>
+          　本idは文字通り<b>本体のid</b>。みんな違うものをつけましょう。<br>
+          例)　test:my_content<br>
+          <b>--注意--</b><br>
+          ・どちらも先頭を数字にしない。<br>
+          ・数字かアルファベットのみを使う。<br>
+          ・アドオンidに「minecraft」は使ってはならない。<br>
+          ・アドオンidは、ほかのアドオンとの競合を考えてオリジナル性の高いものにする。
+        </div>
+      </details>
+      <hr>
+      <h3 id="sec02sec03">TerranIDを指定する</h3>
+      <div class="demoCode">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test:my_item",
+      "category": "Items"
+    },
+    <div class="demoMark_r">"components": {
+  "minecraft:icon": {
+    "texture": "<span style="background: #83ffd9;">my_item</span>"
+  }
+  // コンポーネント
+}</div>
+  }
+}</div>
+      <p>
+        　ここでTerrainIDを指定します。
+      </p>
+      <div class="question">？</div>
+      <a href="mcbe_addon_item_texture-json.html#sec02sec03" target="_blank">TerrainID(item_texture.jsonについて)</a>
+      <img src="img/external_link_icon.png" class="ignore text_icon">
+      <hr>
+      <h3 id="sec02sec04">コンポーネントを追加する</h3>
+      <div class="demoCode">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test:my_item",
+      "category": "Items"
+    },
+    <div class="demoMark_r">"components": {
+  "minecraft:icon": {
+    "texture": "my_item"
+  },
+  <span style="background: #83ffd9;">"minecraft:allow_off_hand": true</span>
+}</div>
+  }
+}</div>
+      <p>
+        　リファレンスから選んでコンポーネントを追加します。追加する際はカンマに気を付けてください。忘れると<b style="color: red;">エラーになります</b>。<br>
+        　何を選んだらいいのかわからない場合は後で例をいくつか載せるので参考にしてください。
+      </p>
+      <details><summary style="color: transparent; transform: translate(-2em, 0px);">
+        <div class="question">？</div><span style="color: #000; font-weight: bolder;">コンポーネントの選び方</span></summary>
+        <div class="scrollBox">
+          <div class="blue_box">
+            <p>
+              　Items.htmlというリファレンスの「Item Components」の章に載っているものはすべてコンポーネントです。<br>
+              　しかし、選んでもコンポーネントの形がリファレンスからは分かりづらいので<a href="mcbe_addon5.html#sec03" target="_blank">こちら</a><img src="img/external_link_icon.png" class="ignore text_icon">を参考にしてみてください。
+            </p>
+            <div class="question" style="line-height: normal; background: #f88;">？</div>
+            <a href="mcbe_addon1.html#sec06sec00" target="_blank">リファレンス(アドオンを作るひとへ)</a>
+            <img src="img/external_link_icon.png" class="ignore text_icon"><br>
+          </div>
+        </div>
+      </details>
+      <div class="headline" style="border-left: solid 10px #FF6169;">最も簡単な例</div><br>
+      <p>
+        　JSONがシンプルになるように性質を選んできています。<br>
+        　<span style="color: #ccc;">しかし、もともと簡単なコンポーネントが少ないのでスカスカです</span>
+      </p>
+      <div class="pDat">Dat</div><div class="dir">../blocks/smple_item.json</div>
+      <pre><code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:simple_item"
+    },
+    "components": {
+      "minecraft:fuel": {
+        "duration": 80
+      },
+      "minecraft:icon": {
+        "texture": "simple_item"
+      },
+      "minecraft:max_stack_size": 16
+    }
+  }
+}</code></pre>
+      <p>
+        　このお手本アイテムは以下のような性質を持ちます↓
+      </p>
+      <div class="gray_box">
+        ・かまどでの燃焼時間が80秒(アイテム8個分、石炭と同じ)<br>
+        ・TerrainIDはsimple_itemである<br>
+        ・16個までしかスタックできない
+      </div>
+      <p>
+        　はじめはこれをコピペして自分で値を変えて試すのがいいかもしれません。<br>
+        　それぞれの性質についてもっと詳しく説明します。
+      </p>
+      <div class="scrollBox">
+        <table border="1">
+          <tr><td>
+            <h3>minecraft:fuel</h3>
+            <p>
+              　かまどの燃料として使ったときに火が付いている秒数。
+              指定した秒数を10で割った時の数が、この燃料一つ分で
+            </p>
+          </td></tr>
+          <tr><td>
+            <h3>minecraft:max_stack_size</h3>
+            <p>
+              　スタック数の上限。最大は99です。
+            </p>
+          </td></tr>
+        </table>
+      </div>
+    </div>
+    <div id="sidebar">
+      <iframe src="side_bar.html"></iframe>
+    </div>
+  </div>
+  <div align="right" style="margin: 8px;"><span style="font-size: 70%;">constructed by: Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <a href="masec_note_home.html"><img id="logo" src="img/masec_note_black.png"></a>
+      <div class="menu-button no-select"><label for="check"><div style="display: table-cell; vertical-align: middle;">≡</div></label></div>
+    </div>
+    <input type="checkbox" name="check" id="check" style="display: none;">
+    <div id="move-box">
+      <div class="menu-close no-select"><label for="check">×</label></div>
+      <div class="content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec01">基本的な流れ</a></h4>
+        <p>
+          ・<a href="#sec01sec01">アイテム本体を定義</a><br>
+          ・<a href="#sec01sec02">テクスチャを用意</a><br>
+          ・<a href="#sec01sec03">テクスチャと本体を紐づけ</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec02">アイテム本体(基礎)</a></h4>
+        <p>
+          ・<a href="#sec02sec01">主な構成</a><br>
+          ・<a href="#sec02sec02">IDを決める</a><br>
+          ・<a href="#sec02sec03">TerrainIDを指定する</a><br>
+          ・<a href="#sec02sec04">コンポーネントを追加する</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec03">最も簡単な例</a></h4>
+      </div>
+    </div>
+  </header>
+  <script src="responsive.js"></script>
+</body>
+</html>
