@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>関数・多項式 - 数学探検録</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  <!-- <link rel="shortcut icon" href="img/favicon.ico"> -->
+  <link rel="stylesheet" type="text/css" href="basic.css">
+  <link rel="stylesheet" type="text/css" href="my_sidemenu.css">
+  <style type="text/css">
+    img#equ { zoom: 1.7; }
+    div.equ { margin: 0.5em; }
+    .equ { overflow: auto; }
+  </style>
+</head>
+<body style="margin: 0px; background: #FFF5D0;">
+  <div style="margin: 8px;"><span class="desc">uploaded:2021/12/01</span></div>
+  <div>
+    <div class="main">
+      <h1 id="#top">関数・多項式</h1>
+      <div class="headline" id="sec01" style="border-left: solid 10px #ff5400;">ベータ関数　(Beta Function)</div>
+      <h3 id="sec01sec01">定義</h3>
+      <div align="center" class="equ"><img id="equ" src="img/functions_beta01.svg"></div>
+      <h3 id="sec01sec02">公式</h3>
+      <div class="equ"><img id="equ" src="img/functions_beta02.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_beta03.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_beta04.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_beta05.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_beta06.svg"></div>
+      <h3 id="sec01sec03">級数表示</h3>
+      <div class="equ"><img id="equ" src="img/functions_beta07.svg"></div>
+      <div align="right">ただし、<img id="equ" src="img/functions_comment01.svg" style="vertical-align: middle;"></div>
+      <h3 id="sec01sec04">等式</h3>
+      <div class="equ"><img id="equ" src="img/functions_beta08.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_beta09.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_beta10.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_beta11.svg"></div>
+      <div class="headline" id="sec02" style="border-left: solid 10px #ff5400;">ガンマ関数　(Gamma Function)</div>
+      <h3 id="sec02sec01">定義</h3><br>
+      <div align="center" class="equ"><img id="equ" src="img/functions_gamma01.svg"></div>
+      <h3 id="sec02sec02">特殊値</h3>
+      <table border="1" style="border: solid 3px #000; border-collapse:collapse; background: #FFFCEF;">
+        <tr><th>$z$</th><td>$1$</td><td>$\frac{1}{2}$</td></tr>
+        <tr><th>$\Gamma(z)$</th><td>$1$</td><td>$\sqrt\pi$</td></tr>
+      </table>
+      <h3 id="sec02sec03">公式</h3>
+      <div class="equ"><img id="equ" src="img/functions_gamma03.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_gamma04.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_gamma05.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_gamma06.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_gamma07.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_gamma08.svg"></div>
+      <h3 id="sec02sec04">等式</h3>
+      <div class="equ"><img id="equ" src="img/functions_gamma09.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_gamma10.svg"></div>
+      <div class="headline" id="sec03" style="border-left: solid 10px #ff5400;">ディガンマ関数　(Digamma Function)</div>
+      <h3 id="sec03sec01">定義</h3>
+      <div class="equ"><img id="equ" src="img/functions_digamma01.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_digamma02.svg"></div>
+      <h3 id="sec03sec02">公式</h3>
+      <div class="equ"><img id="equ" src="img/functions_digamma03.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_digamma04.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_digamma05.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_digamma06.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_digamma07.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_digamma08.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_digamma09.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_digamma10.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_digamma11.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_digamma12.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_digamma13.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_digamma14.svg"></div>
+      <div class="headline" id="sec04" style="border-left: solid 10px #ff5400;">ポリガンマ関数　(Polygamma Function)</div>
+      <h3 id="sec04sec01">定義</h3>
+      <div class="headline" id="sec05" style="border-left: solid 10px #ff5400;">二重階乗</div>
+      <h3 id="sec05sec01">定義</h3>
+      <div class="headline" id="sec06" style="border-left: solid 10px #ff5400;">バーンズのG関数　(Barnes G-Function)</div>
+      <h3 id="sec06sec01">定義</h3>
+      <div class="equ"><img id="equ" src="img/functions_barnes-g01.svg"></div>
+      <h3 id="sec06sec01">公式</h3>
+      <div class="equ"><img id="equ" src="img/functions_barnes-g02.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_barnes-g03.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_barnes-g04.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_barnes-g05.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_barnes-g06.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_barnes-g07.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_barnes-g08.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_barnes-g09.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_barnes-g10.svg"></div>
+      <div class="headline" id="sec07" style="border-left: solid 10px #ff5400;">K関数　(K-Function)</div>
+      <h3 id="sec07sec01">定義</h3>
+      <div class="equ"><img id="equ" src="img/functions_k01.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_k02.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_k03.svg"></div>
+      <div class="headline" id="sec08" style="border-left: solid 10px #ff5400;">リーマンのゼータ関数　(Riemann Zeta Function)</div>
+      <h3 id="sec08sec01">定義</h3>
+      <div class="equ"><img id="equ" src="img/functions_r-zeta01.svg"></div>
+      <h3 id="sec08sec02">公式</h3>
+      <div class="equ"><img id="equ" src="img/functions_r-zeta02.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_r-zeta03.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_r-zeta04.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_r-zeta05.svg"></div>
+      <h3 id="sec08sec03">等式</h3>
+      <div class="equ"><img id="equ" src="img/functions_r-zeta06.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_r-zeta07.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_r-zeta08.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_r-zeta09.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_r-zeta10.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_r-zeta11.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_r-zeta12.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_r-zeta13.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_r-zeta14.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_r-zeta15.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_r-zeta16.svg"></div>
+      <div class="headline" id="sec09" style="border-left: solid 10px #ff5400;">ディリクレのベータ関数　(Dirichlet Beta Function)</div>
+      <h3 id="sec09sec01">定義</h3>
+      <div class="equ"><img id="equ" src="img/functions_d-beta01.svg"></div>
+      <h3 id="sec09sec02">公式</h3>
+      <div class="equ"><img id="equ" src="img/functions_d-beta02.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_d-beta03.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_d-beta04.svg"></div>
+      <h3 id="sec09sec03">等式</h3>
+      <div class="equ"><img id="equ" src="img/functions_d-beta05.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_d-beta06.svg"></div>
+      <div class="headline" id="sec10" style="border-left: solid 10px #ff5400;">ディリクレのエータ関数　(Dirichlet Eta Function)</div>
+      <h3 id="sec10sec01">定義</h3>
+      <div class="equ"><img id="equ" src="img/functions_d-eta01.svg"></div>
+      <div class="headline" id="sec11" style="border-left: solid 10px #ff5400;">フルヴィッツのゼータ関数　(Hurwitz Zeta Function)</div>
+      <h3 id="sec11sec01">定義</h3>
+      <div class="equ"><img id="equ" src="img/functions_h-zeta01.svg"></div>
+      <h3 id="sec11sec02">公式</h3>
+      <div class="equ"><img id="equ" src="img/functions_h-zeta02.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_h-zeta03.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_h-zeta04.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_h-zeta05.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_h-zeta06.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_h-zeta07.svg"></div>
+      <div class="headline" id="sec12" style="border-left: solid 10px #ff5400;">レルヒの超関数　(Lerch Transcendent)</div>
+      <h3 id="sec12sec01">定義</h3>
+      <div class="equ"><img id="equ" src="img/functions_lerch01.svg"></div>
+      <h3 id="sec12sec02">等式</h3>
+      <div class="equ"><img id="equ" src="img/functions_lerch02.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_lerch03.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_lerch04.svg"></div>
+      <div class="headline" id="sec13" style="border-left: solid 10px #ff5400;">多重対数関数　(Polylogarithm)</div><br>
+      <h3 id="sec13sec01">定義</h3>
+      <div class="headline" id="sec14" style="border-left: solid 10px #ff5400;">多重フルヴィッツゼータ関数　(Multiple Hurwitz Zeta)</div>
+      <h3 id="sec14sec01">定義</h3>
+      <div class="equ"><img id="equ" src="img/functions_poly-h-zeta01.svg"></div>
+      <div class="headline" id="sec15" style="border-left: solid 10px #ff5400;">多重ガンマ関数　(Multiple Gamma Function)</div>
+      <h3 id="sec15sec01">定義</h3>
+      <div class="equ"><img id="equ" src="img/functions_poly-gamma01.svg"></div>
+      <div class="headline" id="sec16" style="border-left: solid 10px #ff5400;">多重三角関数　(Multiple Trigonometric Function)</div>
+      <h3 id="sec16sec01">定義</h3>
+      <div class="equ"><img id="equ" src="img/functions_poly-trig01.svg"></div>
+      <div class="headline" id="sec17" style="border-left: solid 10px #ff5400;">誤差関数　(Error Function)</div><br>
+      <h3 id="sec17sec01">定義</h3>
+      <div class="headline" id="sec18" style="border-left: solid 10px #ff5400;">不完全ガンマ関数　(Incomplete Gamma Function)</div><br>
+      <h3 id="sec18sec01">定義</h3>
+      <div class="headline" id="sec19" style="border-left: solid 10px #ff5400;">ベッセル関数　(Bessel Function)</div>
+      <h3 id="sec19sec01">定義</h3>
+      第一種ベッセル関数
+      <div class="equ"><img id="equ" src="img/functions_bessel01.svg"></div>
+      第二種ベッセル関数
+      <div class="equ"><img id="equ" src="img/functions_bessel02.svg"></div>
+      第一種変形ベッセル関数
+      <div class="equ"><img id="equ" src="img/functions_bessel03.svg"></div>
+      第二種変形ベッセル関数
+      <div class="equ"><img id="equ" src="img/functions_bessel04.svg"></div>
+      <h3 id="sec19sec02">等式</h3>
+      <div class="equ"><img id="equ" src="img/functions_bessel05.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_bessel06.svg"></div>
+      <div class="equ"><img id="equ" src="img/functions_bessel07.svg"></div>
+      <div class="headline" id="sec20" style="border-left: solid 10px #ff5400;">ストルーヴェ関数　(Struve Function)</div><br>
+      <h3 id="sec20sec01">定義</h3>
+      <div class="headline" id="sec21" style="border-left: solid 10px #ff5400;">エアリー関数　(Airy Function)</div><br>
+      <h3 id="sec21sec01">定義</h3>
+      <div class="headline" id="sec22" style="border-left: solid 10px #ff5400;">マイヤーのG関数　(Meijer G-Function)</div><br>
+      <h3 id="sec22sec01">定義</h3>
+      <div class="headline" id="sec23" style="border-left: solid 10px #ff5400;">楕円積分　(Eliptic Integral)</div><br>
+      <h3 id="sec23sec01">定義</h3>
+      <div class="headline" id="sec24" style="border-left: solid 10px #ff5400;">ヤコビの楕円関数</div><br>
+      <h3 id="sec24sec01">定義</h3>
+      <div class="headline" id="sec25" style="border-left: solid 10px #ff5400;">楕円テータ関数</div><br>
+      <h3 id="sec25sec01">定義</h3>
+      <div class="headline" id="sec26" style="border-left: solid 10px #ff5400;">クラウセン関数</div><br>
+      <h3 id="sec26sec01">定義</h3>
+      <div class="headline" id="sec27" style="border-left: solid 10px #ff5400;">正弦積分・余弦積分</div><br>
+      <h3 id="sec27sec01">定義</h3>
+      <div class="headline" id="sec28" style="border-left: solid 10px #ff5400;">フレネル積分</div><br>
+      <h3 id="sec28sec01">定義</h3>
+      <div class="headline" id="sec29" style="border-left: solid 10px #ff5400;">ディラックのデルタ関数</div><br>
+      <h3 id="sec29sec01">定義</h3>
+      <div class="headline" id="sec30" style="border-left: solid 10px #ff5400;">ヘヴィサイドの階段関数</div><br>
+      <h3 id="sec30sec01">定義</h3>
+      <div class="headline" id="sec31" style="border-left: solid 10px #ff5400;">q-ディガンマ関数</div>
+      <h3 id="sec31sec01">定義</h3>
+    </div>
+  </div>
+  <div align="right" style="margin: 8px;"><span style="font-size: 70%;">constructed by: Rinca Hayamine</span></div>
+  <header>
+    <div class="menu-button no-select"><label for="check"><div style="margin-top: 0.75em;">三</div></label></div>
+    <input type="checkbox" name="check" id="check" style="display: none;">
+    <div class="move-box">
+      <div class="content">
+        <h2><a href="pChbr-home.html">Home</a></h2>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec01">ベータ関数</a></h4>
+        <p>
+          ・<a href="#sec01sec01">定義</a><br>
+          ・<a href="#sec01sec02">公式</a><br>
+          ・<a href="#sec01sec03">級数表示</a><br>
+          ・<a href="#sec01sec04">公式</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec02">ガンマ関数</a></h4>
+        <p>
+          ・<a href="#sec02sec01">定義</a><br>
+          ・<a href="#sec02sec02">特殊値</a><br>
+          ・<a href="#sec02sec03">公式</a><br>
+          ・<a href="#sec02sec04">等式</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec03">ディガンマ関数</a></h4>
+        <p>
+          ・<a href="#sec03sec01">定義</a><br>
+          ・<a href="#sec03sec02">公式</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec04">ポリガンマ関数</a></h4>
+        <p>
+          ・<a href="#sec04sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec05">二重階乗</a></h4>
+        <p>
+          ・<a href="#sec05sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec06">バーンズのG関数</a></h4>
+        <p>
+          ・<a href="#sec06sec01">定義</a><br>
+          ・<a href="#sec06sec02">公式</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec07">K関数</a></h4>
+        <p>
+          ・<a href="#sec07sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec08">リーマンのゼータ関数</a></h4>
+        <p>
+          ・<a href="#sec08sec01">定義</a><br>
+          ・<a href="#sec08sec02">公式</a><br>
+          ・<a href="#sec08sec03">等式</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec09">ディリクレのベータ関数</a></h4>
+        <p>
+          ・<a href="#sec09sec01">定義</a><br>
+          ・<a href="#sec09sec02">公式</a><br>
+          ・<a href="#sec09sec03">等式</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec10">ディリクレのエータ関数</a></h4>
+        <p>
+          ・<a href="#sec10sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec11">フルヴィッツのゼータ関数</a></h4>
+        <p>
+          ・<a href="#sec11sec01">定義</a><br>
+          ・<a href="#sec11sec02">公式</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec12">レルヒの超関数</a></h4>
+        <p>
+          ・<a href="#sec12sec01">定義</a><br>
+          ・<a href="#sec12sec02">等式</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec13">多重対数関数</a></h4>
+        <p>
+          ・<a href="#sec13sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec14">多重フルヴィッツゼータ関数</a></h4>
+        <p>
+          ・<a href="#sec14sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec15">多重ガンマ関数</a></h4>
+        <p>
+          ・<a href="#sec15sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec16">多重三角関数</a></h4>
+        <p>
+          ・<a href="#sec16sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec17">誤差関数</a></h4>
+        <p>
+          ・<a href="#sec17sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec18">不完全ガンマ関数</a></h4>
+        <p>
+          ・<a href="#sec18sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec19">ベッセル関数</a></h4>
+        <p>
+          ・<a href="#sec19sec01">定義</a><br>
+          ・<a href="#sec19sec02">等式</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec20">ストルーヴェ関数</a></h4>
+        <p>
+          ・<a href="#sec20sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec21">エアリー関数</a></h4>
+        <p>
+          ・<a href="#sec21sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec22">マイヤーのG関数</a></h4>
+        <p>
+          ・<a href="#sec22sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec23">楕円積分</a></h4>
+        <p>
+          ・<a href="#sec23sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec24">ヤコビの楕円関数</a></h4>
+        <p>
+          ・<a href="#sec24sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec25">楕円テータ関数</a></h4>
+        <p>
+          ・<a href="#sec25sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec26">クラウセン関数</a></h4>
+        <p>
+          ・<a href="#sec26sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec27">正弦積分・余弦積分</a></h4>
+        <p>
+          ・<a href="#sec27sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec28">フレネル積分</a></h4>
+        <p>
+          ・<a href="#sec28sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec29">ディラックのデルタ関数</a></h4>
+        <p>
+          ・<a href="#sec29sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec30">ヘヴィサイドの階段関数</a></h4>
+        <p>
+          ・<a href="#sec30sec01">定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec31">q-ディガンマ関数</a></h4>
+        <p>
+          ・<a href="#sec31sec01">定義</a>
+        </p>
+      </div>
+    </div>
+  </header>
+  <script type="text/javascript">
+    window_load(); //読み込み時の表示
+    window.onresize = window_load; //ウィンドウサイズ変更時に更新
+    function window_load() {
+      for (var i = 0; i < document.querySelectorAll("img#equ").length; i++) {
+        document.querySelectorAll("img#equ")[i].classList.add('ignore');
+      }
+      if (window.innerWidth > window.innerHeight) {
+        for (var i = 0; i < document.querySelectorAll("img#equ").length; i++) {
+          document.querySelectorAll("img#equ")[i].style.zoom = "1.7";
+        }
+      } else {
+        for (var i = 0; i < document.querySelectorAll("img#equ").length; i++) {
+          document.querySelectorAll("img#equ")[i].style.zoom = "1.4";
+        }
+      }
+    }
+  </script>
+</body>
+</html>
