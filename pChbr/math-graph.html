@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>グラフ - 数学探検録</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  <!-- <link rel="shortcut icon" href="img/favicon.ico"> -->
+  <link rel="stylesheet" type="text/css" href="basic.css">
+  <link rel="stylesheet" type="text/css" href="my_sidemenu.css">
+  <style type="text/css">
+    img#equ { zoom: 1.7; }
+    div.equ { margin: 0.5em; }
+    .equ { overflow: auto; }
+  </style>
+</head>
+<body style="margin: 0px; background: #FFF5D0;">
+  <div style="margin: 8px;"><span class="desc">uploaded:2021/03/04</span></div>
+  <div>
+    <div class="main">
+      <h1 id="top">グラフ</h1>
+      <div class="headline" id="sec01" style="border-left: solid 10px #ff5400;">Twitterのアイコン</div>
+      <h3 id="sec01sec01">星型ハイポサイクロイド(内サイクロイド)</h3>
+      <div align="center"><img src="img/graph_img01.png" style="max-width: 500px;"></div>
+      <p>式</p><br>
+      <div align="center" class="equ"><img id="equ" src="img/graph_equ01.svg" style="height: 2.5em;"></div>
+      <h3 id="sec01sec02">クローバーのグラフ</h3>
+      <div align="center"><img src="img/graph_img02.png" style="max-width: 500px;"></div>
+      <p>式</p><br>
+      <div align="center" class="equ"><img id="equ" src="img/graph_equ02.svg" style="height: 1em;"></div>
+      <h3 id="sec01sec03">虹色の星</h3>
+      <div align="center"><img src="img/graph_img04.png" style="max-width: 500px;"></div>
+      <p>式</p><br>
+      <div align="center" class="equ"><img id="equ" src="img/graph_equ04.svg" style="height: 2em;"></div>
+      <h3 id="sec01sec04">5代目アイコン</h3>
+      <div align="center"><img src="img/graph_img05.png" style="max-width: 500px;"></div>
+      <p>式</p><br>
+      <div align="center" class="equ"><img id="equ" src="img/graph_equ05.svg" style="height: 2em;"></div>
+    </div>
+  </div>
+  <div align="right" style="margin: 8px;"><span style="font-size: 70%;">constructed by: Rinca Hayamine</span></div>
+  <header>
+    <div class="menu-button no-select"><label for="check"><div style="margin-top: 0.75em;">三</div></label></div>
+    <input type="checkbox" name="check" id="check" style="display: none;">
+    <div class="move-box">
+      <div class="content">
+        <h2><a href="pChbr-home.html">Home</a></h2>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec01">Twitterのアイコン</a></h4>
+        <p>
+          ・<a href="#sec01sec01">星型ハイポサイクロイド(内サイクロイド)</a><br>
+          ・<a href="#sec01sec02">クローバーのグラフ</a><br>
+          ・<a href="#sec01sec03">虹色の星</a><br>
+          ・<a href="#sec01sec04">5代目アイコン</a>
+        </p>
+      </div>
+    </div>
+  </header>
+  <script type="text/javascript">
+    window_load(); //読み込み時の表示
+    window.onresize = window_load; //ウィンドウサイズ変更時に更新
+    function window_load() {
+      for (var i = 0; i < document.querySelectorAll("img#equ").length; i++) {
+        document.querySelectorAll("img#equ")[i].classList.add('ignore');
+      }
+      if (window.innerWidth > window.innerHeight) {
+        for (var i = 0; i < document.querySelectorAll("img#equ").length; i++) {
+          document.querySelectorAll("img#equ")[i].style.zoom = "1.7";
+        }
+      } else {
+        for (var i = 0; i < document.querySelectorAll("img#equ").length; i++) {
+          document.querySelectorAll("img#equ")[i].style.zoom = "1.4";
+        }
+      }
+    }
+  </script>
+</body>
+</html>
