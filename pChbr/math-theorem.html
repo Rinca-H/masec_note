@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>グラフ - 数学探検録</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  <!-- <link rel="shortcut icon" href="img/favicon.ico"> -->
+  <link rel="stylesheet" type="text/css" href="basic.css">
+  <link rel="stylesheet" type="text/css" href="my_sidemenu.css">
+  <style type="text/css">
+    img#equ { zoom: 1.7; }
+    div.equ { margin: 0.5em; }
+    .equ { overflow: auto; }
+  </style>
+</head>
+<body style="margin: 0px; background: #FFF5D0;">
+  <div style="margin: 8px;"><span class="desc">uploaded:2021/12/01</span></div>
+  <div>
+    <div class="main">
+      <h1 id="top">定理</h1>
+      <div class="headline" id="sec01" style="border-left: solid 10px #ff5400;">その他</div>
+      <h3 id="sec01sec01">ゼッケンドルフの定理</h3>
+        <p>
+          　任意の自然数は連続しない相異なるフィボナッチ数の和でただ1通りに表せる。<br>
+          \(100 = 3 + 8 + 89\)
+        </p>
+    </div>
+  </div>
+  <div align="right" style="margin: 8px;"><span style="font-size: 70%;">constructed by: Rinca Hayamine</span></div>
+  <header>
+    <div class="menu-button no-select"><label for="check"><div style="margin-top: 0.75em;">三</div></label></div>
+    <input type="checkbox" name="check" id="check" style="display: none;">
+    <div class="move-box">
+      <div class="content">
+        <h2><a href="pChbr-home.html">Home</a></h2>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec01">その他</a></h4>
+        <p>
+          ・<a href="#sec01sec01">ゼッケンドルフの定理</a>
+        </p>
+      </div>
+    </div>
+  </header>
+  <script type="text/javascript">
+    window_load(); //読み込み時の表示
+    window.onresize = window_load; //ウィンドウサイズ変更時に更新
+    function window_load() {
+      for (var i = 0; i < document.querySelectorAll("img#equ").length; i++) {
+        document.querySelectorAll("img#equ")[i].classList.add('ignore');
+      }
+      if (window.innerWidth > window.innerHeight) {
+        for (var i = 0; i < document.querySelectorAll("img#equ").length; i++) {
+          document.querySelectorAll("img#equ")[i].style.zoom = "1.7";
+        }
+      } else {
+        for (var i = 0; i < document.querySelectorAll("img#equ").length; i++) {
+          document.querySelectorAll("img#equ")[i].style.zoom = "1.4";
+        }
+      }
+    }
+  </script>
+</body>
+</html>
