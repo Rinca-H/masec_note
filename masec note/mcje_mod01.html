@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="カラのMODを作る" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="(自分用)" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <title>カラのMODを作る - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/atelier-estuary-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="basic.css">
+  <link rel="stylesheet" type="text/css" href="masec_note.css">
+  <link rel="stylesheet" type="text/css" href="masec_note_mokuzi.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div style="padding: 0.5em;"><img id="logo" src="img/masec_note_black.png"></div>
+  <div style="margin: 8px;"><span class="desc">uploaded:2021/12/09</span></div>
+  <div id="whole">
+    <div id="main">
+      <div class="caution">
+        <img src="img/caution.png" class="ignore"> 内容の変更が予定されている記事です！
+      </div>
+      <h1 id="top">MOD作成 - カラのMODの作り方</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <p>　MODの作成環境とかをぶっ飛ばしてとりあえず自分用に書きます、、、</p>
+      <div id="sec01" class="headline" style="border-left: solid 10px #FF6169;">環境</div>
+      <p>　一応わたしがどんな環境で作っているかサラッと書きます。</p>
+      <div style="text-align: center;">
+        <div style="text-align: left;" class="gray_box">
+        マイクラのバージョン：v1.16.5<br>
+        Javaいじるツール：Eclipse(日本語化？なし)<br>
+        JDKのバージョン：17.0.1<br>
+        JREのバージョン：17.0.1
+        </div>
+      </div>
+      <div id="sec02" class="headline" style="border-left: solid 10px #FF6169;">Forgeのセットアップ</div>
+      <h3 id="sec02sec01">mdkの展開</h3>
+      <p>
+        　MOD作る用のフォルダ(<b>ここでは名前をnew_modとする</b>)を適当に決めて、Forgeのmdkをその中に展開します。<br>
+        　new_modの中身はこんな感じになると思います。
+      </p>
+      <div style="text-align: center;">
+        <div style="text-align: left;" class="gray_box">
+          ━ ┳ gradle<br>
+          　 ┣ src<br>
+          　 ┣ .gitattributes<br>
+          　 ┣ .gitignore<br>
+          　 ┣ build.gradle<br>
+          　 ┣ changelog.txt<br>
+          　 ┣ CREDITS.txt<br>
+          　 ┣ gradle.properties<br>
+          　 ┣ gradlew<br>
+          　 ┣ gradlew<br>
+          　 ┣ LICENSE.txt<br>
+          　 ┗ README.txt
+        </div>
+      </div>
+      <h3 id="sec02sec02">バッチファイルの作成/実行</h3>
+      <p>　new_modの中にテキストファイルを新規作成して、以下のコマンドをコピペします。</p>
+      <div class="demoCode">gradlew genEclipseRuns --refresh-dependencies&&gradlew eclipse</div>
+      <p>
+        　そしたらそのテキストファイルの拡張子を「.bat」にします。<br>
+        　ファイル名はなんでもいいらしいですが「setup.bat」で習ったのでそうしておくのがいいと思います。<br>
+        　あと、これはEclipseを使う場合にしか通用しないのでそこらへん注意してください。<br><br>
+        　作った.batファイルはダブルクリックで実行します。けっこう時間かかります。かからなかったら何かミスしてます。<br>
+        　コマンドプロンプトの画面で緑字の「BUILD SUCCESSFUL」が表示されれば成功です。成功しても失敗しても処理が終われば勝手にウィンドウが閉じます。
+      </p>
+      <div id="sec03" class="headline" style="border-left: solid 10px #FF6169;">Eclipseの作業</div>
+      <h3 id="sec03sec01">Gradleプロジェクトのインポート</h3>
+      <p>
+        　ワークスペースは適当に決めてEclipseを開きます。<br>
+        　左上の「File > Import」を押して、「Gradle」の「Existing Gradle Object」を選択肢して「Next」
+      </p>
+      <img src="img/mcje-mod01.png">
+      <p>
+        　もう一回「Next」を押したら右上の「Browse」を押して、new_modフォルダを選択します。<br>
+        　指定したら「Finish」
+      </p>
+      <h3 id="sec03sec02">マイクラを起動</h3>
+      <p>
+        　試しにマイクラを起動してみます。<br>
+        　Eclipseの下のウィンドウの「Gradle Tasks」タブを押して、「new_mod」の中の「forgegradle runs」の中の「runClient」をダブルクリック。<br><br>
+        　確認が終わったらゲームは閉じてください。
+      </p>
+      <img src="img/mcje-mod02.png">
+      <div id="sec04" class="headline" style="border-left: solid 10px #FF6169;">メインクラス</div>
+      <h3 id="sec04sec01">名前とかを変える</h3>
+      <p>
+        　Forgeにもとから入っているExampleModをベースに作ります。<br>
+        　左のPackage Explorerから「new_mod > src/main/java」の中にある「com.example.exmaplemod」を右クリック。
+        真ん中より少し上にある「Refactor」から「Rename」をクリック。<br>
+        「example」と「examplemod」の部分を変えて「Finish」を押します。今回は「com.masec.newmod」にします。<br><br>
+        　同じ手順でその中にある「ExampleMod.java」も名前を変えます。今回は「NewMod.java」にしました。
+      </p>
+      <h3 id="sec04sec02">メインクラスのコード</h3>
+      <p>
+        「NewMod.java」をダブルクリックで開くとファイルが開きます。<br>
+        　そのコードでいらないところとかをバッサバッサ消していったりちょっと編集したりするとこうなります。
+      </p>
+      <div class="demoCode">package com.masec.newmod;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+// The value here should match an entry in the META-INF/mods.toml file
+@Mod(<span style="background: #83ffd9;">"new_mod"</span>)
+public class NewMod {
+  // Directly reference a log4j logger.
+  public static final Logger LOGGER = LogManager.getLogger();
+
+  public NewMod() {
+    // Register the setup method for modloading
+    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+
+    // Register ourselves for server and other game events we are interested in
+    MinecraftForge.EVENT_BUS.register(this);
+  }
+
+  private void setup(final FMLCommonSetupEvent event) {
+    // some preinit code
+
+  }
+}
+</div>
+      <p>
+        　このマーカーをした部分はModIdとなります。他のMODとカブらないようなオリジナルのIDを決めてください。<br>
+        　このお手本は世に出す気はないし、他のMODと遊ぶつもりもないのでお手本は「new_mod」としています。<br>
+        　以降ModIdとして「new_mod」が使われていたら各自で置き換えてください。
+      </p>
+      <details><summary>消す前保管用(何故ここに置く)</summary>
+        <pre><code class="java">package com.masec.newmod;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.stream.Collectors;
+
+// The value here should match an entry in the META-INF/mods.toml file
+@Mod("examplemod")
+public class NewMod
+{
+    // Directly reference a log4j logger.
+    private static final Logger LOGGER = LogManager.getLogger();
+
+    public NewMod() {
+        // Register the setup method for modloading
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        // Register the enqueueIMC method for modloading
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
+        // Register the processIMC method for modloading
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+        // Register the doClientStuff method for modloading
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+
+        // Register ourselves for server and other game events we are interested in
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    private void setup(final FMLCommonSetupEvent event)
+    {
+        // some preinit code
+        LOGGER.info("HELLO FROM PREINIT");
+        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+    }
+
+    private void doClientStuff(final FMLClientSetupEvent event) {
+        // do something that can only be done on the client
+        LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().options);
+    }
+
+    private void enqueueIMC(final InterModEnqueueEvent event)
+    {
+        // some example code to dispatch IMC to another mod
+        InterModComms.sendTo("examplemod", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
+    }
+
+    private void processIMC(final InterModProcessEvent event)
+    {
+        // some example code to receive and process InterModComms from other mods
+        LOGGER.info("Got IMC {}", event.getIMCStream().
+                map(m->m.getMessageSupplier().get()).
+                collect(Collectors.toList()));
+    }
+    // You can use SubscribeEvent and let the Event Bus discover methods to call
+    @SubscribeEvent
+    public void onServerStarting(FMLServerStartingEvent event) {
+        // do something when the server starts
+        LOGGER.info("HELLO from server starting");
+    }
+
+    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
+    // Event bus for receiving Registry Events)
+    @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
+    public static class RegistryEvents {
+        @SubscribeEvent
+        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
+            // register a new block here
+            LOGGER.info("HELLO from Register Block");
+        }
+    }
+}
+</code></pre>
+      </details>
+      <h3 id="sec04sec03">概要欄をカスタマイズ</h3>
+      <p>
+        「src/main/resources」の中の「META-INF」の中の「mod.toml」を右クリックし、「Open With > Text Editor」を選択して開きます。<br>
+        　これまたいらないところとかを消して編集したものがこちら。
+      </p>
+      <pre><code class="toml">modLoader="javafml"
+loaderVersion="[36,)"
+license="All rights reserved"
+
+[[mods]]
+modId="new_mod"
+version="1.0"
+displayName="はじめてのMOD"
+logoFile="examplemod.png"
+credits="クレジット( 'ω')"
+authors="ますえく"
+description='''
+はじめてつくったぜ
+'''</code></pre>
+      <details><summary>消す前保管用2(期待？にお応え)</summary>
+        <pre><code class="toml"># This is an example mods.toml file. It contains the data relating to the loading mods.
+# There are several mandatory fields (#mandatory), and many more that are optional (#optional).
+# The overall format is standard TOML format, v0.5.0.
+# Note that there are a couple of TOML lists in this file.
+# Find more information on toml format here:  https://github.com/toml-lang/toml
+# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
+modLoader="javafml" #mandatory
+# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
+loaderVersion="[36,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+# The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
+# Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
+license="All rights reserved"
+# A URL to refer people to when problems occur with this mod
+#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+# A list of mods - how many allowed here is determined by the individual mod loader
+[[mods]] #mandatory
+# The modid of the mod
+modId="examplemod" #mandatory
+# The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
+# ${file.jarVersion} will substitute the value of the Implementation-Version as read from the mod's JAR file metadata
+# see the associated build.gradle script for how to populate this completely automatically during a build
+version="${file.jarVersion}" #mandatory
+ # A display name for the mod
+displayName="Example Mod" #mandatory
+# A URL to query for updates for this mod. See the JSON update specification https://mcforge.readthedocs.io/en/latest/gettingstarted/autoupdate/
+#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
+# A URL for the "homepage" for this mod, displayed in the mod UI
+#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
+# A file name (in the root of the mod JAR) containing a logo for display
+logoFile="examplemod.png" #optional
+# A text field displayed in the mod UI
+credits="Thanks for this example mod goes to Java" #optional
+# A text field displayed in the mod UI
+authors="Love, Cheese and small house plants" #optional
+# The description text for the mod (multi line!) (#mandatory)
+description='''
+This is a long form description of the mod. You can write whatever you want here
+
+Have some lorem ipsum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed sagittis luctus odio eu tempus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque volutpat ligula eget lacus auctor sagittis. In hac habitasse platea dictumst. Nunc gravida elit vitae sem vehicula efficitur. Donec mattis ipsum et arcu lobortis, eleifend sagittis sem rutrum. Cras pharetra quam eget posuere fermentum. Sed id tincidunt justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+'''
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.examplemod]] #optional
+    # the modid of the dependency
+    modId="forge" #mandatory
+    # Does this dependency have to exist - if not, ordering below must be specified
+    mandatory=true #mandatory
+    # The version range of the dependency
+    versionRange="[36,)" #mandatory
+    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    ordering="NONE"
+    # Side this dependency is applied on - BOTH, CLIENT or SERVER
+    side="BOTH"
+# Here's another dependency
+[[dependencies.examplemod]]
+    modId="minecraft"
+    mandatory=true
+# This version range declares a minimum of the current minecraft version up to but not including the next major version
+    versionRange="[1.16.5,1.17)"
+    ordering="NONE"
+    side="BOTH"
+</code></pre>
+      </details>
+      <div class="demoCode">modLoader="javafml"
+loaderVersion="[36,)"
+license="All rights reserved"
+
+[[mods]]
+modId=<span style="background: #83ffd9;">"new_mod"</span>
+version=<span style="background: #83ffd9;">"1.0"</span>
+displayName=<span style="background: #83ffd9;">"はじめてのMOD"</span>
+logoFile="examplemod.png"
+credits=<span style="background: #83ffd9;">"クレジット( 'ω')"</span>
+authors=<span style="background: #83ffd9;">"ますえく"</span>
+description='''
+<span style="background: #83ffd9;">はじめてつくったぜ</span>
+'''</div>
+      <p>
+        　マーカーしたところを各自で編集してください。上からModId、MODのバージョン、MODの名前、クレジット、作者名、説明文です。
+        説明文は改行できます。
+      </p>
+      <div id="sec05" class="headline" style="border-left: solid 10px #FF6169;">マイクラを起動して確認</div>
+      <p>
+        　<a href="#sec03sec02">先ほど</a>と同様にしてマイクラを起動します。テストプレイは毎度同じ方法で起動します。
+      </p>
+    </div>
+    <div id="sidebar">
+      <iframe src="side_bar.html"></iframe>
+    </div>
+  </div>
+  <div align="right" style="margin: 8px;"><span style="font-size: 70%;">constructed by: Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <a href="masec_note_home.html"><img id="logo" src="img/masec_note_black.png"></a>
+      <div class="menu-button no-select"><label for="check"><div style="display: table-cell; vertical-align: middle;">≡</div></label></div>
+    </div>
+    <input type="checkbox" name="check" id="check" style="display: none;">
+    <div id="move-box">
+      <div class="menu-close no-select"><label for="check">×</label></div>
+      <div class="content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec01">環境</a></h4>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec02">Forgeのセットアップ</a></h4>
+        <p>
+          ・<a href="#sec02sec01">mdkの展開</a><br>
+          ・<a href="#sec02sec02">バッチファイルの作成/実行</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec03">Eclipseでの作業</a></h4>
+        <p>
+          ・<a href="#sec03sec01">Gradleプロジェクトのインポート</a><br>
+          ・<a href="#sec03sec02">マイクラを起動</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec04">メインクラス</a></h4>
+        <p>
+          ・<a href="#sec04sec01">名前とかを変える</a><br>
+          ・<a href="#sec04sec02">メインクラスのコード</a><br>
+          ・<a href="#sec04sec03">概要欄をカスタマイズ</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec05">マイクラを起動して確認</a></h4>
+      </div>
+    </div>
+  </header>
+  <script src="responsive.js"></script>
+</body>
+</html>
