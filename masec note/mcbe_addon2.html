@@ -22,7 +22,7 @@
 </head>
 <body>
   <div style="padding: 0.5em;"><img id="logo" src="img/masec_note_black.png"></div>
-  <div style="margin: 8px;"><span class="desc">uploaded:2021/11/13</span></div>
+  <div style="margin: 8px;"><span class="desc">uploaded:2021/12/09</span></div>
   <div id="whole">
     <div id="main">
       <h1 id="top">アドオン作成 - パックの作り方</h1>
@@ -37,7 +37,7 @@
         　 ┣ (追加したいコンテンツのフォルダ群)<br>
         　 ┗ pack_icon.png
       </div></div>
-      <h3 id="sec01sec01">■ manifest.jsonの作成/編集</h3>
+      <div id="sec02" class="headline" style="border-left: solid 10px #587EFF;">manifest.jsonの作成/編集</div>
       <p>
         　manifest.jsonはコピー&ペーストして少し書き換えるだけで十分です。テンプレートか以下のjsonをコピーするといいでしょう。
       </p>
@@ -61,31 +61,138 @@
   ]
 }</code></pre>
       <p>
-        　書き換えるべき場所について説明します。例えば「"abc": "xyz"」とある行の"値を変える"ときは、コロン( : )の右側(この場合"xyz")を別のものに書き換えます。<br>
+        　以下の部分を書き換えていきます。
       </p>
-      <pre><code class="json">{
-  "abc": "xyz"
-}</code></pre>
-      <p>
-        　<b><span style="color: red;">以降こういった場合の指示をこのサイトでは「abcの値を"xyz"にする(変える)」といいます。</span></b><br>
-        「"abc": "xyz" → ""xyz"": "xyz"」みたいな勘違いはしないでください。
-      </p>
-      <h4>description(4,12行目)</h4>
+      <hr>
+      <h3 id="sec02sec01">description</h3>
+      <div class="demoCode">{
+  "format_version": 2,
+  "header": {
+    "description": "<span style="background: #83ffd9;">Example vanilla behavior pack</span>",
+    "name": "Vanilla Behavior Pack",
+    "uuid": "ee649bcf-256c-4013-9068-6a802b89d756",
+    "version": [ 0, 0, 1 ],
+    "min_engine_version": [ 1, 16, 210 ]
+  },
+  "modules": [
+    {
+      "description": "<span style="background: #83ffd9;">Example vanilla behavior pack</span>",
+      "type": "data",
+      "uuid": "fa6e90c8-c925-460f-8155-c8a60b753caa",
+      "version": [0, 0, 1]
+    }
+  ]
+}</div>
       <p>　パックの説明。</p>
-      <h4>name(5行目)</h4>
+      <hr>
+      <h3 id="sec02sec02">name</h3>
+      <div class="demoCode">{
+  "format_version": 2,
+  "header": {
+    "description": "Example vanilla behavior pack",
+    "name": "<span style="background: #83ffd9;">Vanilla Behavior Pack</span>",
+    "uuid": "ee649bcf-256c-4013-9068-6a802b89d756",
+    "version": [ 0, 0, 1 ],
+    "min_engine_version": [ 1, 16, 210 ]
+  },
+  "modules": [
+    {
+      "description": "Example vanilla behavior pack",
+      "type": "data",
+      "uuid": "fa6e90c8-c925-460f-8155-c8a60b753caa",
+      "version": [0, 0, 1]
+    }
+  ]
+}</div>
       <p>　パックの名前。</p>
-      <h4>version(7行目)</h4>
+      <hr>
+      <h3 id="sec02sec03">version</h3>
+      <div class="demoCode">{
+  "format_version": 2,
+  "header": {
+    "description": "Example vanilla behavior pack",
+    "name": "Vanilla Behavior Pack",
+    "uuid": "ee649bcf-256c-4013-9068-6a802b89d756",
+    "version": [ <span style="background: #83ffd9;">0, 0, 1</span> ],
+    "min_engine_version": [ 1, 16, 210 ]
+  },
+  "modules": [
+    {
+      "description": "Example vanilla behavior pack",
+      "type": "data",
+      "uuid": "fa6e90c8-c925-460f-8155-c8a60b753caa",
+      "version": [0, 0, 1]
+    }
+  ]
+}</div>
       <p>　パックのバージョン。</p>
-      <h4>min_engin_version(8行目)</h4>
+      <hr>
+      <h3 id="sec02sec04">min_engin_version</h3>
+      <div class="demoCode">{
+  "format_version": 2,
+  "header": {
+    "description": "Example vanilla behavior pack",
+    "name": "Vanilla Behavior Pack",
+    "uuid": "ee649bcf-256c-4013-9068-6a802b89d756",
+    "version": [ 0, 0, 1 ],
+    "min_engine_version": [ <span style="background: #83ffd9;">1, 16, 210</span> ]
+  },
+  "modules": [
+    {
+      "description": "Example vanilla behavior pack",
+      "type": "data",
+      "uuid": "fa6e90c8-c925-460f-8155-c8a60b753caa",
+      "version": [0, 0, 1]
+    }
+  ]
+}</div>
       <p>　このパックが動作する最低バージョン。</p>
-      <h4>uuid(6,14行目)</h4>
+      <hr>
+      <h3 id="sec02sec05">uuid</h3>
+      <div class="demoCode">{
+  "format_version": 2,
+  "header": {
+    "description": "Example vanilla behavior pack",
+    "name": "Vanilla Behavior Pack",
+    "uuid": "<span style="background: #83ffd9;">ee649bcf-256c-4013-9068-6a802b89d756</span>",
+    "version": [ 0, 0, 1 ],
+    "min_engine_version": [ 1, 16, 210 ]
+  },
+  "modules": [
+    {
+      "description": "Example vanilla behavior pack",
+      "type": "data",
+      "uuid": "<span style="background: #83ffd9;">fa6e90c8-c925-460f-8155-c8a60b753caa</span>",
+      "version": [0, 0, 1]
+    }
+  ]
+}</div>
       <p>
-        　UUIDという、マインクラフト本体がパックを識別するためのものです。ほかのパックと同じUUIDをもつと導入できないので別のUUIDに変更します。<br>
+        　<b>UUID</b>という、マインクラフト本体がパックを識別するためのものです。<b>ほかのパックと同じUUIDをもつと導入できない</b>ので別のUUIDに変更します。<br>
         　UUIDは<a href="https://www.uuidgenerator.net/" target="_blank" rel="noopener noreferrer">このサイト</a>で生成することができます。
       </p>
-      <h4>type(13行目)</h4>
-      <p>　ビヘイビアパックなら"data"、リソースパックなら"resource"にします。</p>
-      <h3 id="sec01sec02">■ パックを圧縮</h3>
+      <hr>
+      <h3 id="sec02sec06">type</h3>
+      <div class="demoCode">{
+  "format_version": 2,
+  "header": {
+    "description": "Example vanilla behavior pack",
+    "name": "Vanilla Behavior Pack",
+    "uuid": "ee649bcf-256c-4013-9068-6a802b89d756",
+    "version": [ 0, 0, 1 ],
+    "min_engine_version": [ 1, 16, 210 ]
+  },
+  "modules": [
+    {
+      "description": "Example vanilla behavior pack",
+      "type": "<span style="background: #83ffd9;">data</span>",
+      "uuid": "fa6e90c8-c925-460f-8155-c8a60b753caa",
+      "version": [0, 0, 1]
+    }
+  ]
+}</div>
+      <p>　ビヘイビアパックなら<b>"data"</b>、リソースパックなら<b>"resource"</b>にします。</p>
+      <div id="sec03" class="headline" style="border-left: solid 10px #587EFF;">パックを圧縮</div>
       <p>
         　先ほどにも示した以下のファイル・フォルダをすべて選択して圧縮します。
       </p>
@@ -97,21 +204,21 @@
       <img src="img/mcbe-addon2-01.png">
       <p>
         　できた.zipファイルは名前を変えて拡張子「.zip」を「.mcpack」に無理やり変えます。<br>
-        　PCだと拡張子を変えたときに、ファイルが壊れると警告されますが「.zip ↔ .mcpack」の変更は大丈夫です。
+        　基本的に、拡張子を変えるとファイルが壊れますが「.zip ↔ .mcpack」の変更は大丈夫です。
       </p>
       <img src="img/mcbe-addon2-02.png">
       <p>
         　あとはこの.mcpackファイルを開けば自動でマインクラフトが開いてアドオンの導入(インポート)が開始されます。
       </p>
-      <div id="sec02" class="headline" style="border-left: solid 10px #587EFF;">アドオンのアップデート</div>
+      <div id="sec04" class="headline" style="border-left: solid 10px #587EFF;">アドオンのアップデート</div>
       <p>
         　主な方法が二つあります。基本は一つ目の方法でいいと思います。
       </p>
-      <h3 id="sec02sec01">■ 基本的な方法</h3>
+      <h3 id="sec04sec01">基本的な方法</h3>
       <p>
         　またパックをインポートするのですが、その前にmanifest.jsonを編集します。7行目のversionの数値を変更してください。なんでもいいですが、アップデートするたびに数値が大きくなるようにするとよいでしょう。
       </p>
-      <h3 id="sec02sec02">■ テクニカルな方法</h3>
+      <h3 id="sec04sec02">テクニカルな方法</h3>
       <p>
         　まず、Minecraftのセーブデータが保存されている場所へ行きます。わからなければ「設定 > (一般) > クリエイター」から「コンテンツログの場所」を確認します。<br>
         　PCなら、そのファイルパスの途中「LocalState」から「games/com.mojang」、スマホなら「games/com.mojang」への行き先がそのまま確認できると思います。<br>
@@ -139,15 +246,23 @@
         </div>
         <hr>
         <h4><a href="#sec01">パックの作り方</a></h4>
+        <hr>
+        <h4><a href="#sec02">manifest.jsonの作成/編集</a></h4>
         <p>
-          ・<a href="#sec01sec01">manifest.jsonの作成/編集</a><br>
-          ・<a href="#sec01sec02">パックを圧縮</a>
+          ・<a href="#sec02sec01">description</a><br>
+          ・<a href="#sec02sec02">name</a><br>
+          ・<a href="#sec02sec03">version</a><br>
+          ・<a href="#sec02sec04">min_engine_version</a><br>
+          ・<a href="#sec02sec05">uuid</a><br>
+          ・<a href="#sec02sec06">type</a>
         </p>
         <hr>
-        <h4><a href="#sec02">アドオンのアップデート</a></h4>
+        <h4><a href="#sec03">パックを圧縮</a></h4>
+        <hr>
+        <h4><a href="#sec04">アドオンのアップデート</a></h4>
         <p>
-          ・<a href="#sec02sec01">基本的な方法</a><br>
-          ・<a href="#sec02sec02">テクニカルな方法</a>
+          ・<a href="#sec04sec01">基本的な方法</a><br>
+          ・<a href="#sec04sec02">テクニカルな方法</a>
         </p>
       </div>
     </div>
