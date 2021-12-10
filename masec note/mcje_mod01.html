@@ -22,7 +22,7 @@
 </head>
 <body>
   <div style="padding: 0.5em;"><img id="logo" src="img/masec_note_black.png"></div>
-  <div style="margin: 8px;"><span class="desc">uploaded:2021/12/09</span></div>
+  <div style="margin: 8px;"><span class="desc">uploaded:2021/12/10</span></div>
   <div id="whole">
     <div id="main">
       <div class="caution">
@@ -79,7 +79,7 @@
         　ワークスペースは適当に決めてEclipseを開きます。<br>
         　左上の「File > Import」を押して、「Gradle」の「Existing Gradle Object」を選択肢して「Next」
       </p>
-      <img src="img/mcje-mod01.png">
+      <img src="img/mcje-mod01-01.png">
       <p>
         　もう一回「Next」を押したら右上の「Browse」を押して、new_modフォルダを選択します。<br>
         　指定したら「Finish」
@@ -90,7 +90,7 @@
         　Eclipseの下のウィンドウの「Gradle Tasks」タブを押して、「new_mod」の中の「forgegradle runs」の中の「runClient」をダブルクリック。<br><br>
         　確認が終わったらゲームは閉じてください。
       </p>
-      <img src="img/mcje-mod02.png">
+      <img src="img/mcje-mod01-02.png">
       <div id="sec04" class="headline" style="border-left: solid 10px #FF6169;">メインクラス</div>
       <h3 id="sec04sec01">名前とかを変える</h3>
       <p>
@@ -105,7 +105,7 @@
         「NewMod.java」をダブルクリックで開くとファイルが開きます。<br>
         　そのコードでいらないところとかをバッサバッサ消していったりちょっと編集したりするとこうなります。
       </p>
-      <div class="demoCode">package com.masec.newmod;
+      <pre><code class="java">package com.masec.newmod;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -116,14 +116,16 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod(<span style="background: #83ffd9;">"new_mod"</span>)
+@Mod(NewMod.MOD_ID)
 public class NewMod {
   // Directly reference a log4j logger.
   public static final Logger LOGGER = LogManager.getLogger();
+  
+  public static final String MOD_ID = "new_mod";
 
   public NewMod() {
-    // Register the setup method for modloading
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    bus.addListener(this::setup);
 
     // Register ourselves for server and other game events we are interested in
     MinecraftForge.EVENT_BUS.register(this);
@@ -134,9 +136,44 @@ public class NewMod {
 
   }
 }
-</div>
+</code></pre>
       <p>
-        　このマーカーをした部分はModIdとなります。他のMODとカブらないようなオリジナルのIDを決めてください。<br>
+        　書き換える場所をマーカーで示しました。枠は見やすくするためにあるだけです。
+      </p>
+      <div class="demoCode">package com.<span style="background: #83ffd9;">new_mod.newmod</span>;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+// The value here should match an entry in the META-INF/mods.toml file
+@Mod(<span style="background: #83ffd9;">NewMod</span>.MOD_ID)
+<div class="demoMark_r">public class <span style="background: #83ffd9;">NewMod</span> {
+  // Directly reference a log4j logger.
+  public static final Logger LOGGER = LogManager.getLogger();
+  
+  public static final String MOD_ID = <span style="background: #83ffd9;">"new_mod"</span>;
+
+  <div class="demoMark_b">public <span style="background: #83ffd9;">NewMod</span>() {
+  IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+  bus.addListener(this::setup);
+
+  // Register ourselves for server and other game events we are interested in
+  MinecraftForge.EVENT_BUS.register(this);
+}</div>
+
+  <div class="demoMark_b">private void setup(final FMLCommonSetupEvent event) {
+  // some preinit code
+
+}</div>
+}</div></div>
+      <p>
+        　NewModのところはこのjavaファイルの名前と揃えてください。<br>
+        　真ん中の"new_mod"はModIdとなります。他のMODとカブらないようなオリジナルのIDを決めてください。<br>
         　このお手本は世に出す気はないし、他のMODと遊ぶつもりもないのでお手本は「new_mod」としています。<br>
         　以降ModIdとして「new_mod」が使われていたら各自で置き換えてください。
       </p>
@@ -239,12 +276,12 @@ license="All rights reserved"
 [[mods]]
 modId="new_mod"
 version="1.0"
-displayName="はじめてのMOD"
+displayName="New Mod"
 logoFile="examplemod.png"
-credits="クレジット( 'ω')"
-authors="ますえく"
+credits="Credit Here"
+authors="Masec"
 description='''
-はじめてつくったぜ
+I made a Mod for the first time :)
 '''</code></pre>
       <details><summary>消す前保管用2(期待？にお応え)</summary>
         <pre><code class="toml"># This is an example mods.toml file. It contains the data relating to the loading mods.
@@ -318,12 +355,12 @@ license="All rights reserved"
 [[mods]]
 modId=<span style="background: #83ffd9;">"new_mod"</span>
 version=<span style="background: #83ffd9;">"1.0"</span>
-displayName=<span style="background: #83ffd9;">"はじめてのMOD"</span>
+displayName=<span style="background: #83ffd9;">"New Mod"</span>
 logoFile="examplemod.png"
-credits=<span style="background: #83ffd9;">"クレジット( 'ω')"</span>
-authors=<span style="background: #83ffd9;">"ますえく"</span>
+credits=<span style="background: #83ffd9;">"Credit Here"</span>
+authors=<span style="background: #83ffd9;">"Masec"</span>
 description='''
-<span style="background: #83ffd9;">はじめてつくったぜ</span>
+<span style="background: #83ffd9;">I made a Mod for the first time :)</span>
 '''</div>
       <p>
         　マーカーしたところを各自で編集してください。上からModId、MODのバージョン、MODの名前、クレジット、作者名、説明文です。
@@ -331,7 +368,8 @@ description='''
       </p>
       <div id="sec05" class="headline" style="border-left: solid 10px #FF6169;">マイクラを起動して確認</div>
       <p>
-        　<a href="#sec03sec02">先ほど</a>と同様にしてマイクラを起動します。テストプレイは毎度同じ方法で起動します。
+        　<a href="#sec03sec02">先ほど</a>と同様にしてマイクラを起動します。テストプレイは毎度同じ方法で起動します。<br>
+        　タイトル画面の「Mod」から自分のMODが確認できれば成功です！
       </p>
     </div>
     <div id="sidebar">
