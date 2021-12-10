@@ -1,7 +1,7 @@
 window_load(); //読み込み時の表示
 window.onresize = window_load; //ウィンドウサイズ変更時に更新
 function window_load() {
-  if (window.innerWidth > window.innerHeight) {  //pc
+  if (window.innerWidth > window.innerHeight+100) {  //pc
     document.querySelectorAll("#whole")[0].style.display = "flex";
     document.querySelectorAll("#main")[0].style.width = "60vw";
     document.querySelectorAll("#main")[0].style.marginLeft = "4em";
