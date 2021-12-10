@@ -6,10 +6,14 @@ function window_load() {
     document.querySelectorAll("#main")[0].style.width = "60vw";
     document.querySelectorAll("#main")[0].style.marginLeft = "4em";
     document.querySelectorAll("#sidebar")[0].style.margin = "0em 2em 0em 0em";
+    document.querySelectorAll("#sidebar")[0].style.maxWidth = "275px";
+    document.querySelectorAll("#sidebar")[0].style.display = "inline-block";
   } else {  //phone
     document.querySelectorAll("#whole")[0].style.display = "inline";
     document.querySelectorAll("#main")[0].style.width = "90%";
     document.querySelectorAll("#main")[0].style.margin = "0em 0em 0em 1em";
     document.querySelectorAll("#sidebar")[0].style.margin = "0em 1em";
+    document.querySelectorAll("#sidebar")[0].style.maxWidth = "80%";
+    document.querySelectorAll("#sidebar")[0].style.display = "flex";
   }
 }
