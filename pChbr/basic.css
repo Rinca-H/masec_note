@@ -1,7 +1,7 @@
 /*
 
 Be careful to edit this code!
-You copied this file from C:/Users/masec/Desctop/html/integrated/basic.css
+You copied this file from ~/Desctop/html/integrated/basic.css
 
 */
 
@@ -41,7 +41,9 @@ th, td {
   /* text-align: center; */
 }
 details {
-  margin: 1em;
+  margin: 0.5em;
+  padding-left: 1em;
+  border-left: 3px solid #f3e8be;
 }
 summary {
   cursor: pointer;
