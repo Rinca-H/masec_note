@@ -51,11 +51,12 @@
       <pre><code class="java">package com.masec.newmod.item;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 
 public class TestIngot extends Item {
 
   public TestIngot() {
-    super(new Properties());
+    super(new Properties().tab(ItemGroup.TAB_MISC));
   }
 
 }</code></pre>
@@ -66,14 +67,30 @@ public class TestIngot extends Item {
         <div class="demoCode">package com.<span style="background: #83ffd9;">masec.newmod</span>.item;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 
 public class <span style="background: #83ffd9;">TestIngot</span> extends Item {
 
   public <span style="background: #83ffd9;">TestIngot</span>() {
-    super(new Properties());
+    super(new Properties().tab(ItemGroup.<span style="background: #ffc8f1;">TAB_MISC</span>));
   }
 
 }</div>
+      <p>
+        桃色でマーカーしたところはクリエイティブインベントリのカテゴリタブを指定する部分です。以下から選んでください。
+      </p>
+      <table border="1">
+        <tr><th>変数</th><th>概要</th></tr>
+        <tr><td>TAB_BUILDING_BLOCKS</td><td>建築ブロック</td></tr>
+        <tr><td>TAB_DECORATIONS</td><td>装飾ブロック</td></tr>
+        <tr><td>TAB_REDSTONE</td><td>レッドストーン</td></tr>
+        <tr><td>TAB_MISC</td><td>その他</td></tr>
+        <tr><td>TAB_TRANSPORTATION</td><td>運送</td></tr>
+        <tr><td>TAB_COMBAT</td><td>戦闘</td></tr>
+        <tr><td>TAB_TOOLS</td><td>道具</td></tr>
+        <tr><td>TAB_FOOD</td><td>食料</td></tr>
+        <tr><td>TAB_BREWING</td><td>醸造</td></tr>
+      </table>
       </details>
       <div id="sec02" class="headline" style="border-left: solid 10px #64ec86;">アイテムを登録</div>
       <p>
