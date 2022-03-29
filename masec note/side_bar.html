@@ -1,3 +1,5 @@
+<!-- LAST EDIT : 2022-03-30 -->
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,6 +10,13 @@
   <link rel="stylesheet" type="text/css" href="basic.css">
   <link rel="stylesheet" type="text/css" href="masec_note.css">
   <style type="text/css">
+    @font-face {
+      font-family: 'M PLUS Rounded 1c';
+      src: url('MPLUSRounded1c-Regular.ttf');
+    }
+    body {
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+    }
     .sec {
       border-bottom: solid 2px #ff5400;
       border-left: solid 8px #ff5400;
@@ -21,57 +30,76 @@
     .text_fff > a:hover { color: #ddd; text-decoration: underline; }
   </style>
 </head>
+<!-- https://rinca-h.github.io/minecraft/404NotFound.html -->
 <body>
   <div style="min-width: 250px;">
     <div class="sec">Minecraft BE(統合版)</div>
     <span class="secsec">アドオン作成</span><br>
+    <div class="text_fff" style="background: #ffa825; color: #fff; padding: 0.5em; margin: 0em 0em 0.5em 0em; border-radius: 8px; width: auto;">
+      <b>初心者向け</b><br>
+      ・<a href="mcbe_addon_beginner.html" target="_top">アドオンを作るひとへ</a><br>
+      ・<a href="mcbe_easy01.html" target="_top">基礎①(環境構築)</a><br>
+      ・<a href="mcbe_easy02.html" target="_top">基礎②(パックの作り方)</a><br>
+      ・<a href="mcbe_easy-block01.html" target="_top">ブロック自作①</a><br>
+      ・<a href="mcbe_easy-item01.html" target="_top">アイテム自作①</a><br>
+      ・<a href="mcbe_easy-entity00.html" target="_top">エンティティをカスタム</a><br>
+      ・<a href="mcbe_easy-entity01.html" target="_top">エンティティ自作①</a>
+    </div>
     <div class="text_fff" style="background: #587EFF; color: #fff; padding: 0.5em; margin: 0em 0em 0.5em 0em; border-radius: 8px; width: auto;">
       <b>全般</b><br>
-      ・<a href="mcbe_addon_beginner.html" target="_top">アドオンを作るひとへ</a><br>
-      ・<a href="mcbe_addon_packs.html" target="_top">パックの作り方</a><br>
+      ・<a href="mcbe_addon_packs.html" target="_top">パック</a><br>
       ・<a href="mcbe_addon_json.html" target="_top">アドオンのためのJSON</a><br>
       ・<a href="mcbe_addon_schema.html" target="_top">スキーマ的なやつ</a>
     </div>
-    <div class="text_fff" style="background: #31AF37; color: #fff ;padding: 0.5em; margin: 0.5em 0em; border-radius: 8px; width: auto;">
-      <b>リソース</b><br>
-      ・<a href="mcbe_addon_blocks-json.html" target="_top">blocks.jsonについて</a><br>
-      ・<a href="mcbe_addon_terrain_texture-json.html" target="_top">terrain_texture.jsonについて</a><br>
-      ・<a href="mcbe_addon_item_texture-json.html" target="_top">item_texture.jsonについて</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">.entity.jsonについて</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">ジオメトリの作り方</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">アニメーションコントローラ(リソース)の作り方</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">アニメーションの作り方</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">レンダーコントローラの作り方</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">パーティクルの作り方</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">テキストについて</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">シェーダ(PE)の作り方</a>
-    </div>
     <div class="text_fff" style="background: #FF6169; color: #fff; padding: 0.5em; margin: 0.5em 0em 0em 0em; border-radius: 8px; width: auto;">
       <b>ビヘイビア</b><br>
-      ・<a href="mcbe_addon_blocks.html" target="_top">ブロックの作り方</a><br>
-      ・<a href="mcbe_addon_items.html" target="_top">アイテムの作り方</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">エンティティの作り方</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">バイオームの作り方</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">フィーチャー(構造物)の作り方</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">レシピの作り方</a><br>
-      ・<a href="mcbe_addon_loot-tables.html" target="_top">ルートテーブルの作り方</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">交易テーブルの作り方</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">スポーンルールについて</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">ファンクションの作り方</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">ゲームテストの作り方</a>
+      ・<a href="mcbe_addon_blocks.html" target="_top">ブロック</a><br>
+      ・<a href="mcbe_addon_items.html" target="_top">アイテム</a><br>
+      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">エンティティ</a><br>
+      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">バイオーム</a><br>
+      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">フィーチャー(構造物)</a><br>
+      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">レシピ</a><br>
+      ・<a href="mcbe_addon_loot-tables.html" target="_top">ルートテーブル</a><br>
+      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">交易テーブル</a><br>
+      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">スポーンルール</a><br>
+      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">ファンクション</a><br>
+      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">GameTest</a>
     </div>
+    <div class="text_fff" style="background: #31AF37; color: #fff ;padding: 0.5em; margin: 0.5em 0em; border-radius: 8px; width: auto;">
+      <b>リソース</b><br>
+      ・<a href="mcbe_addon_blocks.html" target="_top">ブロック</a><br>
+      ・<a href="mcbe_addon_items.html" target="_top">アイテム</a><br>
+      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">エンティティ</a><br>
+      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">バイオーム</a><br>
+      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">パーティクルの作り方</a><br>
+      ・<a href="mcbe_addon_texts.html" target="_top">テキスト</a><br>
+      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top" style="color: #aaa;">シェーダ(PE)の作り方</a>
+    </div>
+    <!--
+    <div class="text_fff" style="background: #a8a8a8; color: #fff; padding: 0.5em; margin: 0.5em 0em 0em 0em; border-radius: 8px; width: auto;">
+      <b>オリジナルリファレンス</b><br>
+      ・<a href="mcbe_addon_blocks.html" target="_top">ブロック</a><br>
+      ・<a href="mcbe_addon_items.html" target="_top">アイテム</a><br>
+      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top">エンティティ</a><br>
+      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top">バイオーム</a><br>
+      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top">フィーチャー(構造物)</a><br>
+      ・<a href="mcbe_addon_loot-tables.html" target="_top">ルートテーブル</a><br>
+      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top"">GameTest</a>
+    </div>
+    -->
     <details style="margin: 1em;"><summary><span class="no-select">サブコンテンツ</span></summary>
-      ・<a href="https://rinca-h.github.io/minecraft/other/hp_bar.html" target="_top">HPバー</a><br>
-      ・<a href="mcbe_addon_structure_alchemy.html" target="_top">ストラクチャ錬金術のやり方</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/other/cutall.html" target="_top">カットオール</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/other/rangemine.html" target="_top">範囲破壊</a><br>
+      ・<a href="mcbe_article20220216.html" target="_top" title="パーティクルだけでHPバーをつくる">パーティクルだけでHP...</a><br>
+      ・<a href="mcbe_addon_structure_alchemy.html" target="_top" title="ストラクチャ錬金術のやり方">ストラクチャ錬金術の...</a><br>
+      ・<a href="mcbe_blog01.html" target="_top" title="圧倒的パラメータの量！飛び道具エンティティを制御するコンポーネント「minecraft:projectile」">圧倒的パラメータの量...</a><br>
+      <!--・<a href="https://rinca-h.github.io/minecraft/other/cutall.html" target="_top">カットオール</a><br>-->
+      <!--・<a href="https://rinca-h.github.io/minecraft/other/rangemine.html" target="_top">範囲破壊</a><br>-->
       ・<a href="https://rinca-h.github.io/minecraft/other/mystery.html" target="_top">謎</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/other/blockstate.html" target="_top">ブロックステート</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/other/biomeschema.html" target="_top">バイオームのスキーマ</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/other/new_item_schema.html" target="_top">新しいアイテムのスキーマ</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/other/new_block_json.html" target="_top">新しいブロックのJSON</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/other/new_item_json.html" target="_top">新しいアイテムのJSON</a><br>
-      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top">404NotFound</a>
+      <!--・<a href="https://rinca-h.github.io/minecraft/other/blockstate.html" target="_top">ブロックステート</a><br>-->
+      <!--・<a href="https://rinca-h.github.io/minecraft/other/biomeschema.html" target="_top">バイオームのスキーマ</a><br>-->
+      <!--・<a href="https://rinca-h.github.io/minecraft/other/new_item_schema.html" target="_top">新しいアイテムのスキーマ</a><br>-->
+      <!--・<a href="https://rinca-h.github.io/minecraft/other/new_block_json.html" target="_top">新しいブロックのJSON</a><br>-->
+      <!--・<a href="https://rinca-h.github.io/minecraft/other/new_item_json.html" target="_top">新しいアイテムのJSON</a><br>-->
+      ・<a href="https://rinca-h.github.io/minecraft/404NotFound.html" target="_top">404NotFoundのページ</a>
     </details>
     <div class="sec">Minecraft JE(Java版)</div>
     <!--
