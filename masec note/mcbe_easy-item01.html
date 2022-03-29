@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】アイテムの作り方#1" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="簡単なアイテムの作り方を説明します！" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, アイテム, 作り方">
+  <meta name="description" content="簡単なアイテムの作り方を説明します！">
+  <title>【Minecraft BE(統合版)】アイテムの作り方#1 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="highlight-js/masec-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード  #f4f3ec </code></pre> -->
+  <link rel="stylesheet" type="text/css" href="basic.css">
+  <link rel="stylesheet" type="text/css" href="masec_note.css">
+  <link rel="stylesheet" type="text/css" href="masec_note_mokuzi.css">
+  <style type="text/css">
+    .spn {
+      text-decoration: underline;
+      color: blue;
+      position: relative;
+      display: inline-block;
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+    .sq {
+      width: 40%;
+      min-width: 300px;
+      height: 300px;
+      background-color: azure;
+      transform: translate(-100em, calc(5vw + -450px));
+      position: absolute;
+      padding: 1em;
+      overflow: auto;
+    }
+    #switch:checked ~ div.sq {
+      transform: translate(calc(20vw - 50px), calc(5vw + -450px));
+    }
+  </style>
+</head>
+<body>
+  <div style="padding: 0.5em;"><img id="logo" src="img/masec_note_black.png"></div>
+  <div style="margin: 8px;"><span class="desc">uploaded:2021/12/02</span></div>
+  <div id="whole">
+    <div id="main">
+      <h1 id="top">アドオン作りの基礎 - アイテム編#1</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <p>
+        　手順をふんで、できるだけ簡単にアイテムの作り方を解説します！<br>
+        　前回の記事(<a href="mcbe_easy02.html">アドオンづくりの基礎#2</a>)の
+        「<a href="mcbe_easy02.html#sec01sec04">追加するコンテンツのフォルダ</a>」まで手順を進めているのが前提です。<br><br>
+        　アイテムを追加するためにはビヘイビアパックとリソースパックの<b>両方を作る必要がある</b>ので分けて説明しますが、
+        どっちでの作業なのか注意して進めてください。
+      </p>
+      <div id="sec01" class="headline" style="border-left: solid 10px #31AF37;">リソース</div>
+      <h3 id="sec01sec01">テクスチャを用意</h3>
+      <p>
+        　<b><span class="resM">リソースパック</span></b>の<b>textures</b>フォルダ(なければ新規作成)の中に<b>items</b>フォルダを作ります。<br>
+        　その中にテクスチャファイルを入れてください。今回は「simple_item.png」であるとします。
+      </p>
+      <div style="text-align: center;">
+        <div style="text-align: left;" class="gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ textures<br>
+          　 　 ┗ items<br>
+          　 　 　 ┗ <b>〇〇.png</b>
+        </div>
+      </div>
+      <hr>
+      <h3 id="sec01sec02">テクスチャにIDをつける</h3>
+      <p>
+        　リソースパックのtexturesフォルダ内に<b>item_texture.json</b>を新規作成します。名前は決まっています。
+      </p>
+      <div style="text-align: center;">
+        <div style="text-align: left;" class="gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ textures<br>
+          　 　 ┣ <b>item_texture.json</b><br>
+          　 　 ┗ items<br>
+          　 　 　 ┗ 〇〇.png
+        </div>
+      </div>
+      <div class="pRes">Res</div><div class="dir">textures/item_textures.json</div>
+      <pre><code class="json">{
+  "resource_pack_name": "vanilla",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    "simple_item": { "textures": "textures/items/simple_item" }
+  }
+}</code></pre>
+      <h4>内容の意味</h4>
+      <div class="demoCode">{
+  <span class="hljs-attr">"resource_pack_name"</span>: <span class="hljs-string">"vanilla"</span>,
+  <span class="hljs-attr">"texture_name"</span>: <span class="hljs-string">"atlas.terrain"</span>,
+  <span class="hljs-attr">"texture_data"</span>: {
+    <span class="hljs-string">"</span><span style="background: #83ffd9;">(テクスチャのID)</span><span class="hljs-string">"</span>: { <span class="hljs-attr">"textures"</span>: <span class="hljs-string">"textures/items/</span><span style="background: #83ffd9;">(テクスチャ名)</span><span class="hljs-string">"</span> }
+  }
+}</div>
+      <p>　上の2行はコピペしたまま気にしなくていいです。</p>
+      <hr>
+      <h3 id="sec01sec03">表示用の名前</h3>
+      <p>
+        　最後に、インベントリ内などで表示する名前を指定します。<br>
+        　リソースパックのmanifest.jsonと同じ層のtextsフォルダにあるja_JP.langファイルを編集します(なかったら新規作成、名前は固定)。
+      </p>
+      <div style="text-align: center;">
+        <div style="text-align: left;" class="gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┣ <b>texts</b><br>
+          　 ┃ ┗ <b>ja_JP.lang</b><br>
+          　 ┗ textures<br>
+          　 　 ┣ item_texture.json<br>
+          　 　 ┗ items<br>
+          　 　 　 ┗ 〇〇.png
+        </div>
+      </div>
+      <p>　中には以下のの行を追加します。</p>
+      <div class="demoCode"><span class="hljs-attr">item.ex:simple_block.name</span>=<span class="hljs-string">シンプルなアイテム</span></div>
+      <h4>内容の意味</h4>
+      <div class="demoCode"><span class="hljs-attr">item.</span><span style="background: #83ffd9;">(アイテムのフルID)</span><span class="hljs-attr">.name</span>=<span style="background: #83ffd9;">(表示する名前)</span></div>
+      <hr>
+      <h3 id="sec01sec04">リソースは完成</h3>
+      <p>
+        　あとはこの記事(<a href="mcbe_easy02.html">アドオンづくりの基礎#2</a>)の
+        「<a href="mcbe_easy02.html#sec01sec05">圧縮</a>」以降の手順になります。
+      </p>
+      <div id="sec02" class="headline" style="border-left: solid 10px #FF6169;">ビヘイビア</div>
+      <h3 id="sec02sec01">アイテムの本体を作る</h3>
+      <p>　<b>itemsフォルダ</b>の中にsimple_item.jsonを新規作成します。ファイルの名前は自由です。</p>
+      <div style="text-align: center;">
+        <div style="text-align: left;" class="gray_box">
+          ビヘイビア<br>
+          　 ┣ pack_icon.png<br>
+          　 ┣ manifest.json<br>
+          　 ┗ <b>items</b><br>
+          　 　 ┗ <b>〇〇.json</b>
+        </div>
+      </div>
+      <div class="pDat">Dat</div><div class="dir">items/simple_item.json</div>
+      <pre><code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ex:simple_item",
+      "category": "Items"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "simple_item"
+      }
+    }
+  }
+}</code></pre>
+      <h4>内容の意味</h4>
+      <div class="demoCode">{
+  <span class="hljs-attr">"format_version"</span>: <span class="hljs-string">"1.16.100"</span>,
+  <span class="hljs-attr">"minecraft:item"</span>: {
+    <span class="hljs-attr">"description"</span>: {
+      <span class="hljs-attr">"identifier"</span>: <span class="hljs-string">"</span><span style="background: #83ffd9;">(アドオンID)</span><span class="hljs-string">:</span><span style="background: #83ffd9;">(アイテムのID)</span><span class="hljs-string">"</span>,
+      <span class="hljs-attr">"category"</span>: <span style="background: #83ffd9;">"equipment"</span> <span class="hljs-comment">// (※1)</span>
+    },
+    <span class="hljs-attr">"components"</span>: {
+      <span class="hljs-attr">"minecraft:icon"</span>: {
+        <span class="hljs-attr">"texture"</span>: <span class="hljs-string">"</span><span style="background: #83ffd9;">(テクスチャのID)</span><span class="hljs-string">"</span>
+      }
+    }
+  }
+}</div>
+      <div style="margin: 1em 0em; line-height: 30px; max-width: 97.5%;">
+        アドオンIDとアイテムのIDは<label for="switch"><div class="spn">書き方</div></label>を守って各自で決めてください。
+      </div>
+      <input type="checkbox" name="switch" id="switch" style="display: none;">
+      <div class="sq">
+        <h4>アドオンID</h4>
+        <p>　アドオン全体で共通のID</p>
+        <h4>アイテムID</h4>
+        <p>　個別のID(バニラとカブらないほうがよい)</p>
+        <h4>基本の書式</h4>
+        <p>
+          ・アルファベット、数字、「_」「-」以外は使わない<br>
+          ・頭文字はアルファベット
+          ・アルファベットの大文字は使わないほうがいい
+        </p>
+      </div>
+      <p>
+        <b>(※1)</b>　クリエイティブインベントリのカテゴリを指定します。
+      </p>
+      <details><summary>詳細</summary>
+        <img src="img/mcbe-easy-block01-01.png" width="50%" class="ignore"><br>
+        <p>
+          　↑こういうやつ<br>
+          　"construction"(構築), "equipment"(所持品), "items"(アイテム), "nature"(性質)から選んでください。<br>
+          　新しく増やせません。
+        </p>
+      </details>
+      <hr>
+      <h3 id="sec02sec02">ビヘイビアも完成</h3>
+      <p>
+        　あとはこの記事(<a href="mcbe_easy02.html">アドオンづくりの基礎#2</a>)の
+        「<a href="mcbe_easy02.html#sec01sec05">圧縮</a>」以降の手順になります。
+      </p>
+      <div id="sec03" class="headline" style="border-left: solid 10px #587EFF;">完成！</div>
+      <p>
+        　作ったパックを<b>両方ともインポート</b>して確認してみましょう！<br>
+        　以下のことに気をつけてください：<br>
+        　・ワールドの設定で「試験的なゲームプレイ」をオンにする<br>
+        　・ビヘイビアパックとリソースパックの両方を忘れずに適用する
+      </p>
+      <div id="sec04" class="headline" style="border-left: solid 10px #587EFF;">二つ目以降のアイテムの追加のしかた</div>
+      <p>　ファイル自体を増やすのか、ファイルの中身を増やすのかに注意してください。</p>
+      <h3 id="sec04sec01">アイテム本体(ビヘイビア)</h3>
+      <p>　ファイル自体をまたitemsフォルダ内に新規作成してください。</p>
+      <div style="text-align: center;">
+        <div style="text-align: left;" class="gray_box">
+          ビヘイビア<br>
+          　 ┣ pack_icon.png<br>
+          　 ┣ manifest.json<br>
+          　 ┗ items<br>
+          　 　 ┣ simple_item.json<br>
+          　 　 ┣ <b>myitem_2.json</b><br>
+          　 　 ：<br>
+          　 　 ┗ <b>myitem_n.json</b>
+        </div>
+      </div>
+      <h3 id="sec04sec02">テクスチャにIDをつける(リソース、item_texture.json)</h3>
+      <p>　ファイルの中身に書き加えていきます。カンマ( , )の忘れには気をつけてください。</p>
+      <div class="demoCode">{
+  <span class="hljs-attr">"resource_pack_name"</span>: <span class="hljs-string">"vanilla"</span>,
+  <span class="hljs-attr">"texture_name"</span>: <span class="hljs-string">"atlas.terrain"</span>,
+  <span class="hljs-attr">"texture_data"</span>: {
+    <span class="hljs-attr">"simple_item"</span>: { <span class="hljs-attr">"textures"</span>: <span class="hljs-string">"textures/items/simple_item"</span> }<span style="background: #83ffd9;">,</span>
+    <span style="background: #83ffd9;">"myitem_2": { "textures": "textures/items/myitem_2" }</span>
+  }
+}</div>
+    </div>
+    <div id="sidebar">
+      <iframe src="side_bar.html"></iframe>
+    </div>
+  </div>
+  <div align="right" style="margin: 8px;"><span style="font-size: 70%;">constructed by: Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <a href="masec_note_home.html"><img id="logo" src="img/masec_note_black.png"></a>
+      <div class="menu-button no-select"><label for="check"><div style="display: table-cell; vertical-align: middle;">≡</div></label></div>
+    </div>
+    <input type="checkbox" name="check" id="check" style="display: none;">
+    <div id="move-box">
+      <div class="menu-close no-select"><label for="check">×</label></div>
+      <div class="content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec01">リソース</a></h4>
+        <p>
+          ・<a href="#sec01sec01">テクスチャを用意</a><br>
+          ・<a href="#sec01sec02">テクスチャにIDをつける</a><br>
+          ・<a href="#sec01sec03">表示用の名前</a><br>
+          ・<a href="#sec01sec04">リソースは完成</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec02">ビヘイビア</a></h4>
+        <p>
+          ・<a href="#sec02sec01">アイテムの本体を作る</a><br>
+          ・<a href="#sec02sec02">ビヘイビアも完成</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec03">完成！</a></h4>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec04">二つ目以降のアイテムの追加のしかた</a></h4>
+        <p>
+          ・<a href="#sec04sec01">アイテム本体</a><br>
+          ・<a href="#sec04sec02">テクスチャにIDをつける</a>
+        </p>
+      </div>
+    </div>
+  </header>
+  <script src="responsive.js"></script>
+</body>
+</html>
