@@ -24,181 +24,110 @@
 </head>
 <body>
   <div style="padding: 0.5em;"><img id="logo" src="img/masec_note_black.png"></div>
-  <div style="margin: 8px;"><span class="desc">uploaded:2022/01/09</span></div>
+  <div style="margin: 8px;"><span class="desc">uploaded:2022/06/07</span></div>
   <div id="whole">
     <div id="main">
-      <div class="caution">
-        <img src="img/caution.png" class="ignore"> 未完成の記事です！
-      </div>
-      <h1 id="top">アドオン作成 - ブロックの作り方</h1>
+      <h1 id="top">アドオン作成 - ブロック</h1>
       <div class="announce">目次は右上の「≡」から！</div>
-      <p>
-        　オリジナルのブロックの作り方・追加方法を紹介します。
-      </p>
-      <div id="sec01" class="headline" style="border-left: solid 10px #FF6169;">基本的な流れ</div>
+      <div id="sec01" class="headline" style="border-left: solid 10px #FF6169;">ファイル・フォルダの場所</div>
+      <div style="text-align: center;">
+        <div style="text-align: left;" class="gray_box">
+          ビヘイビア<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ <b>blocks</b><br>
+          　 　 ┗<b>〇〇.json</b>
+        </div>
+      </div>
+      <div id="sec02" class="headline" style="border-left: solid 10px #FF6169;">作成の流れ</div>
       <p>
         　ブロック本体に加えてテクスチャも追加するので、<b>ビヘイビアとリソース両方が必要</b>になります。<br>
         　全体の作業はこうなります：
       </p>
       <div class="blue_box">
-        <b>ビヘイビア</b><br>
-        ・blocksフォルダに新しくJSONを追加する<br>
-        (・ルートテーブルのJSONを追加する)<br>
-        <b>リソース</b><br>
-        ・blocks.jsonを編集・作成する<br>
-        ・texturesフォルダのterrain_texture.jsonを編集・作成する<br>
-        ・ブロックのテクスチャを追加する<br>
-        (・ブロックのジオメトリを追加する)<br>
-      </div>
-      <h3 id="sec01sec01">ブロック本体を定義</h3>
-      <p>
-        　まず、<b><span class="datM">ビヘイビアパック</span>内にblocksフォルダを用意</b>します。<br>
-      </p>
-      <div style="text-align: center;">
-        <div style="text-align: left;" class="gray_box">
-          (ビヘイビアパック)<br>
-          　 ┣ <b>blocks</b><br>
-          　 ┣ manifest.json<br>
-          　 ┗ pack_icon.png
-        </div>
+        ①blocksフォルダに新しくJSONを新規作成する<br>
+        　(+ ルートテーブルのJSONを追加する)<br>
+        ②ブロックのテクスチャを追加する<br>
+        ③terrain_texture.jsonを編集or新規作成する<br>
+        ④blocks.jsonを編集or新規作成する<br>
+        　(+ ブロックのジオメトリを追加する)<br>
+        ⑤.langファイルを編集or新規作成する
       </div>
       <p>
-        　そのフォルダのなかに<b>ブロック本体を定義するJSONを、追加するブロックの数だけ作って入れます</b>。
+        　リソースに関する詳細はこちら
       </p>
-      <h3 id="sec01sec02">テクスチャを用意</h3>
+      <div id="sec03" class="headline" style="border-left: solid 10px #FF6169;">ブロックを定義するJSON</div>
       <p>
-        　自分で場所を指定することができますが、オススメは「<b>(リソースパック)/textures/blocks</b>」の中です。
-      </p>
-      <div style="text-align: center;">
-        <div style="text-align: left;" class="gray_box">
-          (リソースパック)<br>
-          　 ┣ manifest.json<br>
-          　 ┣ pack_icon.png<br>
-          　 ┗ textures<br>
-          　 　 ┗blocks<br>
-          　 　 　 ┗<b>〇〇.png</b>
-        </div>
-      </div>
-      <h3 id="sec01sec03">テクスチャと本体を紐づけ①</h3>
-      <p>
-        「(リソースパック)/textures」の中に「<b>terrain_texture.json</b>」を用意します。<br>
-        　元からあれば編集、なければ新しく作ります。<br>
-        　詳しくはこちら → <a href="mcbe_addon_terrain_texture-json.html">terrain_texture.jsonについて</a>
-      </p>
-      <h3 id="sec01sec04">テクスチャと本体を紐づけ②</h3>
-      <p>
-        　リソースパックの中(manifest.jsonと同じ層)に「<b>blocks.json</b>」を用意します。<br>
-        　こちらも同様、元からあれば編集、なければ新しく作ります。<br>
-        　詳しくはこちら → <a href="mcbe_addon_blocks-json.html">blocks.jsonについて</a>
-      </p>
-      <div id="sec02" class="headline" style="border-left: solid 10px #FF6169;">ブロック本体(基礎)</div>
-      <p>
-        　これがまだ何も指定していない状態のブロックです。ゼロから作る場合はこれをコピペするといいでしょう。
+        　これはブロックが定義できるための最小限の内容です。ゼロから作る場合はこれをコピペするといいでしょう。
       </p>
       <div class="pDat">Dat</div><div class="dir">blocks/my_block.json</div>
-      <pre><code class="json">{
+      <div class="codediv">
+        <button onclick="copyToClipboard('zero_json:code')">コピー</button>
+        <pre><code class="json" id="zero_json">{
   "format_version": "1.16.100",
   "minecraft:block": {
     "description": {
       "identifier": "test:my_block"
     },
     "components": {
-      // コンポーネント
+      <span class="hljs-comment">// コンポーネント</span>
     }
   }
 }</code></pre>
+      </div>
       <hr>
-      <h3 id="sec02sec01">主な構成</h3>
-      <div class="demoCode">{
+      <h3 id="sec03sec01">主な構成</h3>
+      <div class="masecjson"><button onclick="copyToClipboard('normal_json:div')">コピー</button><textarea class="copyBoard" id="normal_json" cols="5" rows="5" readonly></textarea>{
   "format_version": "1.16.100",
   "minecraft:block": {
     "description": {
       "identifier": "test:my_block"
     },
-    <div class="demoMark_r">"components": {
-  // コンポーネント
-}</div>
+    ~#r"components": {
+      // コンポーネント
+    }r#~
   }
 }</div>
       <p>
         　大きく関わってくるのがこの赤い枠で囲った部分で、もっと言えばその中の{ }内にコンポーネントを書き足していきます。
       </p>
-      <!--
-      <details><summary style="color: transparent; transform: translate(-2em, 0px);">
-        <div class="question">？</div><span style="color: #000; font-weight: bolder;">identifier(ID)の決め方</span></summary>
-        <div class="blue_box">
-          　基本的には「<b>(アドオンid):(本id)</b>」といった感じ。<br>
-          　アドオンidは<b>アドオン全体で統一</b>する。苗字のようなもの。ネームスペースとかプリフィックスとか呼ばれることがある。<br>
-          　本idは文字通り<b>本体のid</b>。みんな違うものをつけましょう。<br>
-          例)　test:my_content<br>
-          <b>--注意--</b><br>
-          ・どちらも先頭を数字にしない。<br>
-          ・数字かアルファベットのみを使う。<br>
-          ・アドオンidに「minecraft」は使ってはならない。<br>
-          ・アドオンidは、ほかのアドオンとの競合を考えてオリジナル性の高いものにする。
-        </div>
-      </details>
-      <details><summary style="color: transparent; transform: translate(-2em, 0px);">
-        <div class="question">？</div><span style="color: #000; font-weight: bolder;">コンポーネントの選び方</span></summary>
-        <div class="scrollBox">
-          <div class="blue_box">
-            <p>
-              　Blocks.htmlというリファレンスの「Block Components」「Block Trigger Components」の章に載っているものはすべてコンポーネントです。<br>
-              　そこには表があって、
-            </p>
-            <table border="1">
-              <tr><th>名前</th><th>型</th><th>デフォルト値</th><th>説明</th></tr>
-              <tr><td>minecraft:block_light_absorption</td><td>Integer</td><td>0</td><td>(略)</td></tr>
-            </table>
-            <p>
-              　例えばこのようになっていたら「"minecraft:block_light_absorption": (整数)」がコンポーネントの形になります。
-            </p>
-            <div class="question" style="line-height: normal; background: #f88;">？</div>
-            <a href="mcbe_addon1.html#sec06sec00" target="_blank">リファレンス(アドオンを作るひとへ)</a>
-            <img src="img/external_link_icon.png" class="ignore text_icon"><br>
-          </div>
-        </div>
-      </details>
-      -->
       <hr>
-      <h3 id="sec02sec02">発展的な構成</h3>
-      <div class="demoCode">{
+      <h3 id="sec03sec02">発展的な構成</h3>
+      <div class="masecjson"><button onclick="copyToClipboard('adv_json:div')">コピー</button><textarea class="copyBoard" id="adv_json" cols="5" rows="5" readonly></textarea>{
   "format_version": "1.16.100",
   "minecraft:block": {
     "description": {
       "identifier": "test:my_block",
       "properties": {
         "test:my_property": [ 0, 1 ]
+        // ...
       }
     },
-    <div class="demoMark_r">"permutations": [
-  {
-    "components": {
+    ~#r"permutations": [
+      {
+        "components": {
+          // コンポーネント
+        },
+        "condition": "q.block_property('test:my_property') == 1"
+      }
+      // ...
+    ],r#~
+    ~#r"components": {
       // コンポーネント
-    },
-    "condition": "q.block_property('test:my_property') == 1"
-  }
-],</div>
-    <div class="demoMark_r">"components": {
-  // コンポーネント
-},</div>
-    <div class="demoMark_r">"events": {
-  // イベント
-}</div>
+    },r#~
+    ~#r"events": {
+      // イベント
+    }r#~
   }
 }</div>
       <p>
         　プロパティ、パーミュテーション、イベントを用いてより複雑な仕様をもったブロックを作ることができます。
       </p>
       <hr>
-      <div id="sec03" class="headline" style="border-left: solid 10px #FF6169;">ブロックの「状態」</div>
+      <div id="sec04" class="headline" style="border-left: solid 10px #FF6169;">イベント</div>
       <p>
-        　例えばハーフブロックには上付きの「状態」と下付きの「状態」が存在しますが、カスタムブロックでもそのような「状態」を定義することができます。<br>
-        　複雑な仕様を持たせることができる一方で、JSONも複雑になるので注意してください。
-      </p>
-      <h3 id="sec03sec01">イベント</h3>
-      <p>
-        　イベントは以下のように、イベントをトリガーする(呼び出す)ことができる特定のコンポーネントによって呼び出され、指定したイベントファンクションを動作させます。
+        　イベントをトリガーする(呼び出す)ことができる特定のコンポーネントによって呼び出され、
+        指定したイベントファンクションを動作させます。
       </p>
       <div style="text-align: center;">
         <div style="text-align: left;" class="blue_box">
@@ -207,86 +136,71 @@
           イベント
         </div>
       </div>
-      <div class="demoCode">{
+      <div class="masecjson"><button onclick="copyToClipboard('event_json:div')">コピー</button><textarea class="copyBoard" id="event_json" cols="5" rows="5" readonly></textarea>{
   "format_version": "1.16.100",
   "minecraft:block": {
     "description": {
       "identifier": "test:my_block"
     },
-    <div class="demoMark_r">"components": {
-  "minecraft:〇〇": { <span style="color: #080;">// イベントトリガー系コンポーネント</span>
-    "event": "<span style="color: #ff5294;">test</span>" <span style="color: #080;">// 呼び出すイベントを指定</span>
-  }
-},</div>
-    <div class="demoMark_r">"events": {
-  "<span style="color: #ff5294;">test</span>": { <span style="color: #080;">// イベント名</span>
-    <span style="color: #080;">// イベントファンクション</span>
-  }
-}</div>
-  }
-}</div>
-      <h3 id="sec03sec02">プロパティ</h3>
-      <p>
-        
-      </p>
-      <div class="demoCode">{
-  "format_version": "1.16.100",
-  "minecraft:block": {
-    "description": {
-      "identifier": "test:my_block",
-      <div class="demoMark_r">"properties": {
-  "test:my_property": [ 0, 1 ]
-}</div>
-    },
-    <span style="color: #080;">// 略</span>
-  }
-}</div>
-      <p>
-
-      </p>
-      <h3 id="sec03sec03">パーミュテーション</h3>
-      <p>
-
-      </p>
-      <div class="demoCode">{
-  "format_version": "1.16.100",
-  "minecraft:block": {
-    "description": {
-      "identifier": "test:my_block",
-      "properties": {
-        "test:my_property": [ 0, 1 ]
+    ~#r"components": {
+      "minecraft:〇〇": { // イベントトリガー系コンポーネント
+        "event": "~#C(ff5294)testC#~" // 呼び出すイベントを指定
       }
-    },
-    <div class="demoMark_r">"permutations": [
-  {
-    "components": {
-      // コンポーネント
-    },
-    "condition": "q.block_property('test:my_property') == 1"
-  }
-],</div>
-    <div class="demoMark_r">"components": {
-  // コンポーネント
-}</div>
+    },r#~
+    ~#r"events": {
+      "~#C(ff5294)testC#~": { // イベント名
+        // イベントファンクション
+      }
+    }r#~
   }
 }</div>
+      <div id="sec05" class="headline" style="border-left: solid 10px #FF6169;">プロパティ・パーミュテーション</div>
       <p>
-
+        　プロパティを定義して、ハーフブロックの上付き・下付きのようにブロック自体は同じでも<b>「状態」</b>が異なるものとして扱うことができます。
+        　プロパティの値は、真偽値、整数値、文字列のみで、定義するときに長さを決定する必要があります。<br>
+        　パーミュテーションはプロパティなどの条件(condition)を元に、コンポーネントを上書きしたり追加したりするのに使います。
       </p>
-      <h3 id="sec03sec04">「状態」の切り替え</h3>
+      <div class="masecjson"><button onclick="copyToClipboard('property_json:div')">コピー</button><textarea class="copyBoard" id="property_json" cols="5" rows="5" readonly></textarea>{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:my_block",
+      ~#r"properties": {
+        "test:my_property_bool": [ false, true ],
+        "test:my_property_int": [ 0, 1, 2, 3 ],
+        "test:my_property_string": [ "a", "b", "c" ]
+        // ...
+      }r#~
+    },
+    ~#r"permutations": [
+      {
+        "components": {
+          // コンポーネント
+        },
+        "condition": "q.block_property('test:my_property') == 1"
+      }
+      // ...
+    ],r#~
+    ~#r"components": {
+      // コンポーネント
+    }r#~
+  }
+}</div>
       <p>
         「状態」は主にイベントを介して操作します。<br>
         　①ブロックのイベントファンクション「set_block_property」を用いてプロパティを変更<br>
         　②パーミュテーションの"conditon"で現在のプロパティと比較<br>
-        　③該当するパーミュテーションのコンポーネントで元のコンポーネント("permutations"外のコンポーネント)を上書きする
+        　③該当するパーミュテーションのコンポーネントで元のコンポーネントを上書きする
       </p>
-      <div id="sec04" class="headline" style="border-left: solid 10px #FF6169;">具体例</div>
-      <h3 id="sec04sec01">シンプルなブロック</h3>
+      <div id="sec06" class="headline" style="border-left: solid 10px #FF6169;">具体例</div>
+      <h3 id="sec06sec01">シンプルなブロック</h3>
       <p>
         　JSONがシンプルになるように性質を選んできています。
       </p>
       <div class="pDat">Dat</div><div class="dir">blocks/block01.json</div>
-      <pre><code class="json">{
+      <div class="codediv">
+        <button onclick="copyToClipboard('block01_json:code')">コピー</button>
+        <pre><code class="json" id="block01_json">{
   "format_version": "1.16.100",
   "minecraft:block": {
     "description": {
@@ -304,6 +218,7 @@
     }
   }
 }</code></pre>
+      </div>
       <p>
         　このお手本ブロックは以下のような性質を持ちます↓
       </p>
@@ -315,9 +230,11 @@
         ・ルートテーブルは「loot_tables/blocks/block01.json」を参照<br>
         ・地図での表示色は <span style="background: #64ec86; padding: 2px;">#64ec86</span>
       </div>
-      <h3 id="sec04sec02">オリジナル作業台</h3>
+      <h3 id="sec06sec02">オリジナル作業台</h3>
       <div class="pDat">Dat</div><div class="dir">blocks/block02.json</div>
-      <pre><code class="json">{
+      <div class="codediv">
+        <button onclick="copyToClipboard('block02_json:code')">コピー</button>
+        <pre><code class="json" id="block02_json">{
   "format_version": "1.16.100",
   "minecraft:block": {
     "description": {
@@ -329,17 +246,20 @@
         "crafting_tags": [ "my_craft" ],
         "custom_description": "UIに表示する作業台の名前"
       }
-      // +その他のコンポーネント
+      <span class="hljs-comment">// +その他のコンポーネント</span>
     }
   }
 }</code></pre>
+      </div>
       <p>
         　クラフトのマスは3x3のみです。<br>
         　"crafting_tags"はレシピの"tags"と対応させて同じタグを持ったレシピのクラフトしかできないようにします。
       </p>
-      <h3 id="sec04sec03">特殊な形のブロック</h3>
+      <h3 id="sec06sec03">特殊な形のブロック</h3>
       <div class="pDat">Dat</div><div class="dir">blocks/block03.json</div>
-      <pre><code class="json">{
+      <div class="codediv">
+        <button onclick="copyToClipboard('block03_json:code')">コピー</button>
+        <pre><code class="json" id="block03_json">{
   "format_version": "1.16.100",
   "minecraft:block": {
     "description": {
@@ -350,19 +270,22 @@
       "minecraft:material_instances": {
         "*": {
           "material": "opaque",
-          "texture": "geometry_block" // TerrainID
+          "texture": "geometry_block" <span class="hljs-comment">// TerrainID</span>
         }
       }
-      // +その他のコンポーネント
+      <span class="hljs-comment">// +その他のコンポーネント</span>
     }
   }
 }</code></pre>
+      </div>
       <p>
         　minecraft:geometryコンポーネントを使うときはminecraft:material_instancesコンポーネントも必須です。
       </p>
-      <h3 id="sec04sec04">特別な場所にしか置けないブロック</h3>
+      <h3 id="sec06sec04">特別な場所にしか置けないブロック</h3>
       <div class="pDat">Dat</div><div class="dir">blocks/simple_block.json</div>
-      <pre><code class="json">{
+      <div class="codediv">
+        <button onclick="copyToClipboard('simple_block_json:code')">コピー</button>
+        <pre><code class="json" id="simple_block_json">{
   "format_version": "1.16.100",
   "minecraft:block": {
     "description": {
@@ -381,16 +304,19 @@
           }
         ]
       }
-      // +その他のコンポーネント
+      <span class="hljs-comment">// +その他のコンポーネント</span>
     }
   }
 }</code></pre>
+      </div>
       <p>
-        草ブロックと土の上面と石の上下面にだけ置けます。
+        この場合、草ブロックと土の上面と石の上下面にだけ置けます。
       </p>
-      <h3 id="sec04sec05">半透明のブロック</h3>
+      <h3 id="sec06sec05">半透明のブロック</h3>
       <div class="pDat">Dat</div><div class="dir">blocks/block04.json</div>
-      <pre><code class="json">{
+      <div class="codediv">
+        <button onclick="copyToClipboard('block04_json:code')">コピー</button>
+        <pre><code class="json" id="block04_json">{
   "format_version": "1.16.100",
   "minecraft:block": {
     "description": {
@@ -400,19 +326,22 @@
       "minecraft:material_instances": {
         "*": {
           "material": "blend",
-          "texture": "blend_block" // TerrainID
+          "texture": "blend_block" <span class="hljs-comment">// TerrainID</span>
         }
       }
-      // +その他のコンポーネント
+      <span class="hljs-comment">// +その他のコンポーネント</span>
     }
   }
 }</code></pre>
+      </div>
       <p>
         
       </p>
-      <h3 id="sec04sec06">アイテムを持って右クリorタップするとコマンドが実行されるブロック</h3>
+      <h3 id="sec06sec06">アイテムを持って右クリorタップするとコマンドが実行されるブロック</h3>
       <div class="pDat">Dat</div><div class="dir">blocks/block11.json</div>
-      <pre><code class="json">{
+      <div class="codediv">
+        <button onclick="copyToClipboard('block11_json:code')">コピー</button>
+        <pre><code class="json" id="block11_json">{
   "format_version": "1.16.100",
   "minecraft:block": {
     "description": {
@@ -424,7 +353,7 @@
         "target": "self",
         "condition": "q.get_equipped_item_name('main_hand') == 'cobblestone'"
       }
-      // +その他のコンポーネント
+      <span class="hljs-comment">// +その他のコンポーネント</span>
     },
 
     "events": {
@@ -434,12 +363,15 @@
     }
   }
 }</code></pre>
+      </div>
       <p>
         　丸石を持って右クリック/タップしたときのみ丸石がブロックの上に/setblockされます。
       </p>
-      <h3 id="sec04sec07">アイテム(2種類)を持って右クリorタップするとコマンドが実行されるブロック</h3>
+      <h3 id="sec06sec07">アイテム(2種類)を持って右クリorタップするとコマンドが実行されるブロック</h3>
       <div class="pDat">Dat</div><div class="dir">blocks/block12.json</div>
-      <pre><code class="json">{
+      <div class="codediv">
+        <button onclick="copyToClipboard('block12_json:code')">コピー</button>
+        <pre><code class="json" id="block12_json">{
   "format_version": "1.16.100",
   "minecraft:block": {
     "description": {
@@ -483,14 +415,17 @@
     }
   }
 }</code></pre>
+      </div>
       <p>
         　このブロックに右クリック/タップをするとき、<br>
         　①丸石をもってると丸石を上に/setblock<br>
         　②土を持っていると土を上に/setblock
       </p>
-      <h3 id="sec04sec08">原木式向きが変わるブロック</h3>
+      <h3 id="sec06sec08">原木のように向きが変わるブロック</h3>
       <div class="pDat">Dat</div><div class="dir">blocks/block13.json</div>
-      <pre><code class="json">{
+      <div class="codediv">
+        <button onclick="copyToClipboard('block13_json:code')">コピー</button>
+        <pre><code class="json" id="block13_json">{
   "format_version": "1.16.100",
   "minecraft:block": {
     "description": {
@@ -516,37 +451,40 @@
     ],
 
     "components": {
-      "minecraft:geometry": "geometry.block", // 普通のブロックの形のジオメトリ
+      "minecraft:geometry": "geometry.block", <span class="hljs-comment">// 普通のブロックの形のジオメトリ</span>
       "minecraft:material_instances": {
-        "*": { // 全面
+        "*": { <span class="hljs-comment">// 全面</span>
           "texture": "log_side",
           "render_method": "alpha_test"
         },
-        "up": { // 上面
+        "up": { <span class="hljs-comment">// 上面</span>
           "texture": "log_top",
           "render_method": "alpha_test"
         },
-        "down": "up" // 下面(上面と同じ指定)
+        "down": "up" <span class="hljs-comment">// 下面(上面と同じ指定)</span>
       },
       "minecraft:on_player_placing": {
         "event": "ex:on_placed"
       }
-      // +その他のコンポーネント
+      <span class="hljs-comment">// +その他のコンポーネント</span>
     },
 
     "events": {
-      "ex:on_placed": { // 下,上で0, 北,南で1, 西,東で2
+      "ex:on_placed": { <span class="hljs-comment">// 下,上で0, 北,南で1, 西,東で2</span>
         "set_block_property": { "ex:rotation": "math.floor(q.block_face/2)+1" }
       }
     }
   }
 }</code></pre>
+      </div>
       <p>
         
       </p>
-      <h3 id="sec04sec09">トリップワイヤーフック式向きが変わるブロック</h3>
+      <h3 id="sec06sec09">壁のみに張り付くタイプの向きが変わるブロック</h3>
       <div class="pDat">Dat</div><div class="dir">blocks/block14.json</div>
-      <pre><code class="json">{
+      <div class="codediv">
+        <button onclick="copyToClipboard('block14_json:code')">コピー</button>
+        <pre><code class="json" id="block14_json">{
   "format_version": "1.16.100",
   "minecraft:block": {
     "description": {
@@ -584,7 +522,7 @@
           { "allowed_faces": [ "side" ] }
         ]
       }
-      // +その他のコンポーネント
+      <span class="hljs-comment">// +その他のコンポーネント</span>
     },
 
     "events": {
@@ -594,12 +532,15 @@
     }
   }
 }</code></pre>
+      </div>
       <p>
-        　壁にしか置けないようになっています。
+        　壁にしか置けないようになっています。トリップワイヤーフックなどがそうです。
       </p>
-      <h3 id="sec04sec10">ボタン式向きが変わるブロック</h3>
+      <h3 id="sec06sec10">すべての側面に張り付くタイプの向きが変わるブロック</h3>
       <div class="pDat">Dat</div><div class="dir">blocks/block15.json</div>
-      <pre><code class="json">{
+      <div class="codediv">
+        <button onclick="copyToClipboard('block15_json:code')">コピー</button>
+        <pre><code class="json" id="block15_json">{
   "format_version": "1.16.100",
   "minecraft:block": {
     "description": {
@@ -640,7 +581,7 @@
       "minecraft:on_player_placing": {
         "event": "ex:on_placed"
       }
-      // +その他のコンポーネント
+      <span class="hljs-comment">// +その他のコンポーネント</span>
     },
 
     "events": {
@@ -650,13 +591,15 @@
     }
   }
 }</code></pre>
+      </div>
       <p>
-        
+        たとえばボタンなどがそうです。
       </p>
-      <h3 id="sec04sec11">フェンス風隣の同じブロックとつながるブロック</h3>
+      <h3 id="sec06sec11">フェンス風隣の同じブロックとつながるブロック</h3>
       <div class="pDat">Dat</div><div class="dir">blocks/block16.json</div>
-      <div class="scrollBox" style="height:1000px;">
-      <pre><code class="json">{
+      <div class="codediv scrollBox" style="height:1000px;">
+        <button onclick="copyToClipboard('block16_json:code')">コピー</button>
+        <pre><code class="json" id="block16_json">{
   "format_version": "1.16.100",
   "minecraft:block": {
     "description": {
@@ -782,19 +725,19 @@
     ],
 
     "components": {
-      "minecraft:geometry": "geometry.fence", // 全方向に伸びていてそれぞれの腕が別のボーン
-      "minecraft:material_instances": { // geometryを使う場合は必須
+      "minecraft:geometry": "geometry.fence", <span class="hljs-comment">// 全方向に伸びていてそれぞれの腕が別のボーン</span>
+      "minecraft:material_instances": { <span class="hljs-comment">// geometryを使う場合は必須</span>
         "*": {
           "texture": "planks",
           "render_method": "opaque"
         }
       },
-      "minecraft:part_visibility": { // ※ "q.block_property(ex:direction)"は0~15の整数
+      "minecraft:part_visibility": { <span class="hljs-comment">// ※ "q.block_property(ex:direction)"は0~15の整数</span>
         "rules": {
-          "north": "math.mod(q.block_property('ex:direction'), 2)",               // 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1
-          "east": "math.mod(math.floor(q.block_property('ex:direction')/2), 2)",  // 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1
-          "south": "math.mod(math.floor(q.block_property('ex:direction')/4), 2)", // 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1
-          "west": "q.block_property('ex:direction') > 7"                          // 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1
+          "north": "math.mod(q.block_property('ex:direction'), 2)",               <span class="hljs-comment">// 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1</span>
+          "east": "math.mod(math.floor(q.block_property('ex:direction')/2), 2)",  <span class="hljs-comment">// 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1</span>
+          "south": "math.mod(math.floor(q.block_property('ex:direction')/4), 2)", <span class="hljs-comment">// 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1</span>
+          "west": "q.block_property('ex:direction') > 7"                          <span class="hljs-comment">// 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1</span>
         }
       },
       "minecraft:ticking": {
@@ -806,16 +749,21 @@
 
     "events": {
       "checking": {
-        "set_block_property": { // 北 + 2×東 + 4×南 + 8×西  (それぞれの方角からつながってる(=1)かつながっていないか(=0)が返ってくる)
+        "set_block_property": { <span class="hljs-comment">// 北 + 2×東 + 4×南 + 8×西  (それぞれの方角からつながってる(=1)かつながっていないか(=0)が返ってくる)</span>
           "ex:direction": "q.block_neighbor_has_any_tag(0,0,-1,'my_fence')+2*q.block_neighbor_has_any_tag(1,0,0,'my_fence')+4*q.block_neighbor_has_any_tag(0,0,1,'my_fence')+8*q.block_neighbor_has_any_tag(-1,0,0,'my_fence')"
         }
       }
     }
   }
-}</code></pre></div>
+}</code></pre>
+      </div>
       <p>
         　バニラのブロックとつながるようにするためにはぜんぶ指定する必要があります。<br>
         　当たり判定などはMolangが対応してないのでパーミュテーションで一つずつ指定するしかないです。
+      </p>
+      <div id="sec07" class="headline" style="border-left: solid 10px #FF6169;">雑多</div>
+      <p>
+        ・バニラのブロックに変更を加えることはできません。
       </p>
     </div>
     <div id="sidebar">
@@ -837,41 +785,36 @@
           <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
         </div>
         <hr>
-        <h4><a href="#sec01">基本的な流れ</a></h4>
+        <h4><a href="#sec01">ファイル・フォルダの場所</a></h4>
+        <hr>
+        <h4><a href="#sec02">作成の流れ</a></h4>
+        <hr>
+        <h4><a href="#sec03">ブロックを定義するJSON</a></h4>
         <p>
-          ・<a href="#sec01sec01">ブロック本体を定義</a><br>
-          ・<a href="#sec01sec02">テクスチャを用意</a><br>
-          ・<a href="#sec01sec03">テクスチャと本体を紐づけ①</a><br>
-          ・<a href="#sec01sec04">テクスチャと本体を紐づけ①</a>
+          ・<a href="#sec03sec01">主な構成</a><br>
+          ・<a href="#sec03sec02">発展的な構成</a>
         </p>
         <hr>
-        <h4><a href="#sec02">ブロック本体(基礎)</a></h4>
+        <h4><a href="#sec04">イベント</a></h4>
+        <hr>
+        <h4><a href="#sec05">プロパティ・パーミュテーション</a></h4>
+        <hr>
+        <h4><a href="#sec06">具体例</a></h4>
         <p>
-          ・<a href="#sec02sec01">主な構成</a><br>
-          ・<a href="#sec02sec02">発展的な構成</a>
+          ・<a href="#sec06sec01">シンプルなブロック</a><br>
+          ・<a href="#sec06sec02">オリジナル作業台</a><br>
+          ・<a href="#sec06sec03">特殊な形のブロック</a><br>
+          ・<a href="#sec06sec04">特別な場所にしか置けないブロック</a><br>
+          ・<a href="#sec06sec05">半透明のブロック</a><br>
+          ・<a href="#sec06sec06">アイテムを持ってインタラクトするとコマンドが実行されるブロック</a><br>
+          ・<a href="#sec06sec07">アイテム(2種類)を持ってインタラクトするとコマンドが実行されるブロック</a><br>
+          ・<a href="#sec06sec08">原木のように向きが変わるブロック</a><br>
+          ・<a href="#sec06sec09">壁のみに張り付くタイプの向きが変わるブロック</a><br>
+          ・<a href="#sec06sec10">すべての巣湖面に張り付くタイプの向きが変わるブロック</a><br>
+          ・<a href="#sec06sec11">フェンス風隣の同じブロックとつながるブロック</a>
         </p>
         <hr>
-        <h4><a href="#sec03">ブロックの「状態」</a></h4>
-        <p>
-          ・<a href="#sec02sec01">イベント</a><br>
-          ・<a href="#sec02sec02">パーミュテーション</a><br>
-          ・<a href="#sec02sec03">「状態」の切り替え</a>
-        </p>
-        <hr>
-        <h4><a href="#sec04">具体例</a></h4>
-        <p>
-          ・<a href="#sec04sec01">シンプルなブロック</a><br>
-          ・<a href="#sec04sec02">オリジナル作業台</a><br>
-          ・<a href="#sec04sec03">特殊な形のブロック</a><br>
-          ・<a href="#sec04sec04">特別な場所にしか置けないブロック</a><br>
-          ・<a href="#sec04sec05">半透明のブロック</a><br>
-          ・<a href="#sec04sec06">アイテムを持って右クリorタップするとコマンドが実行されるブロック</a><br>
-          ・<a href="#sec04sec07">アイテム(2種類)を持って右クリorタップするとコマンドが実行されるブロック</a><br>
-          ・<a href="#sec04sec08">原木式向きが変わるブロック</a><br>
-          ・<a href="#sec04sec09">トリップワイヤーフック式向きが変わるブロック</a><br>
-          ・<a href="#sec04sec10">ボタン式向きが変わるブロック</a><br>
-          ・<a href="#sec04sec11">フェンス風隣の同じブロックとつながるブロック</a>
-        </p>
+        <h4><a href="#sec07">雑多</a></h4>
       </div>
     </div>
   </header>
