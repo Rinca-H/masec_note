@@ -1,4 +1,4 @@
-/* LAST EDIT : 2022-06-18 */
+/* LAST EDIT : 2022-07-17 */
 
 header {
   background: #fffdf2;
@@ -114,15 +114,28 @@ pre { margin: 0em; }
   width: 95%;
   overflow: auto;
 }
-.masecjson {
+.masecjson, .codediv {
   position: relative;
 }
+.masecjson button, .codediv button {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: bold;
+  border-radius: 0.5em;
+  border: solid 2px #0000;
+  padding: 0.5em;
+  margin: 0.25em;
+  background-color: darkgrey;
+  color: #fff;
+  position: absolute;
+  right: 0.5em;
+  top: 0.5em;
+  z-index: 100;
+}
+.masecjson button:active, .codediv button:active { background-color: gray; }
+.masecjson button:hover, .codediv button:hover { border: solid 2px #000; }
 .copyBoard {
   position: absolute;
   right: 1000em;
-}
-code {
-  position: relative;
 }
 .demoMark_r {
   border: 1.5px solid #f00;
