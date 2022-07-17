@@ -24,71 +24,36 @@
 </head>
 <body>
   <div style="padding: 0.5em;"><img id="logo" src="img/masec_note_black.png"></div>
-  <div style="margin: 8px;"><span class="desc">uploaded:2021/11/27</span></div>
+  <div style="margin: 8px;"><span class="desc">uploaded:2022/07/17</span></div>
   <div id="whole">
     <div id="main">
-      <div class="caution">
-        <img src="img/caution.png" class="ignore"> 内容の変更が予定されている記事です！
-      </div>
-      <h1 id="top">アドオン作成 - アイテムの作り方</h1>
+      <h1 id="top">アドオン作成 - アイテム</h1>
       <div class="announce">目次は右上の「≡」から！</div>
       <p>
-        　オリジナルのアイテムの作り方・追加方法を紹介します。
-        オリジナルのものを「追加する」ことになるので、ある程度アドオンに慣れていないとつまずくかもしれません。<br>
-        　複雑なものほど急に難しくなるので注意してください。
+        　アドオンのアイテムについて説明します。
       </p>
       <div id="sec01" class="headline" style="border-left: solid 10px #FF6169;">基本的な流れ</div>
       <p>
-        　もともとマイクラになかったものを追加するので、アイテム本体に加えてテクスチャも追加する必要があります。
-        つまり、<b>ビヘイビアとリソース両方が必要</b>になります。<br>
-        　全体の作業はこんな感じです：
+        　アイテム本体に加えてテクスチャも追加するので、<b>ビヘイビアとリソース両方が必要</b>になります。<br>
+        　全体の作業はこうなります：
       </p>
       <div class="blue_box">
-        <b>ビヘイビア</b><br>
-        ・itemsフォルダに新しくJSONを追加する<br>
-        <b>リソース</b><br>
-        ・texturesフォルダのitem_texture.jsonを編集・作成する<br>
-        ・アイテムのテクスチャを追加する
-      </div>
-      <h3 id="sec01sec01">アイテム本体を定義</h3>
-      <p>
-        　まず、<b><span class="datM">ビヘイビアパック</span>内にitemsフォルダを用意</b>します。<br>
-      </p>
-      <div style="text-align: center;">
-        <div style="text-align: left;" class="gray_box">
-          ━ ┳ manifest.json<br>
-          　 ┣ <b>items</b><br>
-          　 ┗ pack_icon.png
-        </div>
+        ①アイテムのテクスチャを追加する<br>
+        ②item_texture.jsonを編集or新規作成する<br>
+        ③itemsフォルダに新しくJSONを新規作成する<br>
+        ④.langファイルを編集・新規作成する
       </div>
       <p>
-        　そのフォルダのなかに<b>アイテム本体を定義するJSONを、追加するアイテムの数だけ作って入れる</b>ことになります。
+        　リソースに関する詳細はこちら
       </p>
-      <h3 id="sec01sec02">テクスチャを用意</h3>
+      <div id="sec02" class="headline" style="border-left: solid 10px #FF6169;">アイテムを定義するJSON</div>
       <p>
-        　自分で場所を指定することができますが、オススメは「<b>(リソースパック)/textures/items</b>」の中です。
-      </p>
-      <div style="text-align: center;">
-        <div style="text-align: left;" class="gray_box">
-          ━ ┳ manifest.json<br>
-          　 ┣ pack_icon.png<br>
-          　 ┗ textures<br>
-          　 　 ┗items<br>
-          　 　 　 ┗<b>〇〇.png</b>
-        </div>
-      </div>
-      <h3 id="sec01sec03">テクスチャと本体を紐づけ</h3>
-      <p>
-        「(リソースパック)/textures」の中に「<b>item_texture.json</b>」を用意します。<br>
-        　元からあれば編集、なければ新しく作ります。<br>
-        　詳しくはこちら → <a href="mcbe_addon_item_texture-json.html">item_texture.jsonについて</a>
-      </p>
-      <div id="sec02" class="headline" style="border-left: solid 10px #FF6169;">アイテム本体(基礎)</div>
-      <p>
-        　これがまだ何も指定していない状態のアイテムです。ゼロから作る場合はこれをコピペするといいでしょう。
+        　これはアイテムが定義できるための最小限の内容です。ゼロから作る場合はこれをコピペするといいでしょう。
       </p>
       <div class="pDat">Dat</div><div class="dir">items/my_item.json</div>
-      <pre><code class="json">{
+      <div class="codediv">
+        <button onclick="copyToClipboard('zero_json:code')">コピー</button>
+        <pre><code class="json" id="zero_json">{
   "format_version": "1.16.100",
   "minecraft:item": {
     "description": {
@@ -97,27 +62,28 @@
     },
     "components": {
       "minecraft:icon": {
-        "texture": "my_item"
+        "texture": "my_item" <span class="hljs-comment">// TerrainID</span>
       }
-      // コンポーネント
+      <span class="hljs-comment">// コンポーネント</span>
     }
   }
 }</code></pre>
+      </div>
       <hr>
       <h3 id="sec02sec01">主な構成</h3>
-      <div class="demoCode">{
+      <div class="masecjson"><button onclick="copyToClipboard('normal_json:div')">コピー</button><textarea class="copyBoard" id="normal_json" cols="5" rows="5" readonly></textarea>{
   "format_version": "1.16.100",
   "minecraft:item": {
     "description": {
       "identifier": "test:my_item",
       "category": "Items"
     },
-    <div class="demoMark_r">"components": {
-  "minecraft:icon": {
-    "texture": "my_item"
-  }
-  // コンポーネント
-}</div>
+    ~#r"components": {
+      "minecraft:icon": {
+        "texture": "my_item"
+      }
+      // コンポーネント
+    }r#~
   }
 }</div>
       <p>
@@ -125,104 +91,50 @@
         　minecraft:iconもコンポーネントですが、<b>テクスチャを指定するために必須</b>なので書いておきました。
       </p>
       <hr>
-      <h3 id="sec02sec02">IDを決める</h3>
-      <div class="demoCode">{
-  "format_version": "1.16.100",
-  "minecraft:item": {
-    "description": {
-      "identifier": "<span style="background: #83ffd9;">test:my_item</span>",
-      "category": "Items"
-    },
-    <div class="demoMark_r">"components": {
-  "minecraft:icon": {
-    "texture": "my_item"
-  }
-  // コンポーネント
-}</div>
-  }
-}</div>
-      <p>
-        　IDを決め忘れないでください。
-      </p>
-      <details><summary style="color: transparent; transform: translate(-2em, 0px);">
-        <div class="question">？</div><span style="color: #000; font-weight: bolder;">identifier(ID)の決め方</span></summary>
-        <div class="blue_box">
-          　基本的には「<b>(アドオンid):(本id)</b>」といった感じ。<br>
-          　アドオンidは<b>アドオン全体で統一</b>する。苗字のようなもの。ネームスペースとかプリフィックスとか呼ばれることがある。<br>
-          　本idは文字通り<b>本体のid</b>。みんな違うものをつけましょう。<br>
-          例)　test:my_content<br>
-          <b>--注意--</b><br>
-          ・どちらも先頭を数字にしない。<br>
-          ・数字かアルファベットのみを使う。<br>
-          ・アドオンidに「minecraft」は使ってはならない。<br>
-          ・アドオンidは、ほかのアドオンとの競合を考えてオリジナル性の高いものにする。
-        </div>
-      </details>
-      <hr>
-      <h3 id="sec02sec03">TerranIDを指定する</h3>
-      <div class="demoCode">{
+      <h3 id="sec02sec02">発展的な構成</h3>
+      <div class="masecjson"><button onclick="copyToClipboard('adv_jsno:div')">コピー</button><textarea class="copyBoard" id="adv_json" cols="5" rows="5" readonly></textarea>{
   "format_version": "1.16.100",
   "minecraft:item": {
     "description": {
       "identifier": "test:my_item",
       "category": "Items"
     },
-    <div class="demoMark_r">"components": {
-  "minecraft:icon": {
-    "texture": "<span style="background: #83ffd9;">my_item</span>"
-  }
-  // コンポーネント
-}</div>
-  }
-}</div>
-      <p>
-        　ここでTerrainIDを指定します。
-      </p>
-      <div class="question">？</div>
-      <a href="mcbe_addon_item_texture-json.html#sec02sec03" target="_blank">TerrainID(item_texture.jsonについて)</a>
-      <img src="img/external_link_icon.png" class="ignore text_icon">
-      <hr>
-      <h3 id="sec02sec04">コンポーネントを追加する</h3>
-      <div class="demoCode">{
-  "format_version": "1.16.100",
-  "minecraft:item": {
-    "description": {
-      "identifier": "test:my_item",
-      "category": "Items"
-    },
-    <div class="demoMark_r">"components": {
-  "minecraft:icon": {
-    "texture": "my_item"
-  },
-  <span style="background: #83ffd9;">"minecraft:allow_off_hand": true</span>
-}</div>
+    ~#r"components": {
+      "minecraft:icon": {
+        "texture": "my_item"
+      }
+      // コンポーネント
+    },r#~
+    ~#r"events": {
+      // イベント
+    }r#~
   }
 }</div>
       <p>
-        　リファレンスから選んでコンポーネントを追加します。追加する際はカンマに気を付けてください。忘れると<b style="color: red;">エラーになります</b>。<br>
-        　何を選んだらいいのかわからない場合は後で例をいくつか載せるので参考にしてください。
+        　イベントを用いてより複雑な仕様をもったアイテムを作ることができます。
       </p>
-      <details><summary style="color: transparent; transform: translate(-2em, 0px);">
-        <div class="question">？</div><span style="color: #000; font-weight: bolder;">コンポーネントの選び方</span></summary>
-        <div class="scrollBox">
-          <div class="blue_box">
-            <p>
-              　Items.htmlというリファレンスの「Item Components」の章に載っているものはすべてコンポーネントです。<br>
-              　しかし、選んでもコンポーネントの形がリファレンスからは分かりづらいので<a href="mcbe_addon5.html#sec03" target="_blank">こちら</a><img src="img/external_link_icon.png" class="ignore text_icon">を参考にしてみてください。
-            </p>
-            <div class="question" style="line-height: normal; background: #f88;">？</div>
-            <a href="mcbe_addon1.html#sec06sec00" target="_blank">リファレンス(アドオンを作るひとへ)</a>
-            <img src="img/external_link_icon.png" class="ignore text_icon"><br>
-          </div>
+      <div id="sec03" class="headline" style="border-left: solid 10px #FF6169;">イベント</div>
+      <p>
+        　イベントをトリガーする(呼び出す)ことができる特定のコンポーネントによって呼び出され、
+        指定したイベントファンクションを動作させます。
+      </p>
+      <div style="text-align: center;">
+        <div style="text-align: left;" class="blue_box">
+          イベントトリガー系コンポーネント<br>
+          ↓　呼び出す<br>
+          イベント
         </div>
-      </details>
-      <div id="sec03" class="headline" style="border-left: solid 10px #FF6169;">最も簡単な例</div><br>
+      </div>
+      <div id="sec03" class="headline" style="border-left: solid 10px #FF6169;">具体例</div><br>
+      <h3 id="sec04sec01">シンプルなアイテム</h3>
       <p>
         　JSONがシンプルになるように性質を選んできています。<br>
         　<span style="color: #ccc;">しかし、もともと簡単なコンポーネントが少ないのでスカスカです</span>
       </p>
       <div class="pDat">Dat</div><div class="dir">items/simple_item.json</div>
-      <pre><code class="json">{
+      <div class="codediv">
+        <button onclick="copyToClipboard('simple_item_json:code')">コピー</button>
+        <pre><code class="json" id="simple_item_json">{
   "format_version": "1.16.100",
   "minecraft:block": {
     "description": {
@@ -239,6 +151,7 @@
     }
   }
 }</code></pre>
+      </div>
       <p>
         　このお手本アイテムは以下のような性質を持ちます↓
       </p>
@@ -247,27 +160,213 @@
         ・TerrainIDはsimple_itemである<br>
         ・16個までしかスタックできない
       </div>
-      <p>
-        　はじめはこれをコピペして自分で値を変えて試すのがいいかもしれません。<br>
-        　それぞれの性質についてもっと詳しく説明します。
-      </p>
-      <div class="scrollBox">
-        <table border="1">
-          <tr><td>
-            <h3>minecraft:fuel</h3>
-            <p>
-              　かまどの燃料として使ったときに火が付いている秒数。
-              指定した秒数を10で割った時の数が、この燃料一つ分で
-            </p>
-          </td></tr>
-          <tr><td>
-            <h3>minecraft:max_stack_size</h3>
-            <p>
-              　スタック数の上限。最大は99です。
-            </p>
-          </td></tr>
-        </table>
+      <h3 id="sec04sec01">「使う」ができるアイテム</h3>
+      <div class="pDat">Dat</div><div class="dir">items/use_item.json</div>
+      <div class="codediv">
+        <button onclick="copyToClipboard('use_item_json:code')">コピー</button>
+        <pre><code class="json" id="use_item_json">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ex:use_item",
+      "category": "Equipment"
+    },
+    "components": {
+      "minecraft:can_destroy_in_creative": false,
+      "minecraft:cooldown": {
+        "category": "use_item",
+        "duration": 5
+      },
+      "minecraft:display_name": {},
+      "minecraft:foil": true,
+      "minecraft:icon": { "texture": "use_item" },
+      "minecraft:max_stack_size": 64,
+      "minecraft:on_use": {
+        "on_use": {
+          "condition": "(1.0)",
+          "event": "use",
+          "target": "self"
+        }
+      },
+      "minecraft:use_duration": 3600
+    },
+    "events": {
+      "use": {
+        "run_command": {
+          "command": [ "playsound mob.evocation_illager.cast_spell @a" ],
+          "target": "holder"
+        }
+      }
+    }
+  }
+}</code></pre>
       </div>
+      <p></p>
+      <h3 id="sec04sec01">剣</h3>
+      <div class="pDat">Dat</div><div class="dir">items/alt_netherite_sword.json</div>
+      <div class="codediv">
+        <button onclick="copyToClipboard('sword_item_json:code')">コピー</button>
+        <pre><code class="json" id="sword_item_json">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ex:alt_netherite_sword",
+      "category": "Equipment"
+    },
+    "components": {
+      "minecraft:can_destroy_in_creative": false,
+      "minecraft:creative_category": { "parent": "itemGroup.name.sword" },
+      "minecraft:damage": 8,
+      "minecraft:display_name": {},
+      "minecraft:durability": { "max_durability": 2031 },
+      "minecraft:enchantable": {
+        "slot": "sword",
+        "value": 15
+      },
+      "minecraft:hand_equipped": true,
+      "minecraft:icon": { "texture": "netherite_sword" },
+      "minecraft:max_stack_size": 1,
+      "minecraft:repairable": {
+        "repair_items": [
+          { "items": [ "minecraft:netherite_ingot" ], "repair_amount": 507 },
+          { "items": [ "ex:alt_netherite_sword" ], "repair_amount": "(c.other->q.remaining_durability)+0.05*(c.other->q.max_durability)" }
+        ]
+      },
+      "minecraft:weapon": {
+        "on_hurt_entity": { "condition": "(1.0)", "event": "attack", "target": "self" }
+      }
+    },
+
+    "events": {
+      "attack": {
+        "damage": { "amount": 1, "target": "self", "type": "durability" }
+      }
+    }
+  }
+}</code></pre>
+      </div>
+      <p></p>
+      <h3 id="sec04sec01">ツルハシ</h3>
+      <div class="pDat">Dat</div><div class="dir">items/my_pick.json</div>
+      <div class="codediv">
+        <button onclick="copyToClipboard('pickaxe_item_json:code')">コピー</button>
+        <pre><code class="json" id="pickaxe_item_json">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ex:my_pick",
+      "category": "Equipment"
+    },
+    "components": {
+      "minecraft:creative_category": { "parent": "itemGroup.name.pickaxe" },
+      "minecraft:damage": 6,
+      "minecraft:display_name": {},
+      "minecraft:digger": {
+        "use_efficiency": true,
+        "on_dig": { "event": "other_hit", "target": "self" },
+        "destroy_speeds": [
+          {
+            "block": { "tags": "q.any_tag('stone', 'metal')" },
+            "speed": 8
+          },
+          { "block": "minecraft:coal_ore", "speed": 8 },
+          { "block": "minecraft:iron_ore", "speed": 8 },
+          { "block": "minecraft:lapis_ore", "speed": 8 },
+          { "block": "minecraft:lit_redstone_ore", "speed": 8 },
+          { "block": "minecraft:gold_ore", "speed": 8 },
+          { "block": "minecraft:diamond_ore", "speed": 8 },
+          { "block": "minecraft:emerald_ore", "speed": 8 },
+          { "block": "minecraft:quartz_ore", "speed": 8 }
+          // ... 
+        ]
+      },
+      "minecraft:durability": { "max_durability": 1000 },
+      "minecraft:enchantable": { "slot": "pickaxe", "value": 10 },
+      "minecraft:hand_equipped": true,
+      "minecraft:icon": { "texture": "my_pickaxe" },
+      "minecraft:max_stack_size": 1,
+      "minecraft:mining_speed": 3,
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [ "ex:my_pickaxe" ],
+            "repair_amount": 20
+          }
+        ]
+      },
+      "minecraft:stacked_by_data": true,
+      "minecraft:weapon": {
+        "on_hurt_entity": { "event": "other_dam", "target": "self" },
+        "on_hit_block": { "event": "break_block", "target": "self" }
+      }
+    },
+    
+    "events": {
+      "other_hit": {
+        "damage": { "type": "durability", "amount": 3 }
+      },
+      "break_block": {
+        "damage": { "type": "durability", "amount": 1 }
+      }
+    }
+  }
+}</code></pre>
+      </div>
+      <p></p>
+      <h3 id="sec04sec01">防具</h3>
+      <div class="pDat">Dat</div><div class="dir">items/alt_netherite_chestplate.json</div>
+      <div class="codediv">
+        <button onclick="copyToClipboard('chestplate_item_json:code')">コピー</button>
+        <pre><code class="json" id="chestplate_item_json">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ex:alt_netherite_chestplate",
+      "category": "Equipment"
+    },
+    "components": {
+      "minecraft:armor": { "protection": 11 },
+      "minecraft:creative_category": { "parent": "itemGroup.name.chestplate" },
+      "minecraft:display_name": {},
+      "minecraft:durability": { "max_durability": 550, "damage_chance": { "min": 60, "max": 100 } },
+      "minecraft:enchantable": { "slot": "armor_torso", "value": 15 },
+      "minecraft:icon": { "texture": "netherite_chestplate" },
+      "minecraft:max_stack_size": 1,
+      "minecraft:repairable": {
+        "repair_items": [
+          { "items": [ "minecraft:netherite" ], "repair_amount": "math.floor(q.max_durability*0.25)" },
+          { "items": [ "ex:alt_netherite_chestplate" ], "repair_amount": "(c.other->q.remaining_durability)+0.05*(c.other->q.max_durability)" }
+        ]
+      },
+      "minecraft:stacked_by_data": true,
+      "minecraft:wearable": { "slot": "slot.armor.chest" }
+    }
+  }
+}</code></pre>
+      </div>
+      <p></p>
+      <h3 id="sec04sec01">食べ物</h3>
+      <div class="pDat">Dat</div><div class="dir">items/my_food.json</div>
+      <div class="codediv">
+        <button onclick="copyToClipboard('food_item_json:code')">コピー</button>
+        <pre><code class="json" id="food_item_json">{
+  "format_version": "1.12.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ex:my_food"
+    },
+    "components": {
+      "minecraft:food": {
+        "nutrition": 10,
+        "saturation_modifier": "normal",
+        "can_always_eat": false
+      },
+      "minecraft:use_duration": 32
+    }
+  }
+}</code></pre>
+      </div>
+      <p></p>
     </div>
     <div id="sidebar">
       <iframe src="side_bar.html"></iframe>
@@ -287,14 +386,14 @@
           <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
           <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
         </div>
-        <hr>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
         <h4><a href="#sec01">基本的な流れ</a></h4>
         <p>
           ・<a href="#sec01sec01">アイテム本体を定義</a><br>
           ・<a href="#sec01sec02">テクスチャを用意</a><br>
           ・<a href="#sec01sec03">テクスチャと本体を紐づけ</a>
         </p>
-        <hr>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
         <h4><a href="#sec02">アイテム本体(基礎)</a></h4>
         <p>
           ・<a href="#sec02sec01">主な構成</a><br>
@@ -302,7 +401,7 @@
           ・<a href="#sec02sec03">TerrainIDを指定する</a><br>
           ・<a href="#sec02sec04">コンポーネントを追加する</a>
         </p>
-        <hr>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
         <h4><a href="#sec03">最も簡単な例</a></h4>
       </div>
     </div>
