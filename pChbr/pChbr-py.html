@@ -4,7 +4,7 @@
   <title>Python - Private Chamber</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/atelier-estuary-light.min.css">
+  <link rel="stylesheet" href="../../masec note/highlight-js/masec-light.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
   <!-- <pre><code class="json">//コード</code></pre> -->
@@ -14,7 +14,7 @@
   <!--<style type="text/css"></style>-->
 </head>
 <body>
-  <div style="margin: 8px;"><span class="desc">uploaded:2021/11/11</span></div>
+  <div style="margin: 8px;"><span class="desc">uploaded:2022/08/02</span></div>
   <div>
     <div class="main">
       <h1>Private Chamber - Python</h1>
@@ -22,12 +22,8 @@
         　ノーコメント.
       </p>
 
-      <div class="headline" id="sec01" style="border-left: solid 10px #ff5400;">性質</div>
-      <h3 id="sec01sec01">コードの折り込み</h3>
-      <p>　あらゆるカッコの中ではjsonのように自由に改行できる</p>
-      <pre><code class="py">a = 1 + 2 + 3 + 4\
-    + 5 + 6 + 7 + 8</code></pre>
-      <h3 id="sec01sec02">比較演算子</h3>
+      <div class="headline" id="sec01" style="border-left: solid 10px #ff5400;">基礎</div>
+      <h3 id="sec01sec01">比較演算子</h3>
       <pre><code class="py">a == 1
 b != 1
 c not 1
@@ -35,126 +31,397 @@ d < 1
 e > 1
 f <= 1
 g >= 1</code></pre>
-      <h3 id="sec01sec03">論理演算</h3>
+      <h3 id="sec01sec02">論理演算</h3>
       <p>　三つ以上でもカッコは要らない</p>
       <pre><code class="py">a == 1 and b == 1
 c == 1 or d == 1</code></pre>
-      <h3 id="sec01sec04">以下のどれでもない</h3>
+      <h3 id="sec01sec03">以下のどれでもない</h3>
       <pre><code class="py">a not in (1, 2, 3, 4, 5)</code></pre>
-      <div class="headline" id="sec02" style="border-left: solid 10px #ff5400;">データ型</div>
-      <h3 id="sec02sec01">ストリング型</h3>
-      <p>　シングルクォーテーションが好ましい</p>
-      <pre><code class="py">a = 'Hello world'</code></pre>
-      <h3 id="sec02sec02">ブーリアン型</h3>
+      <div class="headline" id="sec02" style="border-left: solid 10px #ff5400;">ブーリアン</div>
+      <h3 id="sec02sec01">リテラル</h3>
       <p>　大文字であることに注意</p>
       <pre><code class="py">a = True
 b = False</code></pre>
-      <h3 id="sec02sec03">無の型</h3>
-      <pre><code class="py">a = None</code></pre>
-      <div class="headline" id="sec03" style="border-left: solid 10px #ff5400;">具体的な構文</div>
-      <h3 id="sec03sec01">コメントアウト</h3>
-      <p>　#とコメント内容の間には半角スペースひとつ入れるのが好ましい</p>
-      <pre><code class="py"># コメント
-
-```
-複数行コメント
-```</code></pre>
-      <h3 id="sec03sec02">変数定義</h3>
-      <pre><code class="py">a = 1</code></pre>
-      <h3 id="sec03sec03">関数</h3>
-      <pre><code class="py">def f(x, y):
-    print(x+y)
-print(f(1, 2))   # 3</code></pre>
-      <h3 id="sec03sec04">条件分岐</h3>
-      <pre><code class="py">if a == b:
-    # 処理
-elif c == d:
-    # 処理
-else:
-    # 処理</code></pre>
-      <h3 id="sec03sec05">繰り返し処理</h3>
-      <p>　range(a)は0～aの整数値を順に出力する</p>
-      <pre><code class="py">list_ = ['a', 'b', 'c']
-for i in list_:
-    print(i)
-# 'a' 'b' 'c' (三回の処理)
-int_ = 0
-for i in range(3)
-    int_ += i
-# 3</code></pre>
-      <h3 id="sec03sec06">例外処理</h3>
-      <p>　IndexErrorでリストの存在しない個数目を指定した場合のエラー</p>
-      <pre><code class="py">try:
-    print(int('Hi'))
-except ValueError:
-    print('Error')
-# 'Error'</code></pre>
-      <div class="headline" id="sec04" style="border-left: solid 10px #ff5400;">ユーティリティ</div>
-      <h3 id="sec04sec01">深層データ</h3>
-      <pre><code class="py">a.b = 1</code></pre>
-      <h3 id="sec04sec02">型を取得</h3>
-      <p>　この際の「str」は特殊な型でありストリング型ではない</p>
-      <pre><code class="py">type('10') == str   # true</code></pre>
-      <h3 id="sec04sec03">型の変更</h3>
-      <pre><code class="py">a = int('100')   # ストリングの入力を演算に使う際など
-b = str(a)   # 数とストリングを連結する際など
-c = list('Hello')   # [ 'H', 'e', 'l', 'l', 'o' ]</code></pre>
-      <h3 id="sec04sec04">文字列のライフハック</h3>
-      <p>　文字列の連結</p>
+      <div class="headline" id="sec03" style="border-left: solid 10px #ff5400;">文字列</div>
+      <h3 id="sec03sec01">リテラル</h3>
+      <p>　シングルクォーテーションが好ましい</p>
+      <pre><code class="py">a = 'Hello world'</code></pre>
+      <h3 id="sec03sec02">連結</h3>
       <pre><code class="py">a = 'Hello ' + 'world'   # 'Hello world'
 b = 'Hello ' 'world'   # 'Hello world' (これでも可)</code></pre>
-      <p>　一部を取得</p>
+      <h3 id="sec03sec03">間に挟んで連結</h3>
+      <pre><code class="py">li = [ 'a', 'b', 'c' ]
+print(','.join(li)) # 'a,b,c'</code></pre>
+      <p>　改行を含む文章</p>
+      <h3 id="sec03sec04">改行を含む文章</h3>
+      <pre><code class="py">a = '''
+シングルまたはダブルクォートを
+三つ連ねたもので挟むことで
+改行を含む文章でもエスケープなしで
+変数に格納できる
+'''</code></pre>
+      <h3 id="sec03sec05">フォーマット済み文字列</h3>
+      <pre><code class="py">name = 'Masec'
+print(f'Hello, {name}!') # 'Hello, Masec!'</code></pre>
+      <h3 id="sec03sec06">値の埋め込み</h3>
+      <pre><code class="py">tpl = 'a', 'b'
+print('%s %% %s' % tpl) # 'a % b'
+
+dict = {'c': 1, 'd': 2}
+print('c is %(c)s. d is %(d)s, not %(c)s.' % dict) # 'c is 1. d is 2, not 1.'</code></pre>
+      <h3 id="sec03sec07">一部を取得</h3>
       <pre><code class="py">a = 'Hello world'
 print(a[3:])   # 'lo world'
 print(a[:3])   # 'Hel'
 print(a[2:5])   # 'llo '</code></pre>
-      <p>　スペースごとに分割</p>
+      <h3 id="sec03sec08">n文字目</h3>
+      <pre><code class="py">s = 'abc'
+n = 1
+print(s[n-1])  # 'a'
+print(s[-1])  # 'c' (最後の文字)</code></pre>
+      <h3 id="sec03sec09">置換</h3>
+      <pre><code class="py">s = 'abcde, abcde'
+print(s.replace('bcd', 'XXX')) # 'aXXXe, aXXXe'
+print(s.replace('e', 'X', 1)) # 'abcdX, abcde'</code></pre>
+      <h3 id="sec03sec10">検索</h3>
+      <pre><code class="py">s = 'abcabcabc'
+print('初めて現れるbは' + str(s.find('b')+1) + '文字目')  # '初めて現れるbは2文字目'
+print('3文字目以降に初めて現れるbは' + str(s.find('b', 2)+1) + '文字目') # '3文字目以降に初めて現れるbは4文字目'</code></pre>
+      <h3 id="sec03sec11">登場回数</h3>
+      <pre><code class="py">s = 'aaabbc'
+print(s.count('b'))  # 2</code></pre>
+      <h3 id="sec03sec12">含まれるかどうか</h3>
+      <pre><code class="py">s='abc'
+print('b' in s) # True</code></pre>
+      <h3 id="sec03sec13">スペースごとに分割</h3>
       <pre><code class="py">a = 'Nice to meet you'
 print(a.split())   # ['Nice', 'to', 'meet', 'you']</code></pre>
-      <h3 id="sec04sec05">リストのライフハック</h3>
-      <p>　要素取得</p>
-      <pre><code class="py">list_ = ['a', 'b', 'c']
-print(list_[1])   # 'b'</code></pre>
-      <p>　要素追加</p>
-      <pre><code class="py">a = [1, 2, 3, 4]
-a.append(5)
-print(a)   # [1, 2, 3, 4, 5]</code></pre>
-      <h3 id="sec04sec06">辞書型のライフハック</h3>
-      <p>　要素取得</p>
+      <h3 id="sec03sec14">繰り返し</h3>
+      <pre><code class="py">s = 'abc'
+print(s*2) # 'abcabc'</code></pre>
+      <div class="headline" id="sec04" style="border-left: solid 10px #ff5400;">数値</div>
+      <h3 id="sec04sec01">リテラル</h3>
+      <p>　「0o～」で8進数、「0x～」で16進数、「0b～」で2進数。</p>
+      <h3 id="sec04sec02">小数</h3>
+      <p>　「e」または「E」で指数表現ができる。</p>
+      <pre><code class="js">3.1415926
+-0.123456789
+-3.1E12
+0.1e-23</code></pre>
+      <p>　float型とdouble型があり、float型には誤差が生じるため注意が必要。</p>
+      <pre><code class="py">print(0.1 + 0.1 + 0.1 == 0.3) # False</code></pre>
+      <pre><code class="py">from decimal import *
+print(Decimal('0.1') + Decimal('0.1') + Decimal('0.1') == Decimal('0.3')) # True</code></pre>
+      <div class="headline" id="sec05" style="border-left: solid 10px #ff5400;">リスト</div>
+      <h3 id="sec05sec01">リテラル</h3>
+      <pre><code class="py">a = [ 'apple', 'banana', 'lemmon' ]
+print(a[0]) # 'apple'</code></pre>
+      <h3 id="sec05sec02">要素取得</h3>
+      <pre><code class="py">li = ['a', 'b', 'c']
+print(li[1]) # 'b'
+print(li[-1]) # 'c'</code></pre>
+      <h3 id="sec05sec03">要素追加</h3>
+      <pre><code class="py">li = [1, 2, 3, 4]
+li.append(5)
+print(li) # [1, 2, 3, 4, 5]</code></pre>
+      <h3 id="sec05sec04">要素削除</h3>
+      <pre><code class="py">li = [1, 2, 3, 4]
+del li[2]
+print(li) # [1, 2, 4]</code></pre>
+      <h3 id="sec05sec05">末尾の要素を削除</h3>
+      <pre><code class="py">li = [1, 2, 3, 2]
+li.remove(2)
+print(li) # [1, 3, 2]</code></pre>
+      <h3 id="sec05sec06">拡張</h3>
+      <pre><code class="py">li = [1, 2, 3]
+li.extend([4, 5])
+print(li) # [1, 2, 3, 4, 5]</code></pre>
+      <h3 id="sec05sec07">指定した場所に挿入</h3>
+      <pre><code class="py">li = [1, 3]
+li.insert(1, 2)
+print(li) # [1, 2, 3]</code></pre>
+      <h3 id="sec05sec08">存在確認</h3>
+      <pre><code class="py">li = [1, 2, 3]
+print(3 in li) # True</code></pre>
+      <h3 id="sec05sec09">含まれている個数</h3>
+      <pre><code class="py">li = [1, 2, 3, 2, 2]
+print(li.count(2)) # 3</code></pre>
+      <h3 id="sec05sec10">検索</h3>
+      <pre><code class="py">li = [1, 2, 3]
+print('初めて現れる2は' + str(li.index(2)+1) + '文字目')</code></pre>
+      <h3 id="sec05sec11">最大・最小</h3>
+      <pre><code class="py">li = [1, 2, 3]
+print(max(li)) # 3
+print(min(li)) # 1</code></pre>
+      <h3 id="sec05sec12">forを内包</h3>
+      <pre><code class="py">print([i for i in range(0, 10, 2)])  # [0, 2, 4, 6, 8]
+print([i for i in range(10) if i % 2 == 1])  # [1, 3, 5, 7, 9]
+print([c.upper() if c.islower() else c.lower() for c in 'AbCdE'])  # ['a', 'B', 'c', 'D', 'e']
+print([[x * y for x in range(1, 4)] for y in range(1, 5)])  # [[1, 2, 3], [2, 4, 6], [3, 6, 9], [4, 8, 12]]</code></pre>
+      <h3 id="sec05sec13">タプルから変換</h3>
+      <pre><code class="py">tpl = 1,2,3
+li = list(tpl)</code></pre>
+      <h3 id="sec05sec14">並び替える</h3>
+      <pre><code class="py">li = [2, 1, 3]
+print(li.sort()) # [1, 2, 3]</code></pre>
+      <div class="headline" id="sec06" style="border-left: solid 10px #ff5400;">タプル</div>
+      <h3 id="sec06sec01">リテラル</h3>
+      <p>要素の変更はできない。</p>
+      <pre><code class="py">tpl = 'x', 'y'
+print(tpl) # ('x', 'y')
+print(tpl[0]) # 'x'</code></pre>
+      <h3 id="sec06sec02">要素数</h3>
+      <pre><code class="py">tpl = 1,2,3
+len(tpl) # 3</code></pre>
+      <h3 id="sec06sec03">最大・最小</h3>
+      <pre><code class="py">tpl = 1,2,3
+print(max(tpl)) # 3
+print(min(tpl)) # 1</code></pre>
+      <h3 id="sec06sec04">結合</h3>
+      <pre><code class="py">tpl = 1,2,3
+tpl2 = 4,5,6
+print(tpl + tpl2) # (1,2,3,4,5,6)</code></pre>
+      <h3 id="sec06sec05">繰り返し</h3>
+      <pre><code class="py">tpl = 1,2,3
+print(tpl*2) # (1,2,3,1,2,3)</code></pre>      
+      <h3 id="sec06sec06">存在確認</h3>
+      <pre><code class="py">tpl = 1,2,3
+print(1 in tpl) # True</code></pre>
+      <h3 id="sec06sec07">何番目か</h3>
+      <pre><code class="py">tpl = 1,2,3
+print(tpl.index(1)) # 0</code></pre>
+      <h3 id="sec06sec08">存在する個数</h3>
+      <pre><code class="py">tpl = 1,2,3
+print(tpl.count(3)) # 1</code></pre>
+      <h3 id="sec06sec09">並べ替える</h3>
+      <pre><code class="py">tpl = 2,1,3
+print(surted(tpl)) # (1,2,3)</code></pre>
+      <h3 id="sec06sec10">反転する</h3>
+      <pre><code class="py">tpl = 1,2,3
+print(reversed(tpl)) # (3,2,1)</code></pre>
+      <div class="headline" id="sec07" style="border-left: solid 10px #ff5400;">辞書</div>
+      <h3 id="sec07sec01">リテラル</h3>
+      <pre><code class="js">food = {'type': 'fruits', 'color': 'red', 'taste': 'sweet'}
+print(food['type']) # fruits</code></pre      
+      <h3 id="sec07sec02">存在確認</h3>
+      <pre><code class="py">dict = {'a': 1, 'b': 'Hi', 'c': True}
+
+# キーから検索
+print('a' in dict.keys()) # True
+
+# 値から検索
+print('Hi' in dict.values()) # True</code></pre>
+      <h3 id="sec07sec03">要素取得</h3>
       <pre><code class="py">dict = {'a': 1, 'b': 'Hi', 'c': True}
 print(dict['b'])   # 'Hi'</code></pre>
-      <p>　長さを取得</p>
+      <h3 id="sec07sec04">要素追加</h3>
       <pre><code class="py">dict = {'a': 1, 'b': 'Hi', 'c': True}
-print(len(dict))   # 3</code></pre>
-      <p>　キーのみをリスト化</p>
-      <pre><code class="py">dict = {'a': 1, 'b': 'Hi', 'c': True}
-print(list(dict.keys()))   # ['a', 'b', 'c']</code></pre>
-      <p>　値のみをリスト化</p>
-      <pre><code class="py">dict = {'a': 1, 'b': 'Hi', 'c': True}
-print(list(dict.values()))   # [1, 'Hi', True]</code></pre>
-      <p>　要素の削除</p>
+
+dict['d'] = 123
+dict.setdefault('e', 'default')</code></pre>
+      <h3 id="sec07sec05">要素の削除</h3>
       <pre><code class="py">dict = {'a': 1, 'b': 2, 'c': 3}
 dict.pop('b')
 print(dict)   # {'a': 1, 'c': 3}</code></pre>
-      <div class="headline" id="sec05" style="border-left: solid 10px #ff5400;">要import</div>
-      <h3 id="sec05sec01">現在時刻を取得</h3>
+      <p>　拡張</p>
+      <h3 id="sec07sec06">拡張</h3>
+      <pre><code class="py">dict = {'a': 1, 'b': 2, 'c': 3}
+dict2 = {'c': 4, 'd': 5, 'e': 6}
+
+print(dict.update(dict2)) # {'a': 1, 'b': 2, 'c': 4, 'd': 5, 'e': 6}</code></pre>
+      <h3 id="sec07sec07">長さを取得</h3>
+      <pre><code class="py">dict = {'a': 1, 'b': 'Hi', 'c': True}
+print(len(dict))   # 3</code></pre>
+      <h3 id="sec07sec08">キーのみをリスト化</h3>
+      <pre><code class="py">dict = {'a': 1, 'b': 'Hi', 'c': True}
+print(list(dict.keys()))   # ['a', 'b', 'c']</code></pre>
+      <h3 id="sec07sec09">値のみをリスト化</h3>
+      <pre><code class="py">dict = {'a': 1, 'b': 'Hi', 'c': True}
+print(list(dict.values()))   # [1, 'Hi', True]</code></pre>
+      <div class="headline" id="sec08" style="border-left: solid 10px #ff5400;">無の型</div>
+      <pre><code class="py">a = None</code></pre>
+      <div class="headline" id="sec09" style="border-left: solid 10px #ff5400;">具体的な構文</div>
+      <h3 id="sec09sec01">コメントアウト</h3>
+      <p>　#とコメント内容の間には半角スペースひとつ入れるのが好ましい</p>
+      <pre><code class="py"># コメント
+
+"""
+複数行コメント(シングルまたはダブルクォート)
+"""</code></pre>
+      <h3 id="sec09sec02">変数定義</h3>
+      <pre><code class="py">a = 1</code></pre>
+      <h3 id="sec09sec03">関数</h3>
+      <pre><code class="py">def f(x, y):
+  print(x+y)
+f(1, 2)   # 3</code></pre>
+      <h3 id="sec09sec04">条件分岐</h3>
+      <pre><code class="py">if a == b:
+  # 処理
+elif c == d:
+  # 処理
+else:
+  # 処理</code></pre>
+      <h3 id="sec09sec05">繰り返し処理</h3>
+      <p>　range(a)は0～aの整数値を順に出力する</p>
+      <pre><code class="py">a = ''
+for i in range(3):
+  a += str(i)
+print(a) # '012'
+
+li = ['a', 'b', 'c']
+b = ''
+for i in list_:
+  b += i
+print(b) # 'abc'</code></pre>
+      <h3 id="sec09sec06">例外処理</h3>
+      <p>
+        　IndexErrorでリストの存在しない個数目を指定した場合のエラー<br>
+        　cf：<a href="https://docs.python.org/ja/3/library/exceptions.html">例外一覧</a>
+      </p>
+      <pre><code class="py">try:
+  print(int('Hi'))
+except ValueError:
+  print('Error') # 'Error'
+
+try: # あらゆるエラー
+  print(int('Hi'))
+except Exception as e:
+  print(e) # invalid literal for int() with base 10: 'Hi'</code></pre>
+      <h3 id="sec09sec07">クラス定義</h3>
+      <p></p>
+      <pre><code class="py">class Rectangle:
+  def __init__(self): # コンストラクタ
+    self.height = 0
+    self.width = 0
+
+  def set(self, a, b):
+    self.height = a
+    self.width = b</code></pre>
+      <p>使い方</p>
+      <pre><code>rect = Rectangle()
+rect.set(1,2)
+print(rect.height) # 1</code></pre>
+      <div class="headline" id="sec10" style="border-left: solid 10px #ff5400;">ユーティリティ</div>
+      <h3 id="sec10sec01">コードの折り込み</h3>
+      <p>　あらゆるカッコの中ではjsonのように自由に改行できる</p>
+      <pre><code class="py">a = 1 + 2 + 3 + 4\
+  + 5 + 6 + 7 + 8</code></pre>
+      <h3 id="sec10sec02">型を取得</h3>
+      <p>　この際の「str」は特殊な型でありストリング型ではない</p>
+      <pre><code class="py">type('10') == str   # true</code></pre>
+      <h3 id="sec10sec03">型の変更</h3>
+      <pre><code class="py">a = int('100')   # ストリングの入力を演算に使う際など
+b = str(a)   # 数とストリングを連結する際など
+c = list('Hello')   # [ 'H', 'e', 'l', 'l', 'o' ]</code></pre>
+      <h3 id="sec10sec04">ファイル生成</h3>
+      <pre><code class="py">f = open('○○.txt', 'w')
+f.write('Hi')
+f.close()</code></pre>
+      <div class="headline" id="sec11" style="border-left: solid 10px #ff5400;">要import</div>
+      <h3 id="sec11sec01">数学関数、定数</h3>
+      <details><summary>抜粋一覧</summary>
+        <ul>
+          <li>math.ceil(x)</li>
+          <li>math.comb(n, r)&nbsp;&nbsp;&nbsp;# nCr</li>
+          <li>math.fabs(x)&nbsp;&nbsp;&nbsp;# Abs</li>
+          <li>math.factrial(int)</li>
+          <li>math.floor(x)</li>
+          <li>math.gcd(int, int, ...)</li>
+          <li>math.isfinite(x)</li>
+          <li>math.isinf(x)</li>
+          <li>math.isnan(x)</li>
+          <li>math.lcm(int, int, ...)</li>
+          <li>math.perm(n, r)&nbsp;&nbsp;&nbsp;# nPr</li>
+          <li>math.exp(x)</li>
+          <li>math.log(x, [base])</li>
+          <li>x**y&nbsp;&nbsp;&nbsp;# x^y</li>
+          <li>math.pow(x, y)</li>
+          <li>math.sqrt(x)</li>
+          <li>math.asin(x)</li>
+          <li>math.acos(x)</li>
+          <li>math.atan(x)</li>
+          <li>math.sin(x)</li>
+          <li>math.cos(x)</li>
+          <li>math.tan(x)</li>
+          <li>math.radians(x)</li>
+          <li>math.degrees(x)</li>
+          <li>math.asinh(x)</li>
+          <li>math.acosh(x)</li>
+          <li>math.atanh(x)</li>
+          <li>math.sinh(x)</li>
+          <li>math.cosh(x)</li>
+          <li>math.tanh(x)</li>
+          <li>math.gamma(x)</li>
+          <li>math.pi</li>
+          <li>math.e</li>
+          <li>math.inf</li>
+          <li>math.nan</li>
+        </ul>
+      </details>
+      <pre><code class="py">import math
+
+pi = math.pi # 3.141592653589793</code></pre>
+      <h3 id="sec11sec02">現在時刻を取得</h3>
       <pre><code class="py">import datetime
+
 now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))
 print(now.hour)   # (現在の時間)</code></pre>
-      <h3 id="sec05sec02">ランダムな整数</h3>
+      <h3 id="sec11sec03">ランダム</h3>
       <pre><code class="py">import random
-rand = random.randint(a, b)</code></pre>
-      <h3 id="sec05sec03">重複なしでランダムに取り出す</h3>
+
+rand = random.random() # [0.0, 1.0) からランダムな実数
+rand_int = random.randint(a, b) # [a, b] からランダムな整数
+
+li = [ 'a', 'b', 'c', 'd' ]
+rand_choice = random.choice(li) # リストからランダムに1つ選択</code></pre>
+      <h3 id="sec11sec04">重複なしでランダムに取り出す</h3>
       <pre><code class="py">import random
+
 print(random.sample(list_, 10)</code></pre>
-      <h3 id="sec05sec04">JSONを開く</h3>
+      <h3 id="sec11sec05">ディレクトリのファイル一覧を取得</h3>
+      <pre><code class="py">import os
+
+path = "./○○"
+
+files = os.listdir(path)
+files_file = [i for i in files if os.path.isfile(os.path.join(path, i))]</code></pre>
+      <h3 id="sec11sec06">JSONを開く</h3>
       <pre><code class="py">import json
-a = json.load(open('○○.json'))</code></pre>
-      <h3 id="sec05sec05">JSONを書き換える</h3>
+
+a = json.load(open('○○.json'), encoding="utf-8")</code></pre>
+      <h3 id="sec11sec07">JSONを書き換える</h3>
 	    <pre><code class="py">import json
+
 dict = {'a': 'Hi'}
 with open('○○.json', 'w') as changed_file:
     json.dump(dict, changed_file, indent=2)</code></pre>
+      <h3 id="sec11sec08">ウィンドウを作成</h3>
+      <pre><code class="py">import tkinter
+import tkinter.font as font
+
+frm = tkinter.Tk()
+geo = '600x400' # ウィンドウのサイズ
+
+frm.geometry(geo)
+frm.title(config.window.name)
+fontC = font.Font(family='Helvetica', size=20, weight='bold')
+tkinter.Label(
+  frm,
+  text='Text', # テキスト
+  fg='#64ec86', # 文字色
+  bg='#ffff00', # 文字の背景色
+  font=fontC
+).pack(side='top')
+button = tkinter.Button(frm)  # ボタン作成
+button["text"] = 'Click here!' # ボタンのテキスト設定
+button.pack(side='top') # ボタンの設置位置変更
+        
+frm.mainloop()</code></pre>
+      <h3 id="sec11sec09">メッセージボックス</h3>
+      <pre><code class="py">from tkinter import messagebox
+
+messagebox.showinfo('タイトル', '内容')
+messagebox.showerror('タイトル', '内容')</code></pre>
     </div>
   </div>
   <div align="right" style="margin: 8px;"><span style="font-size: 70%;">constructed by: Rinca Hayamine</span></div>
@@ -165,48 +432,117 @@ with open('○○.json', 'w') as changed_file:
       <div class="content">
         <h2><a href="pChbr-home.html">Home</a></h2>
         <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
-        <h4><a href="#sec01">性質</a></h4>
+        <h4><a href="#sec01">基礎</a></h4>
         <p>
-          ・<a href="#sec01sec01">コードの折り込み</a><br>
-          ・<a href="#sec01sec02">比較演算子</a><br>
-          ・<a href="#sec01sec03">論理演算</a><br>
-          ・<a href="#sec01sec04">以下のどれでもない</a>
+          ・<a href="#sec01sec01">比較演算子</a><br>
+          ・<a href="#sec01sec02">論理演算</a><br>
+          ・<a href="#sec01sec03">以下のどれでもない</a>
         </p>
         <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
-        <h4><a href="#sec02">データ型</a></h4>
+        <h4><a href="#sec02">ブーリアン</a></h4>
         <p>
-          ・<a href="#sec02sec01">ストリング型</a><br>
-          ・<a href="#sec02sec02">ブーリアン型</a><br>
-          ・<a href="#sec02sec03">無の型</a>
+          ・<a href="#sec02sec01">リテラル</a>
         </p>
         <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
-        <h4><a href="#sec03">具体的な構文</a></h4>
+        <h4><a href="#sec03">文字列</a></h4>
         <p>
-          ・<a href="#sec03sec01">コメントアウト</a><br>
-          ・<a href="#sec03sec02">変数定義</a><br>
-          ・<a href="#sec03sec03">関数</a><br>
-          ・<a href="#sec03sec04">条件分岐</a><br>
-          ・<a href="#sec03sec05">繰り返し処理</a><br>
-          ・<a href="#sec03sec06">例外処理</a>
+          ・<a href="#sec03sec01">リテラル</a><br>
+          ・<a href="#sec03sec02">連結</a><br>
+          ・<a href="#sec03sec03">間に挟んで連結</a><br>
+          ・<a href="#sec03sec04">改行を含む文章</a><br>
+          ・<a href="#sec03sec05">フォーマット済み文字列</a><br>
+          ・<a href="#sec03sec06">値の埋め込み</a><br>
+          ・<a href="#sec03sec07">n文字目</a><br>
+          ・<a href="#sec03sec08">置換</a><br>
+          ・<a href="#sec03sec09">検索</a><br>
+          ・<a href="#sec03sec10">登場回数</a><br>
+          ・<a href="#sec03sec11">含まれるかどうか</a><br>
+          ・<a href="#sec03sec12">スペースごとに分割</a><br>
+          ・<a href="#sec03sec13">繰り返し</a>
         </p>
         <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
-        <h4><a href="#sec04">ユーティリティ</a></h4>
+        <h4><a href="#sec04">数値</a></h4>
         <p>
-          ・<a href="#sec04sec01">深層データ</a><br>
-          ・<a href="#sec04sec02">型を取得</a><br>
-          ・<a href="#sec04sec03">型の変更</a><br>
-          ・<a href="#sec04sec04">文字列のライフハック</a><br>
-          ・<a href="#sec04sec05">リストのライフハック</a><br>
-          ・<a href="#sec04sec06">辞書型のライフハック</a>
+          ・<a href="#sec04sec01">リテラル</a><br>
+          ・<a href="#sec04sec02">小数</a>
         </p>
         <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
-        <h4><a href="#sec05">要import</a></h4>
+        <h4><a href="#sec05">リスト</a></h4>
         <p>
-          ・<a href="#sec05sec01">現在時刻を取得</a><br>
-          ・<a href="#sec05sec02">ランダムな整数</a><br>
-          ・<a href="#sec05sec03">重複なしでランダムに取り出す</a><br>
-          ・<a href="#sec05sec04">JSONを開く</a><br>
-          ・<a href="#sec05sec05">JSONを書き換える</a>
+          ・<a href="#sec05sec01">リテラル</a><br>
+          ・<a href="#sec05sec02">要素取得</a><br>
+          ・<a href="#sec05sec03">要素追加</a><br>
+          ・<a href="#sec05sec04">要素削除</a><br>
+          ・<a href="#sec05sec05">末尾の要素を削除</a><br>
+          ・<a href="#sec05sec06">拡張</a><br>
+          ・<a href="#sec05sec07">指定した場所に挿入</a><br>
+          ・<a href="#sec05sec08">存在確認</a><br>
+          ・<a href="#sec05sec09">含まれている個数</a><br>
+          ・<a href="#sec05sec10">検索</a><br>
+          ・<a href="#sec05sec11">最大・最小</a><br>
+          ・<a href="#sec05sec12">forを内包</a><br>
+          ・<a href="#sec05sec13">タプルから変換</a><br>
+          ・<a href="#sec05sec14">並び替える</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec06">タプル</a></h4>
+        <p>
+          ・<a href="#sec06sec01">リテラル</a><br>
+          ・<a href="#sec06sec02">要素数</a><br>
+          ・<a href="#sec06sec03">最大・最小</a><br>
+          ・<a href="#sec06sec04">結合</a><br>
+          ・<a href="#sec06sec05">繰り返し</a><br>
+          ・<a href="#sec06sec06">存在確認</a><br>
+          ・<a href="#sec06sec07">何番目か</a><br>
+          ・<a href="#sec06sec08">存在する個数</a><br>
+          ・<a href="#sec06sec09">並び替える</a><br>
+          ・<a href="#sec06sec10">反転する</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec07">辞書</a></h4>
+        <p>
+          ・<a href="#sec07sec01">リテラル</a><br>
+          ・<a href="#sec07sec02">存在確認</a><br>
+          ・<a href="#sec07sec03">要素取得</a><br>
+          ・<a href="#sec07sec04">要素追加</a><br>
+          ・<a href="#sec07sec05">要素の削除</a><br>
+          ・<a href="#sec07sec06">拡張</a><br>
+          ・<a href="#sec07sec07">長さを取得</a><br>
+          ・<a href="#sec07sec08">キーのみをリスト化</a><br>
+          ・<a href="#sec07sec09">値のみをリスト化</a>
+        </p>
+        <h4><a href="#sec08">無の型</a></h4>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec09">具体的な構文</a></h4>
+        <p>
+          ・<a href="#sec09sec01">コメントアウト</a><br>
+          ・<a href="#sec09sec02">変数定義</a><br>
+          ・<a href="#sec09sec03">関数</a><br>
+          ・<a href="#sec09sec04">条件分岐</a><br>
+          ・<a href="#sec09sec05">繰り返し処理</a><br>
+          ・<a href="#sec09sec06">例外処理</a><br>
+          ・<a href="#sec09sec07">クラス定義</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec10">ユーティリティ</a></h4>
+        <p>
+          ・<a href="#sec10sec01">コードの折り込み</a><br>
+          ・<a href="#sec10sec02">型を取得</a><br>
+          ・<a href="#sec10sec03">型の変更</a><br>
+          ・<a href="#sec10sec04">ファイル生成</a>
+        </p>
+        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+        <h4><a href="#sec11">要import</a></h4>
+        <p>
+          ・<a href="#sec11sec01">数学関数、定数</a><br>
+          ・<a href="#sec11sec02">現在時刻を取得</a><br>
+          ・<a href="#sec11sec03">ランダム</a><br>
+          ・<a href="#sec11sec04">重複なしでランダムに取り出す</a><br>
+          ・<a href="#sec11sec05">ディレクトリのファイル一覧を取得</a><br>
+          ・<a href="#sec11sec06">JSONを開く</a><br>
+          ・<a href="#sec11sec07">JSONを書き換える</a><br>
+          ・<a href="#sec11sec08">ウィンドウを作成</a><br>
+          ・<a href="#sec11sec09">メッセージボックス</a>
         </p>
       </div>
     </div>
