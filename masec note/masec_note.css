@@ -1,4 +1,4 @@
-/* LAST EDIT : 2022-07-17 */
+/* LAST EDIT : 2022-08-10 */
 
 header {
   background: #fffdf2;
@@ -133,6 +133,10 @@ pre { margin: 0em; }
 }
 .masecjson button:active, .codediv button:active { background-color: gray; }
 .masecjson button:hover, .codediv button:hover { border: solid 2px #000; }
+.masecjson button.disabled, .codediv button.disabled {
+  right: 100em;
+}
+
 .copyBoard {
   position: absolute;
   right: 1000em;
