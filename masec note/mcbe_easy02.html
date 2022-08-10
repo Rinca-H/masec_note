@@ -91,7 +91,9 @@
         </div>
       </div>
       <div class="pDat">Dat</div><div class="dir">manifest.json</div>
-      <pre><code class="json">{
+      <div class="codediv">
+        <button onclick="copyToClipboard('manifest_json:code')">コピー</button>
+        <pre><code class="json" id="manifest_json">{
   "format_version": 2,
   "header": {
     "description": "Example vanilla behavior pack",
@@ -109,24 +111,25 @@
     }
   ]
 }</code></pre>
+      </div>
       <p>
         　少し書き換える部分を説明します。以下のマーカー部分を書き換えてください。
       </p>
-      <div class="demoCode">{
-  <span class="hljs-attr">"format_version"</span>: <span class="hljs-number">2</span>,
-  <span class="hljs-attr">"header"</span>: {
-    <span class="hljs-attr">"description"</span>: "<span style="background: #83ffd9;">Example vanilla behavior pack</span>",  <span class="hljs-comment">// パックの説明</span>
-    <span class="hljs-attr">"name"</span>: "<span style="background: #83ffd9;">Vanilla Behavior Pack</span>",  <span class="hljs-comment">// パックの名前</span>
-    <span class="hljs-attr">"uuid"</span>: "<span style="background: #83ffd9;">ee649bcf-256c-4013-9068-6a802b89d756</span>",  <span class="hljs-comment">// UUID(後ほど説明)</span>
-    <span class="hljs-attr">"version"</span>: [ <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span> ],
-    <span class="hljs-attr">"min_engine_version"</span>: [ <span class="hljs-number">1</span>, <span class="hljs-number">18</span>, <span class="hljs-number">10</span> ]
+      <div class="masecjson"><button onclick="copyToClipboard('manifest_json:div')" class="disabled">コピー</button><textarea class="copyBoard" id="manifest_json" cols="5" rows="5" readonly></textarea>{
+  "format_version": 2,
+  "header": {
+    "description": "~#M(83ffd9)Example vanilla behavior packM#~",
+    "name": "~#M(83ffd9)Vanilla Behavior PackM#~",
+    "uuid": "~#M(83ffd9)ee649bcf-256c-4013-9068-6a802b89d756M#~",
+    "version": [ 0, 0, 1 ],
+    "min_engine_version": [ 1, 18, 10 ]
   },
-  <span class="hljs-attr">"modules"</span>: [
+  "modules": [
     {
-      <span class="hljs-attr">"description"</span>: "<span style="background: #83ffd9;">Example vanilla behavior pack</span>",  <span class="hljs-comment">// パックの説明</span>
-      <span class="hljs-attr">"type"</span>: "<span style="background: #83ffd9;">data</span>",  <span class="hljs-comment">// パックのタイプ(ビヘイビアパックなら「data」リソースパックなら「resource」)</span>
-      <span class="hljs-attr">"uuid"</span>: "<span style="background: #83ffd9;">fa6e90c8-c925-460f-8155-c8a60b753caa</span>",  <span class="hljs-comment">// UUID</span>
-      <span class="hljs-attr">"version"</span>: [ <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span> ]
+      "description": "~#M(83ffd9)Example vanilla behavior packM#~",
+      "type": "~#M(83ffd9)dataM#~",
+      "uuid": "~#M(83ffd9)fa6e90c8-c925-460f-8155-c8a60b753caaM#~",
+      "version": [ 0, 0, 1 ]
     }
   ]
 }</div>
