@@ -33,14 +33,14 @@
       <p>
         　作業台によるクラフトや、かまどの精錬などのレシピを変更したり追加したりできます。
       </p>
-      <div id="sec01" class="headline" style="border-left: solid 10px #FF6169;">クラフトタグ</div>
+      <div id="sec02" class="headline" style="border-left: solid 10px #FF6169;">クラフトタグ</div>
       <p>
         　アイテムを"焼く"作業台(かまど)は4種類(かまど、溶鉱炉、燻製器、キャンプファイヤー)で、どれも同じJSONで作成します。<br>
         　そこで、どの作業台でクラフトするかを決めるのが<b>クラフトタグ</b>です。<br>
         　たとえば、溶鉱炉<u>だけ</u>に対応しているレシピを作るには、tagsの項目で「"blast_furnace"」だけを指定します。<br><br>
         　また、自分で追加した作業台のみでクラフトできるようにするには、そこで決めたクラフトタグのみを指定するということになります。
       </p>
-      <h4>バニラのクラフトタグ</h4>
+      <h4 id="sec02sec01">バニラのクラフトタグ</h4>
       <table border="1">
         <tr><th>クラフトタグ</th><th>備考</th></tr>
         <tr><td>crafting_table</td><td>作業台</td></tr>
@@ -55,7 +55,7 @@
         <tr><td>material_reducer</td><td>物質還元器(教育版)</td></tr>
       </table>
       <p>　手元クラフトのクラフトタグはないので、手元クラフトと作業台のクラフトは区別できません。</p>
-      <div id="sec01" class="headline" style="border-left: solid 10px #FF6169;">作業台の定形レシピ</div>
+      <div id="sec03" class="headline" style="border-left: solid 10px #FF6169;">作業台の定形レシピ</div>
       <p>
         
       </p>
@@ -79,7 +79,7 @@
     "result": { "item": "minecraft:enchanting_table" }
   }
 }</div>
-      <h3>● tags</h3>
+      <h3 id="sec03sec01">● tags</h3>
       <p>　ここでクラフトタグを指定します。3x3マスのクラフトは作業台とカスタム作業台しかないので必然的に</p>
       <pre><code class="json">{
   "tags": [ "crafting_table" ]
@@ -89,7 +89,7 @@
   "tags": [ "crafting_table", "my_table", ... ]
 }</code></pre>
       <p>このようになると思います。</p>
-      <h3>● pattern</h3>
+      <h3 id="sec03sec02">● pattern</h3>
       <p>　ここでレシピの"形"を指定します。後に定義する、キーと呼ばれる1文字でアイテムの配置を表現します。空白は半角スペースです。</p>
       <details><summary>patternの例</summary>
         <p><b>・3x3クラフト(ツルハシ)</b></p>
@@ -125,7 +125,7 @@
   ]
 }</code></pre>
       </details>
-      <h3>● key</h3>
+      <h3 id="sec03sec03">● key</h3>
       <p>　上記の例のように素材のアイテムに対応する文字を指定します。</p>
       <details><summary>応用</summary>
         <p><b>・データ値指定</b></p>
@@ -136,7 +136,7 @@
   "data": "q.get_actor_info_id('minecraft:chicken')"
 }</code></pre>
       </details>
-      <h3>● result</h3>
+      <h3 id="sec03sec04">● result</h3>
       <p>　keyでアイテムを指定したように、完成品のアイテムを指定します。個数は以下のように指定します。</p>
       <pre><code class="json">{ "item": "minecraft:planks", "count": 4 }</code></pre>
       <p>　keyを指定したときと同様の書き方でデータ値を指定できます。</p>
@@ -152,7 +152,7 @@
   ]
 }</code></pre>
       </details>
-      <div id="sec01" class="headline" style="border-left: solid 10px #FF6169;">作業台の不定形レシピ</div>
+      <div id="sec04" class="headline" style="border-left: solid 10px #FF6169;">作業台の不定形レシピ</div>
       <p>　基本的には定形レシピと書き方は変わりません。</p>
       <div class="masecjson"><button onclick="copyToClipboard('shapeless:div')">コピー</button><textarea class="copyBoard" id="shapeless" cols="5" rows="5" readonly></textarea>{
   "format_version": "1.12",
@@ -171,7 +171,7 @@
   }
 }</div>
       <p></p>
-      <h3>● ingredients</h3>
+      <h3 id="sec04sec01">● ingredients</h3>
       <p>
         　定形レシピとは唯一異なる、素材の指定です。上記のように9個までのアイテムを並べて指定します。<br>
         　データ値は定形レシピと同様に指定できます。
@@ -180,13 +180,13 @@
         <img src="img/caution.png" class="ignore"> <b>注意</b>
         <p>　材料の返却に対応していません。</p>
       </div>
-      <div id="sec01" class="headline" style="border-left: solid 10px #FF6169;">ストーンカッター・製図台のレシピ</div>
+      <div id="sec05" class="headline" style="border-left: solid 10px #FF6169;">ストーンカッター・製図台のレシピ</div>
       <p>
         　作業台の<u>不定形レシピと同様</u>です。しかし、材料の上限が違います。<br>
         　ストーンカッターは<u>1つ</u>、製図台は<u>2つ</u>だけしか材料を指定できません。
       </p>
       <p></p>
-      <div id="sec01" class="headline" style="border-left: solid 10px #FF6169;">かまどのレシピ</div>
+      <div id="sec06" class="headline" style="border-left: solid 10px #FF6169;">かまどのレシピ</div>
       <p></p>
       <div class="masecjson"><button onclick="copyToClipboard('furnace:div')">コピー</button><textarea class="copyBoard" id="furnace" cols="5" rows="5" readonly></textarea>{
   "format_version": "1.12",
@@ -207,7 +207,7 @@
         <img src="img/caution.png" class="ignore"> <b>注意</b>
         <p>　経験値の量、焼くのにかかる時間は指定できません。</p>
       </div>
-      <div id="sec01" class="headline" style="border-left: solid 10px #FF6169;">醸造台のレシピ</div>
+      <div id="sec07" class="headline" style="border-left: solid 10px #FF6169;">醸造台のレシピ</div>
       <p></p>
       <div class="masecjson"><button onclick="copyToClipboard('brewing:div')">コピー</button><textarea class="copyBoard" id="brewing" cols="5" rows="5" readonly></textarea>{
   "format_version": "1.12",
@@ -222,7 +222,7 @@
   }
 }</div>
       <p>　inputは先に下に置くもの、reagentは上に置くもの、outputは完成品を指定します。</p>
-      <h3>● ポーションの指定方法</h3>
+      <h3 id="sec07sec01">● ポーションの指定方法</h3>
       <p>
         　ポーションは特殊なIDが用意されていて「"minecraft:potion_type:〇〇"」というように指定します。<br>
         「〇〇」には以下のようなポーションのタイプが入ります。
@@ -275,7 +275,7 @@
           ・下に置く材料にスタックできるアイテムを指定した場合、スタックされた状態で醸造すると全て消費します。
         </p>
       </div>
-      <div id="sec01" class="headline" style="border-left: solid 10px #FF6169;">物質還元器のレシピ</div>
+      <div id="sec08" class="headline" style="border-left: solid 10px #FF6169;">物質還元器のレシピ</div>
       <p></p>
       <div class="masecjson"><button onclick="copyToClipboard('material_reducer:div')">コピー</button><textarea class="copyBoard" id="material_reducer" cols="5" rows="5" readonly></textarea>{
   "format_version": "1.14",
@@ -299,9 +299,10 @@
         　材料は<u>1つ</u>のみ、完成品は最大<u>9つ</u>まで指定できます。
       </p>
       <div class="warning">
-        <img class="ignore" src="img/caution.png">
+        <img class="ignore" src="img/caution.png"> <b>注意</b>
+        <p>　完成品にブロックを指定することはできません。</p>
       </div>
-      <div id="sec01" class="headline" style="border-left: solid 10px #FF6169;">バニラのレシピの消し方</div>
+      <div id="sec09" class="headline" style="border-left: solid 10px #FF6169;">バニラのレシピの消し方</div>
       <p>　バニラのレシピと同じIDで存在しないクラフトタグのみを指定すると消えます。完成品の個数をゼロにしても消えますが、なんとなく前者をオススメします。</p>
       <pre><code class="json">{
   "format_version": "1.12",
@@ -321,7 +322,7 @@
     "result": { "item": "minecraft:enchanting_table" }
   }
 }</code></pre>
-      <div id="sec01" class="headline" style="border-left: solid 10px #FF6169;">できないこと</div>
+      <div id="sec10" class="headline" style="border-left: solid 10px #FF6169;">できないこと</div>
       <p>
         ・鍛冶台のレシピの作成<br>
         ・エンチャントされたアイテムのクラフト<br>
@@ -350,25 +351,40 @@
           <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
         </div>
         <hr>
-        <h4><a href="#sec01">パックの作り方</a></h4>
+        <h4><a href="#sec01">機能</a></h4>
         <hr>
-        <h4><a href="#sec02">manifest.jsonの作成/編集</a></h4>
+        <h4><a href="#sec02">クラフトタグ</a></h4>
         <p>
-          ・<a href="#sec02sec01">description</a><br>
-          ・<a href="#sec02sec02">name</a><br>
-          ・<a href="#sec02sec03">version</a><br>
-          ・<a href="#sec02sec04">min_engine_version</a><br>
-          ・<a href="#sec02sec05">uuid</a><br>
-          ・<a href="#sec02sec06">type</a>
+          ・<a href="#sec02sec01">バニラのクラフトタグ</a><br>
         </p>
         <hr>
-        <h4><a href="#sec03">パックを圧縮</a></h4>
-        <hr>
-        <h4><a href="#sec04">アドオンのアップデート</a></h4>
+        <h4><a href="#sec03">作業台の定形レシピ</a></h4>
         <p>
-          ・<a href="#sec04sec01">基本的な方法</a><br>
-          ・<a href="#sec04sec02">テクニカルな方法</a>
+          ・<a href="#sec03sec01">tags</a><br>
+          ・<a href="#sec03sec02">pattern</a><br>
+          ・<a href="#sec03sec03">key</a><br>
+          ・<a href="#sec03sec04">result</a>
         </p>
+        <hr>
+        <h4><a href="#sec04">作業台の不定形レシピ</a></h4>
+        <p>
+          ・<a href="#sec04sec01">ingredients</a>
+        </p>
+        <hr>
+        <h4><a href="#sec05">ストーンカッター・製図台のレシピ</a></h4>
+        <hr>
+        <h4><a href="#sec06">かまどのレシピ</a></h4>
+        <hr>
+        <h4><a href="#sec07">醸造台のレシピ</a></h4>
+        <p>
+          ・<a href="#sec07sec01">ポーションの指定方法</a>
+        </p>
+        <hr>
+        <h4><a href="#sec08">物質還元器のレシピ</a></h4>
+        <hr>
+        <h4><a href="#sec09">バニラのレシピの消し方</a></h4>
+        <hr>
+        <h4><a href="#sec10">できないこと</a></h4>
       </div>
     </div>
   </header>
