@@ -1,4 +1,4 @@
-/* LAST EDIT : 2022-08-10 */
+/* LAST EDIT : 2022-08-13 */
 
 header {
   background: #fffdf2;
@@ -24,7 +24,7 @@ header {
   display: flex;
   justify-content: space-between;
 }
-body>div, div#move-box {
+body > div, div#move-box {
   font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 #main {
@@ -65,8 +65,19 @@ pre { margin: 0em; }
   background: linear-gradient(transparent 75%, #31AF37 25%);
 }
 .scrollBox {
-  min-width: 300px;
+  min-width: unset;
+  width: fit-content;
   overflow: auto;
+}
+.warning {
+  margin: 1em 0em;
+  padding: 1em;
+  color: #664;
+  background: #ffc;
+  display: inline-block;
+  line-height: 30px;
+  width: 80%;
+  overflow-wrap: break-word;
 }
 .caution {
   margin: 1em 0em;
@@ -78,7 +89,7 @@ pre { margin: 0em; }
   width: 80%;
   overflow-wrap: break-word;
 }
-.caution > img { height: 1.5em; width: 1.5em; vertical-align: sub; }
+.caution > img, .warning > img { height: 1.25em; width: 1.25em; vertical-align: sub; }
 .announce {
   border: 3px dashed #ff5400;
   background: #fffdf2;
