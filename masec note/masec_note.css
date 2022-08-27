@@ -1,4 +1,4 @@
-/* LAST EDIT : 2022-08-13 */
+/* LAST EDIT : 2022-08-27 */
 
 header {
   background: #fffdf2;
@@ -125,6 +125,15 @@ pre { margin: 0em; }
   width: 95%;
   overflow: auto;
 }
+
+.inline {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace, system-ui;
+  background-color: #f4f3ec;
+  color: #5f5e4e;
+  white-space: pre;
+  padding: 4px;
+}
+
 .masecjson, .codediv {
   position: relative;
 }
