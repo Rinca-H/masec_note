@@ -1,4 +1,4 @@
-/* LAST EDIT : 2022-08-27 */
+/* LAST EDIT : 2022-08-29 */
 
 header {
   background: #fffdf2;
@@ -119,7 +119,7 @@ pre { margin: 0em; }
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace, system-ui;
   background-color: #f4f3ec;
   color: #5f5e4e;
-  line-height: 23px;
+  line-height: 1.25em;
   padding: 0.5em;
   white-space: pre;
   width: 95%;
@@ -161,36 +161,17 @@ pre { margin: 0em; }
   position: absolute;
   right: 1000em;
 }
-.demoMark_r {
-  border: 1.5px solid #f00;
-  margin: 3px 0px;
-  padding: 3px;
+.demoMark_r, .demoMark_g, .demoMark_b, .demoMark_o, .demoMark_p {
+  margin: 0.2em 0px;
+  padding: 0.2em;
   display: inline-block;
 }
-.demoMark_g {
-  border: 1.5px solid #0f0;
-  margin: 3px 0px;
-  padding: 3px;
-  display: inline-block;
-}
-.demoMark_b {
-  border: 1.5px solid #00f;
-  margin: 3px 0px;
-  padding: 3px;
-  display: inline-block;
-}
-.demoMark_o {
-  border: 1.5px solid #f80;
-  margin: 3px 0px;
-  padding: 3px;
-  display: inline-block;
-}
-.demoMark_p {
-  border: 1.5px solid #80f;
-  margin: 3px 0px;
-  padding: 3px;
-  display: inline-block;
-}
+.demoMark_r { border: 1.5px solid #f00; }
+.demoMark_g { border: 1.5px solid #0f0; }
+.demoMark_b { border: 1.5px solid #00f; }
+.demoMark_o { border: 1.5px solid #f80; }
+.demoMark_p { border: 1.5px solid #80f; }
+
 .secsec_mark {
   background: #334;
   margin-right: 0.5em;
