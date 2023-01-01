@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】アドオン作成「エンティティイベント」 - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="エンティティイベントについて解説します。" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, 作り方">
+  <meta name="description" content="エンティティイベントについて解説します。">
+  <title>【Minecraft BE(統合版)】アドオン作成「エンティティイベント」 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">アドオン作成 - エンティティイベント(EntityEvent) <span class="adv">上級</span></h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <div id="sec01" class="headline" style="border-color: #ff6169;">機能</div>
+      <p>
+        エンティティにタイムラインベースの詳細な処理を実装することができます。
+      </p>
+      <p>
+        EntityEventとはビヘイビアの「Animation」と「AnimationController」の総称です。
+        以下「EntityEvent」は「EntityEv」、「Animation」は「Anim」、
+        「AnimationController」は「<ruby><rb>AniCon</rb><rp>(</rp><rt>アニコン</rt><rp>)</rp></ruby>」と略します。
+      </p>
+      <div id="sec02" class="headline" style="border-color: #ff6169;">ファイルの場所</div>
+      <p>
+        ビヘイビアパックのainmationsフォルダ、またはanimaton_controllersフォルダにファイルを置きます。
+      </p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          ビヘイビア<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┣ <b>animations</b><br>
+          　 ┃ ┗<b>〇〇.json</b><br>
+          　 ┗ <b>animation_controllers</b><br>
+          　 　 ┗<b>〇〇.json</b>
+        </div>
+      </div>
+      <div id="sec03" class="headline" style="border-color: #ff6169;">AniConの基本事項</div>
+      <p>
+        各「<ruby><rb>state</rb><rp>(</rp><rt>ステート</rt><rp>)</rp></ruby>」へ"入ったとき"と"出たとき"でそれぞれイベントを指定することができます。
+        また、イベント以外に「<ruby><rb>transition</rb><rp>(</rp><rt>トランジション</rt><rp>)</rp></ruby>」という条件式が設定でき、
+        他のステートへ遷移するときにその条件を参照して異なるステートを行き先に指定できます。
+      </p>
+      <h3 id="sec03sec01">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('basic_anicon:div')">コピー</button>
+        <textarea class="copyBoard" id="basic_anicon" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.18.10",
+  "animation_controllers": {
+    "~#M(83ffd9)controller.animation.exM#~": { // このAniConのID
+      "states": {
+        ~#r"default": { // 1つのstate
+%%%%%%%%  "on_entry": [
+%%%%%%%%    // このstateに"入った"ときのイベント
+%%%%%%%%  ],
+%%%%%%%%  "transitions": [
+%%%%%%%%    // transition
+%%%%%%%%  ],
+%%%%%%%%  "on_exit": [
+%%%%%%%%    // このstateから"出ていく"ときのイベント
+%%%%%%%%  ]
+%%%%%%%%}r#~
+      }
+    }
+  }
+}</div>
+      </div>
+      <div id="sec04" class="headline" style="border-color: #ff6169;">AniConのしくみ</div>
+      <p>① 処理をはじめるとき、一番上に書かれたstateのon_entryが動作します(要検証)。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"states": {
+  ~#r"default": { // stateその1
+%%  ~#b"on_entry": [
+%%%%  // このstateに"入った"ときのイベント
+%%%%],b#~
+%%  "transitions": [
+%%    // transition
+%%  ],
+%%  "on_exit": [
+%%    // このstateから"出ていく"ときのイベント
+%%  ]
+%%}r#~
+}</div>
+      </div>
+      <p>② 次にtransitionを処理していきます。上から順に処理するため、transitionの条件は厳しい順に上から並べる必要があります。</p>
+      <p>どの条件も満たさない場合は、また上から条件を比較して繰り返します。その間、次の処理へ移りません。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"states": {
+  ~#r"default": {
+%%  "on_entry": [
+%%    // このstateに"入った"ときのイベント
+%%  ],
+%%  ~#b"transitions": [
+%%%%  { "state1": "(条件)" }, // 条件が厳しい
+%%%%  { "state2": "(条件)" },
+%%%%  { "state3": "(条件)" }  // 条件が易しい
+%%%%],b#~
+%%  "on_exit": [
+%%    // このstateから"出ていく"ときのイベント
+%%  ]
+%%}r#~
+}</div>
+      </div>
+      <p>③ 次の行き先となるstateが決まったら最後に<span class="inline">on_exit</span>が動作します。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"states": {
+  ~#r"default": {
+%%  "on_entry": [
+%%    // このstateに"入った"ときのイベント
+%%  ],
+%%  "transitions": [
+%%    // transition
+%%  ],
+%%  ~#b"on_exit": [
+%%%%  // このstateから"出ていく"ときのイベント
+%%%%]b#~
+%%}r#~
+}</div>
+      </div>
+      <p>④ 行った先のstateでまたon_entryから処理が始まり、処理の順番に関しては以降同じように繰り返します。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"states": {
+  ~#r"default": { // 1つ目のstate
+%%  "on_entry": [
+%%    // このstateに"入った"ときのイベント
+%%  ],
+%%  "transitions": [
+%%    { "next_state": "(条件)" } // 行き先
+%%  ],
+%%  "on_exit": [
+%%    // このstateから"出ていく"ときのイベント
+%%  ]
+%%},r#~
+  ~#r"next_state": { // 次のstate
+%%  ~#b"on_entry": [
+%%%%  // このstateに"入った"ときのイベント
+%%%%],b#~
+%%  "transitions": [
+%%    // transition
+%%  ],
+%%  "on_exit": [
+%%    // このstateから"出ていく"ときのイベント
+%%  ]
+%%}r#~
+}</div>
+      </div>
+      <div id="sec05" class="headline" style="border-color: #ff6169;">AniConの詳細な書き方</div>
+      <h3 id="sec05sec01">● イベント</h3>
+      <p>
+        <span class="inline">"on_entry"</span>や<span class="inline">"on_exit"</span>で発生させられるイベントは
+        具体的に、(紐づけたエンティティの)イベント、コマンドの実行、Molangの変数の初期化です。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"on_entry": [
+  "@s (イベント名)",         // イベント; @s以外は存在しません
+  "/say hello",             // コマンドの実行; スラッシュ必須
+  "v.my_variable = 1.0;"    // Molangの変数の初期化; セミコロン必須
+]</div>
+      </div>
+      <h3 id="sec05sec02">● transitions</h3>
+      <p></p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"transitions": [
+  ~#r{ "(この条件で進むステートの名前)": "(Molang式で書かれた条件)" }r#~
+]</div>
+      </div>
+      <p>複数指定する場合は赤枠部分を増やします。</p>
+      <h3 id="sec05sec03">● 1つのファイルで複数のAniConを書ける</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.18.10",
+  "animation_controllers": {
+    ~#b"controller.animation.ex1": { // AniCon1
+%%%%  "states": {
+%%%%    // state
+%%%%  }
+%%%%},b#~
+    ~#b"controller.animation.ex2": { // AniCon2
+%%%%  "states": {
+%%%%    // state
+%%%%  }
+%%%%}b#~
+  }
+}</div>
+      </div>
+      <div id="sec06" class="headline" style="border-color: #ff6169;">Animの基本事項</div>
+      <p>
+        タイムラインに沿って指定したイベントを実行します。
+        実行できるイベントはAniConと同じで、(紐づけたエンティティの)イベント、コマンドの実行、Molangの変数の初期化です。
+      </p>
+      <h3 id="sec06sec01">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('basic_anim:div')">コピー</button>
+        <textarea class="copyBoard" id="basic_anim" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.8.0",
+  "animations": {
+    "~#M(83ffd9)animation.test_eventsM#~": { // このAnimのID
+      ~#r"timeline": {
+%%%%%%  // タイムライン
+%%%%%%}r#~
+    }
+  }
+}</div>
+      </div>
+      <div id="sec07" class="headline" style="border-color: #ff6169;">Animの詳細な書き方</div>
+      <h3 id="sec07sec01">● タイムライン</h3>
+      <p>プロパティ名に時間、値にイベントを書きます。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">~#r"timeline": {
+  "0.0": "@s event",
+  "1.0": [ // 複数のイベント
+    "v.var1 = 1.0;",
+    "v.var2 = 2.0;"
+  ],
+  "2.0": "/say hello"
+}r#~</div>
+      </div>
+      <h3 id="sec07sec02">● アニメーションの長さ</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.8.0",
+  "animations": {
+    ~#r"animation.test_events": {
+%%%%  "timeline": {
+%%%%    // タイムライン
+%%%%  },
+%%%%  ~#M(83ffd9)"animation_length": 5.0M#~
+%%%%}r#~
+  }
+}</div>
+      </div>
+      <h3 id="sec07sec03">● 1つのファイルで複数のAnimを書ける</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.8.0",
+  "animations": {
+    ~#r"animation.ex1": { // Anim1
+%%%%  "timeline": {
+%%%%    // タイムライン
+%%%%  }
+%%%%},r#~
+    ~#r"animation.ex2": { // Anim2
+%%%%  "timeline": {
+%%%%    // タイムライン
+%%%%  }
+%%%%}r#~
+  }
+}</div>
+      </div>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">機能</a></h4>
+        <hr>
+        <h4><a href="#sec02">ファイルの場所</a></h4>
+        <hr>
+        <h4><a href="#sec03">AniConの基本事項</a></h4>
+        <ul>
+          <li><a href="#sec03sec01">基本構造</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec04">AniConのしくみ</a></h4>
+        <hr>
+        <h4><a href="#sec05">AniConの詳細な書き方</a></h4>
+        <ul>
+          <li><a href="#sec05sec01">イベント</a></li>
+          <li><a href="#sec05sec02">transitions</a></li>
+          <li><a href="#sec05sec03">1つのファイルで複数のAniConを書ける</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec06">Animの基本事項</a></h4>
+        <ul>
+          <li><a href="#sec06sec01">基本構造</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec07">Animの詳細な書き方</a></h4>
+        <ul>
+          <li><a href="#sec07sec01">タイムライン</a></li>
+          <li><a href="#sec07sec02">アニメーションの長さ</a></li>
+          <li><a href="#sec07sec03">1つのファイルで複数のAnimを書ける</a></li>
+        </ul>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

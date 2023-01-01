@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】ストラクチャ錬金術のやり方 - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="エクスポートしたストラクチャのデータをいじってストラクチャを書き換えます。" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, リソースパック, 作り方">
+  <meta name="description" content="エクスポートしたストラクチャのデータをいじってストラクチャを書き換えます。">
+  <title>【Minecraft BE(統合版)】ストラクチャ錬金術のやり方 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">MinecraftBE - ストラクチャ錬金術のやり方</h1>
+      <div class="center"><img src="img/MCBE-S_article02_thumb.png" style="width: calc(90% - 1em); min-width: 300px;"></div>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <p>エクスポートしたストラクチャのデータをいじってストラクチャを書き換えます。</p>
+      <p>
+        簡単のために、チェストに
+        <ruby><rb>生贄</rb><rp>(</rp><rt>いけにえ</rt><rp>)</rp></ruby>
+        となるアイテムだけを入れ、そのアイテムのデータを書き換えて別のアイテムにしたりすることが多いのでストラクチャ錬金術と呼んでいます笑
+      </p>
+      <div id="sec01" class="headline" style="border-color: #587eff;">はじめに</div>
+      <p>注意事項が2点あります。</p>
+      <h4>・ストラクチャブロックから.mcstructureファイルをエクスポートできることが前提</h4>
+      <div class="section"><p>ストラクチャブロックからストラクチャをエクスポートできます。</p></div>
+      <h4>・ストラクチャを別ワールドに持っていく方法を知っている/できる前提</h4>
+      <div class="section">
+        <p>ビヘイビアパックを使います。エクスポートした.mcstructureファイルをstructuresフォルダに入れて作る、これ以上の説明はしません。</p>
+      </div>
+      <div id="sec02" class="headline" style="border-color: #587eff;">オーバーエンチャント</div>
+      <h3 id="sec02sec01">1. エンチャント本を用意</h3>
+      <p>チェストにエンチャント本を<b>一つだけ</b>入れます。他にいろいろ入っていてもいいですが、後で大変になるので1個だけにしておきます。</p>
+      <p>今回は後で分かりやすいように<b>レベル5</b>を選んでおきました。</p>
+      <div class="center"><img src="img/MCBE-S_article02_01.png" style="width: 80%; min-width: 300px;"></div>
+      <h3 id="sec02sec02">2. ストラクチャをエクスポート</h3>
+      <p>ストラクチャの範囲もできれば<b>チェストだけを選択</b>します。分かりやすい名前をつけてエクスポートします。</p>
+      <p>再起動が必要なので、終わったら<b>ゲームは閉じてください</b>。</p>
+      <div class="center"><img src="img/MCBE-S_article02_02.png" style="width: 80%; min-width: 300px;"></div>
+      <h3 id="sec02sec03">3. バイナリエディタ</h3>
+      <p>
+        「<b>binary editor online</b>」と検索して出てくる<a href="https://hexed.it/">HexEd.it</a>というところへ行きます。
+        そこで、左上の「ファイルを開く」ボタンから先ほどのストラクチャファイルを開きます。
+      </p>
+      <h3 id="sec02sec04">4. お目当ての値を探す</h3>
+      <p>右の羅列から「<b>minecraft:enchanted_book</b>」からの「<b>lvl</b>」を気合いで探します(別に左のところから検索してもいいです)。</p>
+      <div class="center"><img src="img/MCBE-S_article02_03.png" style="width: 80%; min-width: 300px;"></div>
+      <h3 id="sec02sec05">5. 値を書き換える</h3>
+      <p>
+        今回は、エンチャントは<b>レベル5</b>でしたね。たしかに「<b>lvl</b>」の右隣の点を真ん中の16進数表示で見ると「<b>05</b>」になっていますね。
+      </p>
+      <p>
+        16進数表示の「05」の部分をクリックして自分好みの値を<b>2桁の16進数</b>で入力します。
+        (ゲームの仕様では上限はもっと上ですが、16進数2桁以上(レベル255以上)はまだよくわかってないです)
+      </p>
+      <p>→<a href="#sec10sec01">16進数の計算</a></p>
+      <div class="center"><img src="img/MCBE-S_article02_04.png" style="width: 80%; min-width: 300px;"></div>
+      <p>今回はMAXの「<b>FF</b>(=255)」にしました。</p>
+      <div class="center"><img src="img/MCBE-S_article02_05.png" style="width: 80%; min-width: 300px;"></div>
+      <h3 id="sec02sec06">6. ストラクチャデータを保存</h3>
+      <p>左上の「名前をつけて保存」ボタンから保存してください。<b>ファイルの名前がストラクチャの名前</b>になります。</p>
+      <h3 id="sec02sec07">7. ストラクチャを呼び出す</h3>
+      <p>今回編集したストラクチャデータが入ったビヘイビアパックを適用してワールドに入ります。</p>
+      <p>
+        ファイル名が「<b>〇〇.mcstructure</b>」なら、「<b>mystructure:〇〇</b>」でストラクチャをロードします。
+        「ロード」ボタンが押せるようになっていたら成功です！
+      </p>
+      <div class="center"><img src="img/MCBE-S_article02_06.png" style="width: 80%; min-width: 300px;"></div>
+      <h3 id="sec02sec08">8. チェストの中身を確かめる</h3>
+      <p>
+        ここでチェストの中身がカラになっていても失敗ですね......<br>
+        成功すればこのように、指定した通りのレベル255エンチャントに変わっています！
+      </p>
+      <div class="center"><img src="img/MCBE-S_article02_07.png" style="width: 80%; min-width: 300px;"></div>
+      <div id="sec03" class="headline" style="border-color: #587eff;">オリジナルのランダムチェスト</div>
+      <h3 id="sec03sec01">1. 野良チェストを捕まえる</h3>
+      <p>
+        適当に捨てワールドを作って、<b>自然に生成されるチェスト</b>のストラクチャを取ります。
+        そこで、<b><span style="color: red;">絶対にチェストは開けてはいけません！</span></b>
+      </p>
+      <p>
+        探すときには/locateコマンドとかを使って村などを探せばいいと思います。
+      </p>
+      <h3 id="sec03sec02">2. ストラクチャをエクスポート</h3>
+      <p>ストラクチャの範囲もできれば<b>チェストだけを選択</b>します。分かりやすい名前をつけてエクスポートします。</p>
+      <p>再起動が必要なので、終わったら<b>ゲームは閉じてください</b>。</p>
+      <div class="center"><img src="img/MCBE-S_article02_08.png" style="width: 80%; min-width: 300px;"></div>
+      <h3 id="sec03sec03">3. バイナリエディタ</h3>
+      <p>
+        「<b>binary editor online</b>」と検索して出てくる<a href="https://hexed.it/">HexEd.it</a>というところへ行きます。
+        そこで、左上の「ファイルを開く」ボタンから先ほどのストラクチャファイルを開きます。
+      </p>
+      <h3 id="sec03sec04">4. お目当ての値を探す</h3>
+      <p>
+        右の羅列から「<b>minecraft:chest</b>」からの「<b>LootTable</b>」からの「<b>loot_tables/chests/〇〇.json</b>」を気合いで探します
+        (別に左のところから検索してもいいです)。
+      </p>
+      <div class="center"><img src="img/MCBE-S_article02_09.png" style="width: 80%; min-width: 300px;"></div>
+      <h3 id="sec03sec05">5. シード値を消す</h3>
+      <p>
+        自然生成するチェストにはシード値が設定されており、同じワールドのシード値で同じチェストの中身が出るようになっています。
+      </p>
+      <p>
+        とにかく、これがあると<b>中身が固定されてしまう</b>ので消します。消すのはこの部分です(「i」は消しません)。
+        すぐ後の「<b>id</b>」から3つの点(16進表示で08,02,00)の<b>一番左(08)</b>をクリックしてBackSpaceで消します。
+      </p>
+      <div class="center"><img src="img/MCBE-S_article02_10.png" style="width: 80%; min-width: 300px;"></div>
+      <p><u>ちょっとクセのある消え方</u>なので気を付けてください。間違えたら「元に戻す」ボタンが使えます。</p>
+      <p>
+        以下の画像のように、「<b>～json...id～」(点3つは16進で08,02,00)</b>となれば正解です。
+      </p>
+      <div class="center"><img src="img/MCBE-S_article02_11.png" style="width: 80%; min-width: 300px;"></div>
+      <h3 id="sec03sec06">6. ルートテーブルを変える</h3>
+      <p>そしてこのルートテーブルを自分のお好みのルートテーブルに変えます。</p>
+      <p>入力したぶん値が書き変わるという仕様になっているので、こちらもまた<u>クセのある入力方法</u>に注意して下さい。</p>
+      <div class="center"><img src="img/MCBE-S_article02_12.png" style="width: 80%; min-width: 300px;"></div>
+      <p>さっそくオリジナルのルートテーブルにしてみます。</p>
+      <div class="center"><img src="img/MCBE-S_article02_13.png" style="width: 80%; min-width: 300px;"></div>
+      <h3 id="sec03sec07">6'. 文字数が増える場合</h3>
+      <p>文字数が増える場合は、文字を挿入したいところを<b>右クリック</b>して一番上の「<b>Insert byte here...</b>」をクリックします。</p>
+      <p>
+        出てきたウィンドウでは「バイト数」に<b>追加したい文字数</b>を入力して「適用」を押します。
+      </p>
+      <div class="center"><img src="img/MCBE-S_article02_14.png" style="width: 80%; min-width: 300px;"></div>
+      <div class="center"><img src="img/MCBE-S_article02_15.png" style="width: 80%; min-width: 300px;"></div>
+      <h3 id="sec03sec08">7. 文字数指定</h3>
+      <p>バイナリファイルでは、文字列にはどこまでが文字列か知るために文字数が値の前に書いてあるようです。</p>
+      <p>いま書き換えた部分のちょっと前にある「LootTable」の直後のこの数字(16進表示)を編集します。</p>
+      <div class="center"><img src="img/MCBE-S_article02_16.png" style="width: 80%; min-width: 300px;"></div>
+      <p>
+        お手本の場合、変える前のルートテーブルのパスは「<b>loot_tables/chests/ruined_portal.json</b>」だったので、<b>37文字</b>です。
+        <b>これを16進に直すと「25」になる</b>ので、上記の画像が選択している部分の数と確かに一致しますね。
+      </p>
+      →<a href="#sec10sec01">16進数の計算</a>
+      <div class="center">
+        <div class="colorBox gray_box">
+          37 ÷ 16 = 2 あまり 5<br><br>
+          よって, <b style="color: red;">25</b>
+        </div>
+      </div>
+      <p>
+        このように指定した<b>ルートテーブルのパスの文字数を数えてここに入力</b>します。
+        16進に変えて3桁以上になる場合はまだよく分かってないので、<u>255文字以内</u>にしてください。
+      </p>
+      <p>
+        お手本では「<b>loot_tables/chests/test.json</b>」に変えたので、<b>28文字</b>で「<b>1C</b>」に変えます。
+      </p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          28 ÷ 16 = 2 あまり 12<br><br>
+          12 → C より, <b style="color: red;">1C</b>
+        </div>
+      </div>
+      <div class="center"><img src="img/MCBE-S_article02_17.png" style="width: 80%; min-width: 300px;"></div>
+      <h3 id="sec03sec09">8. ストラクチャデータを保存</h3>
+      <p>
+        左上の「名前をつけて保存」ボタンから保存してください。<b>ファイルの名前がストラクチャの名前</b>になります。
+      </p>
+      <h3 id="sec03sec10">9. ストラクチャを呼び出す</h3>
+      <p>今回編集したストラクチャデータが入ったビヘイビアパックを適用してワールドに入ります。</p>
+      <p>
+        ファイル名が「<b>〇〇.mcstructure</b>」なら、「<b>mystructure:〇〇</b>」でストラクチャをロードします。<br>
+        「ロード」ボタンが押せるようになっていたら成功です！
+      </p>
+      <div class="center"><img src="img/MCBE-S_article02_06.png" style="width: 80%; min-width: 300px;"></div>
+      <h3 id="sec03sec11">10. チェストの中身を確かめる</h3>
+      <p>ここでチェストの中身がカラになっていても失敗ですね......</p>
+      <p>
+        成功すればこのように、指定した通りのルートテーブルに変わっています！<br>
+        ロードモードのストラクチャブロックの隣にボタンを置くと、<b>押すたびに中身が変わる</b>のも確かめられると思います！
+      </p>
+      <div class="center"><img src="img/MCBE-S_article02_18.png" style="width: 80%; min-width: 300px;"></div>
+      <!--
+      <div id="sec04" class="headline" style="border-left: solid 10px #587EFF;">重力に従うブロック</div>
+      -->
+      <div id="sec10" class="headline" style="border-color: #587eff;">16進数の計算</div>
+      <p>
+        ここでは10進数(整数) → 16進数の変換を計算する方法を紹介します。別に変換する電卓とか使ってもいいんですけどね。<br>
+        先に例を上げておきます。
+      </p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          5 → 5　　　　10 → A　　　　　19 → 13<br>
+          255 → FF　　12345 → 3039　　999 → 3E7
+        </div>
+      </div>
+      <p>たぶん16進数2ケタ分(10進数255まで)しかほとんどいらないと思うので、分けて説明します</p>
+      <h3 id="sec10sec01">● 255以下の数を16進数に変換する</h3>
+      <p>まず、0~15の数を変換するとこうなります。</p>
+      <div class="center">
+        <table border="1" style="display: inline-block;">
+          <tr><th>10進</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th></tr>
+          <tr><th>16進</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+        </table>
+      </div>
+      <div class="center">
+        <table border="1" style="display: inline-block;">
+          <tr><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th></tr>
+          <tr><td>8</td><td>9</td><td>A</td><td>B</td><td>C</td><td>D</td><td>E</td><td>F</td></tr>
+        </table>
+      </div>
+      <p>16以上255以下の数に関しては、少し計算をします。</p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          [変換したい数] ÷ 16 = □ あまり 〇
+        </div>
+      </div>
+      <p>この□と〇をそれぞれ上の表にしたがって変換して□〇の順でつなげるだけです。</p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          例) 123を変換：　123 ÷ 16 = 7 あまり 11<br><br>
+          7 → 7,　11 → B より, <b style="color: red;">7B</b>
+        </div>
+      </div>
+      <p>まあ──暗算は微妙でしょうね。</p>
+      <h3 id="sec10sec02">● 255より大きい数(一般化)</h3>
+      <p>(またいつか書きます)</p>
+      <!--
+      <p>
+        　まずは16進数に変換した後の桁数を調べます。電卓とかを使って変換したい数を、小数点の左が0になるまで16で割ります。
+        割った回数が桁数になります。<span class="strike">関数電卓を持っていれば、1+log₁₆[変換したい数]を計算して小数点以下を切り捨てた数です。</span>
+      </p>
+      -->
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">はじめに</a></h4>
+        <hr>
+        <h4><a href="#sec02">オーバーエンチャント</a></h4>
+        <ul>
+          <li><a href="#sec02sec01">1. エンチャント本を用意</a></li>
+          <li><a href="#sec02sec02">2. ストラクチャをエクスポート</a></li>
+          <li><a href="#sec02sec03">3. バイナリエディタ</a></li>
+          <li><a href="#sec02sec04">4. お目当ての値を探す</a></li>
+          <li><a href="#sec02sec05">5. 値を書き換える</a></li>
+          <li><a href="#sec02sec06">6. ストラクチャを保存</a></li>
+          <li><a href="#sec02sec07">7. ストラクチャを呼び出す</a></li>
+          <li><a href="#sec02sec08">8. チェストの中身を確かめる</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec03">オリジナルのランダムチェスト</a></h4>
+        <ul>
+          <li><a href="#sec03sec01">1. 野良チェストを捕まえる</a></li>
+          <li><a href="#sec03sec02">2. ストラクチャをエクスポート</a></li>
+          <li><a href="#sec03sec03">3. バイナリエディタ</a></li>
+          <li><a href="#sec03sec04">4. お目当ての値を探す</a></li>
+          <li><a href="#sec03sec05">5. シード値を消す</a></li>
+          <li><a href="#sec03sec06">6. ルートテーブルを変える</a></li>
+          <li><a href="#sec03sec07">6'. 文字数が増える場合</a></li>
+          <li><a href="#sec03sec08">7. 文字数指定</a></li>
+          <li><a href="#sec03sec09">8. ストラクチャデータを保存</a></li>
+          <li><a href="#sec03sec10">9. ストラクチャを呼び出す</a></li>
+          <li><a href="#sec03sec11">10. チェストの中身を確かめる</a></li>
+        </ul>
+        <!--
+        <hr>
+        <h4><a href="#sec04">重力に従うブロック</a></h4>
+        -->
+        <hr>
+        <h4><a href="#sec10">16進数の計算</a></h4>
+        <ul>
+          <li><a href="#sec10sec01">255以下の数を16進数に変換する</a></li>
+          <li><a href="#sec10sec02">255より大きい数(一般化)</a></li>
+        </ul>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

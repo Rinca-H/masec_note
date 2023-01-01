@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】アドオン作成「アドオンを作るひとへ」 - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="アドオンをこれから作ろうとしているひとはここをチェック" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, 作り方">
+  <meta name="description" content="アドオンをこれから作ろうとしているひとはここをチェック">
+  <title>【Minecraft BE(統合版)】アドオン作成「アドオンを作るひとへ」 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">アドオン作成 - アドオンを作るひとへ</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <div id="sec01" class="headline" style="border-color: #587eff;">アドオンって何？</div>
+      <p>
+        <b><ruby><rb>Add-On</rb><rp>(</rp><rt>アドオン</rt><rp>)</rp></ruby></b>とは、
+        MinecraftBE(統合版)で、もとからあった要素に<b>変更を加えたり</b>、オリジナルのものを<b>追加する</b>、外部の追加コンテンツです。
+        簡単に言えば、<b>「公式が認めている改造」</b>です。
+      </p>
+      <p>
+        <b>公式が認めている</b>とはどういうことかと言うと、
+        <a href="https://www.minecraft.net/ja-jp/addons/">Minecraftの公式サイト</a>で公式がアドオンというものについて紹介し、
+        プレイヤーにアドオン作成を推しているからです。
+        さらには、このページではアドオンのテンプレートも配布しています。
+        ちなみにこのページは「マインクラフト　アドオン」と検索すれば一番上に出てくるものとなります。
+      </p>
+      <p>
+        先に言っておくと、Windows10版やスマホ版(AndroidとiOS)ならアドオンを導入することができますが、
+        <font color="red">NintendoSwitch版やPlayStation版には現状アドオンを導入することができません。</font>
+        NintendoSwitch版やPlayStation版で遊ぶには、アドオンが導入可能なプラットフォーム(Windows10版やスマホ版)でアドオンを導入したワールドを開き、
+        マルチプレイなどでそのワールドに参加するという方法でないといけません。
+      </p>
+      <div id="sec02" class="headline" style="border-color: #587eff;">MODと違うの？</div>
+      <p>
+        「Mod」とはまったく異なるものです。
+        こちらは<b>非公式</b>で、ちゃんとした<b>プログラミング</b>をして改造するものなのでさまざまなことを無理矢理動作させます。<br>
+        普通のストアにないような裏アプリ的なものを使ったりするので非推奨で、このサイトでは作り方など説明しません。
+      </p>
+      <div id="sec03" class="headline" style="border-color: #587eff;">アドオンで何ができるの？</div>
+      <p>まず、<b>リソースパック</b>では、主に<u>「見た目」にかかわる変更</u>をします。</p>
+      <ul style="margin: 1.5em 0em; font-weight: bold; line-height: 2.5em;">
+        <li>ブロック、アイテム、モブの見た目を変える</li>
+        <li>モブの形(モデル)を変える</li>
+        <li>効果音を変える</li>
+        <li>オリジナルのパーティクルを追加する</li>
+      </ul>
+      <p>次に、<b>ビヘイビアパック</b>では、<u>システムや仕様にかかわる変更・追加</u>をします。</p>
+      <ul style="margin: 1.5em 0em 1.5em 0.5em; font-weight: bold; line-height: 2.5em;">
+        <li>モブやプレイヤーの性質を変える</li>
+        <li>モブを倒したときに落とすアイテムを変える</li>
+        <li>村人との取引内容を変更する</li>
+        <li>自然に生成されるチェストの中身を変更する</li>
+        <li>モブ、アイテム、ブロック、レシピなどの追加</li>
+      </ul>
+      <p>
+        もっと具体的に書こうとするとここに収まらなくなってしまいます......
+        実際にアドオンを作れるようになれば、どんなものが作れるのか具体的にわかってくると思います！
+      </p>
+      <div id="sec04" class="headline" style="border-color: #587eff;">簡単に作れる？</div>
+      <p>
+        簡単、とまではいきません......しかし、<b>覚悟をしっかりしてちゃんと学べば上達も長くはない</b>と思います！
+        (自分には無理だと投げ捨てるとうまくいきません！)
+      </p>
+      <p>
+        (必ずではないですが、こういうのを扱います↓)
+      </p>
+      <div class="center"><img src="img/MCBE-A_basic01_03.png" style="width: 80%; min-width: 300px;"></div>
+      <p>
+        アドオンの大部分は上の画像のような&nbsp;<b><ruby><rb>JSON</rb><rp>(</rp><rt>ジェイソン</rt><rp>)</rp></ruby></b>&nbsp;ファイルでできています。
+        これを書くときに、<u>カンマ( , )一つのような小さなミスも許されず、完全に追加されない</u>ということがよくあります。
+      </p>
+      <p>
+        メンタルが大事とも言えますが、何よりテキトーに勉強すると<u>ミスの沼から抜けだせなくなってイヤになってしまう</u>のでご注意を。
+      </p>
+      <div id="sec05" class="headline" style="border-color: #587eff;">アドオンづくりの心構え</div>
+      <p>
+        テキトーにやってめちゃくちゃ小さいミスに気づけなくて「もうわかんない......」となって挫折しがちなので、
+      </p>
+      <ul style="margin: 1.5em 0em 1.5em 0.5em; font-weight: bold; line-height: 2.5em;">
+        <li>新しい知識の説明は隅々まで理解する</li>
+        <li>うまくいかなくても丁寧に原因を探る</li>
+      </ul>
+      <p>
+        これを大事にしてください。誰かに質問したときにグダって迷惑になったり、自分の思い通りにいかなくてストレスがたまったりします。
+      </p>
+      <div id="sec06" class="headline" style="border-color: #587eff;">アドオン作りに必要なもの</div>
+      <p>
+        ぜんぶ無料で手に入ると思います。
+      </p>
+      <h4>● ファイルエクスプローラ</h4>
+      <p>
+        画像や動画、テキストファイルなど、スマホやパソコンのデータを整理するやつです。
+        パソコンなら<b>標準搭載のファイルエクスプローラで十分</b>だと思います。
+        しかし、スマホは標準搭載のものだと<b>うまくファイルを扱えなかったりする</b>ので、アプリをダウンロードすることをおすすめします。
+      </p>
+      <p>
+        Androidでのオススメ：「<a href="https://play.google.com/store/apps/details?id=com.alphainventor.filemanager">ファイルマネージャー</a>」
+      </p>
+      <h4>● テキストエディタ</h4>
+      <p>
+        パソコンで言うところのメモ帳のようなものです。
+        ただ、<b>メモ帳でもできるとはいえいろいろ不便</b>なので、プログラミング向けのようなテキストエディタを入手することをおすすめします。
+      </p>
+      <p>
+        以下の機能を目安に探してみてください。「あるとうれしい機能」となるとスマホのアプリではなかなかなかったり、重かったりします。
+      </p>
+      <div class="center">
+        <div class="colorBox blue_box">
+          <p style="margin: 1em 0 1em 0;"><b>最低限あったほうがいい機能</b></p>
+          <ul>
+            <li>行番号</li>
+            <li>文字列の検索機能</li>
+            <li>画面の右端で勝手にテキストを折り返し(ワードラップ)しない</li>
+          </ul>
+          <p style="margin: 1em 0 0 0;"><b>あるとうれしい機能</b></p>
+          <ul>
+            <li>「{ }」のはじまりと終わりを点線などで繋いでくれる</li>
+            <li>ハイライト(構文にあわせて色分けする機能)設定で「JSON」がある</li>
+            <li>「{ }」の組で中身を折り畳んで表示できる</li>
+            <li>構文ミスを指摘してくれる</li>
+          </ul>
+        </div>
+      </div>
+      <p>
+        Androidでのオススメ：「<a href="https://play.google.com/store/apps/details?id=com.rhmsoft.edit">QuickEdit</a>」または「<a href="https://play.google.com/store/apps/details?id=com.rhmsoft.code">コードエディター</a>」<br>
+        PCでのオススメ：「<a href="https://code.visualstudio.com/download">Visual Studio Code</a>」
+      </p>
+      <h4 id="sec06sec00">● テンプレート</h4>
+      <p>
+        公式が配布しているアドオンのテンプレートです。何も変更や追加を加えていない、いわゆるバニラのデータがだいたいすべて入っています。
+      </p>
+      <p>
+        ここで手に入ります→<a href="https://www.minecraft.net/ja-jp/addons/">公式サイト</a>
+      </p>
+      <div class="center"><img src="img/MCBE-A_forBiginner_01.png" style="width: 80%; min-width: 300px;"></div>
+      <p>
+        マインクラフト本体にアップデートが入ると、適宜この<b>テンプレートも新しいバージョン向けに更新される</b>ので、
+        <b>アップデートのたびに新しいものを手に入れることをおすすめします</b>。
+        その際古いものも使えないことはないので何でもかんでも消さないで残しておくのがいいです。
+      </p>
+      <p>
+        このテンプレートを手に入れたら<b>解凍しておきましょう</b>。
+        適当な場所でそのまま解凍するよりは、アドオン専用のフォルダを新しく用意してそこで解凍するのがいいでしょう。
+        その他整理の面は各自で行ってください。
+      </p>
+      <p>
+        <u>今後、なんの前置きもなしに「テンプレート」といったらこれのことを指します。覚えてください。</u>
+      </p>
+      <p>
+        そして、ビヘイビア(behavior)のほうには「documentation」フォルダの中に.htmlファイルが入っていると思いますが、アドオンの説明書みたいなものです。
+        <u>これらを「リファレンス」と呼ぶのでそちらも覚えておいてください。</u>
+      </p>
+      <h4>● ペイントツール</h4>
+      <p>
+        テクスチャを描くならば必要です。ドット絵が描ければなんでもいいと思います。
+      </p>
+      <h4>● やる気と根性</h4>
+      <p>
+        アドオン作りはなかなか思い通りにいかないです。
+        そして、ミスをしたときにどこでミスをしたのかわかりづらいので、それを探す根性がいります。
+      </p>
+      <div id="sec07" class="headline" style="border-color: #587eff;">前提知識</div>
+      <p>
+        マインクラフトの「統合版(BE)」と「Java版(JE)」の違いがわからない場合は向いてないと思います。
+        「<b>ファイル</b>」「<b>フォルダ</b>」「<b>ファイルパス</b>」「<b>解凍</b>」「<b>圧縮</b>」「<b>拡張子</b>」は何だかわかるようにしておきましょう。
+      </p>
+      <p>
+        あとは以下のマイクラ用語を知らないと多くの解説が通じないと思います。
+      </p>
+      <h4>● テクスチャ</h4>
+      <p>
+        ブロックやモブ、アイテムなどの<b>見た目</b>のことです。
+      </p>
+      <h4>● エンティティ</h4>
+      <p>
+        <b>エンティティのほとんどはモブ</b>です。
+        例えば、<b>ゾンビやスケルトン、村人やプレイヤーなどのモブである生き物はすべてエンティティ</b>です。
+        しかし、コマンドをやっているひとならば詳しいと思いますが、生き物以外にもエンティティと分類されるものがあります。
+        例えば、<b>矢、防具立て、トロッコ、ガストの火の玉、落下中のブロック、エンドクリスタル</b>……などなど、
+        <b>/killコマンドが通用するものはすべてエンティティ</b>となります。
+      </p>
+      <h4></h4>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <h4><a href="#sec01">アドオンって何？</a></h4>
+        <hr>
+        <h4><a href="#sec02">MODと違うの？</a></h4>
+        <hr>
+        <h4><a href="#sec03">アドオンで何ができるの？</a></h4>
+        <hr>
+        <h4><a href="#sec04">簡単に作れる？</a></h4>
+        <hr>
+        <h4><a href="#sec05">アドオン作りの心構え</a></h4>
+        <hr>
+        <h4><a href="#sec06">アドオンづくりに必要なもの</a></h4>
+        <hr>
+        <h4><a href="#sec07">前提知識</a></h4>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

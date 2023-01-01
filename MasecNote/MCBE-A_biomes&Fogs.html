@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】アドオン作成「バイオームとフォグ」 - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="バイオームとフォグについて解説します。" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, リソースパック, 作り方">
+  <meta name="description" content="バイオームとフォグについて解説します。">
+  <title>【Minecraft BE(統合版)】アドオン作成「バイオームとフォグ」 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">アドオン作成 - バイオームとフォグ</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <div id="sec01" class="headline" style="border-color: #31af37;">機能</div>
+      <p>バイオームごとに水やフォグ(遠くに見える霧)の色が変わりますが、その色を指定するのが今回説明するファイルです。</p>
+      <p>草や木の葉の色を変えるのはまた別です。</p>
+      <div id="sec02" class="headline" style="border-color: #31af37;">ファイルの場所</div>
+      <p></p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┣ <b>biomes_client.json</b><br>
+          　 ┗ <b>fogs</b><br>
+          　 　 ┗<b>〇〇.json</b>
+        </div>
+      </div>
+      <div id="sec03" class="headline" style="border-color: #31af37;">biomes_client.json</div>
+      <p>
+        このファイルはバイオームと水の色、どのフォグを適用するかを紐づけます。
+      </p>
+      <h3 id="sec03sec01">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('biome_basic:div')">コピー</button>
+        <textarea class="copyBoard" id="biome_basic" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "biomes": {
+    // バイオーム情報
+  }
+}</div>
+      </div>
+      <h3 id="sec03sec02">● 具体的な書き方</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('biome_detail:div')">コピー</button>
+        <textarea class="copyBoard" id="biome_detail" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "biomes": {
+    ~#r"(バイオームID)": {
+%%%%  "fog_identifier": "minecraft:fog_default",
+%%%%  "fog_ids_to_merge": [ "minecraft:fog_default" ],
+%%%%  "inherit_from_prior_fog": false,
+%%%%  "remove_all_prior_fog": false,
+%%%%  "water_surface_color": "#44AFF5",
+%%%%  "water_surface_transparency": 0.650
+%%%%}r#~
+  }
+}</div>
+      </div>
+      <p><b>・fog_identifier [Str]</b></p>
+      <div class="section">
+        <p>適用したいフォグのID。</p>
+      </div>
+      <b>・fog_ids_to_merge [Str-n]</b>
+      <div class="section">
+        <p>　</p>
+      </div>
+      <b>・inherit_from_prior_fog [Bool]</b>
+      <div class="section">
+        <p>　</p>
+      </div>
+      <b>・remove_all_prior_fog [Bool]</b>
+      <div class="section">
+        <p>　</p>
+      </div>
+      <b>・water_surface_color [Str]</b>
+      <div class="section">
+        <p>水面の色。</p>
+      </div>
+      <b>・water_surface_transparency [Float]</b>
+      <div class="section">
+        <p>水の透明度。</p>
+      </div>
+      <h3 id="sec03sec03">● 複数のバイオームについて書く</h3>
+      <p>以下のように赤枠部分を増やします。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "biomes": {
+    ~#r"(バイオームID1)": {
+%%%%  // 内容
+%%%%},r#~
+    ~#r"(バイオームID2)": {
+%%%%  // 内容
+%%%%}r#~
+    
+    // + その他のバイオーム
+  }
+}</div>
+      </div>
+      <div id="sec04" class="headline" style="border-color: #31af37;">フォグ</div>
+      <p>フォグとは、水中や遠くに見える霧のことです。</p>
+      <h3 id="sec04sec01">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('fog_basic:div')">コピー</button>
+        <textarea class="copyBoard" id="fog_basic" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "ex:my_fog"
+    },
+    ~#r"distance": {
+%%%%  ~#b"air": {
+%%%%%%  // 遠方の景色にかかるフォグの設定
+%%%%%%},b#~
+%%%%  ~#b"water": {
+%%%%%%  // 水中のフォグの設定
+%%%%%%},b#~
+%%%%  ~#b"weather": {
+%%%%%%  // 雨天や雷雨のフォグの設定
+%%%%%%},b#~
+%%%%  ~#b"lava": {
+%%%%%%  // マグマ中のフォグの設定
+%%%%%%},b#~
+%%%%  ~#b"lava_resistance": {
+%%%%%%  // マグマ中(+火炎耐性ポーション)のフォグの設定
+%%%%%%},b#~
+%%%%  ~#b"powder_snow": {
+%%%%%%  // 粉雪の中のフォグの設定
+%%%%%%}b#~
+%%%%}r#~
+  }
+}</div>
+      </div>
+      <p>
+        <span class="inline">"air"</span>(遠方の景色にかかるフォグの設定)以外の項目は省略できます。
+      </p>
+      <h3 id="sec04sec02">● 詳細な構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('fog_complex:div')">コピー</button>
+        <textarea class="copyBoard" id="fog_complex" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "ex:my_fog"
+    },
+    ~#r"distance": {
+%%%%  ~#b"air": {
+%%%%%%  // 遠方の景色にかかるフォグの設定
+%%%%%%},b#~
+%%%%  ~#b"water": {
+%%%%%%  // 水中のフォグの設定
+%%%%%%},b#~
+%%%%  ~#b"weather": {
+%%%%%%  // 雨天や雷雨のフォグの設定
+%%%%%%},b#~
+%%%%  ~#b"lava": {
+%%%%%%  // マグマ中のフォグの設定
+%%%%%%},b#~
+%%%%  ~#b"lava_resistance": {
+%%%%%%  // マグマ中(+火炎耐性ポーション)のフォグの設定
+%%%%%%},b#~
+%%%%  ~#b"powder_snow": {
+%%%%%%  // 粉雪の中のフォグの設定
+%%%%%%}b#~
+%%%%},r#~
+    ~#r"volumetric": {
+%%%%  ~#b"density": {
+%%%%%%  ~#g"air": {
+%%%%%%%%  // 遠方の景色にかかるフォグの設定
+%%%%%%%%}g#~
+%%%%%%  // 他に"water", "lava", "lava_resistance"が設定可
+%%%%%%},b#~
+%%%%  ~#b"media_coefficients": {
+%%%%%%  ~#g"air": {
+%%%%%%%%  // 遠方の景色にかかるフォグの設定
+%%%%%%%%}g#~
+%%%%%%  // 他に"water", "cloud"が設定可
+%%%%%%}b#~
+%%%%}r#~
+  }
+}
+</div>
+      </div>
+      <h3 id="sec04sec03">● 具体的な書き方</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "ex:my_fog"
+    },
+    "distance": {
+      ~#r"air": {
+%%%%%%  "fog_start": 0.92,
+%%%%%%  "fog_end": 1.0,
+%%%%%%  "fog_color": "#ABD2FF",
+%%%%%%  "render_distance_type": "render"
+%%%%%%},r#~
+      ~#r"water": {
+%%%%%%  "fog_start": 0,
+%%%%%%  "fog_end": 60.0,
+%%%%%%  "fog_color": "#44AFF5",
+%%%%%%  "render_distance_type": "fixed",
+%%%%%%  "transition_fog": {
+%%%%%%    "init_fog": {
+%%%%%%      "fog_start": 0.0,
+%%%%%%      "fog_end": 0.01,
+%%%%%%      "fog_color": "#44AFF5",
+%%%%%%      "render_distance_type": "fixed"
+%%%%%%    },
+%%%%%%    "min_percent": 0.25,
+%%%%%%    "mid_seconds": 5,
+%%%%%%    "mid_percent": 0.6,
+%%%%%%    "max_seconds": 30
+%%%%%%  }
+%%%%%%}r#~
+
+      // その他のフォグの設定
+    }
+  }
+}
+</div>
+      </div>
+      <h4>・fog_start [Float]</h4>
+      <div class="section">
+        <p>
+          フォグが見え始めるプレイヤーからの距離。この値は
+          <span class="inline">"fog_end"</span>の値と等しいかそれより小さい必要がある。
+        </p>
+      </div>
+      <h4>・fog_end [Float]</h4>
+      <div class="section">
+        <p>
+          フォグが完全に透明でなくなるプレイヤーからの距離。この値は
+          <span class="inline">"fog_start"</span>の値と等しいかそれより大きい必要がある。
+        </p>
+      </div>
+      <h4>・fog_color [String]</h4>
+      <div class="section">
+        <p>フォグの色。16進カラーコードで指定する。</p>
+      </div>
+      <h4>・render_distance_type [String]</h4>
+      <div class="section">
+        <p>
+          描画距離の設定に影響するかどうか。
+          <span class="inline">"render"</span>だと影響し、
+          <span class="inline">"fixed"</span>だと影響しない。
+        </p>
+      </div>
+      <h4>・trasition_fog [Obj]</h4>
+      <div class="section">
+        <p>水中のフォグに限り、色などが変化します。その変化のためにいくつか設定します。</p>
+      </div>
+      <div class="section">
+        <h4>・init_fog [Obj]</h4>
+        <div class="section">
+          <p>
+            変化する前のフォグの情報。
+            <span class="inline">"trasition_fog"</span>より上のプロパティを使って色などを指定する。
+          </p>
+        </div>
+        <h4>・min_percent [Float]</h4>
+        <div class="section">
+          <p>
+            変化開始時のフォグが混ざっている割合。
+          </p>
+        </div>
+        <h4>・mid_seconds [Int] / mid_percent [Float]</h4>
+        <div class="section">
+          <p>
+            <span class="inline">"mid_seconds"</span>で指定した秒数が経過した時点でフォグが
+            <span class="inline">"mid_percent"</span>で指定した割合だけ混ざっているようにする。
+          </p>
+        </div>
+        <h4>・max_seconds [Int]</h4>
+        <div class="section">
+          <p>変化にかかる合計時間。</p>
+        </div>
+        <h3 id="sec04sec04">● 詳細な構造の説明 <span class="adv">上級</span></h3>
+        <h4>・max_density [Float(0.0~1.0)]</h4>
+        <div class="section">
+          <p>不透明度の最大値。</p>
+          <p style="color:#b1a490">(原文): The maximum amount of opaqueness that the ground fog will take on.</p>
+        </div>
+        <h4>・max_density_height [Float(0.0~320.0)]</h4>
+        <div class="section">
+          <p>フォグが最大の密度になる高さ(ブロック数)</p>
+          <p style="color:#b1a490">(原文): The height in blocks that the ground fog will become it's maximum density.</p>
+        </div>
+        <h4>・zero_density_height [Float(0.0~320.0)]</h4>
+        <div class="section">
+          <p>
+            フォグが完全に透明で見え始める高さ(ブロック数)。この値は
+            <span class="inline">"max_density_height"</span>よりも少なくとも1大きい必要がある。
+          </p>
+          <p style="color:#b1a490">(原文): The height in blocks that the ground fog will be completely transparent and begin to appear. This value needs to be at least 1 higher than 'max_density_height'.</p>
+        </div>
+        <h4>・uniform [Bool]</h4>
+        <div class="section">
+          <p>
+            <span class="inline">true</span>にすると、すべての高さでフォグの密度が揃う。
+          </p>
+          <p style="color:#b1a490">(原文): When set to true, the density will be uniform across all heights.</p>
+        </div>
+        <h4>・scattering [String]</h4>
+        <div class="section">
+          <p style="color:#b1a490">(原文): Proportion of light that is scattered per block.</p>
+        </div>
+        <h4>・absorption [String]</h4>
+        <div class="section">
+          <p style="color:#b1a490">(原文): Proportion of light that is absorbed (lost) per block.</p>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">機能</a></h4>
+        <hr>
+        <h4><a href="#sec02">ファイルの場所</a></h4>
+        <hr>
+        <h4><a href="#sec03">biomes_client.json</a></h4>
+        <ul>
+          <li><a href="#sec03sec01">基本構造</a></li>
+          <li><a href="#sec03sec02">具体的な書き方</a></li>
+          <li><a href="#sec03sec03">複数のバイオームについて書く</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec04">フォグ</a></h4>
+        <ul>
+          <li><a href="#sec04sec01">基本構造</a></li>
+          <li><a href="#sec04sec02">詳細な構造</a></li>
+          <li><a href="#sec04sec03">具体的な書き方</a></li>
+          <li><a href="#sec04sec04">詳細な構造の説明</a></li>
+        </ul>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

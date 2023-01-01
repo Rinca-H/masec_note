@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】テキスト - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="テキストについて解説します。" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, リソースパック, 作り方">
+  <meta name="description" content="テキストについて解説します。">
+  <title>【Minecraft BE(統合版)】テキスト - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <style type="text/css">
+    .lang {
+      font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace, system-ui;
+      background-color: #f4f3ec;
+      color: #5f5e4e;
+      white-space: pre;
+      padding: 4px;
+      padding: 0.75em;
+      line-height: 1.5em;
+      overflow: auto;
+      max-height: 75vh;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">アドオン作成 - テキスト</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <div id="sec01" class="headline" style="border-color: #31af37;">機能</div>
+      <p>
+        ゲーム内にある「テキスト」はリソースパックのtextフォルダにある.langファイルをもとにして、設定で決められた言語に翻訳されて表示されています。
+        全てのテキストにはIDが割り当てられており、.langファイルでそのIDと実際に表示する文字列を紐づけます。
+      </p>
+      <p>たとえば「item.apple.name」というIDに「リンゴ」という文字列が紐づけられることによって、該当アイテムを持った時に「リンゴ」と表示されるようになります。</p>
+      <div class="center"><img src="img/MCBE-A_texts_01.png" style="width: 80%; min-width: 300px;"></div>
+      <div id="sec04" class="headline" style="border-color: #31af37;">ファイルの場所</div>
+      <div class="center">
+        <div class="colorBox gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.json<br>
+          　 ┗ <b>texts</b><br>
+          　 　 ┗ <b>〇〇.lang</b>
+        </div>
+      </div>
+      <div id="sec02" class="headline" style="border-color: #31af37;">構文</div>
+      <h3 id="sec02sec01">定義</h3>
+      <p>左にIDを、右に表示する文字列を書いて「=」で結びます。「=」の前後に半角スペースは不要です。</p>
+      <div>
+        <div class="lang">example.text=テキスト</div>
+      </div>
+      <h3 id="sec02sec02">コメントアウト</h3>
+      <p>コメントアウトはファンクションと同様に「#」です。複数行のコメントアウトはありません。定義文の右に書く場合はTabスペースをおく必要があります。</p>
+      <div>
+        <div class="lang"># コメントアウト
+example.definition.text=定義文&#009;# (#の左にはTabスペース)</div>
+      </div>
+      <h3>常用</h3>
+      <p>マーカー部分がそのブロックやアイテムなどのフルIDです。</p>
+      <div>
+        <div class="lang"># カスタムブロック
+tile.~#M(83ffd9)myaddon:custom_blockM#~.name=カスタムブロック
+
+# カスタムアイテム
+item.~#M(83ffd9)myaddon:custom_itemM#~.name=カスタムアイテム
+
+# カスタムエンティティ
+entity.~#M(83ffd9)myaddon:custom_entityM#~.name=カスタムエンティティ
+
+# カスタムエンティティのスポーンエッグ
+item.spawn_egg.entity.~#M(83ffd9)myaddon:custom_entityM#~.name=カスタムエンティティのスポーンエッグ
+</div>
+      </div>
+      <div id="sec03" class="headline" style="border-color: #31af37;">ファイルと言語の対応</div>
+      <div class="center">
+        <table border="1" style="display: inline-block;">
+          <tr><th>.lang ファイル</th><th>地域</th><th>.lang ファイル</th><th>地域</th></tr>
+          <tr><td>bg_BG</td><td>ブルガリア</td><td>ja_JP</td><td>日本</td></tr>
+          <tr><td>cs_CZ</td><td>チェコ</td><td>ko_KR</td><td>韓国</td></tr>
+          <tr><td>da_DK</td><td>デンマーク</td><td>nb_NO</td><td>ノルウェー</td></tr>
+          <tr><td>de_DE</td><td>ドイツ</td><td>nl_NL</td><td>オランダ</td></tr>
+          <tr><td>el_GR</td><td>ギリシャ</td><td>pl_PL</td><td>ポーランド</td></tr>
+          <tr><td>en_GB</td><td>イギリス</td><td>pt_BR</td><td>ブラジル</td></tr>
+          <tr><td>en_US</td><td>アメリカ</td><td>pt_PT</td><td>ポルトガル</td></tr>
+          <tr><td>es_ES</td><td>スペイン</td><td>ru_RU</td><td>ロシア</td></tr>
+          <tr><td>es_MX</td><td>メキシコ</td><td>sk_SK</td><td>スロバキア</td></tr>
+          <tr><td>fi_FI</td><td>フィンランド</td><td>sv_SE</td><td>スウェーデン</td></tr>
+          <tr><td>fr_CA</td><td>カナダ</td><td>tr_TR</td><td>トルコ</td></tr>
+          <tr><td>fr_FR</td><td>フランス</td><td>uk_UA</td><td>ウクライナ</td></tr>
+          <tr><td>hu_HU</td><td>ハンガリー</td><td>zh_CN</td><td>中国</td></tr>
+          <tr><td>id_ID</td><td>インドネシア</td><td>zh_TW</td><td>台湾</td></tr>
+          <tr><td>it_IT</td><td>イタリア</td><td></td><td></td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">機能</a></h4>
+        <hr>
+        <h4><a href="#sec04">ファイルの場所</a></h4>
+        <hr>
+        <h4><a href="#sec02">構文</a></h4>
+        <ul>
+          <li><a href="#sec02sec01">定義</a></li>
+          <li><a href="#sec02sec02">常用</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec03">ファイルと言語の対応</a></h4>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

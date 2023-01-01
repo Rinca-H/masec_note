@@ -1,0 +1,28 @@
+/* LAST EDIT : 2022-08-29 */
+
+
+@font-face {
+  font-family: 'Mojangles';
+  src: url(Mojangles.ttf);
+}
+.cmd {
+  background-color: #000;
+  font-family: Mojangles;
+  padding: 0.5em;
+  margin: 0.5em;
+  color: #a8a8a8;
+  text-shadow: 2px 1px 0 #2a2a2a;
+}
+span.s7 { color: #a8a8a8; text-shadow: 2px 1px 0 #2a2a2a; }
+span.sB { color: #54fcfc; text-shadow: 2px 1px 0 #153e3e; }
+span.sE { color: #fcfc54; text-shadow: 2px 1px 0 #3e3e15; }
+span.sA { color: #54fc54; text-shadow: 2px 1px 0 #153e15; }
+span.sD { color: #fc54fc; text-shadow: 2px 1px 0 #3e153e; }
+span.sC { color: #fc5454; text-shadow: 2px 1px 0 #3e1515; }
+span.sF { color: #dddddd; text-shadow: 2px 1px 0 #373737; }
+.cmd::selection { background-color: #fff; color: #5757ff; text-shadow: 2px 1px 0 #d5d5ff; }
+span.sB::selection { color: #ab03ff; background-color: #fff; text-shadow: 2px 1px 0 #eac1ff; }
+span.sE::selection { color: #0303ff; background-color: #fff; text-shadow: 2px 1px 0 #c1c1ff; }
+span.sA::selection { color: #ab03ff; background-color: #fff; text-shadow: 2px 1px 0 #eac1ff; }
+span.sD::selection { color: #03abff; background-color: #fff; text-shadow: 2px 1px 0 #c1eaff; }
+span.sC::selection { color: #03abff; background-color: #fff; text-shadow: 2px 1px 0 #c1eaff; }

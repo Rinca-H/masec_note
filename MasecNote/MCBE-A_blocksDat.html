@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】アドオン作成「ブロックの作り方」 - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="アドオンでブロックを追加する方法を解説します" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, 作り方">
+  <meta name="description" content="アドオンでブロックを追加する方法を解説します">
+  <title>【Minecraft BE(統合版)】アドオン作成「ブロックの作り方」 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">アドオン作成 - ブロック</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <div id="sec01" class="headline" style="border-color: #ff6169;">ファイル・フォルダの場所</div>
+      <div class="center">
+        <div class="colorBox gray_box">
+          ビヘイビア<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ <b>blocks</b><br>
+          　 　 ┗<b>〇〇.json</b>
+        </div>
+      </div>
+      <div id="sec02" class="headline" style="border-color: #ff6169;">作成の流れ</div>
+      <p>
+        ブロック本体に加えてテクスチャも追加するので、<b>ビヘイビアとリソース両方が必要</b>になります。
+      </p>
+      <p>全体の作業はこうなります：</p>
+      <div class="center">
+        <div class="colorBox blue_box">
+          ① blocksフォルダに新しくJSONを新規作成する<br>
+          　(+ ルートテーブルのJSONを追加する)<br>
+          ② ブロックのテクスチャを追加する<br>
+          ③ terrain_texture.jsonを編集or新規作成する<br>
+          ④ blocks.jsonを編集or新規作成する<br>
+          　(+ ブロックのジオメトリを追加する)<br>
+          ⑤ .langファイルを編集or新規作成する
+        </div>
+      </div>
+      <p>
+        <a href="MCBE-A_blocksRes.html">リソースに関する詳細はこちら</a>
+      </p>
+      <div id="sec03" class="headline" style="border-color: #ff6169;">ブロックを定義するJSON</div>
+      <p>
+        これはブロックが定義できるための最小限の内容です。ゼロから作る場合はこれをコピペするといいでしょう。
+      </p>
+      <div class="pDat">Dat</div><div class="dir">blocks/my_block.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('basic:div')">コピー</button>
+        <textarea class="copyBoard" id="basic" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:my_block"
+    },
+    "components": {
+      // コンポーネント
+    }
+  }
+}</div>
+      </div>
+      <hr>
+      <h3 id="sec03sec01">主な構成</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:my_block"
+    },
+    ~#r"components": {
+%%%%  // コンポーネント
+%%%%}r#~
+  }
+}</div>
+      </div>
+      <p>
+        大きく関わってくるのがこの赤い枠で囲った部分で、もっと言えばその中の<span class="inline">{ }</span>内にコンポーネントを書き足していきます。
+      </p>
+      <hr>
+      <h3 id="sec03sec02">発展的な構成</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('complex:div')">コピー</button>
+        <textarea class="copyBoard" id="complex" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:my_block",
+      "properties": {
+        "test:my_property": [ 0, 1 ]
+        // ...
+      }
+    },
+    ~#r"permutations": [
+%%%%  {
+%%%%    "components": {
+%%%%      // コンポーネント
+%%%%    },
+%%%%    "condition": "q.block_property('test:my_property') == 1"
+%%%%  }
+%%%%  // ...
+%%%%],r#~
+    ~#r"components": {
+%%%%  // コンポーネント
+%%%%},r#~
+    ~#r"events": {
+%%%%  // イベント
+%%%%}r#~
+  }
+}</div>
+      </div>
+      <p>プロパティ、パーミュテーション、イベントを用いてより複雑な仕様をもったブロックを作ることができます。</p>
+      <hr>
+      <div id="sec04" class="headline" style="border-color: #ff6169;">イベント</div>
+      <p>イベントをトリガーする(呼び出す)ことができる特定のコンポーネントによって呼び出され、指定したイベントファンクションを動作させます。</p>
+      <div class="center">
+        <div class="colorBox blue_box" style="text-align: center;">
+          イベントトリガー系コンポーネント<br>
+          <span style="line-height: 2.5em;">　　　　↓　呼び出す</span><br>
+          イベント
+        </div>
+      </div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('event:div')">コピー</button>
+        <textarea class="copyBoard" id="event" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:my_block"
+    },
+    ~#r"components": {
+%%%%  "minecraft:〇〇": { // イベントトリガー系コンポーネント
+%%%%    "event": "~#M(83ffd9)testM#~" // 呼び出すイベントを指定
+%%%%  }
+%%%%},r#~
+    ~#r"events": {
+%%%%  "~#M(83ffd9)testM#~": { // イベント名
+%%%%    // イベントファンクション
+%%%%  }
+%%%%}r#~
+  }
+}</div>
+      </div>
+      <div id="sec05" class="headline" style="border-color: #ff6169;">プロパティ・パーミュテーション</div>
+      <p>プロパティを定義して、ハーフブロックの上付き・下付きのようにブロック自体は同じでも<b>「状態」</b>が異なるものとして扱うことができます。</p>
+      <p>プロパティの値は、真偽値、整数値、文字列のみで、定義するときに長さを決定する必要があります。</p>
+      <p>パーミュテーションはプロパティなどの条件(condition)を元に、コンポーネントを上書きしたり追加したりするのに使います。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('prop:div')">コピー</button>
+        <textarea class="copyBoard" id="prop" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:my_block",
+      ~#r"properties": {
+%%%%%%  "test:my_property_bool": [ false, true ],
+%%%%%%  "test:my_property_int": [ 0, 1, 2, 3 ],
+%%%%%%  "test:my_property_string": [ "a", "b", "c" ]
+%%%%%%  // ...
+%%%%%%}r#~
+    },
+    ~#r"permutations": [
+%%%%  {
+%%%%    "components": {
+%%%%      // コンポーネント
+%%%%    },
+%%%%    "condition": "q.block_property('test:my_property') == 1"
+%%%%  }
+%%%%  // ...
+%%%%],r#~
+    ~#r"components": {
+%%%%  // コンポーネント
+%%%%}r#~
+  }
+}</div>
+      </div>
+      <p>「状態」は主にイベントを介して操作します。</p>
+      <ul class="custom" style="line-height: 2em;">
+        <li>① ブロックのイベントファンクション「set_block_property」を用いてプロパティを変更</li>
+        <li>② パーミュテーションの"conditon"で現在のプロパティと比較</li>
+        <li>③ 該当するパーミュテーションのコンポーネントで元のコンポーネントを上書きする</li>
+      </ul>
+      <div id="sec06" class="headline" style="border-color: #ff6169;">具体例</div>
+      <h3 id="sec06sec01">シンプルなブロック</h3>
+      <p>JSONがシンプルになるように性質を選んできています。</p>
+      <div class="pDat">Dat</div><div class="dir">blocks/block01.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('block01:div')">コピー</button>
+        <textarea class="copyBoard" id="block01" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block01"
+    },
+    "components": {
+      "minecraft:block_light_emission": 1.0,
+      "minecraft:creative_category": {
+        "category": "construction"
+      },
+      "minecraft:destroy_time": 1.0,
+      "minecraft:explosion_resistance": 5.0,
+      "minecraft:loot": "loot_tables/blocks/block01.json",
+      "minecraft:map_color": "#64ec86"
+    }
+  }
+}</div>
+      </div>
+      <p>このお手本ブロックは以下のような性質を持ちます↓</p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          <ul style="padding-left: 1.5em;">
+            <li>明るさレベル最大で光る</li>
+            <li>クリエイティブインベントリでは「建造物」カテゴリにある</li>
+            <li>壊すのにかかる時間は1.0秒</li>
+            <li>爆発耐性は5.0</li>
+            <li>ルートテーブルは「loot_tables/blocks/block01.json」を参照</li>
+            <li>地図での表示色は <span style="background: #64ec86; padding: 2px;">#64ec86</span></li>
+          </ul>
+        </div>
+      </div>
+      <h3 id="sec06sec02">オリジナル作業台</h3>
+      <div class="pDat">Dat</div><div class="dir">blocks/block02.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('block02:div')">コピー</button>
+        <textarea class="copyBoard" id="block02" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block02"
+    },
+    "components": {
+      "minecraft:crafting_table": {
+        "grid_size": 3,
+        "crafting_tags": [ "my_craft" ],
+        "custom_description": "UIに表示する作業台の名前"
+      }
+      // +その他のコンポーネント
+    }
+  }
+}</div>
+      </div>
+      <p>
+        クラフトのマスは3x3のみです。
+        <span class="inline">"crafting_tags"</span>はレシピの"tags"と対応させて同じタグを持ったレシピのクラフトしかできないようにします。
+      </p>
+      <h3 id="sec06sec03">特殊な形のブロック</h3>
+      <div class="pDat">Dat</div><div class="dir">blocks/block03.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('block03:div')">コピー</button>
+        <textarea class="copyBoard" id="block03" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block03"
+    },
+    "components": {
+      "minecraft:geometry": "geometry.geometry_block",
+      "minecraft:material_instances": {
+        "*": {
+          "material": "opaque",
+          "texture": "geometry_block" // TerrainID
+        }
+      }
+      // +その他のコンポーネント
+    }
+  }
+}</div>
+      </div>
+      <p>
+        <span class="inline">minecraft:geometry</span>コンポーネントを使うときは<span class="inline">minecraft:material_instances</span>コンポーネントも必須です。
+      </p>
+      <h3 id="sec06sec04">特別な場所にしか置けないブロック</h3>
+      <div class="pDat">Dat</div><div class="dir">blocks/simple_block.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('simple_block:div')">コピー</button>
+        <textarea class="copyBoard" id="simple_block" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:simple_block"
+    },
+    "components": {
+      "minecraft:placement_filter": {
+        "conditions": [
+          {
+            "allowed_faces": [ "up" ],
+            "block_filter": [ "minecraft:grass", "minecraft:dirt" ]
+          },
+          {
+            "allowed_faces": [ "up", "down" ],
+            "block_filter": [ "minecraft:stone" ]
+          }
+        ]
+      }
+      // +その他のコンポーネント
+    }
+  }
+}</div>
+      </div>
+      <p>この場合、草ブロックと土の上面と石の上下面にだけ置けます。</p>
+      <h3 id="sec06sec05">半透明のブロック</h3>
+      <div class="pDat">Dat</div><div class="dir">blocks/block04.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('block04:div')">コピー</button>
+        <textarea class="copyBoard" id="block04" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block04"
+    },
+    "components": {
+      "minecraft:material_instances": {
+        "*": {
+          "material": "blend",
+          "texture": "blend_block" // TerrainID
+        }
+      }
+      // +その他のコンポーネント
+    }
+  }
+}</div>
+      </div>
+      <h3 id="sec06sec06">アイテムを持って右クリorタップするとコマンドが実行されるブロック</h3>
+      <div class="pDat">Dat</div><div class="dir">blocks/block11.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('block11:div')">コピー</button>
+        <textarea class="copyBoard" id="block11" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block11"
+    },
+    "components": {
+      "minecraft:on_interact": {
+        "event": "ex:interact",
+        "target": "self",
+        "condition": "q.get_equipped_item_name('main_hand') == 'cobblestone'"
+      }
+      // +その他のコンポーネント
+    },
+
+    "events": {
+      "ex:interact": {
+        "run_command": "setblock ~ ~1 ~ cobblestone"
+      }
+    }
+  }
+}</div>
+      </div>
+      <p>丸石を持って右クリック/タップしたときのみ丸石がブロックの上に/setblockされます。</p>
+      <h3 id="sec06sec07">アイテム(2種類)を持って右クリorタップするとコマンドが実行されるブロック</h3>
+      <div class="pDat">Dat</div><div class="dir">blocks/block12.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('block12:div')" style="right: 2em;">コピー</button>
+        <textarea class="copyBoard" id="block12" cols="5" rows="5" readonly></textarea>
+        <div class="json" style="max-height: 75vh;">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block12"
+    },
+    "components": {
+      "minecraft:on_interact": {
+        "event": "ex:interact",
+        "target": "self",
+        "condition": "q.get_equipped_item_name('main_hand') == 'cobblestone' || q.get_equipped_item_name('main_hand') == 'dirt'"
+      }
+    },
+
+    "events": {
+      "ex:interact": {
+        "sequence": [
+          {
+            "condition": "q.get_equipped_item_name('main_hand') == 'cobblestone'",
+            "trigger": {
+              "condition": "(1.0)",
+              "event": "ex:setblock_cobblestone",
+              "target": "self"
+            }
+          },
+          {
+            "condition": "q.get_equipped_item_name('main_hand') == 'dirt'",
+            "trigger": {
+              "condition": "(1.0)",
+              "event": "ex:setblock_dirt",
+              "target": "self"
+            }
+          }
+        ]
+      },
+      "ex:setblock_cobblestone": {
+        "run_command": { "command": "setblock ~ ~1 ~ cobblestone" }
+      },
+      "ex:setblock_dirt": {
+        "run_command": { "command": "setblock ~ ~1 ~ dirt" }
+      }
+    }
+  }
+}</div>
+      </div>
+      <p style="margin-bottom: 0;">このブロックに右クリック/タップをするとき、</p>
+      <ul class="custom" style="line-height: 2em;">
+        <li>① 丸石をもってると丸石を上に/setblock</li>
+        <li>② 土を持っていると土を上に/setblock</li>
+      </ul>
+      <h3 id="sec06sec08">原木のように向きが変わるブロック</h3>
+      <div class="pDat">Dat</div><div class="dir">blocks/block13.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('block13:div')" style="right: 2em;">コピー</button>
+        <textarea class="copyBoard" id="block13" cols="5" rows="5" readonly></textarea>
+        <div class="json" style="height: 75vh;">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block13",
+      "properties": {
+        "ex:rotation": [ 1, 2, 3 ]
+      }
+    },
+
+    "permutations": [
+      {
+        "components": { "minecraft:rotation": [ 0, 0, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 1"
+      },
+      {
+        "components": { "minecraft:rotation": [ 90, 0, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 2"
+      },
+      {
+        "components": { "minecraft:rotation": [ 0, 0, 90 ] },
+        "condition": "q.block_property('ex:rotation') == 3"
+      }
+    ],
+
+    "components": {
+      "minecraft:geometry": "geometry.block", // 普通のブロックの形のジオメトリ
+      "minecraft:material_instances": {
+        "*": { // 全面
+          "texture": "log_side",
+          "render_method": "alpha_test"
+        },
+        "up": { // 上面
+          "texture": "log_top",
+          "render_method": "alpha_test"
+        },
+        "down": "up" // 下面(上面と同じ指定)
+      },
+      "minecraft:on_player_placing": {
+        "event": "ex:on_placed"
+      }
+      // +その他のコンポーネント
+    },
+
+    "events": {
+      "ex:on_placed": { // 下,上で0, 北,南で1, 西,東で2
+        "set_block_property": { "ex:rotation": "math.floor(q.block_face/2)+1" }
+      }
+    }
+  }
+}</div>
+      </div>
+      <h3 id="sec06sec09">壁のみに張り付くタイプの向きが変わるブロック</h3>
+      <div class="pDat">Dat</div><div class="dir">blocks/block14.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('bock14:div')" style="right: 2em;">コピー</button>
+        <textarea class="copyBoard" id="bock14" cols="5" rows="5" readonly></textarea>
+        <div class="json" style="height: 75vh;">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block14",
+      "properties": {
+        "ex:rotation": [ 2, 3, 4, 5 ]
+      }
+    },
+
+    "permutations": [
+      {
+        "components": { "minecraft:rotation": [ 0, 0, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 2"
+      },
+      {
+        "components": { "minecraft:rotation": [ 0, 180, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 3"
+      },
+      {
+        "components": { "minecraft:rotation": [ 0, 90, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 4"
+      },
+      {
+        "components": { "minecraft:rotation": [ 0, -90, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 5"
+      }
+    ],
+
+    "components": {
+      "minecraft:on_player_placing": {
+        "event": "on_placed"
+      },
+      "minecraft:placement_filter": {
+        "conditions": [
+          { "allowed_faces": [ "side" ] }
+        ]
+      }
+      // +その他のコンポーネント
+    },
+
+    "events": {
+      "on_placed": {
+        "set_block_property": { "ex:rotation": "q.block_face" }
+      }
+    }
+  }
+}</div>
+      </div>
+      <p>壁にしか置けないようになっています。トリップワイヤーフックなどがそうです。</p>
+      <h3 id="sec06sec10">すべての側面に張り付くタイプの向きが変わるブロック</h3>
+      <div class="pDat">Dat</div><div class="dir">blocks/block15.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('block15:div')" style="right: 2em;">コピー</button>
+        <textarea class="copyBoard" id="block15" cols="5" rows="5" readonly></textarea>
+        <div class="json" style="height: 75vh;">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block15",
+      "properties": {
+        "ex:rotation": [ 0, 1, 2, 3, 4, 5 ]
+      }
+    },
+
+    "permutations": [
+      {
+        "components": { "minecraft:rotation": [ 180, 0, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 0"
+      },
+      {
+        "components": { "minecraft:rotation": [ 0, 0, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 1"
+      },
+      {
+        "components": { "minecraft:rotation": [ -90, 0, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 2"
+      },
+      {
+        "components": { "minecraft:rotation": [ 90, 0, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 3"
+      },
+      {
+        "components": { "minecraft:rotation": [ 0, 0, 90 ] },
+        "condition": "q.block_property('ex:rotation') == 4"
+      },
+      {
+        "components": { "minecraft:rotation": [ 0, 0, -90 ] },
+        "condition": "q.block_property('ex:rotation') == 5"
+      }
+    ],
+
+    "components": {
+      "minecraft:on_player_placing": {
+        "event": "ex:on_placed"
+      }
+      // +その他のコンポーネント
+    },
+
+    "events": {
+      "ex:on_placed": {
+        "set_block_property": { "ex:rotation": "q.block_face" }
+      }
+    }
+  }
+}</div>
+      </div>
+      <p>たとえばボタンなどがそうです。</p>
+      <h3 id="sec06sec11">フェンス風隣の同じブロックとつながるブロック</h3>
+      <div class="pDat">Dat</div><div class="dir">blocks/block16.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('block16:div')" style="right: 2em;">コピー</button>
+        <textarea class="copyBoard" id="block16" cols="5" rows="5" readonly></textarea>
+        <div class="json" style="height: 75vh;">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block16",
+      "properties": {
+        "ex:direction": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ]
+      }
+    },
+
+    "permutations": [
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -2.0, 0.0, -2.0 ], "size": [ 4.0, 16.0, 4.0 ] },
+          "minecraft:pick_collision": { "origin": [ -2.0, 0.0, -2.0 ], "size": [ 4.0, 16.0, 4.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 0"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -2.0, 0.0, -8.0 ], "size": [ 4.0, 16.0, 10.0 ] },
+          "minecraft:pick_collision": { "origin": [ -2.0, 0.0, -8.0 ], "size": [ 4.0, 16.0, 10.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 1"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -8.0, 0.0, -2.0 ], "size": [ 10.0, 16.0, 4.0 ] },
+          "minecraft:pick_collision": { "origin": [ -8.0, 0.0, -2.0 ], "size": [ 10.0, 16.0, 4.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 2"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -8.0, 0.0, -8.0 ], "size": [ 10.0, 16.0, 10.0 ] },
+          "minecraft:pick_collision": { "origin": [ -8.0, 0.0, -8.0 ], "size": [ 10.0, 16.0, 10.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 3"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -2.0, 0.0, -2.0 ], "size": [ 4.0, 16.0, 10.0 ] },
+          "minecraft:pick_collision": { "origin": [ -2.0, 0.0, -2.0 ], "size": [ 4.0, 16.0, 10.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 4"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -2.0, 0.0, -8.0 ], "size": [ 4.0, 16.0, 16.0 ] },
+          "minecraft:pick_collision": { "origin": [ -2.0, 0.0, -8.0 ], "size": [ 4.0, 16.0, 16.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 5"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -8.0, 0.0, -2.0 ], "size": [ 10.0, 16.0, 10.0 ] },
+          "minecraft:pick_collision": { "origin": [ -8.0, 0.0, -2.0 ], "size": [ 10.0, 16.0, 10.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 6"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -8.0, 0.0, -8.0 ], "size": [ 10.0, 16.0, 16.0 ] },
+          "minecraft:pick_collision": { "origin": [ -8.0, 0.0, -8.0 ], "size": [ 10.0, 16.0, 16.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 7"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -2.0, 0.0, -2.0 ], "size": [ 10.0, 16.0, 4.0 ] },
+          "minecraft:pick_collision": { "origin": [ -2.0, 0.0, -2.0 ], "size": [ 10.0, 16.0, 4.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 8"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -2.0, 0.0, -8.0 ], "size": [ 10.0, 16.0, 10.0 ] },
+          "minecraft:pick_collision": { "origin": [ -2.0, 0.0, -8.0 ], "size": [ 10.0, 16.0, 10.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 9"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -8.0, 0.0, -2.0 ], "size": [ 16.0, 16.0, 4.0 ] },
+          "minecraft:pick_collision": { "origin": [ -8.0, 0.0, -2.0 ], "size": [ 16.0, 16.0, 4.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 10"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -8.0, 0.0, -8.0 ], "size": [ 16.0, 16.0, 10.0 ] },
+          "minecraft:pick_collision": { "origin": [ -8.0, 0.0, -8.0 ], "size": [ 16.0, 16.0, 10.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 11"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -2.0, 0.0, -2.0 ], "size": [ 10.0, 16.0, 10.0 ] },
+          "minecraft:pick_collision": { "origin": [ -2.0, 0.0, -2.0 ], "size": [ 10.0, 16.0, 10.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 12"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -2.0, 0.0, -8.0 ], "size": [ 10.0, 16.0, 16.0 ] },
+          "minecraft:pick_collision": { "origin": [ -2.0, 0.0, -8.0 ], "size": [ 10.0, 16.0, 16.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 13"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -8.0, 0.0, -2.0 ], "size": [ 16.0, 16.0, 10.0 ] },
+          "minecraft:pick_collision": { "origin": [ -8.0, 0.0, -2.0 ], "size": [ 16.0, 16.0, 10.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 14"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -8.0, 0.0, -8.0 ], "size": [ 16.0, 16.0, 16.0 ] },
+          "minecraft:pick_collision": { "origin": [ -8.0, 0.0, -8.0 ], "size": [ 16.0, 16.0, 16.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 15"
+      }
+    ],
+
+    "components": {
+      "minecraft:geometry": "geometry.fence", // 全方向に伸びていてそれぞれの腕が別のボーン
+      "minecraft:material_instances": { // geometryを使う場合は必須
+        "*": {
+          "texture": "planks",
+          "render_method": "opaque"
+        }
+      },
+      "minecraft:part_visibility": { // ※ "q.block_property(ex:direction)"は0~15の整数
+        "rules": {
+          "north": "math.mod(q.block_property('ex:direction'), 2)",               // 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1
+          "east": "math.mod(math.floor(q.block_property('ex:direction')/2), 2)",  // 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1
+          "south": "math.mod(math.floor(q.block_property('ex:direction')/4), 2)", // 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1
+          "west": "q.block_property('ex:direction') > 7"                          // 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1
+        }
+      },
+      "minecraft:ticking": {
+        "looping": true,
+        "range": [ 0, 0 ],
+        "on_tick": { "event": "checking", "target": "self" }
+      }
+    },
+
+    "events": {
+      "checking": {
+        "set_block_property": { // 北 + 2×東 + 4×南 + 8×西  (それぞれの方角からつながってる(=1)かつながっていないか(=0)が返ってくる)
+          "ex:direction": "q.block_neighbor_has_any_tag(0,0,-1,'my_fence')+2*q.block_neighbor_has_any_tag(1,0,0,'my_fence')+4*q.block_neighbor_has_any_tag(0,0,1,'my_fence')+8*q.block_neighbor_has_any_tag(-1,0,0,'my_fence')"
+        }
+      }
+    }
+  }
+}</div>
+      </div>
+      <p>バニラのブロックとつながるようにするためにはぜんぶ指定する必要があります。</p>
+      <p>当たり判定などはMolangが対応してないのでパーミュテーションで一つずつ指定するしかないです。</p>
+      <div id="sec07" class="headline" style="border-color: #ff6169;">できないこと</div>
+      <ul>
+        <li>バニラのブロックに変更を加える</li>
+      </ul>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">ファイル・フォルダの場所</a></h4>
+        <hr>
+        <h4><a href="#sec02">作成の流れ</a></h4>
+        <hr>
+        <h4><a href="#sec03">ブロックを定義するJSON</a></h4>
+        <ul>
+          <li><a href="#sec03sec01">主な構成</a></li>
+          <li><a href="#sec03sec02">発展的な構成</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec04">イベント</a></h4>
+        <hr>
+        <h4><a href="#sec05">プロパティ・パーミュテーション</a></h4>
+        <hr>
+        <h4><a href="#sec06">具体例</a></h4>
+        <ul>
+          <li><a href="#sec06sec01">シンプルなブロック</a></li>
+          <li><a href="#sec06sec02">オリジナル作業台</a></li>
+          <li><a href="#sec06sec03">特殊な形のブロック</a></li>
+          <li><a href="#sec06sec04">特別な場所にしか置けないブロック</a></li>
+          <li><a href="#sec06sec05">半透明のブロック</a></li>
+          <li><a href="#sec06sec06">アイテムを持ってインタラクトするとコマンドが実行されるブロック</a></li>
+          <li><a href="#sec06sec07">アイテム(2種類)を持ってインタラクトするとコマンドが実行されるブロック</a></li>
+          <li><a href="#sec06sec08">原木のように向きが変わるブロック</a></li>
+          <li><a href="#sec06sec09">壁のみに張り付くタイプの向きが変わるブロック</a></li>
+          <li><a href="#sec06sec10">すべての巣湖面に張り付くタイプの向きが変わるブロック</a></li>
+          <li><a href="#sec06sec11">フェンス風隣の同じブロックとつながるブロック</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec07">できないこと</a></h4>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

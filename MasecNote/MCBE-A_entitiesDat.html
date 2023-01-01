@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】アドオン作成「エンティティ」 - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="エンティティについて解説します。" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, 作り方">
+  <meta name="description" content="エンティティについて解説します。">
+  <title>【Minecraft BE(統合版)】アドオン作成「エンティティ」 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">アドオン作成 - エンティティ</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <div id="sec01" class="headline" style="border-color: #ff6169;">ファイル・フォルダの場所</div>
+      <p>ビヘイビアパックの「entities」フォルダにファイルを置きます。</p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          ビヘイビア<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.json<br>
+          　 ┗ entities<br>
+          　 　 ┗ 〇〇.json
+        </div>
+      </div>
+      <div id="sec02" class="headline" style="border-color: #ff6169;">作成の手順</div>
+      <p>エンティティ本体に加えてテクスチャも追加するので、<b>ビヘイビアとリソース両方が必要</b>になります。</p>
+      <div class="center">
+        <div class="colorBox blue_box">
+          ① entitiesフォルダに定義JSONを新規作成する<br>
+          　(+ EntityEvを作成)<br>
+          ② テクスチャの追加<br>
+          ③ ジオメトリの追加<br>
+          ④ Anim(Res)の追加<br>
+          ⑤ AniCon(Res)追加<br>
+          ⑥ RenConの追加<br>
+          ⑦ EntityClient定義JSONを作成
+        </div>
+      </div>
+      <details><summary>注</summary>
+        <p style="line-height: 3em;">
+          Anim： <ruby><rb>Animation</rb><rp>(</rp><rt>アニメーション</rt><rp>)</rp></ruby>の略<br>
+          <ruby><rb>AniCon</rb><rp>(</rp><rt>アニコン</rt><rp>)</rp></ruby>：
+          <ruby><rb>AnimationController</rb><rp>(</rp><rt>アニメーションコントローラ</rt><rp>)</rp></ruby>の略<br>
+          <ruby><rb>RenCon</rb><rp>(</rp><rt>レンコン</rt><rp>)</rp></ruby>：
+          <ruby><rb>RenderController</rb><rp>(</rp><rt>レンダーコントローラ</rt><rp>)</rp></ruby>の略<br>
+          (Res)：「リソースパックの」
+        </p>
+      </details>
+      <div id="sec03" class="headline" style="border-color: #ff6169;">エンティティを定義するJSON</div>
+      <h3 id="sec03sec01">● 基本構造</h3>
+      <div class="pDat">Dat</div><div class="dir">entities/my_entity.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('basic:div')">コピー</button>
+        <textarea class="copyBoard" id="basic" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.18.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "ex:my_entity",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      // コンポーネント
+    }
+  }
+}</div>
+      </div>
+      <h3 id="sec03sec02">● 詳細な構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('complex:div')" style="right: 2em;">コピー</button>
+        <textarea class="copyBoard" id="complex" cols="5" rows="5" readonly></textarea>
+        <div class="json" style="height: 75vh;">{
+  "format_version": "1.18.0",
+  "minecraft:entty": {
+    "description": {
+      "identifier": "ex:my_entity",
+      "is_spawnable": true,
+      "is_summonabled": true,
+      "is_experimental": false,
+      "runtime_identifier": "ex:runtime_entity",
+      "properties":{
+        // ActProp
+      },
+      "aliases": {
+        // エイリアス
+      },
+      "scripts": {
+        "animate": [
+          // EntityEv名
+        ]
+      },
+      "animations": {
+        // EntityEv
+      }
+    },
+
+    "permutations": [
+      // Perms
+    ],
+
+    "component_groups": {
+      // CompGrps
+    },
+
+    "components": {
+      // コンポーネント
+    },
+
+    "events": {
+      // イベント
+    }
+  }
+}</div>
+      </div>
+      <p>各プロパティについて：</p>
+      <div class="center">
+        <table border="1" style="display: inline-block;">
+          <tr><th>プロパティ名</th><th>簡単な説明</th></tr>
+          <tr><td><span class="inline">"identifier"</span></td><td>このエンティティのID</td></tr>
+          <tr><td><span class="inline">"is_spawnable"</span></td><td>スポーンエッグをクリエイティブインベントリに追加するかどうか</td></tr>
+          <tr><td><span class="inline">"is_summonable"</span></td><td>コマンドで/summonできるかどうか</td></tr>
+          <tr><td><span class="inline">"is_experimental"</span></td><td>試験的かどうか(基本的に<span class="inline">false</span>でいい)</td></tr>
+          <tr><td><span class="inline">"runtime_identifier"</span></td><td>性質を継承するエンティティのID</td></tr>
+        </table>
+      </div>
+      <div id="sec09" class="headline" style="border-color: #ff6169;">コンポーネント</div>
+      <p>このエンティティの性質はコンポーネントによって決まります。一つひとつのコンポーネントは</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"minecraft:〇〇": {
+  // 0個以上のプロパティ
+}</div>
+      </div>
+      <p>という形をしています。</p>
+      <div id="sec04" class="headline" style="border-color: #ff6169;">イベント <span class="adv">上級</span></div>
+      <h3 id="sec04sec01">● 形態の変化とCompGrp</h3>
+      <p>
+        <span class="inline">"components"</span>に書かれた「コンポーネント」はそのエンティティの<u>デフォルトの性質</u>になります。
+        たとえば、ゾンビは子どもや大人など複数の形態を持ちますが、同じエンティティなので共通する性質(デフォルトの性質)があります。
+        そのような共通の性質は<span class="inline">"components"</span>に書きます。
+      </p>
+      <p>
+        一方、子ども/大人のように形態によって変わる性質がある場合は、その性質を切り替えられるようにする必要があります。
+        そこで、<span class="inline">"component_groups"</span>の
+        「<ruby><rb>ComponentGroup</rb><rp>(</rp><rt>コンポーネントグループ</rt><rp>)</rp></ruby> (略：CompGrp)」を利用します。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"component_groups": {
+  "group_a": {
+    // 形態Aのコンポーネント
+  },
+  "group_b": {
+    // 形態Bのコンポーネント
+  }
+}</div>
+      </div>
+      <p>
+        CompGrpを切り替えるには<span class="inline">"events"</span>の「イベント」を利用します。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"events": {
+  "change_to_a": { // 形態Aに変化
+    "add": { "component_groups": [ "group_a" ] }, // グループ"group_a"を追加
+    "remove": { "component_groups": [ "group_b" ] } // グループ"group_b"を削除
+  },
+  "change_to_b": { // 形態Bに変化
+    "add": { "component_groups": [ "group_b" ] }, // グループ"group_b"を削除
+    "remove": { "component_groups": [ "group_a" ] } // グループ"group_a"を追加
+  }
+}</div>
+      </div>
+      <p>
+        イベントは特定のコンポーネントによって発生させることができます。
+      </p>
+      <h3 id="sec04sec02">● EvFunc</h3>
+      <p>
+        一つひとつのイベントでは「<ruby><rb>EventFunction</rb><rp>(</rp><rt>イベントファンクション</rt><rp>)</rp></ruby> (略：EvFunc)」を用いて何を起こすかを指定します。
+        CompGrpを追加したり削除したりする<span class="inline">"add"</span>、<span class="inline">"remove"</span>もEvFuncです。
+      </p>
+      <p>エンティティのEvFuncは以下の通りです：</p>
+      <div class="center">
+        <table border="1" style="display: inline-block;">
+          <tr><th>名前</th><th>簡単な説明</th></tr>
+          <tr><td><span class="inline">"add"</span></td><td>CompGrpを追加する</td></tr>
+          <tr><td><span class="inline">"remove"</span></td><td>CompGrpを削除する</td></tr>
+          <tr><td><span class="inline">"run_command"</span></td><td>コマンドを実行する</td></tr>
+          <tr><td><span class="inline">"set_actor_property"</span></td><td>ActPropの値を変更する</td></tr>
+          <tr><td><span class="inline">"sequence"</span></td><td>複数のEvFuncを実行する</td></tr>
+          <tr><td><span class="inline">"randomize"</span></td><td>指定した中からランダムに実行</td></tr>
+          <tr><td><span class="inline">"trigger"</span></td><td>イベントを実行</td></tr>
+        </table>
+      </div>
+      <div id="sec05" class="headline" style="border-color: #ff6169;">EntityEv <span class="adv">上級</span></div>
+      <p>
+        より複雑な挙動を実現するためにEntityEvというものが利用できます。
+        詳しい説明は別記事に書いたのでここではエンティティ本体との紐づけかたを説明します。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"scripts": {
+  "animate": [
+    "~#M(83ffd9)ex1M#~"
+  ]
+},
+"animations": {
+  "~#M(83ffd9)ex1M#~": "(EntityEvのID)"
+}</div>
+      </div>
+      <p>
+        <span class="inline">"animations"</span>で紐づけるEntityEvに、各自で名前をつけて(例では<span class="inline">"ex1"</span>)、IDと紐づけます。
+      </p>
+      <p>
+        次に、その名前を<span class="inline">"scripts"</span>の<span class="inline">"animate"</span>で指定します。
+        上記のように、単に指定するだけならそのエンティティから毎tick実行されます。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"scripts": {
+  "animate": [
+    ~#M(83ffd9){ "ex1": "(Molang式)" }M#~
+  ]
+},
+"animations": {
+  "ex1": "(EntityEvのID)"
+}</div>
+      </div>
+      <p>また、このようにしてMolang式とともに指定すると、Molang式の条件を満たしたときだけ処理されるようになります。</p>
+      <div id="sec06" class="headline" style="border-color: #ff6169;">ActProp <span class="adv">上級</span></div>
+      <p>
+        「<ruby><rb>ActorProperty</rb><rp>(</rp><rt>アクタープロパティ</rt><rp>)</rp></ruby> (略：ActProp)」はエンティティが変数を持てるようにすることができます。
+        <span class="inline">"minecraft:variant"</span>コンポーネントとCompGrpを用いてほとんど同じことができますが、
+        数値の種類が膨大なとき、数値以外の変数をもつとき、グループを用いるには小規模であるとき(HPのような簡単に変化する値を管理するなど)
+        に役立ちます。
+      </p>
+      <h3 id="sec06sec01">● プロパティを定義する</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"properties": {
+  "property:prop_bool": { "type": "bool", "default": false },
+  "property:prop_int": { "type": "int", "default": 0 },
+  "property:prop_string": { "type": "string", "default": "default" },
+}</div>
+      </div>
+      <p>そもそもプロパティの種類(type)は<span class="inline">"bool"</span>(真偽値)、<span class="inline">"int"</span>(整数値)、<span class="inline">"string"</span>(文字列)の3種類に限られます。</p>
+      <p>プロパティを定義するには、<span class="inline">"properties"</span>で</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"property:(プロパティ名)": { "type": "(プロパティのタイプ)" }</div>
+      </div>
+      <p>のようにして定義します。</p>
+      <p>また、定義するときにオプションとして以下のプロパティが追加できます。</p>
+      <div class="center">
+        <table border="1" style="display: inline-block;">
+          <tr><th>プロパティ名</th><th>簡単な説明</th></tr>
+          <tr><td><span class="inline">"default"</span></td><td>プロパティのデフォルト値</td></tr>
+          <tr><td><span class="inline">"client_sync"</span></td><td>リソースで値を取得できるようにするかどうか</td></tr>
+        </table>
+      </div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"property:definition_ex": {
+  "type": "int",
+  "default": 1,
+  "client_sync": true
+}</div>
+      </div>
+      <p>プロパティの値をMolangで取得するには、クエリ<span class="inline">q.property</span>を使います。</p>
+      <h3 id="sec06sec02">● エイリアス</h3>
+      <p>このエンティティに専用の、別のIDを新たに作成して、そのIDでプロパティの値が既に決まったエンティティをスポーンさせる(/summonなど)ことができます。</p>
+      <p>エイリアスは以下のように設定します。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"aliases": {
+  "(専用のID)": {}, // プロパティに値を指定しない場合
+  "(専用のID)": {
+    "property:(プロパティ名)": ~#C(cf0000)(値)C#~
+  }
+}</div>
+      </div>
+      <h3 id="sec06sec03">● Perm</h3>
+      <p>
+        「<ruby><rb>Permutation</rb><rp>(</rp><rt>パーミュテーション</rt><rp>)</rp></ruby> (略：Perm)」
+        でCompGrpのようにプロパティの値によってエンティティの形態(=Perm)を変化させることができます。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"permutations": [
+  ~#r{ // 1つの形態(=Perm)
+%%  "components": {
+%%    // コンポーネント
+%%  },
+%%  "condition": "(Molang式)"
+%%}r#~
+]</div>
+      </div>
+      <p>
+        <span class="inline">"condition"</span>のMolang式でプロパティを基にした条件式を書き、
+        その条件が満たされたとき(=プロパティが特定の値になったとき)のみ同オブジェクト内(赤枠内)の<span class="inline">"components"</span>に書かれたコンポーネントが適用されます。
+      </p>
+      <p>パーミュテーションを複数にするときは、赤枠部分を増やします：</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"permutations": [
+  ~#r{ // Perm1
+%%  "components": {
+%%    // Perm1のコンポーネント
+%%  },
+%%  "condition": "(Molang式)"
+%%},r#~
+  ~#r{ // Perm2
+%%  "components": {
+%%    // Perm2のコンポーネント
+%%  },
+%%  "condition": "(Molang式)"
+%%}r#~
+]</div>
+      </div>
+      <!--
+      <div id="sec07" class="headline" style="border-color: #ff6169;">具体例</div>
+      <p></p>
+      -->
+      <div id="sec08" class="headline" style="border-color: #ff6169;">できないこと</div>
+      <ul>
+        <li>当たり判定(CollisionBox)が複雑なモブ(蛇など)</li>
+      </ul>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">ファイル・フォルダの場所</a></h4>
+        <hr>
+        <h4><a href="#sec02">作成の手順</a></h4>
+        <hr>
+        <h4><a href="#sec03">エンティティを定義するJSON</a></h4>
+        <ul>
+          <li><a href="#sec03sec01">基本構造</a></li>
+          <li><a href="#sec03sec02">詳細な構造</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec09">コンポーネント</a></h4>
+        <hr>
+        <h4><a href="#sec04">イベント</a></h4>
+        <ul>
+          <li><a href="#sec04sec01">形態の変化とCompGrp</a></li>
+          <li><a href="#sec04sec02">EvFunc</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec05">EntityEv</a></h4>
+        <hr>
+        <h4><a href="#sec06">ActProp</a></h4>
+        <ul>
+          <li><a href="#sec06sec01">プロパティを定義する</a></li>
+          <li><a href="#sec06sec02">エイリアス</a></li>
+          <li><a href="#sec06sec03">Perm</a></li>
+        </ul>
+        <!--
+        <hr>
+        <h4><a href="#sec07">具体例</a></h4>
+        -->
+        <hr>
+        <h4><a href="#sec08">できないこと</a></h4>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

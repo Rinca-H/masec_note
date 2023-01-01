@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】パーティクルだけでHPバーをつくる - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="パーティクルだけでHPバーをつくる方法を紹介します" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, リソースパック, 作り方">
+  <meta name="description" content="パーティクルだけでHPバーをつくる方法を紹介します">
+  <title>【Minecraft BE(統合版)】パーティクルだけでHPバーをつくる - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">MinecraftBE - パーティクルだけでHPバーをつくる</h1>
+      <div class="center"><img src="img/MCBE-S_article01_thumb.png" style="width: calc(90% - 1em); min-width: 300px;"></div>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <p><b>※ 中級者以上向け</b></p>
+      <p>アニメーションコントローラやエンティティのクライアントjsonと紐付けするのは各自でやってください。</p>
+      <p>つけたいエンティティのjsonを編集して紐付けるので、すべてのエンティティにつけたい場合は手動ですべてのエンティティのjsonを編集する必要があります。</p>
+      <p>コマンドでこのパーティクルを出そうとすると何も出ません。追加できているかどうかはパーティクル単体では確かめることはできません。</p>
+      <div id="sec01" class="headline" style="border-color: #31af37;">パーティクルのJSON</div><br>
+      <div class="pRes">Res</div><div class="dir">particles/hp_bar.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('particle:div')">コピー</button>
+        <textarea class="copyBoard" id="particle" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "ex:hp_bar",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/hp_bar"
+      }
+    },
+    "components": {
+      "minecraft:emitter_local_space": {
+        "position": true,
+        "rotation": true
+      },
+      "minecraft:particle_motion_parametric": {
+        "relative_position": [ 0.0, "v.particle_height", 0.0 ]
+      },
+      "minecraft:emitter_rate_steady": {
+        "spawn_rate": "Math.random(15, 25)",
+        "max_particles": 50
+      },
+      "minecraft:emitter_lifetime_expression": {
+        "activation_expression": 1,
+        "expiration_expression": 0
+      },
+      "minecraft:emitter_shape_custom": {
+        "offset": [ 0, 0.1, 0 ],
+        "direction": [ 1.0, 0.0, 0.0 ]
+      },
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.5
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [ 0.5 , 0.05 ], // 拡大率 [ 横, 縦 ]
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 64,
+          "texture_height": 64,
+          "uv": [ // (※1)
+            "(1.0 - q.health / q.max_health) *32",
+            "(q.health == 0) ? 36 : 30"
+          ],
+          "uv_size": [ 32, 4 ]
+        }
+      },
+      "minecraft:particle_appearance_tinting": { // (※2)
+        "color": [ 
+          "math.min(2- 2*q.health/q.max_health, 1)",
+          "math.min(2*q.health/q.max_health, 1)",
+          0.0,
+          1.0
+        ]
+      }
+    }
+  }
+}</div>
+      </div>
+      <p>(※1) HPを検知してテクスチャに反映させている部分。</p>
+      <p>(※2) 白黒のテクスチャに色をつけるために必要なコンポーネント。後からこうして色をつけるためにテクスチャは白黒になっています。</p>
+      <div id="sec02" class="headline" style="border-color: #31af37;">色の遷移方式の変更</div>
+      <p>上記のjsonの状態では、HP最大からゼロにかけて<b>緑→黄→橙となってじわじわと赤になっていく</b>遷移方式です。</p>
+      <p>そこで、ある値を境にパッと黄、赤へと変わる遷移方式にする場合のコードを紹介します。</p>
+      <p>上記の(※2)が指すコンポーネント内の"color"要素を次のように変更します。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('color:div')">コピー</button>
+        <textarea class="copyBoard" id="color" cols="5" rows="5" readonly></textarea>
+        <div class="json">"color": [
+  "(q.health / q.max_health &lt; 0.25) ? 1.0 : 0.0",
+  "(q.health / q.max_health &lt; 0.125) ? 0.0 : 1.0",
+  0.0,
+  1.0
+]</div>
+      </div>
+      <p>
+        この場合、<b>HPが全体の0.25(=1/4)より小さくなった場合に黄色く、HPが全体の0.125(=1/8)より小さくなった場合に赤くなる</b>ようになっています。
+        その二つの値についてはお好みで変更するといいでしょう。
+      </p>
+      <div id="sec03" class="headline" style="border-color: #31af37;">エンティティとの紐づけかた</div>
+      <h3 id="sec03sec01">client_entity定義ファイル</h3>
+      <div class="pRes">Res</div><div class="dir">entity/〇〇.entity.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      // 省略
+      "particle_effects": {
+        "~#M(fce)hp_barM#~": "ex:hp_bar" // パーティクルのID
+      },
+      "scripts": {
+        // 省略
+        "animate": [ "~#M(a1ffa9)hp_barM#~" ]
+      },
+      "animations": {
+        "~#M(a1ffa9)hp_barM#~": "controller.animation.〇〇.hp_bar" // アニコンのID
+      }
+    }
+  }
+}</div>
+      </div>
+      <ul class="custom" style="line-height: 2em;">
+        <li>① <span class="inline">"particle_effects"</span>に項目を足す</li>
+        <li>② <span class="inline">"animate"</span>に今回追加するアニコンを動かすためのキーを追加する</li>
+        <li>③ <span class="inline">"animations"</span>にアニコンを足す</li>
+      </ul>
+      <p><span class="inline">format_version</span>が<span class="inline">1.8.0</span>のやつは書きたくないです</p>
+      <h3 id="sec03sec02">アニコン</h3><br>
+      <div class="pRes">Res</div><div class="dir">animation_controllers/〇〇.hp_bar.animation_controllers.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.18.10",
+  "animation_controllers": {
+    "controller.animation.〇〇.hp_bar": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "particle_effects": [
+            {
+              "effect": "~#M(fce)hp_barM#~",
+              "pre_effect_script": "v.particle_height = 2.25;" // エンティティの高さ = 2.25
+            }
+          ]
+        }
+      }
+    }
+  }
+}</div>
+      </div>
+      <p>子どもの状態があるときは「2.25」とあるところを<b>「(q.is_baby)? 1.25 : 2.25」</b>という風にします。</p>
+      <div id="sec04" class="headline" style="border-color: #31af37;">テクスチャ</div><br>
+      <div class="pRes">Res</div><div class="dir">textures/particle/hp_bar.png</div>
+      <div class="center" style="background-color: #f4f3ec;"><img src="https://rinca-h.github.io/minecraft/other/img/hp_bar.png" style="min-width: 300px;"></div>
+      <p>※テクスチャ本体を長押しや右クリックするとダウンロードできると思います</p>
+      <p>※ぼやけて見えますが、ダウンロードしたものはぼやけません(そのまま使えます)</p>
+      <p>
+        <b>意味があって白黒にしてあります</b>。色を塗ると色が混ざります。
+        色を変えたい場合は上記のパーティクル定義jsonにある色を司る部分にて指定してください。
+      </p>
+      <div id="sec05" class="headline" style="border-color: #31af37;">(※1)の簡単な解説</div>
+      <p>
+        <span class="inline">"minecraft:particle_appearance_billboard"</span>の<span class="inline">"uv"</span>ではテクスチャの切り取る部分(の基準)を指定し、<span class="inline">"uv_size"</span>でその切り取る大きさを指定しますが、
+        今回は元のテクスチャテクスチャファイルの横が64なのに対して<b>半分の32しか切り取っていません</b>。
+      </p>
+      <p>
+        下の図で赤い枠線がその「切り取る部分」です。<b>HPに応じて切り取る部分を横に動かしていけば</b>たしかにHPが減っていくように映すことができますね。
+        "逆紙芝居"といったところでしょうか。
+      </p>
+      <p>考えたひとは頭いいと思いました。</p>
+      <div class="center"><img src="https://rinca-h.github.io/minecraft/other/img/hp_bar_explanation.png" style="width: 80%; min-width: 300px;"></div>
+      <div id="sec06" class="headline" style="border-color: #31af37;">最後に</div>
+      <p>もっと自分なりにカスタマイズしたい場合は研究しましょう。 カスタマイズするとしたら色の部分でしょうか？　色についてはRGBとMolangができないとキビシイかもしれません。</p>
+      <p>ちなみに、<b>枠をつけたい場合はバーと重ならないように枠だけのパーティクルを同時に同じ場所へ表示させる</b>とできます。</p>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">パーティクルのJSON</a></h4>
+        <hr>
+        <h4><a href="#sec02">色の遷移方式の変更</a></h4>
+        <hr>
+        <h4><a href="#sec03">エンティティとの紐づけかた</a></h4>
+        <ul>
+          <li><a href="#sec03sec01">client_entity定義ファイル</a></li>
+          <li><a href="#sec03sec02">アニコン</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec04">テクスチャ</a></h4>
+        <hr>
+        <h4><a href="#sec05">(※1)の簡単な解説</a></h4>
+        <hr>
+        <h4><a href="#sec06">最後に</a></h4>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

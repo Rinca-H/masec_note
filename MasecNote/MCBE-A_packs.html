@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】アドオン作成「パックの作り方」 - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="アドオンで欠かせない「パック」の作り方を解説！" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, リソースパック, 作り方">
+  <meta name="description" content="アドオンで欠かせない「パック」の作り方を解説！">
+  <title>【Minecraft BE(統合版)】アドオン作成「パックの作り方」 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">アドオン作成 - パックの作り方</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <div id="sec01" class="headline" style="border-color: #587eff;">パックの作り方</div>
+      <p>1つのフォルダの中に作ります。ビヘイビアパックとリソースパックでそれぞれ1つずつ作る必要があるので、両方のセットを作るならばパック本体は合計2個作る必要があります。</p>
+      <p>フォルダの中身は以下のようになります。</p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          パック<br>
+          　 ┣ manifest.json<br>
+          　 ┣ (追加したいコンテンツのフォルダ群)<br>
+          　 ┗ pack_icon.png
+        </div>
+      </div>
+      <div id="sec02" class="headline" style="border-color: #587eff;">manifest.jsonの作成/編集</div>
+      <p>manifest.jsonはコピー&ペーストして少し書き換えるだけで十分です。テンプレートか以下のjsonをコピーするといいでしょう。</p>
+      <div class="pDat">Dat</div><div class="dir">manifest.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('basic:div')">コピー</button>
+        <textarea class="copyBoard" id="basic" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": 2,
+  "header": {
+    "description": "Example vanilla behavior pack",
+    "name": "Vanilla Behavior Pack",
+    "uuid": "ee649bcf-256c-4013-9068-6a802b89d756",
+    "version": [ 0, 0, 1 ],
+    "min_engine_version": [ 1, 16, 210 ]
+  },
+  "modules": [
+    {
+      "description": "Example vanilla behavior pack",
+      "type": "data",
+      "uuid": "fa6e90c8-c925-460f-8155-c8a60b753caa",
+      "version": [0, 0, 1]
+    }
+  ]
+}</div>
+      </div>
+      <p>以下の部分を書き換えていきます。</p>
+      <h3 id="sec02sec01">● description</h3>
+      <p>パックの説明。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": 2,
+  "header": {
+    "description": "~#M(83ffd9)Example vanilla behavior packM#~",
+    "name": "Vanilla Behavior Pack",
+    "uuid": "ee649bcf-256c-4013-9068-6a802b89d756",
+    "version": [ 0, 0, 1 ],
+    "min_engine_version": [ 1, 16, 210 ]
+  },
+  "modules": [
+    {
+      "description": "~#M(83ffd9)Example vanilla behavior packM#~",
+      "type": "data",
+      "uuid": "fa6e90c8-c925-460f-8155-c8a60b753caa",
+      "version": [0, 0, 1]
+    }
+  ]
+}</div>
+      </div>
+      <h3 id="sec02sec02">● name</h3>
+      <p>パックの名前。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": 2,
+  "header": {
+    "description": "Example vanilla behavior pack",
+    "name": "~#M(83ffd9)Vanilla Behavior PackM#~",
+    "uuid": "ee649bcf-256c-4013-9068-6a802b89d756",
+    "version": [ 0, 0, 1 ],
+    "min_engine_version": [ 1, 16, 210 ]
+  },
+  "modules": [
+    {
+      "description": "Example vanilla behavior pack",
+      "type": "data",
+      "uuid": "fa6e90c8-c925-460f-8155-c8a60b753caa",
+      "version": [0, 0, 1]
+    }
+  ]
+}</div>
+      </div>
+      <h3 id="sec02sec03">● version</h3>
+      <p>パックのバージョン。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": 2,
+  "header": {
+    "description": "Example vanilla behavior pack",
+    "name": "Vanilla Behavior Pack",
+    "uuid": "ee649bcf-256c-4013-9068-6a802b89d756",
+    "version": [ ~#M(83ffd9)0, 0, 1M#~ ],
+    "min_engine_version": [ 1, 16, 210 ]
+  },
+  "modules": [
+    {
+      "description": "Example vanilla behavior pack",
+      "type": "data",
+      "uuid": "fa6e90c8-c925-460f-8155-c8a60b753caa",
+      "version": [0, 0, 1]
+    }
+  ]
+}</div>
+      </div>
+      <h3 id="sec02sec04">● min_engin_version</h3>
+      <p>このパックが動作する最低バージョン。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": 2,
+  "header": {
+    "description": "Example vanilla behavior pack",
+    "name": "Vanilla Behavior Pack",
+    "uuid": "ee649bcf-256c-4013-9068-6a802b89d756",
+    "version": [ 0, 0, 1 ],
+    "min_engine_version": [ ~#M(83ffd9)1, 16, 210M#~ ]
+  },
+  "modules": [
+    {
+      "description": "Example vanilla behavior pack",
+      "type": "data",
+      "uuid": "fa6e90c8-c925-460f-8155-c8a60b753caa",
+      "version": [0, 0, 1]
+    }
+  ]
+}</div>
+      </div>
+      <h3 id="sec02sec05">● uuid</h3>
+      <p><b>UUID</b>という、マインクラフト本体がパックを識別するためのものです。<b>ほかのパックと同じUUIDをもつと導入できない</b>ので別のUUIDに変更します。</p>
+      <p>UUIDは<a href="https://www.uuidgenerator.net/" target="_blank" rel="noopener noreferrer">このサイト</a>で生成することができます。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": 2,
+  "header": {
+    "description": "Example vanilla behavior pack",
+    "name": "Vanilla Behavior Pack",
+    "uuid": "~#M(83ffd9)ee649bcf-256c-4013-9068-6a802b89d756M#~",
+    "version": [ 0, 0, 1 ],
+    "min_engine_version": [ 1, 16, 210 ]
+  },
+  "modules": [
+    {
+      "description": "Example vanilla behavior pack",
+      "type": "data",
+      "uuid": "~#M(83ffd9)fa6e90c8-c925-460f-8155-c8a60b753caaM#~",
+      "version": [0, 0, 1]
+    }
+  ]
+}</div>
+      </div>
+      <h3 id="sec02sec06">● type</h3>
+      <p>ビヘイビアパックなら<span class="inline">"data"</span>、リソースパックなら<span class="inline">"resource"</span>にします。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('non:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="non" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": 2,
+  "header": {
+    "description": "Example vanilla behavior pack",
+    "name": "Vanilla Behavior Pack",
+    "uuid": "ee649bcf-256c-4013-9068-6a802b89d756",
+    "version": [ 0, 0, 1 ],
+    "min_engine_version": [ 1, 16, 210 ]
+  },
+  "modules": [
+    {
+      "description": "Example vanilla behavior pack",
+      "type": "~#M(83ffd9)dataM#~",
+      "uuid": "fa6e90c8-c925-460f-8155-c8a60b753caa",
+      "version": [0, 0, 1]
+    }
+  ]
+}</div>
+      </div>
+      <div id="sec03" class="headline" style="border-color: #587eff;">パックを圧縮</div>
+      <p>先ほどにも示した以下のファイル・フォルダをすべて選択して圧縮します。</p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          パック<br>
+          　 ┣ manifest.json<br>
+          　 ┣ (追加したいコンテンツのフォルダ群)<br>
+          　 ┗ pack_icon.png
+        </div>
+      </div>
+      <div class="center"><img src="img/MCBE-A_packs_01.png" style="width: 80%; min-width: 300px;"></div>
+      <p>できた.zipファイルは名前を変えて拡張子「.zip」を「.mcpack」に無理やり変えます。</p>
+      <p>基本的に、拡張子を変えるとファイルが壊れますが「.zip ↔ .mcpack」の変更は大丈夫です。</p>
+      <div class="center"><img src="img/MCBE-A_packs_02.png" style="width: 80%; min-width: 300px;"></div>
+      <p>あとはこの.mcpackファイルを開けば自動でマインクラフトが開いてアドオンの導入(インポート)が開始されます。</p>
+      <div id="sec04" class="headline" style="border-color: #587eff;">アドオンのアップデート</div>
+      <p>主な方法が二つあります。基本は一つ目の方法でいいと思います。</p>
+      <h3 id="sec04sec01">● 基本的な方法</h3>
+      <p>
+        またパックをインポートするのですが、その前にmanifest.jsonを編集します。7行目のversionの数値を変更してください。なんでもいいですが、アップデートするたびに数値が大きくなるようにするとよいでしょう。
+      </p>
+      <h3 id="sec04sec02">● 上級者向けな方法</h3>
+      <p>まず、Minecraftのセーブデータが保存されている場所へ行きます。わからなければ「設定 > (一般) > クリエイター」から「コンテンツログの場所」を確認します。</p>
+      <p>PCなら、そのファイルパスの途中「LocalState」から「games/com.mojang」、スマホなら「games/com.mojang」への行き先がそのまま確認できると思います。</p>
+      <p>次に、すでにインポートしてあるアップデートしたいアドオンが入ったフォルダをbehavior_packsフォルダの中から探します。そのフォルダは丸ごとdevelopment_bevior_packsフォルダに移動しましょう。</p>
+      <p>あとはそのフォルダ内で変更を加えるだけで再インポートなどは必要ありません。</p>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">パックの作り方</a></h4>
+        <hr>
+        <h4><a href="#sec02">manifest.jsonの作成/編集</a></h4>
+        <ul>
+          <li><a href="#sec02sec01">description</a></li>
+          <li><a href="#sec02sec02">name</a></li>
+          <li><a href="#sec02sec03">version</a></li>
+          <li><a href="#sec02sec04">min_engine_version</a></li>
+          <li><a href="#sec02sec05">uuid</a></li>
+          <li><a href="#sec02sec06">type</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec03">パックを圧縮</a></h4>
+        <hr>
+        <h4><a href="#sec04">アドオンのアップデート</a></h4>
+        <ul>
+          <li><a href="#sec04sec01">基本的な方法</a></li>
+          <li><a href="#sec04sec02">上級者向けな方法</a></li>
+        </ul>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

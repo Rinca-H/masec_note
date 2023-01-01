@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】アドオン作成「Molang」 - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="Molangについて解説します。" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, 作り方">
+  <meta name="description" content="Molangについて解説します。">
+  <title>【Minecraft BE(統合版)】アドオン作成「Molang」 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <style type="text/css">
+    .molang {
+      font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace, system-ui;
+      background-color: #f4f3ec;
+      color: #5f5e4e;
+      white-space: pre;
+      padding: 4px;
+      padding: 0.75em;
+      line-height: 1.5em;
+      overflow: auto;
+      max-height: 75vh;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">アドオン作成 - Molang <span class="adv">上級</span></h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <div id="sec01" class="headline" style="border-color: #587eff;">用途</div>
+      <p>
+        アドオンの色んなところで色んな「値」を指定しますが、指定する値が動的であってほしいこともあります。
+        たとえば、残りHPに応じて見た目や色が変化するなどといったシチュエーションにも、1つの「値」として「Molang」を使って表すことができます。
+      </p>
+      <p>
+        しかし、Molangはどこでも使えるわけではなく、値の種類としてMolangでの指定が許されている場所でのみ使うことができます。
+      </p>
+      <div id="sec02" class="headline" style="border-color: #587eff;">演算子と関数</div>
+      <h3 id="sec02sec01">● 基本的な演算子</h3>
+      <div class="center">
+        <div class="fit-scroll-box" style="display: inline-block;">
+          <table border="1">
+            <tr><th>記号</th><th>概要</th></tr>
+            <tr><td><span class="inline">+</span></td><td>足し算</td></tr>
+            <tr><td><span class="inline">-</span></td><td>引き算</td></tr>
+            <tr><td><span class="inline">*</span></td><td>掛け算</td></tr>
+            <tr><td><span class="inline">/</span></td><td>割り算</td></tr>
+            <tr><td><span class="inline">!A</span></td><td>Aではない</td></tr>
+            <tr><td><span class="inline">A && B</span></td><td>AかつB</td></tr>
+            <tr><td><span class="inline">A || B</span></td><td>AまたはB</td></tr>
+            <tr><td><span class="inline">x &lt; a</span></td><td>xはaより小さい</td></tr>
+            <tr><td><span class="inline">x &lt;= a</span></td><td>xはaであるまたはaより小さい</td></tr>
+            <tr><td><span class="inline">x >= a</span></td><td>xはaであるまたはaより大きい</td></tr>
+            <tr><td><span class="inline">x > a</span></td><td>xはaより大きい</td></tr>
+            <tr><td><span class="inline">x == y</span></td><td>xとyは等しい</td></tr>
+            <tr><td><span class="inline">x != y</span></td><td>xとyは等しくない</td></tr>
+          </table>
+        </div>
+      </div>
+      <h3 id="sec02sec02">● カッコ</h3>
+      <p>
+        カッコ
+        <span class="inline">(・)</span>を使って演算の順序をコントロールします。
+      </p>
+      <h3 id="sec02sec03">● 三項演算子</h3>
+      <p>
+        <span class="inline">?</span>の前に条件式を書き、後ろにコロン(
+          <span class="inline">:</span>
+        )を挟んで返す値を指定します。条件が真ならコロンの前の値、偽なら後ろの値になります。<br>
+        たとえば以下の式は100を返します。
+      </p>
+      <div class="molang">(1 < 2)? 2 : 0</div>
+      <h3 id="sec02sec04">● 数学関数</h3>
+      <div class="center">
+        <div class="fit-scroll-box" style="display: inline-block;">
+          <table border="1">
+            <tr><th>記号</th><th>概要</th></tr>
+            <tr><td><span class="inline">math.abs(x)</span></td><td>xの絶対値</td></tr>
+            <tr><td><span class="inline">math.acos(x)</span></td><td>xのアークコサイン</td></tr>
+            <tr><td><span class="inline">math.asin(x)</span></td><td>xのアークサイン</td></tr>
+            <tr><td><span class="inline">math.atan(x)</span></td><td>xのアークタンジェント</td></tr>
+            <tr><td><span class="inline">math.atan2(x, y)</span></td><td>x/yのアークタンジェント</td></tr>
+            <tr><td><span class="inline">math.ceil(x)</span></td><td>xを下回らない最小の整数</td></tr>
+            <tr><td><span class="inline">math.clamp(x, a, b)</span></td><td>xがaより小さいとa、bより大きいとb、間ならx</td></tr>
+            <tr><td><span class="inline">math.cos(x)</span></td><td>xの余弦</td></tr>
+            <tr><td><span class="inline">math.die_roll(n, a, b)</span></td><td>n個のa～bのランダムな小数の合計</td></tr>
+            <tr><td><span class="inline">math.die_roll_integer(n, a, b)</span></td><td>n個のa～bのランダムな整数の合計</td></tr>
+            <tr><td><span class="inline">math.exp(x)</span></td><td>ネイピア数が底の指数関数</td></tr>
+            <tr><td><span class="inline">math.floor(x)</span></td><td>xを越えない最大の整数</td></tr>
+            <tr><td><span class="inline">math.hermite_blend(x)</span></td><td>3x²-2x³(エルミート補間) xは0～1</td></tr>
+            <tr><td><span class="inline">math.lerp(x)</span></td><td></td></tr>
+            <tr><td><span class="inline">math.lerprotate(x)</span></td><td></td></tr>
+            <tr><td><span class="inline">math.ln(x)</span></td><td>xの自然対数</td></tr>
+            <tr><td><span class="inline">math.max(a, b)</span></td><td>aとbの大きいほう</td></tr>
+            <tr><td><span class="inline">math.min(a, b)</span></td><td>aとbの小さいほう</td></tr>
+            <tr><td><span class="inline">math.min_angle(x)</span></td><td>-180°～180°の角度に変換</td></tr>
+            <tr><td><span class="inline">math.mod(x, k)</span></td><td>xをkで割ったあまり</td></tr>
+            <tr><td><span class="inline">math.pi</span></td><td>円周率</td></tr>
+            <tr><td><span class="inline">math.pow(x, a)</span></td><td>xのa乗</td></tr>
+            <tr><td><span class="inline">math.random(a, b)</span></td><td>a～bのランダムな小数</td></tr>
+            <tr><td><span class="inline">math.random_integer(a, b)</span></td><td>a～bのランダムな整数</td></tr>
+            <tr><td><span class="inline">math.round(x)</span></td><td>xの四捨五入</td></tr>
+            <tr><td><span class="inline">math.sin(x)</span></td><td>xの正弦</td></tr>
+            <tr><td><span class="inline">math.sqrt(x)</span></td><td>xの正の平方根</td></tr>
+            <tr><td><span class="inline">math.trunc(x)</span></td><td>xの小数点以下切り捨て</td></tr>
+          </table>
+        </div>
+      </div>
+      <div id="sec03" class="headline" style="border-color: #587eff;">変数と複雑表現</div>
+      <p>
+        Molangでは変数を定義することができます。変数名は必ず
+        <span class="inline">variable.</span>(省略形：
+        <span class="inline">v.</span>)から始まるようにしてください。
+      </p>
+      <div class="molang">variable.my_var = 1.0;</div>
+      <p>
+        変数定義の式は複雑表現(Complex Expression)となり、<u>式の終わりに必ずセミコロン( ; )を書かないといけません。</u>
+      </p>
+      <h3 id="sec03sec01">● return文</h3>
+      <p>
+        Molangを書く場所は、一部のフィールドを除いて何らかの「値」を返す必要があるはずですが、変数を定義すると定義するだけして何も値を返しません。
+        そこで、最終的にどんな値を返すのか指定するのがreturn文です。
+      </p>
+      <div class="molang">variable.my_var = 1.0; return 2.0;</div>
+      <h3 id="sec03sec02">● 一時的な変数</h3>
+      <p>
+        <span class="inline">temp.</span>(省略形：
+        <span class="inline">t.</span>)で始まる変数は一時的な変数として定義されます。
+        variable変数は別の場所からアクセスできますが、temp変数は定義されたその場所からしかアクセスできません。
+      </p>
+      <h3 id="sec03sec03">● 定数</h3>
+      <p>
+        定数は<span class="inline">context.</span>(省略形：
+        <span class="inline">c.</span>)で始まる名前で定義します。variable変数やtemp変数と違って一度定義したら中身を変更できません。
+      </p>
+      <div id="sec04" class="headline" style="border-color: #587eff;">クエリ関数</div>
+      <p>
+        Molangは演算できることが強みではありますが、多くのクリエイターがMolangを重宝しているのは「Molangで特殊な値を取得できる」ことがあるからでもあります。<br>
+        クエリ関数は、ゲーム内の様々な値を取得するための関数です。これがあることによって、エンティティがアニメーションしたりイベントの条件をMolangで書くことが実用的になったりします。
+      </p>
+      <div class="molang">query.body_x_rotation > 90</div>
+      <p>
+        クエリ名は必ず
+        <span class="inline">query.</span>(省略形：
+        <span class="inline">q.</span>)で始まります。
+      </p>
+      <p>
+        クエリ関数の種類は大量にあるので、一覧はここでは紹介せず各自リファレンスを参照してもらうこととします。
+      </p>
+      <h3 id="sec04sec01">● 上級者の知識</h3>
+      <p>
+        ゲーム内にある様々な「値」を取得するのがクエリ関数だと説明しましたが、実はvariable変数にそういった値が入っていることがあります。
+        つまり、内部で定義されている(ハードコードされている)がクエリ関数と同様に扱えるvariable変数があるということです。
+      </p>
+      <div id="sec05" class="headline" style="border-color: #587eff;">Null合体演算子</div>
+      <p>
+        <span class="inline">??</span>の前にある変数が未定義(Null)だった場合、後ろの数が採用されます。
+        たとえば、以下の例は
+        <span class="inline">v.x</span>が未定義なら
+        <span class="inline">0.0</span>を、定義されていたら
+        <span class="inline">v.x</span>の値をそのまま返します。
+      </p>
+      <div class="molang">(v.x ?? 0.0)</div>
+      <div id="sec06" class="headline" style="border-color: #587eff;">ブラケット表記</div>
+      <p>
+        特にloopやfor_eachで
+        <span class="inline">{ }</span>を使って一連のステートメントを1つのグループにまとめることができます。以下の例では
+        <span class="inline">v.moo</span>が0より大きいときカッコ内の処理をするというものです。
+      </p>
+      <div class="molang">(v.moo > 0) ? {
+  v.x = math.sin(q.life_time * 45);
+  v.x = v.x * v.x + 17.3;
+  t.sin_x = math.sin(v.x);
+  v.x = t.sin_x * t.sin_x + v.x * v.x;
+  v.x = math.sqrt(v.x) * v.x * math.pi;
+}
+return (v.x ?? 0);</div>
+      <div id="sec07" class="headline" style="border-color: #587eff;">loop</div>
+      <p>loopの中に書いた式を指定した回数だけ処理します。</p>
+      <div class="molang">v.x = 1;
+v.y = 1;
+loop(10, {
+  t.x = v.x + v.y;
+  v.x = v.y;
+  v.y = t.x;
+});
+return v.y;</div>
+      <p>上記の例はフィボナッチ数列の第11項(87)を返します。</p>
+      <h3 id="sec07sec01">● break</h3>
+      <p>
+        breakを使って条件に応じて繰り返し処理を抜け出すことができます。以下の例では、
+        <span class="inline">v.y</span>が20より大きくなるとloopの処理を抜けます(最終的な値は21)。
+      </p>
+      <div class="molang">v.x = 1;
+v.y = 1;
+loop(10, {
+  t.x = v.x + v.y;
+  v.x = v.y;
+  v.y = t.x;
+  (v.y > 20) ? break;
+});
+return v.y;</div>
+      <h3 id="sec07sec02">● continue</h3>
+      <p>
+        continueを使って条件に応じて処理をスキップすることができます。以下の例では
+        <span class="inline">v.x</span>が5より大きいときの処理はスキップされます(最終的な値は6)。
+      </p>
+      <div class="molang">v.x = 0;
+loop(10, {
+  (v.x > 5) ? continue;
+  v.x = v.x + 1;
+});
+return v.x;</div>
+      <p></p>
+      <div id="sec08" class="headline" style="border-color: #587eff;">for_each</div>
+      <p>
+        たとえば、クエリ関数
+        <span class="inline">q.get_nearby_entities</span>はエンティティの配列を返します。
+        for_eachはそのような配列の要素それぞれに対して処理を行うことができます。以下の例では周囲4マス以内のブタの数を返します。
+      </p>
+      <div class="molang">v.x = 0;
+for_each(t.pig, q.get_nearby_entities(4, 'minecraft:pig'), {
+    v.x = v.x + 1;
+});
+return v.x;</div>
+      <p></p>
+      <h3 id="sec08sec01">● breakとcontinue</h3>
+      <p>for_eachでもloopのようにbreakとcontinueを使うことができます。</p>
+      <div id="sec09" class="headline" style="border-color: #587eff;">矢印演算子</div>
+      <p>
+        いくつかのクエリ関数またはtemp/entity/context変数は別のエンティティへの参照を格納していることがあります。
+      </p>
+      <p>
+        プレイヤーに関するJSONの中で
+        <span class="inline">q.is_on_fire</span>を使うと「プレイヤーが炎上状態かどうか」が取得できます。
+        もし、定義した変数
+        <span class="inline">v.pig</span>がワールド内にいる、ある1匹のブタへの参照を格納していたならば、
+      </p>
+      <div class="molang">v.pig -> q.is_on_fire</div>
+      <p>
+        という式をそのブタに関係ないJSONで書いても、この式は「(その)ブタが炎上状態かどうか」を示すことになります。
+      </p>
+      <h3 id="sec09sec01">● 実用例</h3>
+      <div class="molang">v.x = 0;
+for_each(v.pig, q.get_nearby_entities(4, 'minecraft:pig'), {
+  v.x = v.x + (v.pig -> q.get_relative_block_state(0, -1, 0, 'flammable'));
+});
+return v.x;</div>
+      <p>
+        この式はプレイヤーのJSONに書かれているとします。<br>
+        まず、プレイヤーの周囲4マス以内にいるブタを取得します。1匹ずつ
+        <span class="inline">v.pig</span>に格納して、for_each内の式の処理をします。最終的にこの式はそれらのブタのうち何匹の足元が
+        <span class="inline">"flammable"</span>タグをもったブロックだったのかを返します。
+      </p>
+      <div id="sec10" class="headline" style="border-color: #587eff;">値</div>
+      <p>
+        Molangで扱う「値」の型のほとんどは数です。特に、真偽値も数で表されることに注意してください。
+        エンティティや文字列など数でない値を扱うのはまれです。
+      </p>
+      <h3 id="sec10sec01">● 真偽値</h3>
+      <p>
+        クエリ関数から真偽値が渡されるときは、trueが1.0、falseが0.0となります。
+        逆に、0.0以下の数はfalse、それ以外の数はtrueとして扱われます。
+      </p>
+      <h3 id="sec10sec02">● 文字列</h3>
+      <p>
+        MolangはJSONでは文字列として扱われるため、
+        <span class="inline">" "</span>で囲まれているので、Molangの値としての文字列は
+        <span class="inline">' '</span>で囲みます。
+      </p>
+      <p>
+        また、Molangの文字列に対して使える演算子は
+        <span class="inline">==</span>と
+        <span class="inline">!=</span>のみです。
+      </p>
+      <div id="sec11" class="headline" style="border-color: #587eff;">演算の優先度</div>
+      <p>以下の表の上が優先度最大です</p>
+      <div class="center">
+        <table border="1" style="display: inline-block;">
+          <tr><th>演算処理</th><th>概要</th></tr>
+          <tr><td>論理否定</td><td>否定<span class="inline">!</span></td></tr>
+          <tr><td>乗算・除算</td><td>掛け算<span class="inline">*</span>・割り算<span class="inline">/</span></td></tr>
+          <tr><td>加算・減算</td><td>足し算<span class="inline">+</span>・引き算<span class="inline">-</span></td></tr>
+          <tr><td>比較演算(不等号)</td><td>不等号
+            <span class="inline">&lt;</span>
+            <span class="inline">&lt;=</span>
+            <span class="inline">></span>
+            <span class="inline">>=</span>
+          </td></tr>
+          <tr><td>比較演算(等号)</td><td>
+            等号<span class="inline">==</span>
+            <span class="inline">!=</span>
+          </td></tr>
+          <tr><td>論理積</td><td>AND(かつ)<span class="inline">&&</span></td></tr>
+          <tr><td>論理和</td><td>OR(または)<span class="inline">||</span></td></tr>
+          <tr><td>三項演算</td><td>三項演算子<span class="inline">? :</span>(入れ子になっている場合は右から左に評価する)</td></tr>
+          <tr><td>Null合体演算</td><td>Null合体演算子<span class="inline">??</span></td></tr>
+        </table>
+      </div>
+      <div id="sec12" class="headline" style="border-color: #587eff;">ストラクト</div>
+      <p>クエリ関数などで取得した値はしばしば深層データをもっていることがあります。ドット( . )でプロパティ名をつなげるとその深層データにアクセスできます。</p>
+      <div class="molang">v.location.x = 1;
+v.location.y = 2;
+v.location.z = 3;
+v.another_mobs_location = v.another_mob_set_elsewhere -> v.location;</div>
+      <p>以下はその他の例です。どれも返す値は1.23になります。</p>
+      <div class="molang" style="margin-bottom: 1em;">v.cowcow.friend = v.pigpig; v.pigpig -> v.test.a.b.c = 1.23;
+return v.cowcow.friend -> v.test.a.b.c;</div>
+      <div class="molang" style="margin: 1em 0;">v.cowcow.friend = v.pigpig; v.pigpig -> v.test.a.b.c = 1.23;
+v.moo = v.cowcow.friend -> v.test;
+return v.moo.a.b.c;</div>
+      <div class="molang" style="margin: 1em 0;">v.cowcow.friend = v.pigpig; v.pigpig -> v.test.a.b.c = 1.23;
+v.moo = v.cowcow.friend -> v.test.a;
+return v.moo.b.c;</div>
+      <div class="molang" style="margin: 1em 0;">v.cowcow.friend = v.pigpig; v.pigpig -> v.test.a.b.c = 1.23;
+v.moo = v.cowcow.friend -> v.test.a.b;
+return v.moo.c;</div>
+      <div class="molang" style="margin-top: 1em;">v.cowcow.friend = v.pigpig;
+v.pigpig -> v.test.a.b.c = 1.23;
+v.moo = v.cowcow.friend -> v.test.a.b.c;
+return v.moo;</div>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">用途</a></h4>
+        <hr>
+        <h4><a href="#sec02">演算子と関数</a></h4>
+        <ul>
+          <li><a href="#sec02sec01">基本的な演算子</a></li>
+          <li><a href="#sec02sec02">カッコ</a></li>
+          <li><a href="#sec02sec03">三項演算子</a></li>
+          <li><a href="#sec02sec04">数学関数</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec03">変数と複雑表現</a></h4>
+        <ul>
+          <li><a href="#sec03sec01">return文</a></li>
+          <li><a href="#sec03sec02">一時的な変数</a></li>
+          <li><a href="#sec03sec03">定数</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec04">クエリ関数</a></h4>
+        <ul>
+          <li><a href="#sec04sec01">上級者の知識</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec05">Null合体演算子</a></h4>
+        <hr>
+        <h4><a href="#sec06">ブラケット表記</a></h4>
+        <hr>
+        <h4><a href="#sec07">loop</a></h4>
+        <ul>
+          <li><a href="#sec07sec01">break</a></li>
+          <li><a href="#sec07sec02">continue</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec08">for_each</a></h4>
+        <ul>
+          <li><a href="#sec08sec01">breakとcontinue</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec09">矢印演算子</a></h4>
+        <ul>
+          <li><a href="#sec09sec01">実用例</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec10">値</a></h4>
+        <ul>
+          <li><a href="#sec10sec01">真偽値</a></li>
+          <li><a href="#sec10sec02">文字列</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec11">演算の優先度</a></h4>
+        <hr>
+        <h4><a href="#sec12">ストラクト</a></h4>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

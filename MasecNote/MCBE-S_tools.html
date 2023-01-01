@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】便利かもしれないツール - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="便利かも？" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン">
+  <meta name="description" content="便利かも？">
+  <title>【Minecraft BE(統合版)】便利かもしれないツール - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <style type="text/css">
+    .left-full {
+      width: 100%;
+      display: block;
+    }
+    textarea {
+      font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+      font-size: large;
+    }
+    .flexbox {
+      text-align: center;
+      display: flex;
+      justify-content: flex-start;
+      overflow: auto;
+    }
+
+    div.content { margin-top: 0; }
+    #hasAimCollision:checked ~ div.hasAimCollision div.content { position: relative; transform: translate(0em, 0em); }
+    #hasAimCollision:not(:checked) ~ div.hasAimCollision div.content { position: absolute; transform: translate(-50em, 0em); }
+    #hasBlockCollision:checked ~ div.hasBlockCollision div.content { position: relative; transform: translate(0em, 0em); }
+    #hasBlockCollision:not(:checked) ~ div.hasBlockCollision div.content { position: absolute; transform: translate(-50em, 0em); }
+    #flamable:checked ~ div.flamable div.content { position: relative; transform: translate(0em, 0em); }
+    #flamable:not(:checked) ~ div.flamable div.content { position: absolute; transform: translate(-50em, 0em); }
+    #hasMapColor:not(:checked) ~ div.mapColor { transform: translate(-50em, 0em); display: inline-block; position: absolute; }
+    #hasMapColor:checked ~ div.mapColor { transform: translate(0.5em, 0em); display: inline-block; position: absolute; }
+    #isSpecialFriction:not(:checked) ~ div.frictionVal { transform: translate(-50em, 0em); display: inline-block; position: absolute; }
+    #isSpecialFriction:checked ~ div.frictionVal { transform: translate(0.5em, 0em); display: inline-block; position: absolute; }
+
+    #armor:checked ~ div.armor div.content { position: relative; transform: translate(0em, 0em); }
+    #armor:not(:checked) ~ div.armor div.content { position: absolute; transform: translate(-50em, 0em); }
+    #cooldown:checked ~ div.cooldown div.content { position: relative; transform: translate(0em, 0em); }
+    #cooldown:not(:checked) ~ div.cooldown div.content { position: absolute; transform: translate(-50em, 0em); }
+    #enchantable:checked ~ div.enchantable div.content { position: relative; transform: translate(0em, 0em); }
+    #enchantable:not(:checked) ~ div.enchantable div.content { position: absolute; transform: translate(-50em, 0em); }
+    #repairable:checked ~ div.repairable div.content { position: relative; transform: translate(0em, 0em); }
+    #repairable:not(:checked) ~ div.repairable div.content { position: absolute; transform: translate(-50em, 0em); }
+    #wearable:checked ~ div.wearable div.content { position: relative; transform: translate(0em, 0em); }
+    #wearable:not(:checked) ~ div.wearable div.content { position: absolute; transform: translate(-50em, 0em); }
+  </style>
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left-full"><!-- ===== WARNING: THIS IS SPECIAL CLASS ===== -->
+      <h1 id="top">MCBE - 便利かもしれないツール</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <p>便利かもしれない。</p>
+      <p>
+        JSONを出力するツールに「<b>MCB</b>」という数値を設定する項目があることがあります。これは「Maximum Charactors in Brackets」の略で、
+        JSON中の
+        <span class="inline">{</span>と<span class="inline">}</span>
+        または<span class="inline">[</span>と<span class="inline">]</span>
+        で囲まれた部分の文字数(カンマやクォートなどのpunctuation marksを含む)で<b>改行するかどうかを指定できます</b>。
+      </p>
+      <div id="sec01" class="headline" style="border-color: #587eff;">Minecraft</div>
+      <h3 id="sec01sec01">● カスタムブロック</h3>
+      <div class="center">
+        <div class="colorBox caution">
+          <img src="img/caution.png"> <b>注意</b>
+          <p>最新のバージョンに対応させてません(そのうち直します)。</p>
+        </div>
+      </div>
+      <p>簡単なブロックのJSONを作ります。</p>
+      <div class="flexbox">
+        <div style="display: inline-block; flex-grow: 1; padding: 0.5em; text-align: left;">
+          <div style="line-height: 30px; border: solid 2px #7a4500; border-radius: 1em; padding: 1em;">
+            ID：「<input type="text" value="my_addon" id="prefix">：<input type="text" value="my_block" id="name">」<br>
+            エイムコリジョン<input type="checkbox" id="hasAimCollision" checked>
+            <div class="hasAimCollision">
+              <div class="content">
+                　始点：(
+                  <input type="number" id="AimCollision_origin_x" value="-8.0" min="-8.0" max="16.0" maxlength="5">,
+                  <input type="number" id="AimCollision_origin_y" value="0.0" min="-8.0" max="16.0" maxlength="5">,
+                  <input type="number" id="AimCollision_origin_z" value="-8.0" min="-8.0" max="16.0" maxlength="5"> )<br>
+                　サイズ：(
+                  <input type="number" id="AimCollision_size_x" value="16.0" min="0.0" max="16.0" maxlength="5">,
+                  <input type="number" id="AimCollision_size_y" value="16.0" min="0.0" max="16.0" maxlength="5">,
+                  <input type="number" id="AimCollision_size_z" value="16.0" min="0.0" max="16.0" maxlength="5"> )
+              </div>
+            </div>
+            ブロックコリジョン<input type="checkbox" id="hasBlockCollision" checked>
+            <div class="hasBlockCollision">
+              <div class="content">
+                　始点：(
+                  <input type="number" id="BlockCollision_origin_x" value="-8.0" min="-8.0" max="16.0" maxlength="5">,
+                  <input type="number" id="BlockCollision_origin_y" value="0.0" min="-8.0" max="16.0" maxlength="5">,
+                  <input type="number" id="BlockCollision_origin_z" value="-8.0" min="-8.0" max="16.0" maxlength="5"> )<br>
+                　サイズ：(
+                  <input type="number" id="BlockCollision_size_x" value="16.0" min="0.0" max="16.0" maxlength="5">,
+                  <input type="number" id="BlockCollision_size_y" value="16.0" min="0.0" max="16.0" maxlength="5">,
+                  <input type="number" id="BlockCollision_size_z" value="16.0" min="0.0" max="16.0" maxlength="5"> )
+              </div>
+            </div>
+            明るさ：<input type="range" id="blockLightEmission" min="0" max="15" value="0" onchange="allange('blockLightEmission', 0, this.value)">
+            <input type="number" id="blockLightEmission-number" min="0" max="15" value="0" onchange="allange('blockLightEmission-number', 1, this.value)"><br>
+            遮る光の量：<input type="range" id="blockLightFilter" min="0" max="15" value="15" onchange="allange('blockLightFilter', 0, this.value)">
+            <input type="number" id="blockLightFilter-number" min="0" max="15" value="15" onchange="allange('blockLightFilter-number', 1, this.value)"><br>
+            <!--ピストンで押したら壊れる：<input type="checkbox" id="breakOnPush"><br>-->
+            呼吸できる：<input type="checkbox" id="breathability"><br>
+            クリエイティブカテゴリ：
+            <select id="creativeCategory">
+              <option value="">(非選択)</option>
+              <option value="Construction">構築</option>
+              <option value="Equipment">所持品</option>
+              <option value="Items">アイテム</option>
+              <option value="Nature">性質</option>
+            </select><br>
+            グループ：
+            <select id="creativeGroup">
+              <option value="">(非選択)</option>
+              <option value="itemGroup.name.planks">木の板</option>
+              <option value="itemGroup.name.walls">壁</option>
+              <option value="itemGroup.name.fence">フェンス</option>
+              <option value="itemGroup.name.fenceGate">フェンス ゲート</option>
+              <option value="itemGroup.name.stairs">階段</option>
+              <option value="itemGroup.name.door">ドア</option>
+              <option value="itemGroup.name.glass">ガラス</option>
+              <option value="itemGroup.name.glassPane">ガラス板</option>
+              <option value="itemGroup.name.permission">権限ブロック</option>
+              <option value="itemGroup.name.slab">ハーフブロック</option>
+              <option value="itemGroup.name.stoneBrick">石の装飾ブロック</option>
+              <option value="itemGroup.name.sandstone">砂岩</option>
+              <option value="itemGroup.name.wool">ウール</option>
+              <option value="itemGroup.name.woolCarpet">ウール カーペット</option>
+              <option value="itemGroup.name.concretePowder">コンクリート パウダー</option>
+              <option value="itemGroup.name.concrete">コンクリート</option>
+              <option value="itemGroup.name.stainedClay">テラコッタ</option>
+              <option value="itemGroup.name.glazedTerracotta">彩釉テラコッタ</option>
+              <option value="itemGroup.name.dye">染料</option>
+              <option value="itemGroup.name.ore">鉱石</option>
+              <option value="itemGroup.name.stone">石</option>
+              <option value="itemGroup.name.log">原木</option>
+              <option value="itemGroup.name.leaves">葉っぱ</option>
+              <option value="itemGroup.name.sapling">苗木</option>
+              <option value="itemGroup.name.seed">種</option>
+              <option value="itemGroup.name.crop">作物</option>
+              <option value="itemGroup.name.grass">地面の装飾</option>
+              <option value="itemGroup.name.flower">花</option>
+              <option value="itemGroup.name.rawFood">食べ物(生)</option>
+              <option value="itemGroup.name.cookedFood">食べ物(調理済み)</option>
+              <option value="itemGroup.name.miscFood">食べ物(その他)</option>
+              <option value="itemGroup.name.mushroom">きのこ</option>
+              <option value="itemGroup.name.monsterStoneEgg">虫食い石</option>
+              <option value="itemGroup.name.mobEgg">モブ スポーン エッグ</option>
+              <option value="itemGroup.name.helmet">兜</option>
+              <option value="itemGroup.name.chestplate">胸当て</option>
+              <option value="itemGroup.name.leggings">レギンス</option>
+              <option value="itemGroup.name.boots">ブーツ</option>
+              <option value="itemGroup.name.horseArmor">馬鎧</option>
+              <option value="itemGroup.name.sword">剣</option>
+              <option value="itemGroup.name.axe">斧</option>
+              <option value="itemGroup.name.pickaxe">つるはし</option>
+              <option value="itemGroup.name.shovel">シャベル</option>
+              <option value="itemGroup.name.hoe">くわ</option>
+              <option value="itemGroup.name.arrow">矢</option>
+              <option value="itemGroup.name.potion">ポーション</option>
+              <option value="itemGroup.name.splashPotion">スプラッシュ ポーション</option>
+              <option value="itemGroup.name.lingeringPotion">残留ポーション</option>
+              <option value="itemGroup.name.bed">ベッド</option>
+              <option value="itemGroup.name.chalkboad">黒板</option>
+              <option value="itemGroup.name.anvil">金床</option>
+              <option value="itemGroup.name.chest">チェスト</option>
+              <option value="itemGroup.name.shulkerBox">シュルカー ボックス</option>
+              <option value="itemGroup.name.record">レコード</option>
+              <option value="itemGroup.name.skull">モブの頭</option>
+              <option value="itemGroup.name.boat">ボート</option>
+              <option value="itemGroup.name.rail">レール</option>
+              <option value="itemGroup.name.minecart">トロッコ</option>
+              <option value="itemGroup.name.pressurePlate">重量感知板</option>
+              <option value="itemGroup.name.trapdoor">トラップドア</option>
+              <option value="itemGroup.name.enchantedBook">エンチャントした本</option>
+              <option value="itemGroup.name.banner">旗</option>
+              <option value="itemGroup.name.firework">花火</option>
+              <option value="itemGroup.name.firewrkStars">花火の火薬</option>
+              <option value="itemGroup.name.coral">サンゴのブロック</option>
+              <option value="itemGroup.name.coral_decorations">サンゴの装飾</option>
+              <option value="itemGroup.name.buttons">ボタン</option>
+              <option value="itemGroup.name.sign">看板</option>
+              <option value="itemGroup.name.wood">木</option>
+              <option value="itemGroup.name.banner_pattern">旗の模様</option>
+              <option value="itemGroup.name.netherWartBlock">暗黒界ウォート</option>
+            </select><br>
+            壊すのにかかる時間：<input type="number" id="destroyTime" value="0.0" min="0.0">秒<br>
+            爆発耐性：<input type="number" id="explosionResistance" value="0.0" min="0.0"><br>
+            燃える：<input type="checkbox" id="flamable">
+            <div class="flamable">
+              <div class="content">
+                　燃えてなくなる早さ：<input type="number" id="flamable_burnOdds" value="0" min="0"><br>
+                　燃え移る早さ：<input type="number" id="flamable_flameOdds" value="0" min="0">
+              </div>
+            </div>
+            特殊な摩擦：<div style="position: relative; display: inline-block; margin: 0em; padding: 0em;">
+              <input type="checkbox" id="isSpecialFriction"><div class="frictionVal"><input type="number" id="friction" value="0.6" min="0.0" step="0.1"></div><br>
+            </div><br>
+            <!-- ジオメトリ：「geometry.<input type="text" id="geometry" value="my_block">」<br> -->
+            <!--ピストンで押せる：<input type="checkbox" id="immovable" checked><br>-->
+            ルートテーブル：<input type="text" id="lootTable"><br>
+            地図上の表示色：<div style="position: relative; display: inline-block; margin: 0em; padding: 0em;">
+              <input type="checkbox" id="hasMapColor"><div class="mapColor"><input type="color" id="mapColor"></div><br>
+            </div><br>
+            <!--粘着ピストンにつく：<input type="checkbox" id="onlyPistonPush" checked><br>-->
+            <!--ジャンプできない：<input type="checkbox" id="preventsJumping"><br>-->
+            歩けない：<input type="checkbox" id="unwalkable"><br>
+            <input type="button" id="submit" value="決定" onclick="returnBlock()">
+            <button onclick="copyToClipboard('blockOutput')">結果をコピー</button>
+          </div>
+        </div>
+        <div style="display: inline-block; flex-grow: 1; padding: 0.5em;">
+          <textarea id="blockOutput" value="1" cols="55" rows="30" readonly></textarea>
+        </div>
+      </div>
+
+      <h3 id="sec01sec02">● カスタムアイテム</h3>
+      <div class="center">
+        <div class="colorBox caution">
+          <img src="img/caution.png"> <b>注意</b>
+          <p>最新のバージョンに対応させてません(そのうち直します)。</p>
+        </div>
+      </div>
+      <p>簡単なアイテムのJSONを作ります。</p>
+      <div class="flexbox">
+        <div style="display: inline-block; flex-grow: 1; padding: 0.5em; text-align: left;">
+          <div style="line-height: 30px; border: solid 2px #7a4500; border-radius: 1em; padding: 1em;">
+            ID：「<input type="text" value="my_addon" id="prefix_i">：<input type="text" value="my_item" id="name_i">」<br>
+            クリエイティブカテゴリ：
+            <select id="creativeCategory_i">
+              <option value="">(非選択)</option>
+              <option value="Construction">構築</option>
+              <option value="Equipment">所持品</option>
+              <option value="Items">アイテム</option>
+              <option value="Nature">性質</option>
+            </select><br>
+            左手に持てる：<input type="checkbox" id="allowOffHand"><br>
+            防具：<input type="checkbox" id="armor">
+            <div class="armor">
+              <div class="content">
+                　防御力：<input type="number" id="armor_protection" value="0" min="0"><br>
+                　テクスチャタイプ：<input type="text" value="diamond" id="armor_textureType">
+              </div>
+            </div>
+            クリエイティブで持った時に物を壊せる：<input type="checkbox" id="canDestroyInCreative" checked><br>
+            クールダウン：<input type="checkbox" id="cooldown">
+            <div class="cooldown">
+              <div class="content">
+                　カテゴリ：<input type="text" value="" id="cooldown_category"><br>
+                　長さ：<input type="number" id="cooldown_duration" value="0" min="0"><br>
+              </div>
+            </div>
+            グループ：
+            <select id="creativeGroup_i">
+              <option value="">(非選択)</option>
+              <option value="itemGroup.name.planks">木の板</option>
+              <option value="itemGroup.name.walls">壁</option>
+              <option value="itemGroup.name.fence">フェンス</option>
+              <option value="itemGroup.name.fenceGate">フェンス ゲート</option>
+              <option value="itemGroup.name.stairs">階段</option>
+              <option value="itemGroup.name.door">ドア</option>
+              <option value="itemGroup.name.glass">ガラス</option>
+              <option value="itemGroup.name.glassPane">ガラス板</option>
+              <option value="itemGroup.name.permission">権限ブロック</option>
+              <option value="itemGroup.name.slab">ハーフブロック</option>
+              <option value="itemGroup.name.stoneBrick">石の装飾ブロック</option>
+              <option value="itemGroup.name.sandstone">砂岩</option>
+              <option value="itemGroup.name.wool">ウール</option>
+              <option value="itemGroup.name.woolCarpet">ウール カーペット</option>
+              <option value="itemGroup.name.concretePowder">コンクリート パウダー</option>
+              <option value="itemGroup.name.concrete">コンクリート</option>
+              <option value="itemGroup.name.stainedClay">テラコッタ</option>
+              <option value="itemGroup.name.glazedTerracotta">彩釉テラコッタ</option>
+              <option value="itemGroup.name.dye">染料</option>
+              <option value="itemGroup.name.ore">鉱石</option>
+              <option value="itemGroup.name.stone">石</option>
+              <option value="itemGroup.name.log">原木</option>
+              <option value="itemGroup.name.leaves">葉っぱ</option>
+              <option value="itemGroup.name.sapling">苗木</option>
+              <option value="itemGroup.name.seed">種</option>
+              <option value="itemGroup.name.crop">作物</option>
+              <option value="itemGroup.name.grass">地面の装飾</option>
+              <option value="itemGroup.name.flower">花</option>
+              <option value="itemGroup.name.rawFood">食べ物(生)</option>
+              <option value="itemGroup.name.cookedFood">食べ物(調理済み)</option>
+              <option value="itemGroup.name.miscFood">食べ物(その他)</option>
+              <option value="itemGroup.name.mushroom">きのこ</option>
+              <option value="itemGroup.name.monsterStoneEgg">虫食い石</option>
+              <option value="itemGroup.name.mobEgg">モブ スポーン エッグ</option>
+              <option value="itemGroup.name.helmet">兜</option>
+              <option value="itemGroup.name.chestplate">胸当て</option>
+              <option value="itemGroup.name.leggings">レギンス</option>
+              <option value="itemGroup.name.boots">ブーツ</option>
+              <option value="itemGroup.name.horseArmor">馬鎧</option>
+              <option value="itemGroup.name.sword">剣</option>
+              <option value="itemGroup.name.axe">斧</option>
+              <option value="itemGroup.name.pickaxe">つるはし</option>
+              <option value="itemGroup.name.shovel">シャベル</option>
+              <option value="itemGroup.name.hoe">くわ</option>
+              <option value="itemGroup.name.arrow">矢</option>
+              <option value="itemGroup.name.potion">ポーション</option>
+              <option value="itemGroup.name.splashPotion">スプラッシュ ポーション</option>
+              <option value="itemGroup.name.lingeringPotion">残留ポーション</option>
+              <option value="itemGroup.name.bed">ベッド</option>
+              <option value="itemGroup.name.chalkboad">黒板</option>
+              <option value="itemGroup.name.anvil">金床</option>
+              <option value="itemGroup.name.chest">チェスト</option>
+              <option value="itemGroup.name.shulkerBox">シュルカー ボックス</option>
+              <option value="itemGroup.name.record">レコード</option>
+              <option value="itemGroup.name.skull">モブの頭</option>
+              <option value="itemGroup.name.boat">ボート</option>
+              <option value="itemGroup.name.rail">レール</option>
+              <option value="itemGroup.name.minecart">トロッコ</option>
+              <option value="itemGroup.name.pressurePlate">重量感知板</option>
+              <option value="itemGroup.name.trapdoor">トラップドア</option>
+              <option value="itemGroup.name.enchantedBook">エンチャントした本</option>
+              <option value="itemGroup.name.banner">旗</option>
+              <option value="itemGroup.name.firework">花火</option>
+              <option value="itemGroup.name.firewrkStars">花火の火薬</option>
+              <option value="itemGroup.name.coral">サンゴのブロック</option>
+              <option value="itemGroup.name.coral_decorations">サンゴの装飾</option>
+              <option value="itemGroup.name.buttons">ボタン</option>
+              <option value="itemGroup.name.sign">看板</option>
+              <option value="itemGroup.name.wood">木</option>
+              <option value="itemGroup.name.banner_pattern">旗の模様</option>
+              <option value="itemGroup.name.netherWartBlock">暗黒界ウォート</option>
+            </select><br>
+            ダメージ：<input type="number" id="damage" value="0" min="0"><br>
+            耐久値：<input type="number" id="durability" value="0" min="0"><br>
+            エンチャントできる：<input type="checkbox" id="enchantable">
+            <div class="enchantable">
+              <div class="content">
+                　スロット：
+                <select id="enchantable_slot">
+                  <option value="all">(非選択=すべて)</option>
+                  <option value="sword">剣</option>
+                  <option value="bow">弓</option>
+                  <option value="pickaxe">ツルハシ</option>
+                  <option value="axe">斧</option>
+                  <option value="hoe">クワ</option>
+                  <option value="shovel">シャベル</option>
+                  <option value="armor_head">頭防具</option>
+                  <option value="armor_torso">胴防具</option>
+                  <option value="armor_legs">脚防具</option>
+                  <option value="armor_feet">足防具</option>
+                  <option value="elytra">エリトラ</option>
+                  <option value="carrot_stick">ニンジン付きの棒</option>
+                  <option value="fishing_rod">釣り竿</option>
+                  <option value="flintsteel">火打石と打ち金</option>
+                  <option value="shears">ハサミ</option>
+                  <option value="cosmetic_head">モブの頭</option>
+                </select><br>
+                　量：<input type="number" id="enchantable_value" value="0" min="0">
+              </div>
+            </div>
+            爆発でロストする：<input type="checkbox" id="explodable" checked><br>
+            キラキラする：<input type="checkbox" id="foil"><br>
+            燃料：<input type="number" id="fuel" value="0" min="0"><br>
+            棒みたいな持ち方：<input type="checkbox" id="handEquipped"><br>
+            アイコン：<input type="text" id="icon"><br>
+            アドベンチャー無視：<input type="checkbox" id="ignoresPermission"><br>
+            ノックバック耐性：<input type="range" id="knockbackResistance" min="0.0" max="1.0" value="0.0" step="0.1" onchange="allange('knockbackResistance', 0, this.value)">
+            <input type="number" id="knockbackResistance-number" min="0.0" max="1.0" value="0.0" onchange="allange('knockbackResistance-number', 1, this.value)"><br>
+            水に向かって置ける：<input type="checkbox" id="liqidClipped"><br>
+            最大スタック数：<input type="range" id="maxStackSize" min="1" max="64" value="64" onchange="allange('maxStackSize', 0, this.value)">
+            <input type="number" id="maxStackSize-number" min="1" max="64" value="64" onchange="allange('maxStackSize-number', 1, this.value)"><br>
+            採掘速度：<input type="number" id="miningSpeed" value="1" min="1"><br>
+            修復できる：<input type="checkbox" id="repairable">
+            <div class="repairable">
+              <div class="content">
+                　修復用アイテム：<input type="text" value="" id="repairable_item"><br>
+                　修復量：<input type="number" id="repairable_amount" value="0" min="0"><br>
+                　自身と同じアイテムで修復：<input type="checkbox" id="repairable_useSelf" checked>
+              </div>
+            </div>
+            5分後にロストする：<input type="checkbox" id="shouldDespawn" checked><br>
+            データ値によってスタックを分ける：<input type="checkbox" id="stackedByData" checked><br>
+            使用時間：<input type="number" id="useDuration" value="0.0" min="0.0"><br>
+            装備できる：<input type="checkbox" id="wearable">
+            <div class="wearable">
+              <div class="content">
+                　ディスペンサーで装備できる：<input type="checkbox" id="wearable_dispensable"><br>
+                　スロット：
+                <select id="wearable_slot">
+                  <option value="">(非選択)</option>
+                  <option value="slot.armor.head">頭</option>
+                  <option value="slot.armor.chest">胴</option>
+                  <option value="slot.armor.legs">脚</option>
+                  <option value="slot.armor.feet">足</option>
+                  <option value="slot.saddle">サドル</option>
+                </select>
+              </div>
+            </div>
+            <input type="button" id="submit" value="決定" onclick="returnItem()">
+            <button onclick="copyToClipboard('itemOutput')">結果をコピー</button>
+          </div>
+        </div>
+        <div style="display: inline-block; flex-grow: 1; padding: 0.5em;">
+          <textarea id="itemOutput" value="1" cols="55" rows="30" readonly></textarea>
+        </div>
+      </div>
+
+      <h3 id="sec01sec03">● 1種類のアイテムだけ落とすルートテーブル</h3>
+      <p>タイトルのような簡単なルートテーブルを出力します。</p>
+      <div class="flexbox">
+        <div style="display: inline-block; flex-grow: 1; padding: 0.5em; text-align: left;">
+          <div style="line-height: 30px; border: solid 2px #7a4500; border-radius: 1em; padding: 1em;">
+            アイテム：<input type="text" value="minecraft:apple" id="tool6-itemId"><br>
+            個数：<input type="number" value="1" min="1" id="tool6-quantity"><br>
+            名前：<input type="checkbox" id="tool6-name-check"><input type="text" id="tool6-name"><br>
+            説明文：<input type="checkbox" id="tool6-lore-check"><input type="text" id="tool6-lore"><br>
+            MCB：<input type="number" id="tool6-num" value="40"><br>
+            <input type="button" value="決定" onclick="tool6()">
+            <button onclick="copyToClipboard('output6')">結果をコピー</button>
+          </div>
+        </div>
+        <div style="display: inline-block; flex-grow: 1; padding: 0.5em;">
+          <textarea id="output6" value="1" cols="55" rows="15" readonly></textarea>
+        </div>
+      </div>
+
+      <h3 id="sec01sec04">● .entity.jsonのformat_versionを1.8.0から1.10.0に変換するやつ</h3>
+      <p>
+        リソースパックの「entity」フォルダに入っているclient_entityのJSONを古いフォーマットから新しいフォーマットに変換します。
+        description/scripts/pre_animationにあるMolangの「variable」「query」を省略形にするオプション付きです。
+      </p>
+      <p>
+        アニメーションコントローラを紐づけている場合、description/scripts/animateでキーを指定するときにキー名が重複してしまうことがあるので、
+        アニメーションコントローラを紐づけているキーには「コントローラ識別接頭辞」を元のキーの前につけます。
+      </p>
+      <p>
+        variable, queryの省略：<input type="checkbox" id="tool8-molang" checked><br>
+        コントローラー識別接頭辞：<input type="text" id="tool8-pref" value="ctrl"><br>
+        MCB：<input type="number" id="tool8-num" value="40">
+      </p>
+      <input type="button" value="変換" onclick="tool8()" />
+      <button onclick="copyToClipboard('output8')">結果をコピー</button>
+      <div class="flexbox">
+        <div style="display: inline-block; flex-grow: 1; padding: 0.5em;">
+          <textarea id="input8" value="1" cols="55" rows="15"></textarea>
+        </div>
+        <div style="display: inline-block; flex-grow: 1; padding: 0.5em;">
+          <textarea id="output8" value="1" cols="55" rows="15" readonly></textarea>
+        </div>
+      </div>
+
+
+
+      <div id="sec02" class="headline" style="border-color: #587eff;">JSON</div>
+      <h3 id="sec02sec01">● 空白・改行消し</h3>
+      <p>
+        JSONに限らず、空白(半角)と改行、またはそのいずれかをすべて消すツールです。
+      </p>
+      <p>
+        クォートの組(「"***"」「'***'」「`***`」)の中身にある空白(半角)は消去しない仕様ですが、
+        これらのクォートが複雑な階層構造を成している場合は、処理に高確率で失敗します。ご了承ください。
+      </p>
+      <p>
+        空白を消す：<input type="checkbox" id="tool1-remove_space" checked><br>
+        改行を消す：<input type="checkbox" id="tool1-remove_return" checked><br>
+      </p>
+      <input type="button" value="実行" onclick="tool1()" />
+      <button onclick="copyToClipboard('output1')">結果をコピー</button>
+      <div class="flexbox">
+        <div style="display: inline-block; flex-grow: 1; padding: 0.5em;">
+          <textarea id="input1" value="1" cols="55" rows="15"></textarea>
+        </div>
+        <div style="display: inline-block; flex-grow: 1; padding: 0.5em;">
+          <textarea id="output1" value="1" cols="55" rows="15" readonly></textarea>
+        </div>
+      </div>
+
+      <h3 id="sec02sec02">● スマート整形</h3>
+      <p>
+        JSON(コメントアウト可)前提です。構文に間違いがあると整形されません。<br>
+        ページの先頭でも説明した「<b>MCB</b>」という数値を指定して使います。これは「Maximum Charactors in Brackets」の略で、
+        JSON中の「{」と「}」または「[」と「]」で囲まれた部分の文字数(カンマやクォートなどのpunctuation marksを含む)で<b>改行するかどうかを指定できます</b>。<br>
+        また、コード中のコメントアウトはすべて消去します。
+      </p>
+      <p>
+        MCB：<input type="number" id="tool2-num" value="40", min="1"><br>
+      </p>
+      <input type="button" value="実行" onclick="tool2()" />
+      <button onclick="copyToClipboard('output2')">結果をコピー</button>
+      <div class="flexbox">
+        <div style="display: inline-block; flex-grow: 1; padding: 0.5em;">
+          <textarea id="input2" value="1" cols="55" rows="15"></textarea>
+          <div style="text-align: left;">
+            Coded by <a href="https://twitter.com/commanderkinji?s=20&t=Ig0NRr8P6NKPm9zybar_fA">@commanderkinji</a>
+          </div>
+        </div>
+        <div style="display: inline-block; flex-grow: 1; padding: 0.5em;">
+          <textarea id="output2" value="1" cols="55" rows="15" readonly></textarea>
+        </div>
+      </div>
+    </div>
+    <!--
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+    -->
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">Minecraft</a></h4>
+        <ul>
+          <li><a href="#sec01sec01">カスタムブロック</a></li>
+          <li><a href="#sec01sec02">カスタムアイテム</a></li>
+          <li><a href="#sec01sec03">1種類のアイテムだけ落とすルートテーブル</a></li>
+          <li><a href="#sec01sec04">.entity.jsonのformat_versionを1.8.0から1.10.0に変換するやつ</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec02">JSON</a></h4>
+        <ul>
+          <li><a href="#sec02sec01">空白・改行消し</a></li>
+          <li><a href="#sec02sec02">スマート整形</a></li>
+        </ul>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+  <script src="mcbe_tools.js"></script>
+</body>
+</html>

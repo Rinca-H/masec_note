@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】アドオン作成「フィーチャー」 - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="フィーチャーについて解説します。" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, 作り方">
+  <meta name="description" content="フィーチャーについて解説します。">
+  <title>【Minecraft BE(統合版)】アドオン作成「フィーチャー」 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">アドオン作成 - フィーチャー</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <div id="sec01" class="headline" style="border-color: #ff6169;">基本事項</div>
+      <h3 id="sec01sec01">● フィーチャーとは</h3>
+      <p>
+        フィーチャーとは、村や難破船などの構造物や、草花や木、鉱石などのワールドの装飾のようなもののことです。
+        アドオンでオリジナルのフィーチャーを追加・生成することができます。
+      </p>
+      <h3 id="sec01sec02">● 追加・生成のしくみ</h3>
+      <p>
+        まず、フィーチャールールによってどんな場所に生成されるかをバイオーム単位で指定します。
+        そのフィーチャールールと定義したフィーチャーを紐づけることで生成できます。
+      </p>
+      <div id="sec02" class="headline" style="border-color: #ff6169;">フィーチャールール</div>
+      <h3 id="sec02sec01">● ファイルの場所</h3>
+      <div class="center">
+        <div class="colorBox gray_box">
+          ビヘイビア<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ <b>feature_rules</b><br>
+          　 　 ┗ <b>〇〇.json</b>
+        </div>
+      </div>
+      <h3 id="sec02sec02">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('rule:div')">コピー</button>
+        <textarea class="copyBoard" id="rule" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "ex:my_feature_rule",
+      "places_feature": "(フィーチャーID)"
+    },
+    ~#r"conditions": {
+%%%%  "placement_pass": "underground_pass",
+%%%%  "minecraft:biome_filter": [
+%%%%    {
+%%%%      "any_of": [
+%%%%        { "test": "has_biome_tag", "value": "overworld" },
+%%%%        { "test": "has_biome_tag", "value": "overworld_generation" }
+%%%%      ]
+%%%%    }
+%%%%  ]
+%%%%},r#~
+    ~#r"distribution": {
+%%%%  "iterations": 20,
+%%%%  "coordinate_eval_order": "zyx",
+%%%%  "x": {
+%%%%    "distribution": "uniform",
+%%%%    "extent": [ 0, 16 ]
+%%%%  },
+%%%%  "y": {
+%%%%    "distribution": "uniform",
+%%%%    "extent": [ 0, 64 ]
+%%%%  },
+%%%%  "z": {
+%%%%    "distribution": "uniform",
+%%%%    "extent": [ 0, 16 ]
+%%%%  }
+%%%%}r#~
+  }
+}</div>
+      </div>
+      <h3 id="sec02sec03">● 具体的な説明</h3>
+      <p>
+        まず、
+        <span class="inline">"identifier"</span>にIDを書き、
+        <span class="inline">"places_feature"</span>には生成するフィーチャーのIDを指定します
+      </p>
+      <p>
+        IDはファイル名と必ず一致させてください。ファイル名が「my_feature.json」ならIDは
+        <span class="inline">"(アドオンID):my_feature"</span>のようにします。
+      </p>
+      <h4>・placement_pass [Str]</h4>
+      <div class="section">
+        <p>生成試行の順番。選べる値は以下の通り。</p>
+      </div>
+      <div class="center">
+        <div class="fit-scroll-box" style="display: inline-block;">
+          <table border="1" style="display: inline-block;">
+            <tr><th>(先)</th></tr>
+            <tr><td><span class="inline">"first_pass"</span></td></tr>
+            <tr><td><span class="inline">"before_underground_pass"</span></td></tr>
+            <tr><td><span class="inline">"underground_pass"</span></td></tr>
+            <tr><td><span class="inline">"after_underground_pass"</span></td></tr>
+            <tr><td><span class="inline">"before_surface_pass"</span></td></tr>
+            <tr><td><span class="inline">"surface_pass"</span></td></tr>
+            <tr><td><span class="inline">"after_surface_pass"</span></td></tr>
+            <tr><td><span class="inline">"before_sky_pass"</span></td></tr>
+            <tr><td><span class="inline">"sky_pass"</span></td></tr>
+            <tr><td><span class="inline">"after_sky_pass"</span></td></tr>
+            <tr><td><span class="inline">"final_pass"</span></td></tr>
+            <tr><th>(後)</th></tr>
+          </table>
+        </div>
+      </div>
+      <h4>・minecraft:biome_filter</h4>
+      <div class="section">
+        <p>バイオームのフィルター。書き方はエンティティフィルターと同じ。</p>
+      </div>
+      <h4>・iterations [Int]</h4>
+      <div class="section">
+        <p>生成試行回数。</p>
+      </div>
+      <h4>・coordinate_eval_order [Str]</h4>
+      <div class="section">
+        <p>
+          座標の処理順。値は
+          <span class="inline">"xyz"</span>、
+          <span class="inline">"xzy"</span>、
+          <span class="inline">"yxz"</span>、
+          <span class="inline">"yzx"</span>、
+          <span class="inline">"zxy"</span>、
+          <span class="inline">"zyx"</span>から選びます。
+        </p>
+      </div>
+      <div class="section">
+        <p>
+          以下は"xzy"ならどうなるかを表した例です。
+          y軸は描いてありませんが、左下のスタートから右上のゴールまで同じ高さ(y軸)で処理が終わったら、
+          次の高さ(+1)で同じように処理をします。
+        </p>
+      </div>
+      <div class="center"><img src="img/MCBE-A_features_01.png" style="width: 80%; min-width: 300px;"></div>
+      <h4>・distribution [Str]</h4>
+      <div class="section">
+        <p>
+          分布の方式。値は
+          <span class="inline">"uniform"</span>、
+          <span class="inline">"gaussian"</span>、
+          <span class="inline">"inverse_gaussian"</span>、
+          <span class="inline">"triangle"</span>、
+          <span class="inline">"fixed_grid"</span>、
+          <span class="inline">"jittered_grid"</span>
+          から選べます。
+        </p>
+      </div>
+      <div class="center">
+        <div class="fit-scroll-box" style="display: inline-block;">
+          <table border="1">
+            <tr><th>値</th><th>概要</th><th>イメージ</th></tr>
+            <tr>
+              <td><span class="inline">"uniform"</span></td>
+              <td>一様分布。偏りがない。</td>
+              <td style="text-align: center;"><img src="img/MCBE-A_features_02.png" style="width: 70%;"></td>
+            </tr>
+            <tr>
+              <td><span class="inline">"gaussian"</span></td>
+              <td>正規分布。範囲の真ん中に寄る。</td>
+              <td style="text-align: center;"><img src="img/MCBE-A_features_03.png" style="width: 70%;"></td>
+            </tr>
+            <tr>
+              <td><span class="inline">"inverse_gaussian"</span></td>
+              <td>逆正規分布。範囲の端に寄る。</td>
+              <td style="text-align: center;"><img src="img/MCBE-A_features_04.png" style="width: 70%;"></td>
+            </tr>
+            <tr>
+              <td><span class="inline">"triangle"</span></td>
+              <td></td>
+              <td style="text-align: center;"><img src="img/MCBE-A_features_05.png" style="width: 70%;"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="section">
+        <p>
+          <span class="inline">"fixed_grid"</span>、
+          <span class="inline">"jittered_grid"</span>の場合は設定項目が増えます。
+        </p>
+      </div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"x": {
+  "distribution": "fixed_grid",
+  "step_size": 1,
+  "grid_offset": 0,
+  "extent": [ 0, 15 ]
+}</div>
+      </div>
+      <p>
+        <span class="inline">"fixed_grid"</span>は(
+        <span class="inline">"step_size"</span>-1
+        )マス飛ばしで範囲に応じて整列します。
+      </p>
+      <h4>・extent [Int-2/Molang-2]</h4>
+      <div class="section">
+        <p>散らばりの範囲。チャンクの端(0,0,0)が基準です。</p>
+      </div>
+      <div id="sec03" class="headline" style="border-color: #ff6169;">フィーチャー</div>
+      <h3 id="sec03sec01">● ファイルの場所</h3>
+      <div class="center">
+        <div class="colorBox gray_box">
+          ビヘイビア<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ <b>feature</b><br>
+          　 　 ┗ <b>〇〇.json</b>
+        </div>
+      </div>
+      <h3 id="sec03sec02">● 全体的な説明</h3>
+      <p>
+        フィーチャーにはたくさんの種類があり、それぞれのタイプで書き方が異なります。
+        それぞれのタイプをこのサイト独自で名づけて分けたので、以下で例を参照してください。
+      </p>
+      <div class="center">
+        <div class="fit-scroll-box" style="display: inline-block;">
+          <table border="1">
+            <tr><th>タイプ名</th><th>例</th></tr>
+            <tr><td>鉱石型</td><td>鉱石</td></tr>
+            <tr><td>晶洞型</td><td>アメジスト晶洞</td></tr>
+            <tr><td>洞窟型</td><td>洞窟</td></tr>
+            <tr><td>ネザー洞窟型</td><td>ネザーの洞窟</td></tr>
+            <tr><td>水中洞窟型</td><td>水中の洞窟</td></tr>
+            <tr><td>長い植物型</td><td>グロウベリー</td></tr>
+            <tr><td>樹木型</td><td>任意の木</td></tr>
+            <tr><td>1ブロック型</td><td>任意の1ブロック</td></tr>
+            <tr><td>散乱型</td><td>草花</td></tr>
+            <tr><td>探知型</td><td>ハチの巣</td></tr>
+            <tr><td>ストラクチャ型</td><td>任意の1ブロック</td></tr>
+          </table>
+        </div>
+      </div>
+      <p>
+        ここからはタイプごとに分けて説明します。
+      </p>
+      <div id="sec04" class="headline" style="border-color: #ff6169;">フィーチャー・鉱石型</div>
+      <h3 id="sec04sec01">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('ore:div')">コピー</button>
+        <textarea class="copyBoard" id="ore" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.13.0",
+  "minecraft:ore_feature": {
+    "description": {
+      "identifier": "ex.my_ore"
+    },
+    "count": 8,
+    "discard_chance_on_air_exposure": 0.7,
+    "replace_rules": [
+      {
+        "places_block": "ex:my_ore",
+        "may_replace": [ "minecraft:stone" ]
+      }
+      // ...
+    ]
+  }
+}</div>
+      </div>
+      <h4>・count [Int(1~)]</h4>
+      <div class="section">
+        <p>何個のかたまりで生成されるか。1個だと生成してくれません(理論上正しいにも拘わらず)。</p>
+        <p>1個の鉱石を生成したい場合は1ブロック型で擬似的に実装してください。</p>
+      </div>
+      <h4>・discard_chance_on_air_exposure [Float(0.0~1.0)]</h4>
+      <div class="section">
+        <p>壁に露出しない確率。最大にすれば必ず完全に埋まって生成されます。</p>
+      </div>
+      <h4>・replace_rules</h4>
+      <div class="section">
+        <p>
+          <span class="inline">"places_block"</span>で生成するブロック(鉱石)を指定し、
+          <span class="inline">"may_replace"</span>でどのブロックを置き換えて生成するかを指定(複数可)します。
+        </p>
+      </div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"replace_rules": [
+  {
+    "places_block": "minecraft:diamond_ore",
+    "may_replace": [ "minecraft:stone" ]
+  }
+]</div>
+      </div>
+      <div id="sec05" class="headline" style="border-color: #ff6169;">フィーチャー・晶洞型</div>
+      <h3 id="sec05sec01">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('geode:div')">コピー</button>
+        <textarea class="copyBoard" id="geode" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.13.0",
+  "minecraft:geode_feature": {
+    "description": {
+      "identifier": "ex:my_geode"
+    },
+    "filler": "minecraft:air",
+    "inner_layer": "minecraft:diamond_block",
+    "alternate_inner_layer": "minecraft:emerald_block",
+    "middle_layer": "minecraft:calcite",
+    "outer_layer": "minecraft:obsidian",
+    "inner_placements": [
+      {
+        "name": "minecraft:amethyst_cluster",
+        "states": { "amethyst_cluster_type": "small" }
+      }
+    ],
+    "min_outer_wall_distance": 4,
+    "max_outer_wall_distance": 7,
+    "min_distribution_points": 3,
+    "max_distribution_points": 5,
+    "min_point_offset": 1,
+    "max_point_offset": 3,
+    "max_radius": 16,
+    "crack_point_offset": 2.0,
+    "generate_crack_chance": 0.95,
+    "base_crack_size": 2.0,
+    "noise_multiplier": 0.025,
+    "use_potential_placements_chance": 0.35,
+    "use_alternate_layer0_chance": 0.083,
+    "placements_require_layer0_alternate": true,
+    "invalid_blocks_threshold": 1
+  }
+}</div>
+      </div>
+      <h4>・filler [Str]</h4>
+      <div class="section">
+        <p>中心部を何で埋めるか。バニラのアメジスト晶洞は空洞なので空気が指定されています。</p>
+      </div>
+      <h4>・inner_layer, alternate_inner_layer [Str]</h4>
+      <div class="section">
+        <p>内側の殻を構成するブロック(2つ)。バニラのアメジスト晶洞なら、アメジストブロックとアメジストの芽ブロックですね。</p>
+      </div>
+      <h4>・middle_layer [Str]</h4>
+      <div class="section">
+        <p>中殻を構成するブロック。バニラのアメジスト晶洞なら方解石ですね。</p>
+      </div>
+      <h4>・outer_layer [Str]</h4>
+      <div class="section">
+        <p>外側の殻を構成するブロック。バニラのアメジスト晶洞なら磨かれた玄武岩ですね。</p>
+      </div>
+      <h4>・inner_placements [Str]</h4>
+      <div class="section">
+        <p>バニラのアメジスト晶洞なら生えているアメジスト本体の部分。</p>
+      </div>
+      <h4>・min_outer_wall_distance, max_outer_wall_distance [Int(1~)]</h4>
+      <div class="section">
+        <p>
+          殻の厚さの最大値(max)と最小値(min)。最大値は
+          <span class="inline">20</span>まで、最小値は
+          <span class="inline">10</span>まで指定できます。
+        </p>
+      </div>
+      <h4>・min_distribution_points, max_distribution_points [Int(1~)]</h4>
+      <div class="section">
+        <p>
+          inner_placements生成場所の数の最大値(max)と最小値(min)。最大値は
+          <span class="inline">20</span>まで、最小値は
+          <span class="inline">10</span>まで指定できます。
+        </p>
+      </div>
+      <h4>・min_point_offset, max_point_offset [Int(0~10)]</h4>
+      <div class="section">
+        <p>
+          inner_placements生成場所ずれの最大値(max)と最小値(min)。
+        </p>
+      </div>
+      <h4>・max_radius [Int]</h4>
+      <div class="section"><p>全体の半径の最大値。</p></div>
+      <h4>・crack_point_offset [Int(0~10)]</h4>
+      <div class="section"><p>割れ目の位置のずれ。</p></div>
+      <h4>・generate_crack_chance [Float(0.0~1.0)]</h4>
+      <div class="section"><p>割れ目を生成する確率。</p></div>
+      <h4>・base_crack_size [Float(0.0~5.0)]</h4>
+      <div class="section"><p>割れ目の大きさ。</p></div>
+      <h4>・noise_multiplier [Float]</h4>
+      <div class="section"><p></p></div>
+      <h4>・use_potential_placements_chance [Float(0.0~1.0)]</h4>
+      <div class="section"><p></p></div>
+      <h4>・use_alternate_layer0_chance [Float(0.0~1.0)]</h4>
+      <div class="section"><p></p></div>
+      <h4>・placements_require_layer0_alternate [Bool]</h4>
+      <div class="section"><p></p></div>
+      <h4>・invalid_blocks_threshold [Int]</h4>
+      <div class="section"><p></p></div>
+      <div id="sec06" class="headline" style="border-color: #ff6169;">フィーチャー・洞窟型、ネザー洞窟型</div>
+      <h3 id="sec06sec01">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('cave:div')">コピー</button>
+        <textarea class="copyBoard" id="cave" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  ~#M(83ffd9)"minecraft:cave_carver_feature"M#~: {
+    "description": {
+      "identifier": "ex:my_cave"
+    },
+    "fill_with": "minecraft:air",
+    "width_modifier": "0.0",
+    "skip_carve_chance": 15,
+    "height_limit": 100,
+    "y_scale": [ 1.0, 1.5 ],
+    "horizontal_radius_multiplier": [ 1.0, 1.25 ],
+    "vertical_radius_multiplier": [ 1.0, 2.5 ],
+    "floor_level": [ 1.0, 1.5 ]
+  }
+}</div>
+      </div>
+      <p>
+        ネザー洞窟型の場合はマーカ部分を
+        <span class="inline">"minecraft:hell_cave_carver_feature"</span>に変えます。
+      </p>
+      <h4>・fill_with [Str]</h4>
+      <div class="section">
+        <p>洞窟を埋めるブロック。普通に洞窟にするなら空気を指定します。</p>
+      </div>
+      <h4>・width_modifier [Molang]</h4>
+      <div class="section"><p></p></div>
+      <h4>・skip_carve_chance [Int(1~)]</h4>
+      <div class="section"><p></p></div>
+      <h4>・height_limit [Int]</h4>
+      <div class="section"><p>高度の上限</p></div>
+      <h4>・y_scale [Float-2]</h4>
+      <div class="section"><p>縦のスケールの範囲</p></div>
+      <h4>・horizontal_radius_multiplier [Float-2]</h4>
+      <div class="section"><p>空洞の半径(横)の倍率</p></div>
+      <h4>・vertical_radius_multiplier [Float-2]</h4>
+      <div class="section"><p>空洞の半径(縦)の倍率</p></div>
+      <h4>・floor_level [Float-2]</h4>
+      <div class="section"><p></p></div>
+      <div id="sec07" class="headline" style="border-color: #ff6169;">フィーチャー・水中洞窟型</div>
+      <h3 id="sec07sec01">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('water_cave:div')">コピー</button>
+        <textarea class="copyBoard" id="water_cave" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:underwater_cave_carver_feature": {
+    "description": {
+      "identifier": "ex:my_underwater_cave"
+    },
+    "fill_with": "minecraft:air",
+    "width_modifier": "0.0",
+    "skip_carve_chance": 15,
+    "height_limit": 100,
+    "y_scale": [ 1.0, 1.5 ],
+    "horizontal_radius_multiplier": [ 1.0, 1.25 ],
+    "vertical_radius_multiplier": [ 1.0, 2.5 ],
+    "floor_level": [ 1.0, 1.5 ],
+    "replace_air_with": "minecraft:flowing_water"
+  }
+}</div>
+      </div>
+      <p>一つのプロパティを除いてすべて洞窟型、ネザー洞窟型と同じです。</p>
+      <h4>・replace_air_with [Str]</h4>
+      <div class="section"><p>空気を置き換えるブロック。</p></div>
+      <div id="sec08" class="headline" style="border-color: #ff6169;">フィーチャー・長い植物型</div>
+      <h3 id="sec08sec01">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('long_plant:div')">コピー</button>
+        <textarea class="copyBoard" id="long_plant" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.0",
+  "minecraft:growing_plant_feature": {
+    "description": {
+      "identifier": "ex:my_long_plant"
+    },
+    "height_distribution":  [
+      [ { "range_min": 1, "range_max": 13 }, 2 ],
+      [ { "range_min": 1, "range_max": 2 }, 3 ],
+      [ { "range_min": 1, "range_max": 7 }, 10 ]
+    ],
+    "growth_direction": "DOWN",
+    "age": { "range_min": 17, "range_max": 26 },
+    "body_blocks": [
+      [ "minecraft:cave_vines", 4 ],
+      [ "minecraft:cave_vines_body_with_berries", 1 ]
+    ],
+    "head_blocks": [
+      [ "minecraft:cave_vines", 4 ],
+      [ "minecraft:cave_vines_head_with_berries", 1 ]
+    ],
+    "allow_water": true
+  }
+}</div>
+      </div>
+      <h4>・height_distribution [Float-2]</h4>
+      <div class="section"><p>高さの分布。</p></div>
+      <h4>・growth_direction [Str] </h4>
+      <div class="section">
+        <p>
+          育つ向き。
+          <span class="inline">"UP"</span>で上、
+          <span class="inline">"DOWN"</span>で下。
+        </p>
+      </div>
+      <h4>・age</h4>
+      <div class="section"><p>その植物の成長度。</p></div>
+      <h4>・body_blocks</h4>
+      <div class="section"><p>2番目以降の、先端以外のブロックとその生成比率。</p></div>
+      <h4>・head_blocks</h4>
+      <div class="section"><p>先端のブロックとその生成比率。</p></div>
+      <h4>・allow_water [Bool] </h4>
+      <div class="section"><p>水中に生成されるか。</p></div>
+      <div id="sec09" class="headline" style="border-color: #ff6169;">フィーチャー・樹木型</div>
+      <h3 id="sec09sec01">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('tree:div')">コピー</button>
+        <textarea class="copyBoard" id="tree" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "minecraft:tree_feature": {
+    "description": {
+      "identifier": "Str(NameSpaced)"
+    },
+    "base_block": "Str(BlockId)/Str-n(BlockId)",
+    "base_cluster": {
+      "may_replace": "Str-n(BlockId)",
+      "num_clusters": "Int(>=1)",
+      "cluster_radius": "Int(>=0)"
+    },
+    "may_grow_on": "Str-n(BlockId)",
+    "may_replace": "Str-n(BlockId)",
+    "may_grow_through": "Str-n(BlockId)",
+
+    // 幹
+
+    // 葉
+  }
+}</div>
+      </div>
+      <div id="sec10" class="headline" style="border-color: #ff6169;">フィーチャー・1ブロック型</div>
+      <h3 id="sec10sec01">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('single_block:div')">コピー</button>
+        <textarea class="copyBoard" id="single_block" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.13.0",
+  "minecraft:single_block_feature": {
+    "description": {
+      "identifier": "ex:my_singleblock"
+    },
+    "places_block": "minecraft:diamond_block",
+    "enforce_placement_rules": true,
+    "enforce_survivability_rules": true,
+    "may_attach_to": {
+      "min_sides_must_attach": 1,
+      "auto_rotate": false,
+      "bottom": [ "minecraft:grass" ]
+      /*
+      "top": [ "minecraft:stone" ],
+      "north": [ "minecraft:stone" ],
+      "east": [ "minecraft:stone" ],
+      "south": [ "minecraft:stone" ],
+      "west": [ "minecraft:stone" ],
+      "all": [ "minecraft:stone" ],
+      "sides": [ "minecraft:stone" ]
+      */
+    },
+    // "may_place_on": "Str-n(BlockId)",
+    "may_replace": [ "minecraft:air" ]
+  }
+}</div>
+      </div>
+      <h4>・places_block [Str]</h4>
+      <div class="section"><p>設置するブロック。</p></div>
+      <h4>・enforce_placement_rules [Bool]</h4>
+      <div class="section">
+        <p>
+          プレイヤーなどが置けないような置き方にはできないようにするかどうか。
+        </p>
+      </div>
+      <h4>・enforce_survivability_rules [Bool]</h4>
+      <div class="section">
+        <p>
+          本来ならそのブロックが壊れてしまうような置き方にはできないようにするかどうか。
+        </p>
+      </div>
+      <h4>・min_sides_must_attach [Int(1~4)]</h4>
+      <div class="section"><p>接している必要がある面の最小数。</p></div>
+      <h4>・auto_rotate [Bool]</h4>
+      <div class="section"><p>自動でランダムに回転して設置するかどうか。</p></div>
+      <h4>・接している必要がある面</h4>
+      <div class="section">
+        <p>
+          指定したブロックと指定した面で接していないと生成されないようにできます。
+          <span class="inline">"top"</span>が上面、
+          <span class="inline">"bottom"</span>が底面、
+          <span class="inline">"north"</span>が北面、
+          <span class="inline">"east"</span>が東面、
+          <span class="inline">"south"</span>が南面、
+          <span class="inline">"west"</span>が西面、
+          <span class="inline">"all"</span>が全面、
+          <span class="inline">"sides"</span>が側面です。
+          指定しない面は書く必要ありません。
+        </p>
+      </div>
+      <h4>・may_replace [Str]</h4>
+      <div class="section"><p>生成のために置き換えるブロック。</p></div>
+      <div id="sec11" class="headline" style="border-color: #ff6169;">フィーチャー・散乱型</div>
+      <h3 id="sec11sec01">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('scatter:div')">コピー</button>
+        <textarea class="copyBoard" id="scatter" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.13.0",
+  "minecraft:scatter_feature": {
+    "description": {
+      "identifier": "ex:my_scatter_blocks"
+    },
+    "coordinate_eval_order": "xzy",
+    "places_feature": "ex:my_singleblock",
+    "project_input_to_floor": true,
+    "iterations": 4,
+    "scatter_chance": "Molang",
+    /* または
+    "scatter_chance": {
+      "numerator": "Int(>=1)",
+      "denominator": "Int(>=1)
+    },
+    */
+    "x": "Int",
+    /* または
+    "x": {
+      "distribution": "Str",// "uniform", "gaussian", "inverse_gaussian", "triangle", "fixed_grid", "jittered_grid"
+      "extent": "Int-2",
+      "grid_offset": "Int(>=0)",
+      "step_size": "Int(>=1)"
+    },
+    */
+    "y": "Int",
+    /* または
+    "y": {
+      "distribution": "Str",// "uniform", "gaussian", "inverse_gaussian", "triangle", "fixed_grid", "jittered_grid"
+      "extent": "Int-2",
+      "grid_offset": "Int(>=0)",
+      "step_size": "Int(>=1)"
+    },
+    */
+    "z": "Int"
+    /* または
+    "z": {
+      "distribution": "Str",// "uniform", "gaussian", "inverse_gaussian", "triangle", "fixed_grid", "jittered_grid"
+      "extent": "Int-2",
+      "grid_offset": "Int(>=0)",
+      "step_size": "Int(>=1)"
+    }
+    */
+  }
+}</div>
+      </div>
+      <p>
+        フィーチャールールと同じプロパティがほどんどで、実際意味も同じです。
+        フィーチャールールにないものを説明します。
+      </p>
+      <h4>・project_input_to_floor [Bool]</h4>
+      <div class="section"><p>地面に接するように生成するかどうか。</p></div>
+      <h4>・scatter_chance [Molang/Obj]</h4>
+      <div class="section"><p></p></div>
+      <div id="sec12" class="headline" style="border-color: #ff6169;">フィーチャー・探知型</div>
+      <h3 id="sec12sec01">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('search:div')">コピー</button>
+        <textarea class="copyBoard" id="search" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.13.0",
+  "minecraft:search_feature": {
+    "description": {
+      "identifier": "ex:my_search_feature"
+    },
+    "places_feature": "ex:my_single_block",
+    "search_volume": {
+      "min": [ -2, -2, -2 ],
+      "max": [ 2, 2, 2 ]
+    },
+    "search_axis": "y-",
+    "required_successes": 2
+  }
+}</div>
+      </div>
+      <h4>・places_feature [Str]</h4>
+      <div class="section"><p>生成するフィーチャーのID。</p></div>
+      <h4>・search_volume</h4>
+      <div class="section"><p>
+        探知する範囲。
+        <span class="inline">"min"</span>が始点、
+        <span class="inline">"max"</span>が終点。
+      </p></div>
+      <h4>・search_axis [Str]</h4>
+      <div class="section"><p>
+        <span class="inline">+x</span>、
+        <span class="inline">-x</span>、
+        <span class="inline">+y</span>、
+        <span class="inline">-y</span>、
+        <span class="inline">+z</span>、
+        <span class="inline">-z</span>から選ぶ。
+      </p></div>
+      <h4>・required_successes [Int(1~)]</h4>
+      <div class="section"><p></p></div>
+      <div id="sec13" class="headline" style="border-color: #ff6169;">フィーチャー・ストラクチャ型</div>
+      <h3 id="sec13sec01">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('structure:div')">コピー</button>
+        <textarea class="copyBoard" id="structure" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.13.0",
+  "minecraft:structure_template_feature": {
+    "description": {
+      "identifier": "ex:my_structure"
+    },
+    "structure_name": "mystructure:my_structure",
+    "adjustment_radius": 7,
+    "facing_direction": "random",
+    "constraints": {
+      "grounded": {},
+      "unburied": {},
+      "block_intersection": {
+        "block_allowlist": [ "minecraft:air" ]
+        /* または
+        "block_whitelist": "Str-n(BlockId)"
+        */
+      }
+    }
+  }
+}</div>
+      </div>
+      <h4>・structure_name [Str]</h4>
+      <div class="section"><p>生成するストラクチャのID。</p></div>
+      <h4>・adjustment_radius [Int(0~16)]</h4>
+      <div class="section"><p></p></div>
+      <h4>・facing_direction [Str]</h4>
+      <div class="section"><p>
+        正面の向き。
+        <span class="inline">"north"</span>、
+        <span class="inline">"south"</span>、
+        <span class="inline">"east"</span>、
+        <span class="inline">"west"</span>、
+        <span class="inline">"random"</span>から選ぶ。
+      </p></div>
+      <h4>・grounded、unburied</h4>
+      <div class="section"><p>
+        <span class="inline">"grounded"</span>は地面から離れないように、
+        <span class="inline">"unburied"</span>は地面に埋まらないようになります。
+      </p></div>
+      <h4>・block_allowlist [Str-n]</h4>
+      <div class="section"><p>このストラクチャと重なって置けるブロック</p></div>
+      <h4>・block_whitelist [Str-n]</h4>
+      <div class="section"><p>このストラクチャと重なって置けないブロック</p></div>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">基本事項</a></h4>
+        <ul>
+          <li><a href="#sec01sec01">フィーチャーとは</a></li>
+          <li><a href="#sec01sec02">追加・生成のしくみ</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec02">フィーチャールール</a></h4>
+        <ul>
+          <li><a href="#sec02sec01">ファイルの場所</a></li>
+          <li><a href="#sec02sec02">基本構造</a></li>
+          <li><a href="#sec02sec03">具体的な説明</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec03">フィーチャー</a></h4>
+        <ul>
+          <li><a href="#sec03sec01">ファイルの場所</a></li>
+          <li><a href="#sec03sec02">全体的な説明</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec04">フィーチャー・鉱石型</a></h4>
+        <ul>
+          <li><a href="#sec04sec01">基本構造</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec05">フィーチャー・晶洞型</a></h4>
+        <ul>
+          <li><a href="#sec05sec01">基本構造</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec06">フィーチャー・洞窟型、ネザー洞窟型</a></h4>
+        <ul>
+          <li><a href="#sec06sec01">基本構造</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec07">フィーチャー・水中洞窟型</a></h4>
+        <ul>
+          <li><a href="#sec07sec01">基本構造</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec08">フィーチャー・長い植物型</a></h4>
+        <ul>
+          <li><a href="#sec08sec01">基本構造</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec09">フィーチャー・樹木型</a></h4>
+        <ul>
+          <li><a href="#sec09sec01">基本構造</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec10">フィーチャー・1ブロック型</a></h4>
+        <ul>
+          <li><a href="#sec10sec01">基本構造</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec11">フィーチャー・散乱型</a></h4>
+        <ul>
+          <li><a href="#sec11sec01">基本構造</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec12">フィーチャー・探知型</a></h4>
+        <ul>
+          <li><a href="#sec12sec01">基本構造</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec13">フィーチャー・ストラクチャ型</a></h4>
+        <ul>
+          <li><a href="#sec13sec01">基本構造</a></li>
+        </ul>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

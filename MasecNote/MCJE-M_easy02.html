@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="簡単なアイテムを追加する - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="(ほぼ自分用)" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, MOD, 作り方">
+  <meta name="description" content="(ほぼ自分用)">
+  <title>簡単なアイテムを追加する - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <link rel="stylesheet" type="text/css" href="mc_command.css">
+  <style type="text/css">
+    .demoCode {
+      font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace, system-ui;
+      background-color: #f4f3ec;
+      color: #5f5e4e;
+      white-space: pre;
+      padding: 4px;
+      padding: 0.75em;
+      line-height: 1.5em;
+      overflow: auto;
+      max-height: 75vh;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">MOD作成 - 簡単なアイテムを追加する</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <p>ModIdやメインクラスのjavaファイル名などの各自で異なる部分はいちいち説明しないのでご注意を。</p>
+      <div id="sec01" class="headline" style="border-color: #64ec86;">アイテムのクラス</div>
+      <p>
+        左のPackage Explorerから「src/main/java > com.masec.new_mod」を右クリック、「New > Package」を押します。<br>
+        Name:の「com.masec.new_mod」の右に「.item」を書き足して「Finish」
+      </p>
+      <div class="center"><img src="img/MCJE-M_easy02_01.png" style="width: 80%; min-width: 300px;"></div>
+      <p>
+        作った「com.masec.new_mod.item」を右クリックして「New > Class」を押します。<br>
+        クラス名はアイテム名と揃えます。今回は「TestIngot」にしました。
+      </p>
+      <div class="center"><img src="img/MCJE-M_easy02_02.png" style="width: 80%; min-width: 300px;"></div>
+      <h3 id="sec01sec01">● クラスのコード</h3>
+      <p>作られたファイルを編集して、こうなります。</p>
+      <pre><code class="java">package com.masec.newmod.item;
+
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+
+public class TestIngot extends Item {
+
+  public TestIngot() {
+    super(new Properties().tab(ItemGroup.TAB_MISC));
+  }
+
+}</code></pre>
+      <p>書き換える場所をマーカーで示しました。</p>
+      <details><summary>各自で違うところをマーカーしたやつ</summary>
+        <div class="demoCode">package com.<span style="background: #83ffd9;">masec.newmod</span>.item;
+
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+
+public class <span style="background: #83ffd9;">TestIngot</span> extends Item {
+
+  public <span style="background: #83ffd9;">TestIngot</span>() {
+    super(new Properties().tab(ItemGroup.<span style="background: #ffc8f1;">TAB_MISC</span>));
+  }
+
+}</div>
+      <p>
+        桃色でマーカーしたところはクリエイティブインベントリのカテゴリタブを指定する部分です。以下から選んでください。
+      </p>
+      <table border="1">
+        <tr><th>変数</th><th>概要</th></tr>
+        <tr><td>TAB_BUILDING_BLOCKS</td><td>建築ブロック</td></tr>
+        <tr><td>TAB_DECORATIONS</td><td>装飾ブロック</td></tr>
+        <tr><td>TAB_REDSTONE</td><td>レッドストーン</td></tr>
+        <tr><td>TAB_MISC</td><td>その他</td></tr>
+        <tr><td>TAB_TRANSPORTATION</td><td>運送</td></tr>
+        <tr><td>TAB_COMBAT</td><td>戦闘</td></tr>
+        <tr><td>TAB_TOOLS</td><td>道具</td></tr>
+        <tr><td>TAB_FOOD</td><td>食料</td></tr>
+        <tr><td>TAB_BREWING</td><td>醸造</td></tr>
+      </table>
+      </details>
+      <div id="sec02" class="headline" style="border-color: #64ec86;">アイテムを登録</div>
+      <p>
+        アイテムのパッケージを追加したときと同様に、
+        左のPackage Explorerから「src/main/java > com.masec.new_mod」を右クリック、「New > Package」を押します。<br>
+        Name:の「com.masec.new_mod」の右に「.init」を書き足して「Finish」
+      </p>
+      <p>
+        そしてまた「com.masec.new_mod.init」を右クリックしてクラスを新規作成します。クラス名は「ItemInit」です。
+      </p>
+      <h3 id="sec02sec01">● クラスのコード</h3>
+      <p>これもまた、作られたファイルを編集してこうなります。</p>
+      <pre><code class="java">package com.masec.newmod.init;
+
+import com.masec.newmod.NewMod;
+import com.masec.newmod.item.TestIngot;
+
+import net.minecraft.item.Item;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+
+public class ItemInit {
+  public static final DeferredRegister&lt;Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, NewMod.MOD_ID);
+  
+  public static final RegistryObject&lt;Item> TEST_INGOT = ITEMS.register("test_ingot", () -> new TestIngot());
+}
+</code></pre>
+      <p>書き換える場所をマーカーで示しました。</p>
+      <details><summary>各自で違うところをマーカーしたやつ</summary>
+        <div class="demoCode">package com.<span style="background: #83ffd9;">masec.newmod</span>.init;
+
+import com.<span style="background: #83ffd9;">masec.newmod.NewMod</span>;
+import com.<span style="background: #83ffd9;">masec.newmod.item.TestIngot</span>;
+
+import net.minecraft.item.Item;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+
+public class ItemInit {
+  public static final DeferredRegister&lt;Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, <span style="background: #83ffd9;">NewMod</span>.MOD_ID);
+  
+  public static final RegistryObject&lt;Item> <span style="background: #ffc8f1;">TEST_INGOT</span> = ITEMS.register(<span style="background: #ffc8f1;">"test_ingot"</span>, () -> new <span style="background: #83ffd9;">TestIngot</span>());
+}
+</div>
+        <p>
+          桃色でマーカーしたところはこのファイルで初めて定義しています。雰囲気を合わせて自分のものに置き換えてください(大文字とか)
+          「"test_ingot"」のほうはコマンドなどで使われる、アイテムのidとなります。
+        </p>
+      </details>
+      <div id="sec03" class="headline" style="border-color: #64ec86;">イベントバス</div>
+      <p>
+        これがないと追加されないらしいです。メインクラスのファイルに少し書き加えます。<br>
+        各自で名前が違うと思いますが「NewMod.java」を開きます。
+      </p>
+      <div class="demoCode">package com.masec.newmod;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+<span style="background: #83ffd9;">import com.masec.newmod.init.ItemInit;</span>
+
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+// The value here should match an entry in the META-INF/mods.toml file
+@Mod(NewMod.MOD_ID)
+public class NewMod {
+  // Directly reference a log4j logger.
+  public static final Logger LOGGER = LogManager.getLogger();
+  
+  public static final String MOD_ID = "new_mod";
+
+  public NewMod() {
+    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    bus.addListener(this::setup);
+    
+    <span style="background: #83ffd9;">ItemInit.ITEMS.register(bus);</span>
+
+    // Register ourselves for server and other game events we are interested in
+    MinecraftForge.EVENT_BUS.register(this);
+  }
+
+  private void setup(final FMLCommonSetupEvent event) {
+    // some preinit code
+
+  }
+}
+</div>
+      <p>これを書き加えて終わりです。上のほうは各自で書き換える部分がありますね。</p>
+      <div id="sec04" class="headline" style="border-color: #64ec86;">リソース</div>
+      <p>
+        Package Explorerから「src/main/resources」を右クリックしてパッケージを作ります。名前は「assets.new_mod.lang」のようにします。<br>
+        同様に、modelsとtexuresも追加します。
+      </p>
+      <div class="center"><img src="img/MCJE-M_easy02_03.png" style="width: 80%; min-width: 300px;"></div>
+      <h3 id="sec04sec01">● テキスト</h3>
+      <p>
+        「assets.new_mod.lang」を右クリックして「New > File」を選択して「en_us.json」ファイルを作成します
+      </p>
+      <div class="center"><img src="img/MCJE-M_easy02_04.png" style="width: 80%; min-width: 300px;"></div>
+      <p>
+        別のエディタで開いてEclipseの画面に以下のウィンドウが出てきたら下にチェック入れてOKするかそもそもCancelするといいと思います。<br>
+        Eclipse内でJSONが使えるように拡張機能入れますかと聞いてます。わたしはVSCodeでよかったのでいらないってしました。
+      </p>
+      <div class="center"><img src="img/MCJE-M_easy02_05.png" style="width: 80%; min-width: 300px;"></div>
+      <p>そして、JSONの中身はこんな感じです。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('lang:div')">コピー</button>
+        <textarea class="copyBoard" id="lang" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "item.new_mod.test_ingot": "Test Ingot"
+}</div>
+      </div>
+      <p>
+        new_modのところがModId、test_ingotがアイテムのID、「Test Ingot」が表示する名前(英語)です。
+        日本語は同じところに「ja_jp.json」という名前でファイルを使って、表示する名前の欄だけ変えて同じJSONを書きます。
+      </p>
+      <h3 id="sec04sec02">● モデル/テクスチャ</h3>
+      <p>
+        「assets.new_mod.models」を右クリックして「assets.new_mod.models.item」という名前のパッケージを作ります。<br>
+        そこに「test_ingot.json」を作ります。ファイル名はアイテムのIDです。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('model:div')">コピー</button>
+        <textarea class="copyBoard" id="model" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "parent": "item/generated",
+  "textures": {
+    "layer0":"new_mod:items/test_ingot"
+  }
+}</div>
+      </div>
+      <p>
+        Eclipseからちょっと出て、はじめに作ったフォルダの「src/main/resources/assets/new_mod/textures」に
+        「items」フォルダを作り、テクスチャを入れます。テクスチャの名前は「test_ingot.png」のようにします。
+      </p>
+      <p>最後はEclipseに戻り、「src/main/resources」を右クリックして「Refresh」します。</p>
+      <div id="sec05" class="headline" style="border-color: #64ec86;">マイクラを起動して確認</div>
+      <p>このように、きれいなインゴットが追加できました。</p>
+      <div class="center"><img src="img/MCJE-M_easy02_06.png" style="width: 80%; min-width: 300px;"></div>
+      <div id="sec06" class="headline" style="border-color: #64ec86;">参考サイト</div>
+      <ul style="line-height: 2em;">
+        <li><a href="https://www.umagame.info/entry/modding116_part4">【マインクラフト Modding】1.16での自作Modの作り方 #4 アイテムの追加 - うまげーむさん</a></li>
+        <li><a href="https://www.umagame.info/entry/modding116_part5">【マインクラフト Modding】1.16での自作Modの作り方 #5 レシピ・クリエイティブタブの追加 - うまげーむさん</a></li>
+      </ul>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">アイテムのクラス</a></h4>
+        <ul>
+          <li><a href="#sec01sec01">クラスのコード</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec02">アイテムを登録</a></h4>
+        <ul>
+          <li><a href="#sec02sec01">クラスのコード</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec03">イベントバス</a></h4>
+        <hr>
+        <h4><a href="#sec04">リソース</a></h4>
+        <ul>
+          <li><a href="#sec04sec01">テキスト</a></li>
+          <li><a href="#sec04sec02">モデル/テクスチャ</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec05">マイクラを起動して確認</a></h4>
+        <hr>
+        <h4><a href="#sec06">参考サイト</a></h4>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

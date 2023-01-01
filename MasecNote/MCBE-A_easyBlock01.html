@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】ブロックの作り方#1 - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="簡単なブロックの作り方を説明します！" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, 作り方">
+  <meta name="description" content="簡単なブロックの作り方を説明します！">
+  <title>【Minecraft BE(統合版)】ブロックの作り方#1 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <style type="text/css">
+    .langdiv {
+      padding: 0.5em;
+      font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace, system-ui;
+      line-height: 1.25em;
+      background-color: #f4f3ec; color: #5f5e4e;
+      white-space: pre;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">アドオン作りの基礎 - ブロック編#1</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <p>手順をふんで、できるだけ簡単にブロックの作り方を解説します！</p>
+      <p>
+        前回の記事(<a href="MCBE-A_basic02.html">アドオンづくりの基礎#2</a>)の
+        「<a href="MCBE-A_basic02.html#sec01sec05">追加するコンテンツのフォルダ</a>」まで手順を進めているのが前提です。
+      </p>
+      <p>
+        ブロックを追加するためにはビヘイビアパックとリソースパックの<b>両方を作る必要がある</b>ので分けて説明しますが、
+        どっちでの作業なのか注意して進めてください。
+      </p>
+      <div id="sec01" class="headline" style="border-color: #ff6169;">ビヘイビア</div>
+      <h3 id="sec01sec01">ブロックの本体を作る</h3>
+      <p><b>blocksフォルダ</b>の中にsimple_block.jsonを新規作成します。ファイルの名前は自由です。</p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          ビヘイビア<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ <b>blocks</b><br>
+          　 　 ┗<b>〇〇.json</b>
+        </div>
+      </div>
+      <div class="pDat">Dat</div><div class="dir">blocks/simple_block.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('simple_block:div')">コピー</button>
+        <textarea class="copyBoard" id="simple_block" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:simple_block"
+    },
+    "components": {
+      "minecraft:block_light_emission": 1.0,
+      "minecraft:creative_category": {
+        "category": "construction"
+      },
+      "minecraft:destroy_time": 1.0,
+      "minecraft:explosion_resistance": 5.0,
+      "minecraft:loot": "loot_tables/blocks/simple_block.json",
+      "minecraft:map_color": "#64ec86"
+    }
+  }
+}</div>
+      </div>
+      <h4>内容の意味</h4>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "~#M(83ffd9)(アドオンID)M#~:~#M(83ffd9)(ブロックのID)M#~"
+    },
+    "components": {
+      "minecraft:block_light_emission": ~#M(83ffd9)1.0M#~, // (※1)
+      "minecraft:creative_category": {
+        "category": ~#M(83ffd9)"construction"M#~ // (※2)
+      },
+      "minecraft:destroy_time": ~#M(83ffd9)1.0M#~, // (※3)
+      "minecraft:explosion_resistance": ~#M(83ffd9)5.0M#~, // (※4)
+      "minecraft:loot": ~#M(83ffd9)"(ルートテーブルのファイルパス)"M#~, // (※5)
+      "minecraft:map_color": ~#M(83ffd9)"#64ec86"M#~ // (※6)
+    }
+  }
+}</div>
+      </div>
+      <p style="margin-bottom: 0;">アドオンIDとブロックのIDは<u>書き方</u>を守って各自で決めてください。</p>
+      <details><summary>書き方</summary>
+        <div class="center">
+          <div class="colorBox blue_box">
+            <h4>アドオンID</h4>
+            <p style="margin: 0;">アドオン全体で共通のID</p>
+            <h4>ブロックID</h4>
+            <p style="margin: 0;">個別のID(バニラとカブらないほうがよい)</p>
+            <h4>基本の書式</h4>
+            <ul>
+              <li>アルファベット、数字、「_」「-」以外は使わない</li>
+              <li>頭文字はアルファベット</li>
+              <li>アルファベットの大文字は使わないほうがいい</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+      <p style="margin-bottom: 0;">
+        <b>(※1)</b>　明るさを0.0~1.0の小数で指定します。<br>
+        <b>(※2)</b>　クリエイティブインベントリのカテゴリを指定します。
+      </p>
+      <details><summary>詳細</summary>
+        <div class="center"><img src="img/MCBE-A_easyBlock01_01.png" style="width: 80%; min-width: 300px;"></div>
+        <div class="center">↑こういうやつ</div>
+        <p>
+          "construction"(構築), "equipment"(所持品), "items"(アイテム), "nature"(性質)から選んでください。
+          また、新しく増やせません。
+        </p>
+      </details>
+      <p style="margin-bottom: 0;">
+        <b>(※3)</b>　壊すのにかかる時間を秒数で指定します。<br>
+        <b>(※4)</b>　ブロックの爆発耐性を小数で指定します。<br>
+        <b>(※5)</b>　ブロックを壊したときにドロップするアイテムを決める、ルートテーブルを指定します。
+      </p>
+      <details><summary>詳細</summary>
+        <p>
+          今回はこのブロックをドロップするようにします。<br>
+          loot_tablesフォルダの中にblocksフォルダを作り、その中にsimple_block.jsonを新規作成します。
+          ファイルの名前は自由です(ブロックのJSONでも名前を変えてください)。
+        </p>
+        <div class="pDat">Dat</div><div class="dir">loot_tables/blocks/simple_block.json</div>
+        <div class="jsonDiv">
+          <button onclick="copyToClipboard('lootTable:div')">コピー</button>
+          <textarea class="copyBoard" id="lootTable" cols="5" rows="5" readonly></textarea>
+          <div class="json">{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "ex:simple_block",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}</div>
+        </div>
+        <div class="center">
+          <div class="colorBox gray_box">
+            ビヘイビアパック<br>
+            ┣ manifest.json<br>
+            ┣ pack_icon.png<br>
+            ┗ loot_tables<br>
+            　 ┗ blocks<br>
+            　 　 ┗ <b>simple_block.json</b>
+          </div>
+        </div>
+        <p>
+          詳しい作り方は：<a href="MCBE-A_lootTables.html" target="_blank">ルートテーブルの作り方</a> <img src="img/external_link_icon.png" class="text_icon">
+        </p>
+      </details>
+      <hr>
+      <h3 id="sec01sec02">ビヘイビアは完成</h3>
+      <p>
+        あとはこの記事(<a href="MCBE-A_basic02.html">アドオンづくりの基礎#2</a>)の
+        「<a href="MCBE-A_basic02.html#sec01sec06">圧縮</a>」以降の手順になります。
+      </p>
+      <div id="sec02" class="headline" style="border-color: #31af37;">リソース</div>
+      <h3 id="sec02sec01">テクスチャを用意</h3>
+      <p>
+        <b>リソースパック</b>の<b>textures</b>フォルダ(なければ新規作成)の中に<b>blocks</b>フォルダを作ります。<br>
+        その中にテクスチャファイルを入れてください。今回は「simple_block.png」であるとします。
+      </p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ textures<br>
+          　 　 ┗ blocks<br>
+          　 　 　 ┗ <b>simple_block.png</b>
+        </div>
+      </div>
+      <hr>
+      <h3 id="sec02sec02">テクスチャにIDをつける</h3>
+      <p>リソースパックのtexturesフォルダ内に<b>terrain_texture.json</b>を新規作成します。名前は決まっています。</p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ textures<br>
+          　 　 ┣ <b>terrain_texture.json</b><br>
+          　 　 ┗ blocks<br>
+          　 　 　 ┗ simple_block.png
+        </div>
+      </div>
+      <div class="pRes">Res</div><div class="dir">textures/terrain_textures.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('terrain:div')">コピー</button>
+        <textarea class="copyBoard" id="terrain" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "num_mip_levels": 4,
+  "padding": 8,
+  "resource_pack_name": "vanilla",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    "simple_block": { "textures": "textures/blocks/simple_block" }
+  }
+}</div>
+      </div>
+      <h4>内容の意味</h4>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "num_mip_levels": 4,
+  "padding": 8,
+  "resource_pack_name": "vanilla",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    "~#M(83ffd9)(テクスチャのID)M#~": { "textures": "textures/blocks/~#M(83ffd9)(テクスチャ名)M#~" }
+  }
+}</div>
+      </div>
+      <p>上の4行はコピペしたまま気にしなくていいです。</p>
+      <hr>
+      <h3 id="sec02sec03">ブロックにテクスチャを貼る</h3>
+      <p>リソースパックのmanifest.jsonと同じ層に<b>blocks.json</b>を新規作成します。名前は決まっています。</p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┣ <b>blocks.json</b><br>
+          　 ┗ textures<br>
+          　 　 ┣ terrain_texture.json<br>
+          　 　 ┗ blocks<br>
+          　 　 　 ┗ simple_block.png
+        </div>
+      </div>
+      <div class="pRes">Res</div><div class="dir">blocks.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('blocks:div')">コピー</button>
+        <textarea class="copyBoard" id="blocks" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": [ 1, 1, 0 ],
+  "ex:simple_block": {
+    "sound": "glass",
+    "textures": "simple_block"
+  }
+}</div>
+      </div>
+      <h4>内容の意味</h4>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": [ 1, 1, 0 ],
+  "~#M(83ffd9)(ブロックのフルID)M#~": {
+    "sound": ~#M(83ffd9)"glass"M#~, // (※7)
+    "textures": "~#M(83ffd9)(テクスチャのID)M#~"
+  }
+}</div>
+      </div>
+      <p style="margin-bottom: 0;"><b>(※7)</b>　このブロックに関する基礎のサウンド(破壊、設置など)を決めます。</p>
+      <details><summary>ここから選択</summary>
+        <div class="center">
+          <div class="fit-scroll-box" style="display: inline-block;">
+            <table border="1">
+              <tr><th>ID</th><th>名前</th></tr>
+              <tr><td>amethyst_block</td><td>アメジストのブロック<img src="img/amethyst_block.png" class="ignore text_icon"></td></tr>
+              <tr><td>amethyst_cluster</td><td>アメジストのかたまり<img src="img/amethyst_cluster.png" class="ignore text_icon"></td></tr>
+              <tr><td>ancient_debris</td><td>古代のがれき</td></tr>
+              <tr><td>anvil</td><td>金床</td></tr>
+              <tr><td>azalea</td><td>ツツジ</td></tr>
+              <tr><td>azalea_leaves</td><td>ツツジの葉っぱ</td></tr>
+              <tr><td>bamboo</td><td>竹</td></tr>
+              <tr><td>bamboo_sapling</td><td>たけのこ</td></tr>
+              <tr><td>basalt</td><td>玄武岩</td></tr>
+              <tr><td>big_dripleaf</td><td>大きなドリップリーフ</td></tr>
+              <tr><td>bone_block</td><td>骨ブロック</td></tr>
+              <tr><td>calcite</td><td>方解石<img src="img/calcite.png" class="ignore text_icon"></td></tr>
+              <tr><td>candle</td><td>キャンドル</td></tr>
+              <tr><td>cave_vines</td><td>洞窟のつた<img src="img/cave_vines_body.png" class="ignore text_icon"></td></tr>
+              <tr><td>chain</td><td>チェーン</td></tr>
+              <tr><td>cloth</td><td>ウール</td></tr>
+              <tr><td>comparator</td><td>レッドストーンコンパレーター</td></tr>
+              <tr><td>copper</td><td>銅のブロック</td></tr>
+              <tr><td>coral</td><td>サンゴのブロック</td></tr>
+              <tr><td>deepslate</td><td>ディープスレート</td></tr>
+              <tr><td>deepslate_bricks</td><td>ディープスレートレンガ</td></tr>
+              <tr><td>dirt_with_roots</td><td>根のついた土</td></tr>
+              <tr><td>dripstone_block</td><td>ドリップストーンブロック<img src="img/dripstone_block.png" class="ignore text_icon"></td></tr>
+              <tr><td>fungus</td><td>(きのこ (ネザー))<img src="img/crimson_fungus.png" class="ignore text_icon"><img src="img/warped_fungus.png" class="ignore text_icon"></td></tr>
+              <tr><td>glass</td><td>ガラス</td></tr>
+              <tr><td>grass</td><td>草ブロック</td></tr>
+              <tr><td>gravel</td><td>砂利</td></tr>
+              <tr><td>hanging_roots</td><td>ぶら下がる根っこ</td></tr>
+              <tr><td>honey_block</td><td>ハチのブロック<br>(ハチミツブロック)</td></tr>
+              <tr><td>itemframe</td><td>額縁</td></tr>
+              <tr><td>ladder</td><td>ハシゴ</td></tr>
+              <tr><td>lantern</td><td>ランタン</td></tr>
+              <tr><td>large_amethyst_bud</td><td>大きなアメジストの芽<img src="img/large_amethyst_bud.png" class="ignore text_icon"></td></tr>
+              <tr><td>lodestone</td><td>ロデストーン<br>(ロードストーン)</td></tr>
+              <tr><td>medium_amethyst_bud</td><td>普通のアメジストの芽<img src="img/medium_amethyst_bud.png" class="ignore text_icon"></td></tr>
+              <tr><td>metal</td><td>(金属ブロック)</td></tr>
+              <tr><td>moss_block</td><td>こけブロック</td></tr>
+              <tr><td>moss_carpet</td><td>こけカーペット</td></tr>
+              <tr><td>nether_brick</td><td>ネザーレンガのブロック</td></tr>
+              <tr><td>nether_gold_ore</td><td>ネザーゴールド鉱石</td></tr>
+              <tr><td>nether_sprouts</td><td>ネザースプラウト<img src="img/nether_sprouts.png" class="ignore text_icon"></td></tr>
+              <tr><td>nether_wart</td><td>ネザーウォート</td></tr>
+              <tr><td>netherite</td><td>ネザライトのブロック</td></tr>
+              <tr><td>netherrack</td><td>ネザーレック(ネザーラック)</td></tr>
+              <tr><td>nylium</td><td>(ニリウム(ナイリウム))</td></tr>
+              <tr><td>pointed_dripstone</td><td>尖ったドリップストーン<img src="img/pointed_dripstone_down_tip.png" class="ignore text_icon"></td></tr>
+              <tr><td>powder_snow</td><td>粉雪</td></tr>
+              <tr><td>roots</td><td>(根(ネザー))</td></tr>
+              <tr><td>sand</td><td>砂</td></tr>
+              <tr><td>scaffolding</td><td>足場</td></tr>
+              <tr><td>sculk</td><td>スカルク</td></tr>
+              <tr><td>sculk_catalyst</td><td>スカルクカタリスト</td></tr>
+              <tr><td>sculk_sensor</td><td>スカルクセンサー</td></tr>
+              <tr><td>sculk_shrieker</td><td>スカルクシュリーカー</td></tr>
+              <tr><td>sculk_vein</td><td>スカルクヴェイン</td></tr>
+              <tr><td>shroomlight</td><td>シュルームライト</td></tr>
+              <tr><td>slime</td><td>スライムブロック</td></tr>
+              <tr><td>small_amethyst_bud</td><td>小さなアメジストの芽<img src="img/small_amethyst_bud.png" class="ignore text_icon"></td></tr>
+              <tr><td>snow</td><td>雪</td></tr>
+              <tr><td>soul_sand</td><td>ソウルサンド</td></tr>
+              <tr><td>soul_soil</td><td>魂の土壌(ソウルソイル)</td></tr>
+              <tr><td>spore_blossom</td><td>スポアブロッサム<img src="img/spore_blossom.png" class="ignore text_icon"></td></tr>
+              <tr><td>stem</td><td>幹(ネザー)</td></tr>
+              <tr><td>stone</td><td>石</td></tr>
+              <tr><td>sweet_berry_bush</td><td>スイートベリーの茂み</td></tr>
+              <tr><td>tuff</td><td>凝灰岩<img src="img/tuff.png" class="ignore text_icon"></td></tr>
+              <tr><td>vines</td><td>ツタ</td></tr>
+              <tr><td>wood</td><td>(木材)</td></tr>
+            </table>
+          </div>
+        </div>
+      </details>
+      <hr>
+      <h3 id="sec02sec04">表示用の名前</h3>
+      <p>最後に、インベントリ内などで表示する名前を指定します。</p>
+      <p>リソースパックのmanifest.jsonと同じ層のtextsフォルダにあるja_JP.langファイルを編集します(なかったら新規作成、名前は固定)。</p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┣ blocks.json<br>
+          　 ┣ <b>texts</b><br>
+          　 ┃ ┗ <b>ja_JP.lang</b><br>
+          　 ┗ textures<br>
+          　 　 ┣ terrain_texture.json<br>
+          　 　 ┗ blocks<br>
+          　 　 　 ┗ simple_block.png
+        </div>
+      </div>
+      <p>中には以下の行を追加します。</p>
+      <div class="langdiv"><span class="hljs-attr">tile.ex:simple_block.name</span>=<span class="hljs-string">シンプルなブロック</span></div>
+      <h4>内容の意味</h4>
+      <div class="langdiv"><span class="hljs-attr">tile.<span style="background-color: #83ffd9; color: #5f5e4e;">(ブロックのフルID)</span>.name</span>=<span style="background-color: #83ffd9; color: #5f5e4e;">(表示する名前)</span></div>
+      <hr>
+      <h3 id="sec02sec05">リソースも完成</h3>
+      <p>
+        あとはこの記事(<a href="MCBE-A_basic02.html">アドオンづくりの基礎#2</a>)の
+        「<a href="MCBE-A_basic02.html#sec01sec06">圧縮</a>」以降の手順になります。
+      </p>
+      <div id="sec03" class="headline" style="border-color: #587eff;">完成！</div>
+      <p>
+        作ったパックを<b>両方ともインポート</b>して確認してみましょう！<br>
+        以下のことに気をつけてください：
+      </p>
+      <ul style="line-height: 2em;">
+        <li>ワールドの設定で「試験的なゲームプレイ」をオンにする</li>
+        <li>ビヘイビアパックとリソースパックの両方を忘れずに適用する</li>
+      </ul>
+      <div id="sec04" class="headline" style="border-color: #587eff;">二つ目以降のブロックの追加のしかた</div>
+      <p>ファイル自体を増やすのか、ファイルの中身を増やすのかに注意してください。</p>
+      <h3 id="sec04sec01">ブロック本体(ビヘイビア)</h3>
+      <p>ファイル自体をまたblocksフォルダ内に新規作成してください。</p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          ビヘイビア<br>
+          　 ┣ pack_icon.png<br>
+          　 ┣ manifest.json<br>
+          　 ┗ blocks<br>
+          　 　 ┣ simple_block.json<br>
+          　 　 ┣ <b>myblock_2.json</b><br>
+          　 　 ：<br>
+          　 　 ┗ <b>myblock_n.json</b>
+        </div>
+      </div>
+      <h3 id="sec04sec02">テクスチャにIDをつける(リソース、terrain_texture.json)</h3>
+      <p>ファイルの中身に書き加えていきます。カンマ( , )の忘れには気をつけてください。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "num_mip_levels": 4,
+  "padding": 8,
+  "resource_pack_name": "vanilla",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    "simple_block": { "textures": "textures/blocks/simple_block" },
+    ~#r"myblock_2": { "textures": "textures/blocks/myblock_2" }r#~
+  }
+}</div>
+      </div>
+      <h3 id="sec04sec03">ブロックにテクスチャを貼る(リソース、blocks.json)</h3>
+      <p>こちらもファイルの中身に書き加えていきます。カンマ( , )の忘れには気をつけてください。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": [ 1, 1, 0 ],
+  "ex:simple_block": {
+    "sound": "glass",
+    "textures": "simple_block"
+  }~#M(83ffd9),M#~
+  ~#r"ex:myblock_2": {
+%%  "sound": "gravel",
+%%  "textures": "myblock_2"
+%%}r#~
+}</div>
+      </div>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">ビヘイビア</a></h4>
+        <ul>
+          <li><a href="#sec01sec01">ブロックの本体を作る</a></li>
+          <li><a href="#sec01sec02">ビヘイビアは完成</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec02">リソース</a></h4>
+        <ul>
+          <li><a href="#sec02sec01">テクスチャを用意</a></li>
+          <li><a href="#sec02sec02">テクスチャにIDをつける</a></li>
+          <li><a href="#sec02sec03">ブロックにテクスチャを貼る</a></li>
+          <li><a href="#sec02sec04">表示用の名前</a></li>
+          <li><a href="#sec02sec05">リソースも完成</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec03">完成！</a></h4>
+        <hr>
+        <h4><a href="#sec04">二つ目以降のブロックの追加のしかた</a></h4>
+        <ul>
+          <li><a href="#sec04sec01">ブロック本体</a></li>
+          <li><a href="#sec04sec02">テクスチャにIDをつける</a></li>
+          <li><a href="#sec04sec03">ブロックにテクスチャを貼る</a></li>
+        </ul>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

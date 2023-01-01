@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】アドオンづくりの基礎#1 - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="アドオン作りのための環境について説明します！" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, 作り方">
+  <meta name="description" content="アドオン作りのための環境について説明します！">
+  <title>【Minecraft BE(統合版)】アドオンづくりの基礎#1 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">アドオンづくりの基礎#1</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <div id="sec01" class="headline" style="border-color: #587eff;">アドオンについて</div>
+      <p>
+        こちらの記事で、アドオンについてよくありそうな疑問について書いています
+      </p>
+      <div class="question">？</div>
+      <a href="MCBE-A_forBeginner.html" target="_blank">アドオンを作るひとへ</a>
+      <img src="img/external_link_icon.png" class="ignore text_icon"><br>
+      <div id="sec02" class="headline" style="border-color: #587eff;">アドオン作りに必要なもの</div>
+      <p>
+        ぜんぶ無料で手に入ると思います。そして、パソコンでもスマホでもできます。
+      </p>
+      <h3 id="sec02sec01">● ファイルエクスプローラ</h3>
+      <div class="center"><img src="img/MCBE-A_basic01_01.png" style="width: 80%; min-width: 300px;"></div>
+      <b>・PC</b>
+      <p>
+        画像や動画、テキストファイルなど、スマホやパソコンのデータを整理するやつです。パソコンなら<b>標準搭載のファイルエクスプローラで十分</b>だと思います。
+      </p>
+      <b>・スマホ</b>
+      <p>
+        しかし、スマホは標準搭載のものだと<b>うまくファイルを扱えなかったりする</b>ので、アプリをインストールすることをおすすめします。<br>
+        Androidでのオススメ：「<a href="https://play.google.com/store/apps/details?id=com.alphainventor.filemanager">ファイルマネージャー</a>」
+      </p>
+      <div class="center">
+        <div class="colorBox warning">
+          <p>
+            パソコンの場合、ひとつ設定しておきたいことがあります。<br>
+            左上の「<b>表示</b>」を押して出てきたメニューの中にある「<b>ファイル名拡張子</b>」にチェックをつけておきましょう。
+          </p>
+        </div>
+      </div>
+      <h3 id="sec02sec02">● テキストエディタ</h3>
+      <div class="center"><img src="img/MCBE-A_basic01_02.png" style="width: 80%; min-width: 300px;"></div>
+      <p>
+        パソコンで言うところのメモ帳のようなものです。ただ、<b>メモ帳でもできるけどめちゃくちゃ不便</b>なので、プログラミング向けのようなテキストエディタを入手することをおすすめします。<br>
+        以下の機能を目安に探してみてください。「あるとうれしい機能」となるとスマホのアプリではなかなかなかったり、重かったりします。
+      </p>
+      <div class="center">
+        <div class="colorBox blue_box">
+          <p style="margin: 1em 0;"><b>最低限あったほうがいい機能</b></p>
+          <ul>
+            <li>行番号</li>
+            <li>文字列の検索機能</li>
+            <li>画面の右端で勝手にテキストを折り返し(ワードラップ)しない</li>
+          </ul>
+          <p style="margin: 1em 0 0 0;"><b>あるとうれしい機能</b></p>
+          <ul>
+            <li>「{ }」のはじまりと終わりを点線などで繋いでくれる</li>
+            <li>ハイライト(構文にあわせて色分けする機能)設定で「JSON」がある</li>
+            <li>「{ }」の組で中身を折り畳んで表示できる</li>
+            <li>構文ミスを指摘してくれる</li>
+          </ul>
+        </div>
+      </div>
+      <p>
+        Androidでのオススメ：「<a href="https://play.google.com/store/apps/details?id=com.rhmsoft.edit">QuickEdit</a>」または「<a href="https://play.google.com/store/apps/details?id=com.rhmsoft.code">コードエディター</a>」<br>
+        PCでのオススメ：「<a href="https://code.visualstudio.com/download">Visual Studio Code</a>」
+      </p>
+      <h3 id="sec02sec03">● テンプレート</h3>
+			<p>
+			  公式が配布しているアドオンのテンプレートです。何も変更や追加を加えていない、いわゆるバニラのデータがだいたいすべて入っています。
+      </p>
+      <p>
+			  ここで手に入ります→<a href="https://www.minecraft.net/ja-jp/addons/">公式サイト</a>
+			</p>
+			<div class="center"><img src="img/MCBE-A_basic01_03.png" style="width: 80%; min-width: 300px;"></div>
+      <p>
+        マインクラフト本体がアップデートすると、適宜この<b>テンプレートも新しいバージョン向けに更新される</b>ので、
+        <b>アップデートのたびに新しくすることをおすすめします</b>。
+      </p>
+      <p>
+        このテンプレートを手に入れたら<b>解凍しておきましょう</b>。
+        コピペのコピー元として使うぐらいなのでどこでもいいですが、分かりやすいところにしましょう。
+      </p>
+      <p>
+        <b>今後、なんの前置きもなしに「テンプレート」といったらこれのことを指します。覚えてください。</b>
+      </p>
+			<p>
+        そして、ビヘイビア(behavior)のほうには「documentation」フォルダの中に.htmlファイルが入っていると思いますが、アドオンの説明書みたいなものです。
+        <b>この説明書を「リファレンス」と呼ぶのでそちらも覚えておいてください。</b>
+			</p>
+      <h3 id="sec02sec04">● ペイントツール</h3>
+      <p>
+        テクスチャを描くならば必要です。ドット絵が描ければなんでもいいと思います。
+      </p>
+      <h3 id="sec02sec05">● やる気と根性</h3>
+      <p>
+        アドオン作りはなかなか思い通りにいかないです。そして、ミスをしたときにどこでミスをしたのかわかりづらいので、それを探す根性がいります。
+      </p>
+      <div id="sec03" class="headline" style="border-color: #587eff;">前提知識</div>
+      <p>
+        エクスプローラを使う際の「<b>ファイル</b>」「<b>フォルダ</b>」「<b>ファイルパス</b>」「<b>解凍</b>」「<b>圧縮</b>」「<b>拡張子</b>」は何だかわかるようにしておきましょう。
+      </p>
+      <p>
+        ここで、拡張子について一つ明確にしておきます。このサイトでは例えば「zombie.json」なら「zombie」の部分を<b>ファイル名</b>、「.json」または「json」の部分を<b>拡張子</b>と呼びます。
+        「zombie.json」のファイル名を例えば「my_entity」にする場合に「.json」は消さないということです。
+      </p>
+      <p>
+        あとは以下のマイクラ用語を知らないと多くの解説が通じないと思います。
+      </p>
+      <h4>● テクスチャ</h4>
+      <p>
+        ブロックやモブ、アイテムなどの<b>見た目</b>のことです。
+      </p>
+      <h4>● エンティティ</h4>
+      <p>
+        <b>エンティティのほとんどはモブ</b>です。例えば、<b>ゾンビやスケルトン、村人やプレイヤーなどのモブである生き物はすべてエンティティ</b>です。しかし、コマンドをやっているひとならば詳しいと思いますが、生き物以外にもエンティティと分類されるものがあります。例えば、<b>矢、防具立て、トロッコ、ガストの火の玉、落下中のブロック、エンドクリスタル</b>……などなど、<b>/killコマンドが通用するものはすべてエンティティ</b>となります。
+      </p>
+      <div style="height: 150px; position: relative;">
+        <div style="width: fit-content; position: absolute; right: 2em; top: 50%; transform: translateY(-50%);">
+          <a href="MCBE-A_basic02.html">アドオン作りの基礎#2</a>　→
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">アドオンについて</a></h4>
+        <hr>
+        <h4><a href="#sec02">アドオン作りに必要なもの</a></h4>
+        <ul>
+          <li><a href="#sec02sec01">ファイルエクスプローラ</a></li>
+          <li><a href="#sec02sec02">テキストエディタ</a></li>
+          <li><a href="#sec02sec03">テンプレート</a></li>
+          <li><a href="#sec02sec04">ペイントツール</a></li>
+          <li><a href="#sec02sec05">やる気と根性</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec03">前提知識</a></h4>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

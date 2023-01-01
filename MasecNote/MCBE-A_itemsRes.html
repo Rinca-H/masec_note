@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】アドオン作成「アイテムのテクスチャ」 - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="アイテムのテクスチャについて解説します。" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, リソースパック, 作り方">
+  <meta name="description" content="アイテムのテクスチャについて解説します。">
+  <title>【Minecraft BE(統合版)】アドオン作成「アイテムのテクスチャ」 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">アドオン作成 - アイテムのテクスチャ</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <div id="sec01" class="headline" style="border-color: #31af37;">テクスチャの変更</div>
+      <p>
+        texturesフォルダのitemsフォルダの中に変えたいアイテムのテクスチャを入れます。
+        ファイル名はテンプレートを参照してください。
+      </p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ textures<br>
+          　 　 ┗ <b>items</b><br>
+          　 　 　 ┗ <b>〇〇.png</b>
+        </div>
+      </div>
+      <div id="sec02" class="headline" style="border-color: #31af37;">アイテムのテクスチャの仕組み</div>
+      <p>item_texture.jsonでテクスチャにIDをつけ、items.jsonまたはビヘイビアのアイテムのJSONでアイテム本体を紐づけします。</p>
+      <div id="sec03" class="headline" style="border-color: #31af37;">item_texture.jsonの基本</div>
+      <h3 id="sec03sec01">● ファイルの場所</h3>
+      <div class="center">
+        <div class="colorBox gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ <b>textures</b><br>
+          　 　 ┗ <b>terrain_texture.json</b>
+        </div>
+      </div>
+      <h3 id="sec03sec02">● 基本の構造</h3>
+      <p><span class="inline">"resource_pack_name"</span>の値はコピペしたらそのままにしておいてください。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('item_texture:div')">コピー</button>
+        <textarea class="copyBoard" id="item_texture" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "resource_pack_name": "vanilla",
+  "texture_data": {
+    ~#r"apple": { "textures": "textures/items/apple" }r#~
+  }
+}</div>
+      </div>
+      <p>
+        上の例で <span class="inline">"apple"</span>となっているところは自分で決めるテクスチャのIDです。
+        このIDのことをこのサイトでは「<b>TerrainID</b>」と呼んでいます。
+      </p>
+      <p>
+        <span class="inline">"textues"</span>の値はテクスチャのファイルパス(拡張子なし)です。
+      </p>
+      <h3 id="sec03sec03">● 紐づけするアイテムを増やす</h3>
+      <p>赤枠で囲まれた部分を以下のように増やします。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "resource_pack_name": "vanilla",
+  "texture_data": {
+    "apple": { "textures": "textures/items/apple" },
+    "diamond": { "textures": "textures/items/diamond" }
+  }
+}</div>
+      </div>
+      <p>カンマ( , )忘れに注意。</p>
+      <h3 id="sec03sec04">● 複数のテクスチャ指定</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "resource_pack_name": "vanilla",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    "bucket": {
+      "textures": [
+        "textures/items/bucket_empty",
+        "textures/items/bucket_milk",
+        "textures/items/bucket_water",
+        "textures/items/bucket_lava",
+        "textures/items/bucket_cod",
+        "textures/items/bucket_salmon",
+        "textures/items/bucket_tropical",
+        "textures/items/bucket_pufferfish",
+        "textures/items/bucket_powder_snow",
+        "textures/items/bucket_axolotl"
+      ]
+    }
+  }
+}</div>
+      </div>
+      <p><u>もともとデータ値をもっているアイテムならば</u>、上から順に<b>データ値0, 1, 2, ...のテクスチャ</b>になります。</p>
+      <p>また、別のところで何番目か選択できる場合はこのように書いて選択肢を持たせます。</p>
+      <div id="sec04" class="headline" style="border-color: #31af37;">できないこと</div>
+      <ul style="line-height: 2em;">
+        <li>テクスチャのアニメーション</li>
+        <li>半透明テクスチャ</li>
+      </ul>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">テクスチャの変更</a></h4>
+        <hr>
+        <h4><a href="#sec02">アイテムのテクスチャの変更</a></h4>
+        <hr>
+        <h4><a href="#sec03">item_texture.jsonの基本</a></h4>
+        <ul>
+          <li><a href="#sec03sec01">ファイルの場所</a></li>
+          <li><a href="#sec03sec02">基本の構造</a></li>
+          <li><a href="#sec03sec03">紐づけするアイテムを増やす</a></li>
+          <li><a href="#sec03sec04">複数のテクスチャ指定</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec04">できないこと</a></h4>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

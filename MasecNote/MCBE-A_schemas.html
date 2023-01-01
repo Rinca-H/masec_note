@@ -1,0 +1,2734 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】アドオン作成「スキーマ的なやつ」 - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="JSONの構成が分かります" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン">
+  <meta name="description" content="JSONの構成が分かります">
+  <title>【Minecraft BE(統合版)】アドオン作成「スキーマ的なやつ」 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <style type="text/css">
+    .left-full {
+      width: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left-full"><!-- ===== WARNING: THIS IS SPECIAL CLASS ===== -->
+      <h1 id="top">アドオン作成 - スキーマ的なやつ</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <div id="sec01" class="headline" style="border-color: #587eff;">このページの読み方/使い方</div>
+      <p>ここにあるJSONの全体をテンプレとしてコピペすることは推奨しません。 このJSONは最小構成でないので余計な部分を大量に含みます。</p>
+      <p>どちらかといえば、リファレンスだけでは不明瞭だったりするコンポーネントの形などを明らかにするものなので、 コンポーネント単位でコピペする分には向いています。</p>
+      <p>あとは、基本的にアルファベット順になっています。</p>
+      <h3 id="sec01sec01">● 記号</h3>
+      <p>コンポーネントなどプロパティの値はすべて、どんな値が入るかを示す以下のような記号に置き換わっています。</p>
+      <p>記号をそのままにしてマインクラフトで使うと動作しないどころかエラーになる可能性がるので注意してください。</p>
+      <details><summary>記号一覧</summary>
+        <div class="center">
+          <div class="fit-scroll-box" style="display: inline-block;">
+            <table border="1">
+              <tr><th>記号</th><th>備考</th></tr>
+              <tr><td>Str</td><td>
+                文字列<br>
+                <b>・カッコの中身</b><br>
+                <table border="1">
+                  <tr><th>記号</th><th>備考</th></tr>
+                  <tr><td>AnimId</td><td>アニメーションのID</td></tr>
+                  <tr><td>AnimCtrlId</td><td>アニメーションコントローラのID</td></tr>
+                  <tr><td>BlockId</td><td>ブロックのID</td></tr>
+                  <tr><td>BlockRef</td><td>BlockStates付きのブロックを指定する</td></tr>
+                  <tr><td>Color</td><td>16進カラーコード</td></tr>
+                  <tr><td>EntityId</td><td>エンティティのID</td></tr>
+                  <tr><td>EventName</td><td>イベント名</td></tr>
+                  <tr><td>FeatueId</td><td>フィーチャーのID</td></tr>
+                  <tr><td>GeoId</td><td>ジオメトリのID</td></tr>
+                  <tr><td>ItemId</td><td>アイテムのID</td></tr>
+                  <tr><td>LangKey</td><td>LangKey</td></tr>
+                  <tr><td>LootTablePass</td><td>ルートテーブルのファイルパス</td></tr>
+                  <tr><td>NameSpaced</td><td>ネームスペース付き文字列</td></tr>
+                  <tr><td>NoSlashCommand</td><td>スラッシュを書かないコマンド</td></tr>
+                  <tr><td>ParticleId</td><td>パーティクルID</td></tr>
+                  <tr><td>Range</td><td>範囲</td></tr>
+                  <tr><td>SlashCommand</td><td>スラッシュを書くコマンド</td></tr>
+                  <tr><td>SlotId</td><td>インベントリスロットのID</td></tr>
+                  <tr><td>SoundEvent</td><td>サウンドイベント</td></tr>
+                  <tr><td>StructureId</td><td>ストラクチャID</td></tr>
+                  <tr><td>Target</td><td>ターゲット</td></tr>
+                  <tr><td>TerrainID</td><td>TerrainID</td></tr>
+                </table>
+              </td></tr>
+              <tr><td>Int</td><td>整数<br>カッコの中身は値の範囲です</td></tr>
+              <tr><td>Float</td><td>小数<br>カッコの中身は値の範囲です</td></tr>
+              <tr><td>Bool</td><td>真偽値</td></tr>
+              <tr><td>Molang</td><td>molang</td></tr>
+              <tr><td>Obj</td><td>
+                オブジェクト<br>
+                <b>・カッコの中身</b><br>
+                <div class="section">Filter：エンティティフィルター</div>
+              </td></tr>
+              <tr><td>Array</td><td>配列型</td></tr>
+              <tr><td>〇〇-n</td><td>
+                n個の〇〇型でできた配列型<br>
+                Int-3 → [ 1, 2, 3 ] など<br>
+                Str-n → [ "a", "b", ... ] など(要素の数が自由)
+              </td></tr>
+              <tr><td>"Component": {}</td><td>任意のコンポーネント</td></tr>
+              <tr><td>"EventFunction": {}</td><td>任意のイベントファンクション</td></tr>
+            </table>
+          </div>
+        </div>
+      </details>
+      <ul style="line-height: 2em;">
+        <li>記号ではなく値が指定されている場合は、その値しか使えない/使える値がそれしか判明していないということです。</li>
+        <li>スラッシュ( / )で区切られている場合はいずれか選べるということです。</li>
+        <li>まれに「"〇〇": "値"」の「〇〇」が記号になっている場合があります。</li>
+      </ul>
+      <h3 id="sec01sec02">● コメントアウト</h3>
+      <ul style="line-height: 2em;">
+        <li>Strの右にあるものは値をその中から選ぶということです。後ろに「...」がついている場合は値の例です。詳しくはリファレンスを参照してください。</li>
+        <li>「または」と範囲コメントアウトしてあるのは直前のコンポーネントや値が別の形で書けることを示します。</li>
+        <li>「// ...」は直前の値またはプロパティが同じ内容で複数置けることを示します。「+(数値)」がある場合は既に書いてあるものに加えて書ける個数を示します。</li>
+        <li>「// (*1)」のように書いてある場合は注釈です。JSONの後にまとめて内容が示されています。</li>
+        <li>「// in 〇〇」のようにかあれている場合、フォーマットバージョンが〇〇のときの書き方を示しています。</li>
+        <li>その他のコメントアウトは本来の、コメントアウトとしての使い道がなされています。</li>
+      </ul>
+      <h3>最終更新：2021/11/26</h3>
+      <div id="sec02" class="headline" style="border-color: #587eff;">ブロックのJSON</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('block:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="block" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",~#D     D#~// or "1.19.20"
+  "minecraft:block": {
+    "description": {
+      "identifier": "Str(NameSpaced)",
+      "properties": {
+        "minecraft:direction": {},
+        "Str(NameSpaced)": "Int-n/Str-n/Bool-n"
+      }
+    },
+    ~#r"permutations": [
+%%%%  ~#b{
+%%%%%%  "components": {
+%%%%%%    "Component": {}
+%%%%%%    // ...
+%%%%%%  },
+%%%%%%  "condition": "Molang"
+%%%%%%}b#~
+%%%%  // ...
+%%%%],r#~
+    ~#r"components": {
+%%%%  "minecraft:block_light_absorption": "Int(0~15)",~#D     D#~// in "1.18.0", "minecraft:block_light_filter"
+%%%%  "minecraft:block_light_emission": "Float(0.0~1.0)/Bool",
+%%%%  <s>"minecraft:breakonpush": "Bool",</s>
+%%%%  "minecraft:breathability": "Str",~#D     D#~// "solid", "air"
+%%%%  "minecraft:crafting_table": {
+%%%%    "grid_size": 3,
+%%%%    "crafting_tags": "Str-n",
+%%%%    "custom_description": "Str"
+%%%%  },
+%%%%  "minecraft:creative_category": {
+%%%%    "category": "Str",~#D     D#~// "Items", "Construction", "Equipment", "Nature", "Command", "None"
+%%%%    "group": "Str"~#D     D#~// "itemGroup.name.stoneBrick", ...
+%%%%  },
+%%%%  "minecraft:destroy_time": "Float(0.0~)",
+%%%%  "minecraft:display_name": "Str(LangKey)/Str",
+%%%%  "minecraft:entity_collision": "Bool",~#D     D#~// in "1.18.0", "minecraft:block_collision"
+%%%%  /* または
+  "minecraft:entity_collision": {
+    "origin": "Float-3",
+    "size": "Float-3"
+  },
+  */
+%%%%  "minecraft:explosion_resistance": "Float",
+%%%%  "minecraft:flammable": {
+%%%%    "burn_odds": "Int",
+%%%%    "flame_odds": "Int"
+%%%%  },
+%%%%  "minecraft:friction": "Float",
+%%%%  "minecraft:geometry": "Str(GeoId)",
+%%%%  <s>"minecraft:immovable": "Bool",</s>
+%%%%  "minecraft:map_color": "Str(Color)",
+%%%%  ~#b"minecraft:material_instances": {
+%%%%%%  "Str": {~#D     D#~// "*", "up", "down", "north", "south", "east", "west"
+%%%%%%    "ambient_occlusion": "Bool",
+%%%%%%    "face_dimming": "Bool",
+%%%%%%    "material": "Str",~#D     D#~// "opaque", "alpha_test", "blend", "double_sided",
+%%%%%%    "texture": "Str(TerrainId)"
+%%%%%%  }
+%%%%%%  /* または
+  "Str": "Str"~#D     D#~// "*", "up", "down", "north", "south", "east", "west"
+  */
+%%%%%%},b#~
+%%%%  <s>"minecraft:onlypistonpush": "Bool",</s>
+%%%%  "minecraft:part_visibility": {
+%%%%    "rule": {
+%%%%      "Str": "Molang"
+%%%%      // ...
+%%%%    }
+%%%%  },
+%%%%  "minecraft:pick_collision": "Bool",~#D     D#~// in "1.18.0", "minecraft:aim_collision"
+%%%%  /* または
+  "minecraft:pick_collision": {
+    "origin": "Float-3"
+    "size": "Float-3"
+  },
+  */
+%%%%  ~#b"minecraft:placement_filter": {
+%%%%%%  "conditions": [
+%%%%%%    {
+%%%%%%      "allowed_faces": "Str-n",~#D     D#~// "all", "up", "down", "north", "south", "east", "west", "side"
+%%%%%%      "block_filter": "Str-n(BlockId)"
+%%%%%%      /* または
+      "block_filter": [
+        { "tags": "Molang" }
+        // ...
+      ]
+      */
+%%%%%%    }
+%%%%%%    // ...
+%%%%%%  ]
+%%%%%%},b#~
+%%%%  <s>"minecraft:preventsjumping": "Bool",</s>
+%%%%  ~#b"minecraft:random_ticking": {
+%%%%%%  "on_tick": {
+%%%%%%    "condition": "Molang",
+%%%%%%    "event": "Str(EventName)",
+%%%%%%    "range": "Int-2",
+%%%%%%    "target": "Str(Target)"
+%%%%%%  }
+%%%%%%},b#~
+%%%%  "minecraft:rotation": "Int-3",~#D     D#~// 0, 90, 180, 270
+%%%%  ~#b"minecraft:ticking": {
+%%%%%%  "looping": "Bool",
+%%%%%%  "range": "Float-2",
+%%%%%%  "on_tick": {
+%%%%%%    "condition": "Molang",
+%%%%%%    "event": "Str(EventName)",
+%%%%%%    "target": "Str(Target)"
+%%%%%%  }
+%%%%%%},b#~
+%%%%  "minecraft:unit_cube": {},
+%%%%  <s>"minecraft:unwalkable": "Bool",</s>
+%%%%  
+%%%%  // Trigger
+%%%%  "minecraft:on_fall_on": {
+%%%%    "condition": "Molang",
+%%%%    "event": "Str(EventName)",
+%%%%    "min_fall_distance": "Int",
+%%%%    "target": "Str(Target)"
+%%%%  },
+%%%%  "minecraft:on_interact": {
+%%%%    "condition": "Molang",
+%%%%    "event": "Str(EventName)",
+%%%%    "target": "Str(Target)"
+%%%%  },
+%%%%  "minecraft:on_placed": {
+%%%%    "condition": "Molang",
+%%%%    "event": "Str(EventName)",
+%%%%    "target": "Str(Target)"
+%%%%  },
+%%%%  "minecraft:on_player_placing": {
+%%%%    "condition": "Molang",
+%%%%    "event": "Str(EventName)",
+%%%%    "target": "Str(Target)"
+%%%%  },
+%%%%  "minecraft:on_player_destroyed": {
+%%%%    "condition": "Molang",
+%%%%    "event": "Str(EventName)",
+%%%%    "target": "Str(Target)"
+%%%%  },
+%%%%  "minecraft:on_step_off": {
+%%%%    "condition": "Molang",
+%%%%    "event": "Str(EventName)",
+%%%%    "target": "Str(Target)"
+%%%%  },
+%%%%  "minecraft:on_step_on": {
+%%%%    "condition": "Molang",
+%%%%    "event": "Str(EventName)",
+%%%%    "target": "Str(Target)"
+%%%%  },
+%%%%  "tag:Str": {}
+%%%%},r#~
+    ~#r"events": {
+%%%%  "Str(EventName)": {
+%%%%    "add_mob_effect": {
+%%%%      "amplifier": "Int",
+%%%%      "duration": "Float",
+%%%%      "effect": "Str",~#D     D#~// "poison", ...
+%%%%      "target": "Str(Target)"
+%%%%    },
+%%%%    "damage": {
+%%%%      "amount": "Int",
+%%%%      "target": "Str(Target)",
+%%%%      "type": "Str"~#D     D#~// "magic", ...
+%%%%    },
+%%%%    "decrement_stack": {
+%%%%      "ignore_game_mode": "Bool"
+%%%%    },
+%%%%    "die": {
+%%%%      "target": "Str(Target)"
+%%%%    },
+%%%%    "play_effect": {
+%%%%      "data": "Int",
+%%%%      "effect": "Str(ParticleId)",
+%%%%      "target": "Str(Target)"
+%%%%    },
+%%%%    "play_sound": {
+%%%%      "sound": "Str(SoundId)",
+%%%%      "target": "Str(Target)"
+%%%%    },
+%%%%    "remove_mob_effect": {
+%%%%      "effect": "Str",~#D     D#~// "poison", ...
+%%%%      "target": "Str(Target)"
+%%%%    },
+%%%%    "run_command": {
+%%%%      "command": "Str(NoSlashCommand)/Str-n(NoSlashCommand)"
+%%%%    },
+%%%%    "set_block": {
+%%%%      "block_type": "Str(BlockId)"
+%%%%    },
+%%%%    "spawn_loot": {
+%%%%      "table": "Str(LootTablePass)"
+%%%%    },
+%%%%    "set_block_at_pos": {
+%%%%      "block_offset": "Int-3",
+%%%%      "block_type": "Str(BlockId)"
+%%%%    },
+%%%%    "set_block_property": {
+%%%%      "Str(NameSpaced)": "Str/Int/Bool"
+%%%%    },
+%%%%    "swing": {},
+%%%%    "teleport": {
+%%%%      "avoid_water": "Bool",
+%%%%      "destination": "Int-3",
+%%%%      "land_on_block": "Bool",
+%%%%      "max_range": "Int-3",
+%%%%      "target": "Str(Target)"
+%%%%    },
+%%%%    "transform_item": {
+%%%%      "transform": "Str(ItemId)"
+%%%%    },
+%%%%    "trigger": {
+%%%%      "condition": "Molang",
+%%%%      "event": "Str(EventName)",
+%%%%      "target": "Str(Target)"
+%%%%    },
+%%%%    "sequence": [
+%%%%      {
+%%%%        "EventFunction": {}
+%%%%      }
+%%%%      // ...
+%%%%    ],
+%%%%    "randomize": [
+%%%%      {
+%%%%        "weight": "Int",
+%%%%        "EventFunction": {}
+%%%%      }
+%%%%      // ...
+%%%%    ]
+%%%%  }
+%%%%  // ...
+%%%%}r#~
+  }
+}</div>
+      </div>
+      <div id="sec03" class="headline" style="border-color: #587eff;">アイテムのJSON</div>
+      <p>基本的に<span class="inline">Str(Target)</span>のほとんどは<span class="inline">"holder"</span>で動作します。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('item:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="item" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "Str(NameSpaced)",
+      "category": "Str"~#D     D#~// "Items", "Construction", "Equipment", "Nature"
+    },
+    ~#r"components": {
+%%%%  "minecraft:allow_off_hand": "Bool",
+%%%%  "minecraft:armor": {
+%%%%    "protection": "Int",
+%%%%    "texture_type": "Str"~#D     D#~// "leather", "iron", "gold", "diamond", "netherite", "chain"
+%%%%  },
+%%%%  "minecrat:block": "Str(BlockId)",
+%%%%  "minecraft:block_placer": {
+%%%%    "block": "Str(BlockId)",
+%%%%    <s>"use_block_description": "Bool",</s>
+%%%%    "use_on": "Str-n(BlockId)"
+%%%%  },
+%%%%  "minecraft:can_destroy_in_creative": "Bool",
+%%%%  "minecraft:camera": {},
+%%%%  "minecraft:cooldown": {
+%%%%    "category": "Str",~#D     D#~// "ender_pearl"
+%%%%    "duration": "Int"
+%%%%  },
+%%%%  "minecraft:creative_category": {
+%%%%    "parent": "Str"~#D     D#~// "itemGroup.name.sword", ...
+%%%%  },
+%%%%  "minecraft:damage": "Int",
+%%%%  ~#b"minecraft:digger": {
+%%%%%%  "destroy_speeds": [
+%%%%%%    {
+%%%%%%      "block": "Str(BlockId)",
+%%%%%%      /* または
+      "block": { "tags": "Molang" },
+      */
+%%%%%%      "speed": "Int"
+%%%%%%    }
+%%%%%%    // ...
+%%%%%%  ],
+%%%%%%  "on_dig": {
+%%%%%%    "condition": "Molang",
+%%%%%%    "event": "Str(EventName)",
+%%%%%%    "target": "Str(Target)"
+%%%%%%  },
+%%%%%%  "use_efficiency": "Bool"
+%%%%%%},b#~
+%%%%  "minecraft:display_name": { "value": "Str(LangKey)/Str" },
+%%%%  "minecraft:durability": {
+%%%%    "damage_chance": { "min": "Int", "max": "Int" },
+%%%%    "max_durability": "Int"
+%%%%  },
+%%%%  "minecraft:dye_powder": {
+%%%%    "color": "Int"
+%%%%  },
+%%%%  "minecraft:enchantable": {
+%%%%    "slot": "Str",~#D     D#~// (*1)
+%%%%    "value": "Int"
+%%%%  },
+%%%%  "minecraft:entity_placer": {
+%%%%    "dispense_on": "Str-n(BlockId)",
+%%%%    "entity": "Str(EntityId)",
+%%%%    "use_on": "Str-n(BlockId)"
+%%%%  },
+%%%%  "minecraft:explodable": "Bool",
+%%%%  "minecraft:fertilizer": {
+%%%%    "type": "Str"~#D     D#~// "bonemeal", "rapid"
+%%%%  },
+%%%%  "minecraft:frame_count": "Int",
+%%%%  "minecraft:foil": "Bool",
+%%%%  ~#b"minecraft:food": {
+%%%%%%  "on_consume": {
+%%%%%%    "condition": "Molang",
+%%%%%%    "event": "Str(EventName)",
+%%%%%%    "target": "Str(Target)"
+%%%%%%  },
+%%%%%%  "nurtition": "Int",
+%%%%%%  "can_always_eat": "Bool",
+%%%%%%  "saturation_modifier": "Str",~#D     D#~// "poor", "low", "normal", "good", "high", "supernatural"
+%%%%%%  "using_converts_to": "Str(ItemId)"
+%%%%%%},b#~
+%%%%  "minecraft:fuel": {
+%%%%    "duration": "Int"
+%%%%  },
+%%%%  "minecraft:hand_equipped": "Bool",
+%%%%  "minecraft:icon": {
+%%%%    "frame": "Int/Molang",
+%%%%    "legacy_id": "Int",
+%%%%    "texture": "Str(TerrainId)"
+%%%%  },
+%%%%  "minecraft:ignores_permission": "Bool",
+%%%%  "minecraft:knockback_resistance": {
+%%%%    "protection": "Float(0.0~1.0)"
+%%%%  },
+%%%%  "minecraft:liquid_clipped": "Bool",
+%%%%  "minecraft:max_stack_size": "Int(~99)",
+%%%%  "minecraft:mining_speed": "Int",
+%%%%  "minecraft:mirrored_art": {},
+%%%%  "minecraft:on_use": {
+%%%%    "on_use": {
+%%%%      "condition": "Molang",
+%%%%      "event": "Str(EventName)",
+%%%%      "target": "Str(Target)"
+%%%%    }
+%%%%  },
+%%%%  "minecraft:on_use_on": {
+%%%%    "on_use_on": {
+%%%%      "condition": "Molang",
+%%%%      "event": "Str(EventName)",
+%%%%      "target": "Str(Target)"
+%%%%    }
+%%%%  },
+%%%%  ~#b"minecraft:projectile": {
+%%%%%%  "projectile_entity": "Str(EntityId)",
+%%%%%%  "minimum_critical_power": "Float",
+%%%%%%  "on_hit": {
+%%%%%%    "impact_damage": {
+%%%%%%      "catch_fire": "Bool",
+%%%%%%      "damage": "Int",
+%%%%%%      "knockback": "Bool",
+%%%%%%      "semi_random_diff_damage": "Bool"
+%%%%%%    },
+%%%%%%    "anchor": "Float",
+%%%%%%    "gravity": "Float",
+%%%%%%    "inertia": "Float",
+%%%%%%    "liquid_inertia": "Float",
+%%%%%%    "offset": "Float-3",
+%%%%%%    "power": "Float",
+%%%%%%    "reflect_on_hurt": "Bool",
+%%%%%%    "semi_random_diff_damage": "Bool",
+%%%%%%    "uncertainty_base": "Float"
+%%%%%%  }
+%%%%%%},b#~
+%%%%  "minecraft:record": {
+%%%%    "comparator_signal": "Int",
+%%%%    "duration": "Int",
+%%%%    "sound_event": "Str"~#D     D#~// (*2)
+%%%%  },
+%%%%  ~#b"minecraft:render_offsets": {
+%%%%%%  "main_hand": {
+%%%%%%    "first_person": {
+%%%%%%      "position": "Float-3",
+%%%%%%      "rotation": "Float-3",
+%%%%%%      "scale": "Float"
+%%%%%%    },
+%%%%%%    "third_person": {
+%%%%%%      "position": "Float-3",
+%%%%%%      "rotation": "Float-3",
+%%%%%%      "scale": "Float"
+%%%%%%    }
+%%%%%%  },
+%%%%%%  "off_hand": {
+%%%%%%    "first_person": {
+%%%%%%      "position": "Float-3",
+%%%%%%      "rotation": "Float-3",
+%%%%%%      "scale": "Float"
+%%%%%%    },
+%%%%%%    "third_person": {
+%%%%%%      "position": "Float-3",
+%%%%%%      "rotation": "Float-3",
+%%%%%%      "scale": "Float"
+%%%%%%    }
+%%%%%%  }
+%%%%%%},b#~
+%%%%  ~#b"minecraft:repairable": {
+%%%%%%  "repair_items": [
+%%%%%%    {
+%%%%%%      "items": "Str-n(ItemId)",
+%%%%%%      "on_repaired": {
+%%%%%%        "condition": "Molang",
+%%%%%%        "event": "Str(EventName)",
+%%%%%%        "target": "Str(Target)"
+%%%%%%      },
+%%%%%%      "repair_amount": "Float(0.0~)/Molang"
+%%%%%%    }
+%%%%%%    // ...
+%%%%%%  ]
+%%%%%%},b#~
+%%%%  "minecraft:requires_interact": "Bool",
+%%%%  ~#b"minecraft:shooter": {
+%%%%%%  "ammunition": [
+%%%%%%    {
+%%%%%%      "item": "Str(ItemId)",
+%%%%%%      "use_offhand": "Bool",
+%%%%%%      "search_inventory": "Bool",
+%%%%%%      "use_in_creative": "Bool"
+%%%%%%    }
+%%%%%%    // ...
+%%%%%%  ],
+%%%%%%  "charge_on_draw": "Bool",
+%%%%%%  "launch_power_scale": "Float",
+%%%%%%  "max_draw_duration": "Float",
+%%%%%%  "max_launch_power": "FLoat",
+%%%%%%  "scale_power_by_draw_duration": "Bool"
+%%%%%%},b#~
+%%%%  "minecraft:should_despawn": "Bool",
+%%%%  "minecraft:stacked_by_data": "Bool",
+%%%%  "minecraft:throwable": {
+%%%%    "do_swing_animation": "Bool",
+%%%%    "launch_power_scale": "Float",
+%%%%    "max_draw_duration": "Float",
+%%%%    "max_launch_power": "Float",
+%%%%    "min_draw_duration": "Float",
+%%%%    "scale_power_by_draw_duration": "Bool"
+%%%%  },
+%%%%  "minecraft:use_animation": "Str",~#D     D#~// "eat", "drink", "bow", "spear", "crossbow"
+%%%%  "minecraft:use_duration": "Float",
+%%%%  ~#b"minecraft:weapon": {
+%%%%%%  "on_hurt_entity": {
+%%%%%%    "condition": "Molang",
+%%%%%%    "event": "Str(EventName)",
+%%%%%%    "target": "Str(Target)"
+%%%%%%  },
+%%%%%%  "on_hit_block": {
+%%%%%%    "condition": "Molang",
+%%%%%%    "event": "Str(EventName)",
+%%%%%%    "target": "Str(Target)"
+%%%%%%  },
+%%%%%%  "on_not_hurt_entity": {
+%%%%%%    "condition": "Molang",
+%%%%%%    "event": "Str(EventName)",
+%%%%%%    "target": "Str(Target)"
+%%%%%%  }
+%%%%%%},b#~
+%%%%  "minecraft:wearable": {
+%%%%    "dispensable": "Bool",
+%%%%    "slot": "Str(SlotId)"
+%%%%  },
+%%%%  "tag:Str": {}
+%%%%},r#~
+    ~#r"events": {
+%%%%  "EventName": {
+%%%%    "add_mob_effect": {
+%%%%      "amplifier": "int",
+%%%%      "duration": "Int",
+%%%%      "effect": "Str",~#D     D#~// "poison", ...
+%%%%      "target": "Str(Target)"
+%%%%    },
+%%%%    "damage": {
+%%%%      "amount": "Int",
+%%%%      "target": "Str(Target)",
+%%%%      "type": "Str"~#D     D#~// "magic", ...
+%%%%    },
+%%%%    "decrement_stack": {
+%%%%      "ignore_game_mode": "Bool"
+%%%%    },
+%%%%    "die": {
+%%%%      "target": "Str(Target)"
+%%%%    },
+%%%%    "play_effect": {
+%%%%      "data": "Int",
+%%%%      "effect": "Str(ParticleId)",
+%%%%      "target": "Str(Target)"
+%%%%    },
+%%%%    "play_sound": {
+%%%%      "sound": "SoundId",
+%%%%      "target": "Str(Target)"
+%%%%    },
+%%%%    "run_command": {
+%%%%      "command": "Str-n(NoSlashCommand)/Str(NoSlashCommand)",
+%%%%      "target": "Str(Target)"
+%%%%    },
+%%%%    "randomize": [
+%%%%      {
+%%%%        "weight": "Int",
+%%%%        "EventFunction": {}
+%%%%      }
+%%%%      // ...
+%%%%    ],
+%%%%    "remove_mob_effect": {
+%%%%      "effect": "Str",~#D     D#~// "poison", ...
+%%%%      "target": "Str(Target)"
+%%%%    },
+%%%%    "sequence": [
+%%%%      {
+%%%%        "EventFunction": {}
+%%%%      }
+%%%%      // ...
+%%%%    ],
+%%%%    "shoot": {
+%%%%      "angle_offset": "Int",
+%%%%      "launch_power": "Int",
+%%%%      "projectile": "Str(EntityId)"
+%%%%    },
+%%%%    "swing": {},
+%%%%    "teleport": {
+%%%%      "avoid_water": "Bool",
+%%%%      "destination": "Int-3",
+%%%%      "land_on_block": "Bool",
+%%%%      "max_range": "Int-3",
+%%%%      "target": "Str(Target)"
+%%%%    },
+%%%%    "transform_item": {
+%%%%      "transform": "Str(ItemId)"
+%%%%    },
+%%%%    "trigger": {
+%%%%      "condition": "Molang",
+%%%%      "event": "Str(EventName)",
+%%%%      "target": "Str(Target)"
+%%%%    }
+%%%%  }
+%%%%  // ...
+%%%%}r#~
+  }
+}</div>
+      </div>
+      <p>
+        (*1)："all", "sword", "bow", "pickaxe", "axe", "hoe", "shovel", "armor_head", "armor_torso", "armor_legs", "armor_feet", "elytra", "carrot_stick", "fising_rod", "flintsteel", "shears", "cometic_head"
+      </p>
+      <p>
+        (*2)："11", "13", "cat", "chirp", "blocks", "far", "mall", "mellohi", "pigstep", "stall", "strad", "wait", "ward"
+      </p>
+      <div id="sec04" class="headline" style="border-color: #587eff;">エンティティのJSON(ビヘイビア)</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('entity_Dat:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="entity_Dat" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.17.20",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "Str(NameSpaced)",
+      "is_spawnable": "Bool",
+      "is_summonable": "Bool",
+      "is_experimental": "Bool",
+      "runtime_identifier": "Str(EntityId)",
+      "scripts": {
+        "animate": "Str-n"
+      },
+      "animations": {
+        "Str": "Str(AnimCtrlId)"
+      }
+    },
+    ~#r"component_groups": {
+%%%%  "Str": {
+%%%%    "Component": {}
+%%%%    // ...
+%%%%  }
+%%%%  // ...
+%%%%},r#~
+    ~#r"components": {
+%%%%  ~#b/* コンポーネント中によくある「entity_types」の形
+"Component": {
+  "entity_types": {
+    "filters": "Obj(Filter)/Obj-n(Filter)",
+    "max_dist": "Float",
+    "must_see": "Bool",
+    "must_see_forget_duration": "Float",
+    "sprint_speed_multiplier": "Float",
+    "walk_speed_multiplier": "Float"
+  }
+  // ...
+},
+*/b#~
+%%%%  // AI Goals
+%%%%  "minecraft:behavior.defend_trusted_target": {
+%%%%    "aggro_sound": "Str(SoundEvent)",
+%%%%    "attack_interval": "Int",
+%%%%    "entity_types": { /*(上記参照)*/ },
+%%%%    "must_see": "Bool",
+%%%%    "must_see_forget_duration": "Float",
+%%%%    "on_defend_start": {
+%%%%      "event":"Str(EventName)",
+%%%%      "target": "Str(Target)"
+%%%%    },
+%%%%    "sound_chance": "Float",
+%%%%    "within_radius": "Float"
+%%%%  },
+%%%%  "minecraft:behavior.drink_potion": {
+%%%%    "speed_modifier": "Float",
+%%%%    "potions": [
+%%%%      {
+%%%%        "chance": "Float",
+%%%%        "filters": "Obj(Filter)/Obj-n(Filter)",
+%%%%        "id": "Int"
+%%%%      }
+%%%%      // ...
+%%%%    ]
+%%%%  },
+%%%%  "minecraft:behavior.knockback_roar": {
+%%%%    "attack_time": "Float",
+%%%%    "cooldown_time": "Float",
+%%%%    "damage_filters": "Obj(Filter)",
+%%%%    "duration": "Float",
+%%%%    "knockback_damage": "Int",
+%%%%    "knockback_filters": "Obj(Filter)",
+%%%%    "knockback_horizontal_strength": "Int",
+%%%%    "knockback_range": "Int",
+%%%%    "knockback_vertical_strength": "Int",
+%%%%    "on_roar_end": {
+%%%%      "event": "Str(EventName)"
+%%%%    }
+%%%%  },
+%%%%  "minecraft:behavior.random_hover": {
+%%%%    "hover_height": "Int-2",
+%%%%    "interval": "Int",
+%%%%    "speed_multiplier": "Float",
+%%%%    "xz_dist": "Int",
+%%%%    "y_dist": "Int",
+%%%%    "y_offset": "Float"
+%%%%  },
+%%%%  "minecraft:behavior.send_event": {
+%%%%    "cast_duration": "Float",
+%%%%    "look_at_target": "Bool",
+%%%%    "sequence": [
+%%%%      {
+%%%%        "base_delay": "Float",
+%%%%        "event": "Str(EventName)",
+%%%%        "sound_event": "Str(SoundEvent)"
+%%%%      }
+%%%%      // ...
+%%%%    ]
+%%%%  },
+%%%%  /* または
+  "minecraft:behavior.send_event": {
+    "event_choices": [
+      {
+        "min_activation_range": "Float",
+        "max_activation_range": "Float",
+        "cooldown_time": "FLoat",
+        "cast_duration": "Float",
+        "particle_color": "Str(Color)",
+        "weight": "Int",
+        "filters": "Obj(Filter)/Obj-n(Filter)",
+        "start_sound_event": "Str(SoundEvent)",
+        "sequence": [
+          {
+            "base_delay":"Float",
+            "event": "Str(EventName)",
+            "sound_event": "Str(SoundEvent)"
+          }
+          // ...
+        ]
+      }
+      // ...
+    ]
+  },
+  */
+%%%%  "minecraft:behavior.summon_entity": {
+%%%%    "summon_choices": [
+%%%%      {
+%%%%        "cast_duration": "Float",
+%%%%        "cooldown_time": "Float",
+%%%%        "do_casting": "Bool",
+%%%%        "filters": "Obj(Filter)/Obj-n(Filter)",
+%%%%        "max_activation_range": "Float",
+%%%%        "min_activation_range": "Float",
+%%%%        "particle_color": "Int",
+%%%%        "sequence": [
+%%%%          {
+%%%%            "base_delay": "Float",
+%%%%            "delay_per_summon": "Float",
+%%%%            "entity_lifespan": "Float",
+%%%%            "entity_type": "Str(EntityId)",
+%%%%            "num_entities_spawned": "Int",
+%%%%            "shape": "Str",~#D     D#~// "circle", "line"
+%%%%            "size": "Float",
+%%%%            "sound_event": "Str(SoundEvent)",
+%%%%            "summon_cap": "Int",
+%%%%            "summon_cap_radius": "Float",
+%%%%            "target": "Str(Target)"
+%%%%          }
+%%%%          // ...
+%%%%        ],
+%%%%        "start_sound_event": "Str(SoundEvent)",
+%%%%        "weight": "Int"
+%%%%      }
+%%%%      // ...
+%%%%    ]
+%%%%  },
+%%%%  // Components
+%%%%  "minecraft:area_attack": {
+%%%%    "cause": "Str",~#D     D#~// "contact"
+%%%%    "damage_range": "Float",
+%%%%    "damage_per_tick": "Int",
+%%%%    "entity_filter": { /*(上記参照)*/ }
+%%%%  },
+%%%%  "minecraft:block_sensor": {
+%%%%    "sensor_radius": "Int",
+%%%%    "on_break": [
+%%%%      {
+%%%%        "block_list": "Str-n(BlockId)",
+%%%%        "on_block_broken": "Str(EventName)"
+%%%%      }
+%%%%      // ...
+%%%%    ]
+%%%%  },
+%%%%  "minecraft:boostable": {
+%%%%    "boost_items": [
+%%%%      {
+%%%%        "damage": "Int",
+%%%%        "item": "Str(ItemId)",
+%%%%        "replace_item": "Str(ItemId)"
+%%%%      }
+%%%%      // ...
+%%%%    ],
+%%%%    "duration": "Float",
+%%%%    "speed_multiplier": "Float"
+%%%%  },
+%%%%  "minecraft:break_blocks": {
+%%%%    "breakable_blocks": "Str-n(BlockId)"
+%%%%  },
+%%%%  "minecraft:breedable": {
+%%%%    "allow_sitting": "Bool",
+%%%%    "blend_attributes": "Bool",
+%%%%    "breed_cooldown": "Float",
+%%%%    "breed_items": "Str-n(ItemId)",
+%%%%    "breeds_with": [
+%%%%      {
+%%%%        "baby_type": "Str(EntityId)",
+%%%%        "breed_event": {
+%%%%          "event": "Str(EventName)",
+%%%%          "target": "Str(Target)"
+%%%%        },
+%%%%        "mate_type": "Str(EntityId)"
+%%%%      }
+%%%%      // ...
+%%%%    ],
+%%%%    "causes_pregnancy": "Bool",
+%%%%    "deny_parents_variant": {
+%%%%      "chance": "Float",
+%%%%      "max_variant": "Int",
+%%%%      "min_variant": "Int"
+%%%%    },
+%%%%    "environment_requirements": [
+%%%%      {
+%%%%        "blocks": "Str(BlockId)",
+%%%%        "count": "Int",
+%%%%        "radius": "Int(0~16)"
+%%%%      }
+%%%%      // ...
+%%%%    ],
+%%%%    "extra_baby_chance": "Float",
+%%%%    "inherit_tamed": "Bool",
+%%%%    "love_filters": "Obj(Filter)/Obj-n(Filter)",
+%%%%    "mutation_factor": {
+%%%%      "color": "Float",
+%%%%      "extra_variant": "Float",
+%%%%      "variant": "Float"
+%%%%    },
+%%%%    "require_full_health": "Bool",
+%%%%    "require_tame": "Bool",
+%%%%    "transform_to_item": "Str(ItemId)"
+%%%%  },
+%%%%  "minecraft:conditional_bandwidth_optimization": {
+%%%%    "conditional_values": [
+%%%%      {
+%%%%        "conditional_values": "Obj(Filter)/Obj-n(Filter)",
+%%%%        "max_dropped_ticks": "Int",
+%%%%        "max_optimized_distance": "Float",
+%%%%        "use_motion_prediction_hints": "Bool"
+%%%%      }
+%%%%      // ...
+%%%%    ],
+%%%%    "default_values": {
+%%%%      "max_dropped_ticks": "Int",
+%%%%      "max_optimized_distance": "Float",
+%%%%      "use_motion_prediction_hints": "Bool"
+%%%%    }
+%%%%  },
+%%%%  "minecraft:custom_hit_test": {
+%%%%    "hitboxes": [
+%%%%      {
+%%%%        "width": "Float",
+%%%%        "height": "Float",
+%%%%        "pivot": "Float-3"
+%%%%      }
+%%%%      // ...
+%%%%    ]
+%%%%  },
+%%%%  "minecraft:damage_sensor": {
+%%%%    "triggers": [
+%%%%      {
+%%%%        "cause": "Str",~#D     D#~// "all", "lightning", "fall", ...
+%%%%        "damage_modifier": "Float",
+%%%%        "damage_multiplier": "Float",
+%%%%        "deals_damage": "Bool",
+%%%%        "on_damage": {
+%%%%          "filters": "Obj(Filter)/Obj-n(Filter)",
+%%%%          "event": "Str(EventName)"
+%%%%        },
+%%%%        "on_damage_sound_event": "Str(SoundEvent)"
+%%%%      }
+%%%%      // ...
+%%%%    ]
+%%%%  },
+%%%%  "minecraft:despawn": {
+%%%%    "despawn_from_distance": {
+%%%%      "max_distance": "Int",
+%%%%      "min_distance": "Int"
+%%%%    },
+%%%%    "despawn_from_chance": "Bool",
+%%%%    "despawn_from_inactivity": "Bool",
+%%%%    "despawn_from_simulation_edge": "Bool",
+%%%%    "filters": "Obj(Filter)/Obj-n(Filter)",
+%%%%    "min_range_inactivity_timer": "Int",
+%%%%    "min_range_random_chance": "Int",
+%%%%    "remove_child_entities": "Bool"
+%%%%  },
+%%%%  "minecraft:entity_sensor": {
+%%%%    "event_filters": "Obj(Filter)/Obj-n(Filter)",
+%%%%    "event": "Str(EventName)",
+%%%%    "maximum_count": "Int",
+%%%%    "minimum_count": "Int",
+%%%%    "relative_range": "Bool",
+%%%%    "require_all": "Bool",
+%%%%    "sensor_range": "Float"
+%%%%  },
+%%%%  "minecraft:environment_sensor": {
+%%%%    "triggers": [
+%%%%      {
+%%%%        "event": "Str(EventName)",
+%%%%        "filters": "Obj(Filter)/Obj-n(Filter)"
+%%%%      }
+%%%%      // ...
+%%%%    ]
+%%%%  },
+%%%%  "minecraft:equippable": {
+%%%%    "slots": [
+%%%%      {
+%%%%        "accepted_items": "Str-n(ItemId)",
+%%%%        "interact_text": "Str",
+%%%%        "item": "Str(ItemId)",
+%%%%        "on_equip": "Str(EventName)",
+%%%%        "on_unequip": "Str(EventName)",
+%%%%        "slot": "Int"
+%%%%      }
+%%%%      // ...
+%%%%    ]
+%%%%  },
+%%%%  "minecraft:genetics": {
+%%%%    "genes": [
+%%%%      {
+%%%%        "allele_range": "Int",
+%%%%        /* または
+        "allele_range": { "range_max": "Int", "range_min": "Int" },
+        */
+%%%%        "genetic_variants": [
+%%%%          {
+%%%%            "birth_event": {
+%%%%              "event": "Str(EventName)",
+%%%%              "target": "Str(Target)"
+%%%%            },
+%%%%            "both_allele": "Int",
+%%%%            /* または
+            "both_allele": { "range_max": "Int", "range_min": "Int" },
+            */
+%%%%            "either_allele": "Int",
+%%%%            "hidden_allele": "Int",
+%%%%            "main_allele": "Int"
+%%%%            /* または
+            "main_allele": { "range_max": "Int", "range_min": "Int" },
+            */
+%%%%          }
+%%%%          // ...
+%%%%        ],
+%%%%        "name": "Str",
+%%%%        "use_simplified_breeding": "Bool"
+%%%%      }
+%%%%      // ...
+%%%%    ],
+%%%%    "mutation_rate": "Float"
+%%%%  },
+%%%%  "minecraft:healable": {
+%%%%    "filters": "Obj(Filter)/Obj-n(Filter)",
+%%%%    "force_use": "Bool",
+%%%%    "items": [
+%%%%      {
+%%%%        "heal_amount": "Int",
+%%%%        "item": "Str(ItemId)"
+%%%%      }
+%%%%      // ...
+%%%%    ]
+%%%%  },
+%%%%  "minecraft:hurt_on_condition": {
+%%%%    "damage_conditions": [
+%%%%      {
+%%%%        "filters": "Obj(Filter)/Obj-n(Filter)",
+%%%%        "cause": "Str",~#D     D#~// "none", "lava", "drowning", ...
+%%%%        "damage_per_tick": "Int"
+%%%%      }
+%%%%      // ...
+%%%%    ]
+%%%%  },
+%%%%  "minecraft:inside_block_notifier": {
+%%%%    "block_list": [
+%%%%      {
+%%%%        "block": "Str(BlockId)/Obj(BlockWithStates)",
+%%%%        "entered_block_event": {
+%%%%          "event": "Str(EventName)",
+%%%%          "target": "Str(Target)"
+%%%%        },
+%%%%        "exited_block_event": {
+%%%%          "event": "Str(EventName)",
+%%%%          "target": "Str(Target)"
+%%%%        }
+%%%%      }
+%%%%      // ...
+%%%%    ]
+%%%%  },
+%%%%  "minecraft:interact": {
+%%%%    "interactions": [
+%%%%      {
+%%%%        "add_items": {
+%%%%          "table": "Str(LootTablePass)"
+%%%%        },
+%%%%        "admire": "Bool",
+%%%%        "barter": "Bool",
+%%%%        "cooldown": "Float",
+%%%%        "cooldown_after_being_attacked": "Float",
+%%%%        "hurt_item": "Int",
+%%%%        "interact_text": "Str",
+%%%%        "on_interact": {
+%%%%          "filters": "Obj(Filter/Obj-n(Filter)",
+%%%%          "event": "Str(EventName)",
+%%%%          "target": "Str(Target)"
+%%%%        },
+%%%%        "particle_on_start": {
+%%%%          "particle_offset_towards_interactor": "",
+%%%%          "particle_type": "Str(ParticleId)",
+%%%%          "particle_y_offset": ""
+%%%%        },
+%%%%        "play_sounds": "Str(SoundEvent)",
+%%%%        "spawn_entities": "Str(EntityId)",
+%%%%        "spawn_items": {
+%%%%          "table": "Str(LootTablePass)"
+%%%%        },
+%%%%        "swing": "Bool",
+%%%%        "transform_to_item": "Str(ItemId)",
+%%%%        "use_item": "Bool"
+%%%%      }
+%%%%      // ...
+%%%%    ]
+%%%%  },
+%%%%  "minecraft:mob_effect": {
+%%%%    "entity_filter": "Obj(Filter)/Obj-n(Filter)",
+%%%%    "effect_range": "Float",
+%%%%    "effect_time": "Int",
+%%%%    "mob_effect": "Str"
+%%%%  },
+%%%%  "minecraft:nameable": {
+%%%%    "allow_name_tag_renaming": "Bool",
+%%%%    "always_show": "Bool",
+%%%%    "default_trigger": "Str(EventName)",
+%%%%    "name_actions": [
+%%%%      {
+%%%%        "name_filter": "Str",
+%%%%        "on_named": {
+%%%%          "event": "Str(EventName)",
+%%%%          "target": "Str(Target)"
+%%%%        }
+%%%%      }
+%%%%    ]
+%%%%  },
+%%%%  "minecraft:ravager_blocked": {
+%%%%    "knockback_strength": "Float",
+%%%%    "reaction_choices": [
+%%%%      {
+%%%%        "weight": "Int",
+%%%%        "value": {
+%%%%          "event": "Str(EventName)",
+%%%%          "target": "Str(Target)"
+%%%%        }
+%%%%      }
+%%%%      // ...
+%%%%    ]
+%%%%  },
+%%%%  "minecraft:rideable": {
+%%%%    "controlling_seat": "Int",
+%%%%    "crouching_skip_interact": "Bool",
+%%%%    "family_types": "Str-n",
+%%%%    "interact_text": "Str",
+%%%%    "priority": "Int",
+%%%%    "pull_in_entities": "Bool",
+%%%%    "rider_can_interact":	"Bool",
+%%%%    "seat_count": "Int",
+%%%%    "seats": [
+%%%%      {
+%%%%        "lock_rider_rotation": "Float",
+%%%%        "max_rider_count": "Int",
+%%%%        "min_rider_count": "Int",
+%%%%        "position": "Float-3",
+%%%%        "rotate_rider_by": "Molang"
+%%%%      }
+%%%%    ]
+%%%%  },
+%%%%  "minecraft:scheduler": {
+%%%%    "min_delay_secs": "Int",
+%%%%    "max_delay_secs": "Int",
+%%%%    "scheduled_events": [
+%%%%      {
+%%%%        "event": "Str(EventName)",
+%%%%        "filters": "Obj(Filter)/Obj-n(Filter)"
+%%%%      }
+%%%%      // ...
+%%%%    ]
+%%%%  },
+%%%%  "minecraft:shareables": {
+%%%%    "all_items": "Bool",
+%%%%    "all_items_max_amount": "Int",
+%%%%    "all_items_surplus_amount": "Int",
+%%%%    "all_items_want_amount": "Int",
+%%%%    "items": [
+%%%%      {
+%%%%        "admire": "Bool",
+%%%%        "barter": "Bool",
+%%%%        "consume_item": "Bool",
+%%%%        "craft_into": "Str(ItemId)",
+%%%%        "item": "Str(ItemId)",
+%%%%        "max_amount": "Int",
+%%%%        "pickup_limit": "Int",
+%%%%        "priority": "Int",
+%%%%        "stored_in_inventory": "Bool",
+%%%%        "surplus_amount": "Int",
+%%%%        "want_amount": "Int"
+%%%%      }
+%%%%    ]
+%%%%  },
+%%%%  "minecraft:tamemount": {
+%%%%    "attempt_temper_mod": "Int",
+%%%%    "autoRejectItems": [
+%%%%      {
+%%%%        "item": "Str(ItemId)"
+%%%%      }
+%%%%      // ...
+%%%%    ],
+%%%%    "feed_items": [
+%%%%      {
+%%%%        "item": "Str(ItemId)",
+%%%%        "temper_mod": "Int"
+%%%%      }
+%%%%      // ...
+%%%%    ],
+%%%%    "feed_text": "Str",
+%%%%    "max_temper": "Int",
+%%%%    "min_temper": "Int",
+%%%%    "ride_text": "Str",
+%%%%    "tame_event": {
+%%%%      "event": "Str(EventName)",
+%%%%      "target": "Str(Target)"
+%%%%    }
+%%%%  },
+%%%%  "minecraft:transformation": {
+%%%%    "add": {
+%%%%      "component_groups": "Str-n"
+%%%%    },
+%%%%    "begin_transform_sound": "Str(SoundEvent)",
+%%%%    "delay": {
+%%%%      "block_assist_chance": "Float",
+%%%%      "block_chance": "Float",
+%%%%      "block_max": "Int",
+%%%%      "block_radius": "Int",
+%%%%      "block_types": "Str-n(blockId)",
+%%%%      "value": "Float"
+%%%%    },
+%%%%    "drop_equipment": "Bool",
+%%%%    "drop_inventory": "Bool",
+%%%%    "into": "Str(EntityId)",
+%%%%    "keep_level": "Bool",
+%%%%    "keep_owner": "Bool",
+%%%%    "preserve_equipment": "Bool",
+%%%%    "transformation_sound": "Str(SoundEvent)"
+%%%%  },
+%%%%  // Attributes
+%%%%  "minecraft:spell_effects": {
+%%%%    "add_effects": [
+%%%%      {
+%%%%        "ambient": "Str",
+%%%%        "amplifier": "Int",
+%%%%        "display_on_screen_animation": "Bool",
+%%%%        "duration": "Int",
+%%%%        "effects": "Str"
+%%%%      }
+%%%%    ],
+%%%%    "remove_effects": "Str"
+%%%%  },
+%%%%  // Properties
+%%%%  "minecraft:equipment": {
+%%%%    "slot_drop_chance": [
+%%%%      {
+%%%%        "drop_chance": "Float",
+%%%%        "slot": "Str(SlotId)"
+%%%%      }
+%%%%      // ...
+%%%%    ],
+%%%%    "table": "Str(LootTablePass)"
+%%%%  }
+%%%%},r#~
+    ~#r"events": {
+%%%%  "minecraft:entity_born": {
+%%%%    "add": {
+%%%%      "component_groups": "Str-n"
+%%%%    },
+%%%%    "remove": {
+%%%%      "component_groups": "Str-n"
+%%%%    }
+%%%%  },
+%%%%  "minecraft:entity_spawned": {
+%%%%    "add": {
+%%%%      "component_groups": "Str-n"
+%%%%    },
+%%%%    "remove": {
+%%%%      "component_groups": "Str-n"
+%%%%    }
+%%%%  },
+%%%%  "minecraft:entity_transformed": {
+%%%%    "add": {
+%%%%      "component_groups": "Str-n"
+%%%%    },
+%%%%    "remove": {
+%%%%      "component_groups": "Str-n"
+%%%%    }
+%%%%  },
+%%%%  "minecraft:on_prime": {
+%%%%    "add": {
+%%%%      "component_groups": "Str-n"
+%%%%    },
+%%%%    "remove": {
+%%%%      "component_groups": "Str-n"
+%%%%    }
+%%%%  },
+%%%%  "Str": {
+%%%%    "add": {
+%%%%      "component_groups": "Str-n"
+%%%%    },
+%%%%    "remove": {
+%%%%      "component_groups": "Str-n"
+%%%%    }
+%%%%  }
+%%%%  // ...
+%%%%}r#~
+  }
+}</div>
+      </div>
+      <div id="sec05" class="headline" style="border-color: #587eff;">バイオームのJSON</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('biome:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="biome" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.13.0",
+  "minecraft:biome": {
+    "description": {
+      "identifier": "Str"
+    },
+    "components": {
+      "minecraft:capped_surface": {
+        "floor_materials": "BlockId-n/BlockRef-n",
+        "ceiling_materials": "BlockId-n/BlockRef-n",
+        "sea_material": "Str(BlockId/BlockRef)",
+        "foundation_material": "Str(BlockId/BlockRef)",
+        "beach_material": "Str(BlockId/BlockRef)"
+      },
+      "minecraft:climate": {
+        "ash": "Float",
+        "blue_spores": "Float",
+        "downfall": "Float",
+        "red_spores": "Float",
+        "snow_accumulation": "Float-2",
+        "temperature": "Float",
+        "white_ash": "Float"
+      },
+      "minecraft:forced_features": {
+        "Str": [
+          {
+            "iterations": "Molang",
+            "scatter_chance": {
+              "numerator": "Int(>=1)",
+              "denominator": "Int(>=1)"
+            },
+            /* または
+            "scatter_chance": "Molang"
+            */
+            "coordinate_eval_order": "Str",~#D     D#~// "xyz", "xzy", "yxz", "yzx", "zxy", "zyx"
+            "x": "Molang",
+            /* または
+            "x": {
+              "distribution": "Str",~#D     D#~// "uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"
+              "step_size": "Int(>=1)",
+              "grid_offset": "Int(>=0)",
+              "extent": "Molang-2"
+            }
+            */
+            "z": "Molang",
+            /* または
+            "z": {
+              "distribution": "Str",~#D     D#~// "uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"
+              "step_size": "Int(>=1)",
+              "grid_offset": "Int(>=0)",
+              "extent": "Molang-2"
+            }
+            */
+            "y": "Molang",
+            /* または
+            "y": {
+              "distribution": "Str",~#D     D#~// "uniform", "gaussian", "inverse_gaussian", "fixed_grid", "jittered_grid"
+              "step_size": "Int(>=1)",
+              "grid_offset": "Int(>=0)",
+              "extent": "Molang-2"
+            }
+            */
+            "places_feature": "FeatureId",
+            "identifier": "Str"
+          }
+          // ...
+        ]
+      },
+      "minecraft:ignore_automatic_features": {},
+      "minecraft:overworld_height": {
+        "noise_params": "Float-2",
+        "noise_type": "Str"~#D     D#~// (*3)
+      },
+      "minecraft:frozen_ocean_surface": {
+        "top_material": "Str(BlockId/BlockRef)",
+        "mid_material": "Str(BlockId/BlockRef)",
+        "sea_floor_material": "Str(BlockId/BlockRef)",
+        "foundation_material": "Str(BlockId/BlockRef)",
+        "sea_material": "Str(BlockId/BlockRef)",
+        "sea_floor_depth": "Int"
+      },
+      "minecraft:mesa_surface": {
+        "top_material": "Str(BlockId/BlockRef)",
+        "mid_material": "Str(BlockId/BlockRef)",
+        "sea_floor_material": "Str(BlockId/BlockRef)",
+        "foundation_material": "Str(BlockId/BlockRef)",
+        "sea_material": "Str(BlockId/BlockRef)",
+        "sea_floor_depth": "Int",
+        "clay_material": "Str(BlockId/BlockRef)",
+        "hard_clay_material": "Str(BlockId/BlockRef)",
+        "bryce_pillars": "Bool",
+        "has_forest": "Bool"
+      },
+      "minecraft:mountain_parameters": {
+        "peaks_factor": "Float",
+        "steep_material_adjustment": {
+          "material": "Str(BlockId/BlockRef)",
+          "north_slopes": "Bool",
+          "south_slopes": "Bool",
+          "west_slopes": "Bool",
+          "east_slopes": "Bool"
+        },
+        "top_slide": {
+          "enabled": "Bool"
+        }
+      },
+      "minecraft:nether_surface": {},
+      "minecraft:surface_material_adjustments": {
+        "adjustments": [
+          {
+            "materials": {
+              "top_material": "Str(BlockId/BlockRef)",
+              "mid_material": "Str(BlockId/BlockRef)",
+              "sea_floor_material": "Str(BlockId/BlockRef)",
+              "foundation_material": "Str(BlockId/BlockRef)",
+              "sea_material": "Str(BlockId/BlockRef)"
+            },
+            "noise_range": "Float(-1.0~1.0)-2",
+            "height_range": "Molang-2",
+            "noise_frequency_scale": "Float"
+          }
+        ]
+      },
+      "minecraft:surface_parameters": {
+        "top_material": "Str(BlockId/BlockRef)",
+        "mid_material": "Str(BlockId/BlockRef)",
+        "sea_floor_material": "Str(BlockId/BlockRef)",
+        "foundation_material": "Str(BlockId/BlockRef)",
+        "sea_material": "Str(BlockId/BlockRef)",
+        "sea_floor_depth": "Int"
+      },
+      "minecraft:swamp_surface": {
+        "top_material": "Str(BlockId/BlockRef)",
+        "mid_material": "Str(BlockId/BlockRef)",
+        "sea_floor_material": "Str(BlockId/BlockRef)",
+        "foundation_material": "Str(BlockId/BlockRef)",
+        "sea_material": "Str(BlockId/BlockRef)",
+        "sea_floor_depth": "Int"
+      },
+      "minecraft:the_end_surface": {},
+      "minecraft:overworld_generation_rules": {
+        "hills_transformation": "Str(BiomeId)",
+        /* または
+        "hills_transformation": [
+          "BiomeId"
+          /* または
+          [ "BiomeId", "Int" ]
+          * /
+        ],
+        */
+        "mutate_transformation": "Str(BiomeId)",
+        /* または
+        "mutate_transformation": [
+          "Str(BiomeId)"
+          /* または
+          [ "Str(BiomeId)", "Int" ]
+          * /
+        ]
+        */
+        "generate_for_climates": [
+          [ "Str", "Int" ]~#D     D#~//"medium", "warm", "lukewarm", "cold", "frozen"
+        ],
+        "river_transformation": "Str(BiomeId)",
+        /* または
+        "river_transformation": [
+          "Str(BiomeId)"
+          /* または
+          [ "Str(BiomeId)", "Int" ]
+          * /
+        ]
+        */
+        "shore_transformation": "Str(BiomeId)"
+        /* または
+        "shore_transformation": [
+          "Str(BiomeId)"
+          /* または
+          [ "Str(BiomeId)", "Int" ]
+          * /
+        ]
+        */
+      },
+      "Str": {}
+    }
+  }
+}</div>
+      </div>
+      <p>
+        (*3)："stone_beach", "deep_ocean", "default", "default_mutated", "lowlands", "river", "ocean", "taiga", "mountains", "highlands", "mushroom", "less_extreme", "extreme", "beach", "swamp"
+      </p>
+      <div id="sec06" class="headline" style="border-color: #587eff;">フィーチャーのJSON</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('feature:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="feature" cols="5" rows="5" readonly></textarea>
+        <div class="json">[
+  ~#r{
+%%  "format_version": "1.13.0",
+%%  "minecraft:aggregate_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "early_out": "Str",~#D     D#~// "none", "first_failure", "first_success"
+%%    "features": "Str-n(FeatureId)"
+%%  }
+%%},r#~
+  ~#r{
+%%  "format_version": "1.13.0",
+%%  "minecraft:sequence_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "features": "Str-n(FeatureId)"
+%%  }
+%%},r#~
+  ~#r{
+%%  "minecraft:beards_and_shavers": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "beard_raggedness_min": "Float",
+%%    "beard_raggedness_max": "Float",
+%%    "bounding_box_min": "Float-3",
+%%    "bounding_box_max": "Float-3",
+%%    "places_feature": "FeatureId",
+%%    "subsurface_block_type": "Str(BlockId)",
+%%    "surface_block_type": "Str(BlockId)",
+%%    "y_delta": "Float"
+%%  }
+%%},r#~
+  ~#r{
+%%  "format_version": "1.16.100",
+%%  "minecraft:cave_carver_feature": {~#D     D#~// "minecraft:cave_feature"?
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "fill_with": "Str(BlockId)",
+%%    "width_modifier": "Molang",
+%%    "skip_carve_chance": "Int(>=1)",
+%%    "height_limit": "Int",
+%%    "y_scale": "Float-2",
+%%    "horizontal_radius_multiplier": "Float-2",
+%%    "vertical_radius_multiplier": "Float-2",
+%%    "floor_level": "Float-2"
+%%  }
+%%},r#~
+  ~#r{
+%%  "format_version": "1.16.100",
+%%  "minecraft:hell_cave_carver_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "fill_with": "Str(BlockId)",
+%%    "width_modifier": "Molang",
+%%    "skip_carve_chance": "Int(>=1)",
+%%    "height_limit": "Int",
+%%    "y_scale": "Float-2",
+%%    "horizontal_radius_multiplier": "Float-2",
+%%    "vertical_radius_multiplier": "Float-2",
+%%    "floor_level": "Float-2"
+%%  }
+%%},r#~
+  ~#r{
+%%  "minecraft:conditional_list": [
+%%    { 
+%%      "places_feature": "Str(FeatureId)",
+%%      "condition": "Molang"
+%%    }
+%%    // ...
+%%  ],
+%%  "early_out_scheme": "Str"~#D     D#~// "condition_success", "placement_success"
+%%},r#~
+  ~#r{
+%%  "format_version": "1.16.0",
+%%  "minecraft:growing_plant_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "height_distribution":  [
+%%      [ { "range_min": "Int", "range_max": "Int" } , "Float" ]
+%%      // ...
+%%    ],
+%%    "growth_direction": "Str",~#D     D#~// "UP", "DOWN"
+%%    "age": { "range_min": "Int", "range_max": "Int" },
+%%    "body_blocks": [
+%%      [ "Str(BlockId)", "Float" ]
+%%      // ...
+%%    ],
+%%    "head_blocks": [
+%%      [ "Str(BlockId)", "Float" ]
+%%    ],
+%%    "allow_water": "Bool"
+%%  }
+%%},r#~
+  ~#r{
+%%  "format_version": "1.13.0",
+%%  "minecraft:multiface_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "places_block": "Str(BlockId)",
+%%    "search_range": "Int(1~64)",
+%%    "can_place_on_floor": "Bool",
+%%    "can_place_on_ceiling": "Bool",
+%%    "can_place_on_wall": "Bool",
+%%    "chance_of_spreading": "Float(0.0~1.0)",
+%%    "can_place_on": "Str-n(BlockId)"
+%%  }
+%%},r#~
+  ~#r{
+%%  "format_version": "1.13.0",
+%%  "minecraft:geode_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "filler": "Str(BlockId)",
+%%    "inner_layer": "Str(BlockId)",
+%%    "alternate_inner_layer": "Str(BlockId)",
+%%    "middle_layer": "Str(BlockId)",
+%%    "outer_layer": "Str(BlockId)",
+%%    "inner_placements": "Str-n(BlockId/BlockRef)",
+%%    "min_outer_wall_distance": "Int(1~10)",
+%%    "max_outer_wall_distance": "Int(1~20)",
+%%    "min_distribution_points": "Int(1~10)",
+%%    "max_distribution_points": "Int(1~20)",
+%%    "min_point_offset": "Int(0~10)",
+%%    "max_point_offset": "Int(0~10)",
+%%    "max_radius": "Int",
+%%    "crack_point_offset": "Int(0~10)",
+%%    "generate_crack_chance": "Float(0.0~1.0)",
+%%    "base_crack_size": "Float(0.0~5.0)",
+%%    "noise_multiplier": "Float",
+%%    "use_potential_placements_chance": "Float(0.0~1.0)",
+%%    "use_alternate_layer0_chance": "Float(0.0~1.0)",
+%%    "placements_require_layer0_alternate": "Bool",
+%%    "invalid_blocks_threshold": "Int"
+%%  }
+%%},r#~
+  ~#r{
+%%  "format_version": "1.13.0",
+%%  "minecraft:ore_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "count": "Int(>=1)",
+%%    "discard_chance_on_air_exposure": "Float(0.0~1.0)",
+%%    "replace_rules": [
+%%      {
+%%        "places_block": "Str(BlockId)",
+%%        "may_replace": "Str-n(BlockId)"
+%%      }
+%%      // ...
+%%    ]
+%%  }
+%%},r#~
+  ~#r{
+%%  "minecraft:rect_layout": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "ratio_of_empty_space": "Float",
+%%    "feature_areas": [
+%%      {
+%%        "feature": "Str(FeatureId)",
+%%        "area_dimensions": "Float-2"
+%%      }
+%%      // ... +4294967294
+%%    ]
+%%  }
+%%},r#~
+  ~#r{
+%%  "minecraft:scan_surface": {
+%%    "identifier": "Str(NameSpaced)"
+%%  },
+%%  "scan_surface_feature": "Str(FeatureId)"
+%%},r#~
+  ~#r{
+%%  "format_version": "1.13.0",
+%%  "minecraft:scatter_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "coordinate_eval_order": "Str",~#D     D#~// "xyz", "xzy", "yxz", "yzx", "zxy", "zyx"
+%%    "places_feature": "Str(FeatureId)",
+%%    "project_input_to_floor": "Bool",
+%%    "iterations": "Molang",
+%%    "scatter_chance": "Molang",
+%%    /* または
+    "scatter_chance": {
+      "numerator": "Int(>=1)",
+      "denominator": "Int(>=1)
+    },
+    */
+%%    "x": "Int",
+%%    /* または
+    "x": {
+      "distribution": "Str",~#D     D#~// "uniform", "gaussian", "inverse_gaussian", "triangle", "fixed_grid", "jittered_grid"
+      "extent": "Int-2",
+      "grid_offset": "Int(>=0)",
+      "step_size": "Int(>=1)"
+    },
+    */
+%%    "y": "Int",
+%%    /* または
+    "y": {
+      "distribution": "Str",~#D     D#~// "uniform", "gaussian", "inverse_gaussian", "triangle", "fixed_grid", "jittered_grid"
+      "extent": "Int-2",
+      "grid_offset": "Int(>=0)",
+      "step_size": "Int(>=1)"
+    },
+    */
+%%    "z": "Int"
+%%    /*
+    "z": {
+      "distribution": "Str",~#D     D#~// "uniform", "gaussian", "inverse_gaussian", "triangle", "fixed_grid", "jittered_grid"
+      "extent": "Int-2",
+      "grid_offset": "Int(>=0)",
+      "step_size": "Int(>=1)"
+    }
+    */
+%%  }
+%%},r#~
+  ~#r{
+%%  "format_version": "1.13.0",
+%%  "minecraft:search_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "places_feature": "Str(FeatureId)",
+%%    "search_volume": {
+%%      "min": "Int-3",
+%%      "max": "Int-3"
+%%    },
+%%    "search_axis": "Str",~#D     D#~// "-x", "+x", "-y", "+y", "-z", "+z"
+%%    "required_successes": "Int(>=1)"
+%%  }
+%%},r#~
+  ~#r{
+%%  "format_version": "1.13.0",
+%%  "minecraft:single_block_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "places_block": "Str(BlockId)",
+%%    "enforce_placement_rules": "Bool",
+%%    "enforce_survivability_rules": "Bool",
+%%    "may_attach_to": {
+%%      "min_sides_must_attach": "Int(1~4)",
+%%      "auto_rotate": "Bool",
+%%      "top": "Str(BlockId)/Str-n(BlockId)",
+%%      "bottom": "Str(BlockId)/Str-n(BlockId)",
+%%      "north": "Str(BlockId)/Str-n(BlockId)",
+%%      "east": "Str(BlockId)/Str-n(BlockId)",
+%%      "south": "Str(BlockId)/Str-n(BlockId)",
+%%      "west": "Str(BlockId)/Str-n(BlockId)",
+%%      "all": "Str(BlockId)/Str-n(BlockId)",
+%%      "sides": "Str(BlockId)/Str-n(BlockId)"
+%%    },
+%%    // "may_place_on": "Str-n(BlockId)",
+%%    "may_replace": "Str-n(BlockId)"
+%%  }
+%%},r#~
+  ~#r{
+%%  "format_version": "1.16.0",
+%%  "minecraft:snap_to_surface_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "feature_to_snap": "Str(FeatureId)",
+%%    "vertical_search_range": "Int",
+%%    "surface": "Str",~#D     D#~// "ceiling", "floor", "random_horizontal"
+%%    "allow_air_placement": "Bool",
+%%    "allow_underwater_placement": "Bool"
+%%  }
+%%},r#~
+  ~#r{
+%%  "format_version": "1.13.0",
+%%  "minecraft:structure_template_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "structure_name": "Str(StructureId)",
+%%    "adjustment_radius": "Int(0~16)",
+%%    "facing_direction": "Str",~#D     D#~// "north", "south", "east", "west", "random"
+%%    "constraints": {
+%%      "grounded": {},
+%%      "unburied": {},
+%%      "block_intersection": {
+%%        "block_allowlist": "Str-n(BlockId)"
+%%        /* または
+        "block_whitelist": "Str-n(BlockId)"
+        */
+%%      }
+%%    }
+%%  }
+%%},r#~
+  ~#r{
+%%  "format_version": "1.16.100",
+%%  "minecraft:underwater_cave_carver_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "fill_with": "Str(BlockId)",
+%%    "width_modifier": "Molang",
+%%    "skip_carve_chance": "Int(>=1)",
+%%    "replace_air_with": "Str(BlockId)",
+%%    "height_limit": "Int",
+%%    "y_scale": "Float-2",
+%%    "horizontal_radius_multiplier": "Float-2",
+%%    "vertical_radius_multiplier": "Float-2",
+%%    "floor_level": "Float-2"
+%%  }
+%%},r#~
+  ~#r{
+%%  "minecraft:tree_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "base_block": "Str(BlockId)/Str-n(BlockId)",
+%%    "base_cluster": {
+%%      "may_replace": "Str-n(BlockId)",
+%%      "num_clusters": "Int(>=1)",
+%%      "cluster_radius": "Int(>=0)"
+%%    },
+%%    "may_grow_on": "Str-n(BlockId)",
+%%    "may_replace": "Str-n(BlockId)",
+%%    "may_grow_through": "Str-n(BlockId)",
+%%    "acacia_trunk": {
+%%      "trunk_width": "Int",
+%%      "trunk_height": {
+%%        "base": "Int(>=1)",
+%%        "intervals": "Int-2(>=1)",
+%%        "min_height_for_canopy": "Int(>=1)"
+%%      },
+%%      "trunk_lean": {
+%%        "allow_diagonal_growth": "Bool",
+%%        "lean_height": "Int?",
+%%        "lean_steps": "Int?",
+%%        "lean_length": "Int?"
+%%      },
+%%      "trunk_block": "Str(BlockId)?",
+%%      "branches": {
+%%        "branch_length": "Int",
+%%        "branch_position": "",
+%%        "branch_chance": "Obj(Chance)",
+%%        "branch_canopy": {
+%%          "acacia_canopy": {
+%%            "canopy_size": "Int(>=1)",
+%%            "leaf_block": "Str(BlockId)?",
+%%            "simplify_canopy": "Bool"
+%%          },
+%%          "canopy": {
+%%            "canopy_offset": {
+%%              "min": "Int",
+%%              "max": "Int"
+%%            },
+%%            "min_width": "Int(>=0)",
+%%            "canopy_slope": {
+%%              "rise": "Int(>=1)",
+%%              "run": "Int(>=1)"
+%%            },
+%%            "variation_chance": "Obj(Chance)",
+%%            /* または
+            "variation_chance": [ "Obj(Chance)" ]
+            */
+%%            "leaf_block": "Str(BlockId)?",
+%%            "canopy_decoration": {
+%%              "decoration_chance": "Obj(Chance)",
+%%              "decoration_block": "Str(BlockId)?",
+%%              "num_steps": "Int",
+%%              "step_direction": "Str"~#D     D#~// "down", "up", "out", "away"> : opt
+%%            }
+%%          },
+%%          "fancy_canopy": {
+%%            "height": "Int(>=1)",
+%%            "radius": "Int(>=0)",
+%%            "leaf_block": "Str(BlockId)?"
+%%          },
+%%          "mega_canopy": {
+%%            "canopy_height": "Int?",
+%%            "base_radius": "Int(>=0)",
+%%            "core_width": "Int(>=1)",
+%%            "simplify_canopy": "Bool",
+%%            "leaf_block": "Str(BlockId)?"
+%%          },
+%%          "mega_pine_canopy": {
+%%            "canopy_height": "Int?",
+%%            "base_radius": "Int(>=0)",
+%%            "core_width": "Int(>=1)",
+%%            "radius_step_modifier": "Float(>=0.0)",
+%%            "leaf_block": "Str(BlockId)?"
+%%          },
+%%          "pine_canopy": {
+%%            "canopy_height": "Int?",
+%%            "base_radius": "Int(>=0)",
+%%            "leaf_block": "Str(BlockId)?"
+%%          },
+%%          "roofed_canopy": {
+%%            "canopy_height": "Int(>=3)",
+%%            "core_width": "Int(>=1)",
+%%            "outer_radius": "Int(>=0)",
+%%            "inner_radius": "Int(>=0)",
+%%            "leaf_block": "Str(BlockId)?"
+%%          },
+%%          "spruce_canopy": {
+%%            "lower_offset": "",
+%%            "upper_offset": "",
+%%            "max_radius": "Int?",
+%%            "leaf_block": "Str(BlockId)?"
+%%          }
+%%        }
+%%      },
+%%      "trunk_decoration": {
+%%        "decoration_chance": "Obj(Chance)",
+%%        "decoration_block": "Str(BlockId)?",
+%%        "num_steps": "Int",
+%%        "step_direction": "Str"~#D     D#~// "down", "up", "out", "away"
+%%      }
+%%    },
+%%    "fallen_trunk": {
+%%      "log_length": "Int?",
+%%      "stump_height": "Int?",
+%%      "height_modifier": "",
+%%      "trunk_block": "Str(BlockId)?",
+%%      "log_decoration_feature": "Str(FeatureId)",
+%%      "trunk_decoration": {
+%%        "decoration_chance": "Obj(Chance)",
+%%        "decoration_block": "Str(BlockId)?",
+%%        "num_steps": "Int",
+%%        "step_direction": "Str"~#D     D#~// "down", "up", "out", "away"
+%%      }
+%%    },
+%%    "fancy_trunk": {
+%%      "trunk_height": {
+%%        "base": "Int(>=1)",
+%%        "intervals": "Int-2(>=1)",
+%%        "min_height_for_canopy": "Int(>=1)"
+%%      },
+%%      "trunk_width": "Int",
+%%      "branches": {
+%%        "slope": "Float",
+%%        "dencity": "Float",
+%%        "min_altitude_factor": "Float(0.0~1.0)"
+%%      },
+%%      "trunk_block": "Str(BlockId)?",
+%%      "width_scale": "Float(>=0.0)",
+%%      "foliage_altitude_factor": "Float(0.0~1.0)"
+%%    },
+%%    "mega_trunk": {
+%%      "trunk_width": "Int",
+%%      "trunk_height": {
+%%        "base": "Int(>=1)",
+%%        "intervals": "Int-2(>=1)",
+%%        "min_height_for_canopy": "Int(>=1)"
+%%      },
+%%      "trunk_block": "Str(BlockId)?",
+%%      "trunk_decoration": {
+%%        "decoration_chance": "Obj(Chance)",
+%%        "decoration_block": "Str(BlockId)?",
+%%        "num_steps": "Int",
+%%        "step_direction": "Str"~#D     D#~// "down", "up", "out", "away"
+%%      },
+%%      "branches": {
+%%        "branch_length": "Int",
+%%        "branch_position": "",
+%%        "branch_chance": "Obj(Chance)",
+%%        "branch_canopy": {
+%%          "acacia_canopy": {
+%%            "canopy_size": "Int(>=1)",
+%%            "leaf_block": "Str(BlockId)?",
+%%            "simplify_canopy": "Bool"
+%%          },
+%%          "canopy": {
+%%            "canopy_offset": {
+%%              "min": "Int",
+%%              "max": "Int"
+%%            },
+%%            "min_width": "Int(>=0)",
+%%            "canopy_slope": {
+%%              "rise": "Int(>=1)",
+%%              "run": "Int(>=1)"
+%%            },
+%%            "variation_chance": "Obj(Chance)",
+%%            /* または
+            "variation_chance": [ "Obj(Chance)" ]
+            */
+%%            "leaf_block": "Str(BlockId)?",
+%%            "canopy_decoration": {
+%%              "decoration_chance": "Obj(Chance)",
+%%              "decoration_block": "Str(BlockId)?",
+%%              "num_steps": "Int",
+%%              "step_direction": "Str"~#D     D#~// "down", "up", "out", "away"> : opt
+%%            }
+%%          },
+%%          "fancy_canopy": {
+%%            "height": "Int(>=1)",
+%%            "radius": "Int(>=0)",
+%%            "leaf_block": "Str(BlockId)?"
+%%          },
+%%          "mega_canopy": {
+%%            "canopy_height": "Int?",
+%%            "base_radius": "Int(>=0)",
+%%            "core_width": "Int(>=1)",
+%%            "simplify_canopy": "Bool",
+%%            "leaf_block": "Str(BlockId)?"
+%%          },
+%%          "mega_pine_canopy": {
+%%            "canopy_height": "Int?",
+%%            "base_radius": "Int(>=0)",
+%%            "core_width": "Int(>=1)",
+%%            "radius_step_modifier": "Float(>=0.0)",
+%%            "leaf_block": "Str(BlockId)?"
+%%          },
+%%          "pine_canopy": {
+%%            "canopy_height": "Int?",
+%%            "base_radius": "Int(>=0)",
+%%            "leaf_block": "Str(BlockId)?"
+%%          },
+%%          "roofed_canopy": {
+%%            "canopy_height": "Int(>=3)",
+%%            "core_width": "Int(>=1)",
+%%            "outer_radius": "Int(>=0)",
+%%            "inner_radius": "Int(>=0)",
+%%            "leaf_block": "Str(BlockId)?"
+%%          },
+%%          "spruce_canopy": {
+%%            "lower_offset": "",
+%%            "upper_offset": "",
+%%            "max_radius": "Int?",
+%%            "leaf_block": "Str(BlockId)?"
+%%          }
+%%        }
+%%      }
+%%    },
+%%    "trunk": {
+%%      "trunk_height": "Int?",
+%%      "height_modifier": "",
+%%      "can_be_submerged": "Bool",
+%%      /*
+      "can_be_submerged": {
+        "max_depth":"Int(>=1)"
+      },
+      */
+%%      "trunk_block": "Str(BlockId)?",
+%%      "trunk_decoration": {
+%%        "decoration_chance": "Obj(Chance)",
+%%        "decoration_block": "Str(BlockId)?",
+%%        "num_steps": "Int",
+%%        "step_direction": "Str"~#D     D#~// "down", "up", "out", "away"
+%%      }
+%%    },
+%%    "acacia_canopy": {
+%%      "canopy_size": "Int(>=1)",
+%%      "leaf_block": "Str(BlockId)?",
+%%      "simplify_canopy": "Bool"
+%%    },
+%%    "canopy": {
+%%      "canopy_offset": {
+%%        "min": "Int",
+%%        "max": "Int"
+%%      },
+%%      "min_width": "Int(>=0)",
+%%      "canopy_slope": {
+%%        "rise": "Int(>=1)",
+%%        "run": "Int(>=1)"
+%%      },
+%%      "variation_chance": "Obj(Chance)/Obj-n(Chance)",
+%%      "leaf_block": "Str(BlockId)?",
+%%      "canopy_decoration": {
+%%        "decoration_chance": "Obj(Chance)",
+%%        "decoration_block": "Str(BlockId)?",
+%%        "num_steps": "Int",
+%%        "step_direction": "Str"~#D     D#~// "down", "up", "out", "away"
+%%      }
+%%    },
+%%    "fancy_canopy": {
+%%      "height": "Int(>=1)",
+%%      "radius": "Int(>=0)",
+%%      "leaf_block": "Str(BlockId)?"
+%%    },
+%%    "mega_canopy": {
+%%      "canopy_height": "Int?",
+%%      "base_radius": "Int(>=0)",
+%%      "core_width": "Int(>=1)",
+%%      "simplify_canopy": "Bool",
+%%      "leaf_block": "Str(BlockId)?"
+%%    },
+%%    "mega_pine_canopy": {
+%%      "canopy_height": "Int?",
+%%      "base_radius": "Int(>=0)",
+%%      "radius_step_modifier": "Float(>=0.0)",
+%%      "core_width": "Int(>=1)",
+%%      "leaf_block": "Str(BlockId)?"
+%%    },
+%%    "pine_canopy": {
+%%      "canopy_height": "Int?",
+%%      "base_radius": "Int(>=0)",
+%%      "leaf_block": "Str(BlockId)?"
+%%    },
+%%    "roofed_canopy": {
+%%      "canopy_height": "Int(>=3)",
+%%      "core_width": "Int(>=1)",
+%%      "outer_radius": "Int(>=0)",
+%%      "inner_radius": "Int(>=0)",
+%%      "leaf_block": "Str(BlockId)?"
+%%    },
+%%    "spruce_canopy": {
+%%      "lower_offset": "",
+%%      "upper_offset":"",
+%%      "max_radius": "Int?",
+%%      "leaf_block": "Str(BlockId)?"
+%%    },
+%%    "random_spread_canopy": {
+%%      "canopy_height": "Int?",
+%%      "leaf_placement_attempts": "Int(>=1)",
+%%      "leaf_blocks": [
+%%        [ "Str(BlockId)", "Float" ]
+%%      ]
+%%    }
+%%  }
+%%},r#~
+  ~#r{
+%%  "minecraft:vegetation_patch_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "replaceable_blocks": "Str-n(BlockId)?",
+%%    "ground_block": "Str-n(BlockId)?",
+%%    "vegetation_feature": "Str(FeatureId)",
+%%    "surface": "Str",~#D     D#~// "ceiling", "floor", "random_horizontal" ?
+%%    "depth": "",
+%%    "extra_deep_block_chance": "Float",
+%%    "vertical_range": "Int",
+%%    "vegetation_chance": "Float",
+%%    "horizontal_radius": "",
+%%    "extra_edge_column_chance": "Float(>=0.0)",
+%%    "waterlogged": "Bool"
+%%  }
+%%},r#~
+  ~#r{
+%%  "format_version": "1.13.0",
+%%  "minecraft:weighted_random_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "features": [
+%%      [ "Str(FeatureId)", "Float" ]
+%%      // ...
+%%    ]
+%%  }
+%%},r#~
+  ~#r{
+%%  "minecraft:sculk_patch_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "replaceable_blocks": "Str-n(BlockId)?",
+%%    "cant_place_sculk_vein_on": "Str-n(BlockId)?",
+%%    "ground_block": "Str-n(BlockId)?",
+%%    "growth_feature": "Str(FeatureId)",
+%%    "surface": "Str",~#D     D#~// "ceiling", "floor", "random_horizontal" ?
+%%    "vertical_range": "Int",
+%%    "growth_chance": "Float",
+%%    "horizontal_radius": ""
+%%  }
+%%},r#~
+  ~#r{
+%%  "minecraft:catalyst_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "can_place_sculk_catalyst_on": "Str-n(BlockId)?",
+%%    "central_block": "Str-n(BlockId)?",
+%%    "patch_feature": "Str(FeatureId)",
+%%    "central_patch_feature": "Str(FeatureId)",
+%%    "vertical_range": "Int",
+%%    "pathes_count_min": "Int",
+%%    "pathes_count_max": "Int",
+%%    "max_patch_distance": "Int"
+%%  }
+%%},r#~
+  ~#r{
+%%  "format_version": "1.13.0",
+%%  "minecraft:partially_exposed_blob_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "places_block": "Str(BlockId)",
+%%    "placement_radius_around_floor": "Int(1~8)",
+%%    "placement_probability_per_valid_position": "Float(0.0~1.0)",
+%%    "exposed_face": "Str"~#D     D#~// "up", ...
+%%  }
+%%},r#~
+  ~#r{
+%%  "format_version": "1.16.0",
+%%  "minecraft:surface_relative_threshold_feature": {
+%%    "description": {
+%%      "identifier": "Str(NameSpaced)"
+%%    },
+%%    "feature_to_place": "Str(FeatureId)",
+%%    "minimum_distance_below_surface": "Int"
+%%  }
+%%}r#~
+]</div>
+      </div>
+      <div id="sec07" class="headline" style="border-color: #587eff;">フィーチャールールのJSON</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('feature_rule:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="feature_rule" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.13.0",
+  "minecraft:feature_rules": {
+    "description": {
+      "identifier": "Str(NameSpaced)",
+      "places_feature": "Str(FeatureId)"
+    },
+    ~#r"conditions": {
+%%%%  "placement_pass": "Str",~#D     D#~// "surface_pass", ...
+%%%%  "minecraft:biome_filter": "Obj(Filter)/Obj-n(Filter)"
+%%%%},r#~
+    ~#r"distribution": {
+%%%%  "iterations": "Molang",
+%%%%  "scatter_chance": "Molang",
+%%%%  /* または
+  "scatter_chance": {
+    "numerator": "Int",
+    "denominator": "Int"
+  },
+  */
+%%%%  "x": "Molang",
+%%%%  /* または
+  "x": {
+    "distribution": "Str",~#D     D#~// "uniform", "gaussian", "inverse_gaussian", "triangle", "fixed_grid", "jittered_grid"
+    "step_size": "Int(>=1)",
+    "grid_offset": "Int(>=0)",
+    "extent": "Molang-2"
+  },
+  */
+%%%%  "y": "Molang",
+%%%%  /* または
+  "y": {
+    "distribution": "Str",~#D     D#~// "uniform", "gaussian", "inverse_gaussian", "triangle", "fixed_grid", "jittered_grid"
+    "step_size": "Int(>=1)",
+    "grid_offset": "Int(>=0)",
+    "extent": "Molang-2"
+  },
+  */
+%%%%  "z": "Molang"
+%%%%  /* または
+  "z": {
+    "distribution": "Str",~#D     D#~// "uniform", "gaussian", "inverse_gaussian", "triangle", "fixed_grid", "jittered_grid"
+    "step_size": "Int(>=1)",
+    "grid_offset": "Int(>=0)",
+    "extent": "Molang-2"
+  }
+  */
+%%%%}r#~
+  }
+}</div>
+      </div>
+      <div id="sec08" class="headline" style="border-color: #587eff;">エンティティのJSON(リソース)</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('entity_res:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="entity_res" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "Str(NameSpaced)",
+      "min_engine_version": "Str(Version)",
+      "materials": {
+        "Str": "Str"
+      },
+      "textures": {
+        "Str": "Str"
+      },
+      "geometry": {
+        "Str": "Str"
+      },
+      "queryable_geometry": "Str",
+      "spawn_egg": {
+        "texture": "Str",
+        "base_color": "Str",
+        "overlay_color": "Str",
+        "texture_index": "int"
+      },
+      ~#r"scripts": {
+%%%%%%  "variables": {
+%%%%%%    "variable.Str": "public",
+%%%%%%    // ...
+%%%%%%  },
+%%%%%%  "initialize": "Molng-n",
+%%%%%%  "pre_animation": "Molang-n",
+%%%%%%  "scale": "Molang",
+%%%%%%  "scaleX": "Molang",
+%%%%%%  "scaleY": "Molang",
+%%%%%%  "scaleZ": "Molang",
+%%%%%%  "parent_setup": "Molang",
+%%%%%%  "animate": [
+%%%%%%    "Str"
+%%%%%%    /* または
+    { "Str": "Molang" }
+    */
+%%%%%%    // ...
+%%%%%%  ],
+%%%%%%  "should_update_bones_and_effects_offscreen": "Molang",
+%%%%%%  "should_update_effects_offscreen": "Molang"
+%%%%%%},r#~
+      "particle_effects": {
+        "Str": "Str"
+      },
+      "particle_emitters": {
+        "Str": "Str"
+      },
+      "animations": {
+        "Str": "Str"
+      },
+      "render_controllers": [ 
+        "Str"
+        /* または
+        {
+          "Str": "Molang" : opt
+        }
+        */
+      ],
+      "sound_effects": {
+        "Str": "Str"
+      },
+      "enable_attachables": "Bool",
+      "hide_armor": "Bool",
+      "item": "Str"
+      /* または
+      "item": {
+        "Str": "Molang"
+      }
+      */
+    }
+  }
+}</div>
+      </div>
+      <div id="sec09" class="headline" style="border-color: #587eff;">アニメーションのJSON</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('anim:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="anim" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.Str": {
+      "loop": "Bool/Str",~#D     D#~// "hold_on_last_frame"
+      "start_delay": "Molang",
+      "loop_delay": "Molang",
+      "anim_time_update": "Molang",
+      "blend_weight": "Molang",
+      "override_previous_animation": "Bool",
+      ~#r"bones": {
+%%%%%%  "Str": {
+%%%%%%    "relative_to": {
+%%%%%%      "rotation": "entity"
+%%%%%%    },
+%%%%%%    "position": "Molang/Molang-3",
+%%%%%%    /* または
+    "position": {
+      "Str": "Molang-3"
+      /* または
+      "Str": {
+        "lerp_mode": "Str",~#D     D#~// "linear", "catmullrom"
+        "pre": "Molang-3",
+        "post": "Molang-3"
+      }
+      * /
+    }
+    */
+%%%%%%    "rotation": "Molang/Molang-3",
+%%%%%%    /* または
+    "rotation": {
+      "Str": "Molang-3"
+      /* または
+      "Str": {
+        "lerp_mode": "Str",~#D     D#~// "linear", "catmullrom"
+        "pre": "Molang-3",
+        "post": "Molang-3"
+      }
+      * /
+    }
+    */
+%%%%%%    "scale": "Molang/Molang-3"
+%%%%%%    /*
+    "scale": {
+      "Str": "Molang-3"
+      /* または
+      "Str": {
+        "lerp_mode": "Str",~#D     D#~// "linear", "catmullrom"
+        "pre": "Molang-3",
+        "post": "Molang-3"
+      }
+      * /
+    }
+    */
+%%%%%%  }
+%%%%%%},r#~
+      "particle_effects": {
+        "Str": [
+          {
+            "effect": "Str",
+            "locator": "Str",
+            "pre_effect_script": "Molang",
+            "bind_to_actor": "Bool"
+          }
+          // ...
+        ]
+        /* または
+        "Str": {
+          "effect": "Str",
+          "locator": "Str",
+          "pre_effect_script": "Molang",
+          "bind_to_actor": "Bool"
+        }
+        */
+      },
+      "sound_effects": {
+        "Str": [
+          {
+            "effect": "Str"
+          }
+          // ...
+        ]
+        /* または
+        "Str": {
+          "effect": "Str"
+        }
+        */
+      },
+      "timeline": {
+        "Str": "Str/Str-n"
+      },
+      "animation_length": "Float"
+    }
+  }
+}</div>
+      </div>
+      <div id="sec10" class="headline" style="border-color: #587eff;">アニメーションコントローラのJSON</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('anicon:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="anicon" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.Str": {
+      "states": {
+        ~#r"Str": {
+%%%%%%%%  "variables": {
+%%%%%%%%    "Str": {
+%%%%%%%%      "input": "Molang",
+%%%%%%%%      "remap_curve": {
+%%%%%%%%        "Str": "Float"
+%%%%%%%%      }
+%%%%%%%%    }
+%%%%%%%%  },
+%%%%%%%%  "animations":[
+%%%%%%%%    "Str"
+%%%%%%%%    /* または
+    { "Str": "Molang" }
+    */
+%%%%%%%%    // ...
+%%%%%%%%  ],
+%%%%%%%%  "transitions": [
+%%%%%%%%    { "Str": "Str" }
+%%%%%%%%    // ...
+%%%%%%%%  ],
+%%%%%%%%  "blend_via_shortest_path": "Bool",
+%%%%%%%%  "blend_transition": "Float",
+%%%%%%%%  /*
+  "blend_transition": {
+    "Str": "Float"
+  },
+  */
+%%%%%%%%  "particle_effects": [
+%%%%%%%%    {
+%%%%%%%%      "effect": "Str",
+%%%%%%%%      "locator": "Str",
+%%%%%%%%      "pre_effect_script": "Molang",
+%%%%%%%%      "bind_to_actor": "Bool"
+%%%%%%%%    }
+%%%%%%%%    // ...
+%%%%%%%%  ],
+%%%%%%%%  "on_entry": "Str-n",
+%%%%%%%%  "on_exit": "Str-n",
+%%%%%%%%  "sound_effects": [
+%%%%%%%%    { "effect": "Str" }
+%%%%%%%%  ]
+%%%%%%%%}r#~
+      },
+      "initial_state": "Str"
+    }
+  }
+}</div>
+      </div>
+      <div id="sec11" class="headline" style="border-color: #587eff;">レンダーコントローラのJSON</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('rencon:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="rencon" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.Str": {
+      "rebuild_animation_matrices": "Bool",
+      "arrays": {
+        "geometries": {
+          "array.Str": "Str-n"
+        },
+        "materials": {
+          "array.Str": "Str-n"
+        },
+        "textures": {
+          "array.Str": "Str-n"
+        }
+      },
+      "geometry": "Str",
+      "part_visibility": [
+        {
+          "Str": "Molang"
+        }
+      ],
+      "materials": [
+        {
+          "Str": "Molang"
+        }
+      ],
+      "textures": "Str-n",
+      "color": {
+        "r": "Molang",
+        "g": "Molang",
+        "b": "Molang",
+        "a": "Molang"
+      },
+      "overlay_color": {
+        "r": "Molang",
+        "g": "Molang",
+        "b": "Molang",
+        "a": "Molang"
+      },
+      "on_fire_color": {
+        "r": "Molang",
+        "g": "Molang",
+        "b": "Molang",
+        "a": "Molang"
+      },
+      "is_hurt_color": {
+        "r": "Molang",
+        "g": "Molang",
+        "b": "Molang",
+        "a": "Molang"
+      },
+      "uv_anim": {
+        "offset": "Molang-2",
+        "scale": "Moalng-2"
+      },
+      "light_color_multiplier": "Molang",
+      "ignore_lighting": "Bool",
+      "filter_lighting": "Bool"
+    }
+  }
+}</div>
+      </div>
+      <div id="sec12" class="headline" style="border-color: #587eff;">ジオメトリのJSON</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('geo:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="geo" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.16.0",
+  "debug": "Bool",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "Str",
+        "visible_bounds_width": "Float",
+        "visible_bounds_height": "Float",
+        "visible_bounds_offset": "Float-3",
+        "texture_width": "Int",
+        "texture_height": "Int"
+      },
+      "cape": "Str",
+      "bones": [
+        ~#r{
+%%%%%%%%  "name": "Str",
+%%%%%%%%  "parent": "Str",
+%%%%%%%%  "pivot": "Float-3",
+%%%%%%%%  "rotation": "Float-3",
+%%%%%%%%  "mirror": "Bool",
+%%%%%%%%  "inflate": "Float",
+%%%%%%%%  "debug": "Bool",
+%%%%%%%%  "render_group_id": "Int(>=0)",
+%%%%%%%%  "cubes": [
+%%%%%%%%    {
+%%%%%%%%      "origin": "Float-3",
+%%%%%%%%      "size": "Float-3",
+%%%%%%%%      "rotation": "Float-3",
+%%%%%%%%      "pivot": "Float-3",
+%%%%%%%%      "inflate": "Float",
+%%%%%%%%      "mirror": "Bool",
+%%%%%%%%      "uv": {
+%%%%%%%%        "north": {
+%%%%%%%%        "uv": "Float-2",
+%%%%%%%%        "uv_size": "Float-2",
+%%%%%%%%        "material_instance": "Str"
+%%%%%%%%        },
+%%%%%%%%        "south": {
+%%%%%%%%        "uv": "Float-2",
+%%%%%%%%        "uv_size": "Float-2",
+%%%%%%%%        "material_instance": "Str"
+%%%%%%%%        },
+%%%%%%%%        "east": {
+%%%%%%%%        "uv": "Float-2",
+%%%%%%%%        "uv_size": "Float-2",
+%%%%%%%%        "material_instance": "Str"
+%%%%%%%%        },
+%%%%%%%%        "west": {
+%%%%%%%%        "uv": "Float-2",
+%%%%%%%%        "uv_size": "Float-2",
+%%%%%%%%        "material_instance": "Str"
+%%%%%%%%        },
+%%%%%%%%        "up": {
+%%%%%%%%        "uv": "Float-2",
+%%%%%%%%        "uv_size": "Float-2",
+%%%%%%%%        "material_instance": "Str"
+%%%%%%%%        },
+%%%%%%%%        "down": {
+%%%%%%%%        "uv": "Float-2",
+%%%%%%%%        "uv_size": "Float-2",
+%%%%%%%%        "material_instance": "Str"
+%%%%%%%%        }
+%%%%%%%%      }
+%%%%%%%%      /* または
+      "uv": "Float-2"
+      */
+%%%%%%%%    }
+%%%%%%%%    // ...
+%%%%%%%%  ],
+%%%%%%%%  "binding": "Molang",
+%%%%%%%%  /* 解読不可 
+  "locators": {
+    "": {
+      "offset": "Float-n",
+      "rotation": "Float-n",
+      "ignore_inherited_scale": "Bool"
+    },
+    "": "Float-n"
+  },
+  */
+%%%%%%%%  "poly_mesh": {
+%%%%%%%%    "normalized_uvs": "Bool",
+%%%%%%%%    "positions": [
+%%%%%%%%      "Float-3"
+%%%%%%%%      // ...
+%%%%%%%%    ],
+%%%%%%%%    "normals": [
+%%%%%%%%      "Float-3"
+%%%%%%%%      // ...
+%%%%%%%%    ],
+%%%%%%%%    "uvs": [
+%%%%%%%%      "Float-2"
+%%%%%%%%      // ...
+%%%%%%%%    ],
+%%%%%%%%    "polys": [
+%%%%%%%%      [
+%%%%%%%%        "Float-3"
+%%%%%%%%        // ... +2,3
+%%%%%%%%      ]
+%%%%%%%%        // ...
+%%%%%%%%    ]
+%%%%%%%%    // "polys": "Str"~#D     D#~// "tri_list", "quad_list"
+%%%%%%%%  },
+%%%%%%%%  "texture_meshes": [
+%%%%%%%%    {
+%%%%%%%%      "texture": "Str",
+%%%%%%%%      "position": "Float-3",
+%%%%%%%%      "local_pivot": "Float-3",
+%%%%%%%%      "rotation": "Float-3",
+%%%%%%%%      "scale": "Float-3"
+%%%%%%%%    }
+%%%%%%%%    // ...
+%%%%%%%%  ]
+%%%%%%%%}r#~
+      ]
+    }
+  ]
+}</div>
+      </div>
+    </div>
+    <!--
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+    -->
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">このページの読み方/使い方</a></h4>
+        <ul>
+          <li><a href="#sec01sec01">記号</a></li>
+          <li><a href="#sec01sec02">コメントアウト</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec02">ブロックのJSON</a></h4>
+        <hr>
+        <h4><a href="#sec03">アイテムのJSON</a></h4>
+        <hr>
+        <h4><a href="#sec04">エンティティのJSON(ビヘイビア)</a></h4>
+        <hr>
+        <h4><a href="#sec05">バイオームのJSON</a></h4>
+        <hr>
+        <h4><a href="#sec06">フィーチャーのJSON</a></h4>
+        <hr>
+        <h4><a href="#sec07">フィーチャールールのJSON</a></h4>
+        <hr>
+        <h4><a href="#sec08">エンティティのJSON(リソース)</a></h4>
+        <hr>
+        <h4><a href="#sec09">アニメーションのJSON</a></h4>
+        <hr>
+        <h4><a href="#sec10">アニメーションコントローラのJSON</a></h4>
+        <hr>
+        <h4><a href="#sec11">レンダーコントローラのJSON</a></h4>
+        <hr>
+        <h4><a href="#sec12">ジオメトリのJSON</a></h4>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

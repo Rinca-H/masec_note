@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】アドオン作成「ボリューム」 - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="ボリュームについて解説します。" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, 作り方">
+  <meta name="description" content="ボリュームについて解説します。">
+  <title>【Minecraft BE(統合版)】アドオン作成「ボリューム」 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">アドオン作成 - ボリューム</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <div id="sec01" class="headline" style="border-color: #587eff;">機能</div>
+      <p>「ボリューム」というものを定義します。</p>
+      <p>
+        ボリュームとは何かというと、<b>ワールド内の指定したある空間</b>(直方体)のことで、
+        大きさやエンティティの侵入/退出時のイベントを設定して定義します。
+      </p>
+      <div id="sec02" class="headline" style="border-color: #587eff;">ファイルの場所</div>
+      <div class="center">
+        <div class="colorBox gray_box">
+          (ワールドデータ)<br>
+          　 ┣ behavior_packs<br>
+          　 ┣ db<br>
+          　 ┣ resource_packs<br>
+          　 ┣ level.dat<br>
+          　 ┣ level.dat_old<br>
+          　 ┣ levelname.txt<br>
+          　 ┣ world_icon.jpeg<br>
+          　 ┗ <b>volumes</b><br>
+          　 　 ┗ <b>〇〇.json</b>
+        </div>
+      </div>
+      <div id="sec03" class="headline" style="border-color: #587eff;">基本構造</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('basic:div')">コピー</button>
+        <textarea class="copyBoard" id="basic" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.17.0",
+  "minecraft:volume": {
+    "description": {
+      "identifier": "ex:my_volume"
+    },
+    "components": {
+      // コンポーネント
+    }
+  }
+}</div>
+      </div>
+      <div id="sec04" class="headline" style="border-color: #587eff;">コンポーネント</div>
+      <h3 id="sec04sec01">● minecraft:bounds</h3>
+      <p>
+        ボリュームの大きさを決めます。直方体の(x,y,z)が最も小さい点(<span class="inline">"min"</span>)と
+        最も大きい点(<span class="inline">"max"</span>)を指定します。
+      </p>
+      <p><span class="inline">"dimension"</span>ではディメンションを指定します。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('bounds:div')">コピー</button>
+        <textarea class="copyBoard" id="bounds" cols="5" rows="5" readonly></textarea>
+        <div class="json">"minecraft:bounds": {
+  "dimension": "overworld",
+  "min": [ -50, -64, -50 ],
+  "max": [ 50, 320, 50 ],
+}</div>
+      </div>
+      <h3 id="sec04sec02">● minecraft:fog</h3>
+      <p>このボリュームの中にいるプレイヤーに見せるfogを指定します。</p>
+      <p>
+        <span class="inline">"fog_identifier"</span>にはfogIDを、
+        <span class="inline">"priority"</span>には優先順位を指定します(小さいほうが高い)。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('fog:div')">コピー</button>
+        <textarea class="copyBoard" id="fog" cols="5" rows="5" readonly></textarea>
+        <div class="json">"minecraft:fog": {
+  "fog_identifier": "minecraft:fog_savanna",
+  "priority": 1
+}</div>
+      </div>
+      <h3 id="sec04sec03">● minecraft:on_actor_enter</h3>
+      <p>このボリュームにエンティティが入った瞬間に起こるイベントを指定します。</p>
+      <p>
+        <span class="inline">"condition"</span>ではMolangを用いた追加の条件、
+        <span class="inline">"event"</span>では発生させるイベントの名前、
+        <span class="inline">"target"</span>ではそのエンティティ基準のターゲットを指定します。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('on_enter:div')">コピー</button>
+        <textarea class="copyBoard" id="on_enter" cols="5" rows="5" readonly></textarea>
+        <div class="json">"minecraft:on_actor_enter":{
+  "on_enter": [{
+    "condition": "query.modified_move_speed >= 1.0",
+    "event": "reduce_fog_amount",
+    "target": "self"
+  }]
+}</div>
+      </div>
+      <h3 id="sec04sec04">● minecraft:on_actor_leave</h3>
+      <p>このボリュームからエンティティが出た瞬間に起こるイベントを指定します。</p>
+      <p>各プロパティの説明は<span class="inline">"minecraft:on_actor_enter"</span>コンポーネントと同様です。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('on_leave:div')">コピー</button>
+        <textarea class="copyBoard" id="on_leave" cols="5" rows="5" readonly></textarea>
+        <div class="json">"minecraft:on_actor_leave":{
+  "on_leave": [{
+    "condition": "query.modified_move_speed <= 0.9",
+    "event": "restart_fog",
+    "target": "self"
+  }]
+}</div>
+      </div>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">機能</a></h4>
+        <hr>
+        <h4><a href="#sec02">ファイルの場所</a></h4>
+        <hr>
+        <h4><a href="#sec03">基本構造</a></h4>
+        <hr>
+        <h4><a href="#sec04">コンポーネント</a></h4>
+        <ul>
+          <li><a href="#sec04sec01">minecraft:bounds</a></li>
+          <li><a href="#sec04sec02">minecraft:fog</a></li>
+          <li><a href="#sec04sec03">minecraft:on_actor_enter</a></li>
+          <li><a href="#sec04sec04">minecraft:on_actor_leave</a></li>
+        </ul>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

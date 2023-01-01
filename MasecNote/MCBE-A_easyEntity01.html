@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】エンティティの作り方#1 - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="簡単なエンティティの作り方を説明します！" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, 作り方">
+  <meta name="description" content="簡単なエンティティの作り方を説明します！">
+  <title>【Minecraft BE(統合版)】エンティティの作り方#1 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">アドオン作りの基礎 - エンティティ編#1</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+
+      <p>
+        手順をふんで、できるだけ簡単にエンティティの作り方を解説します！<br>
+        前回の記事(<a href="MCBE-A_basic02.html">アドオンづくりの基礎#2</a>)の
+        「<a href="MCBE-A_basic02.html#sec01sec05">追加するコンテンツのフォルダ</a>」まで手順を進めているのが前提です。
+      </p>
+      <p>
+        エンティティを追加するためにはビヘイビアパックとリソースパックの<b>両方を作る必要がある</b>ので分けて説明しますが、
+        どっちでの作業なのか注意して進めてください。
+      </p>
+      <div id="sec01" class="headline" style="border-color: #ff6169;">ビヘイビア</div>
+      <h3 id="sec01sec01">● エンティティの本体を作る</h3>
+      <p><b>entitiesフォルダ</b>の中にsimple_entity.jsonを新規作成します。ファイルの名前は自由です。</p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          ビヘイビア<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ <b>entities</b><br>
+          　 　 ┗<b>simple_entity.json</b>
+        </div>
+      </div>
+      <div class="pDat">Dat</div><div class="dir">entities/simple_entity.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('basic:div')" style="right: 2em;">コピー</button>
+        <textarea class="copyBoard" id="basic" cols="5" rows="5" readonly></textarea>
+        <div class="json" style="height: 75vh;">{
+  "format_version": "1.17.20",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "ex:simple_entity",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+
+    "components": {
+      "minecraft:attack": { "damage": 3 },
+      "minecraft:can_climb": {},
+      "minecraft:collision_box": { "width": 0.6, "height": 1.9 },
+      "minecraft:conditional_bandwidth_optimization": {},
+      "minecraft:despawn": { "despawn_from_distance": {} },
+      "minecraft:health": { "value": 20, "max": 20 },
+      "minecraft:is_hidden_when_invisible": {},
+      "minecraft:loot": { "table": "loot_tables/entities/simple_entity.json" },
+      "minecraft:nameable": {},
+      "minecraft:physics": {},
+
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0
+      },
+      "minecraft:hurt_on_condition": {
+        "damage_conditions": [
+          {
+            "filters": { "test": "in_lava", "subject": "self", "operator": "==", "value": true },
+            "cause": "lava",
+            "damage_per_tick": 4
+          }
+        ]
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:type_family": {
+        "family": [ "monster", "mob" ]
+      },
+
+      "minecraft:jump.static": {},
+      "minecraft:movement.basic": {},
+      "minecraft:navigation.walk": {
+        "is_amphibious": true,
+        "can_pass_doors": true,
+        "can_walk": true,
+        "can_break_doors": true
+      },
+      "minecraft:behavior.hurt_by_target": { "priority": 1 },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 2,
+        "must_see": true,
+        "reselect_targets": true,
+        "within_radius": 25.0,
+        "must_see_forget_duration": 17.0,
+        "entity_types": [
+          {
+            "filters": {
+              "any_of": [
+                { "test": "is_family", "subject": "other", "value": "player" },
+                { "test": "is_family", "subject": "other", "value": "snowgolem" },
+                { "test": "is_family", "subject": "other", "value": "irongolem" }
+              ]
+            },
+            "max_dist": 35
+          },
+          {
+            "filters": {
+              "any_of": [
+                { "test": "is_family", "subject": "other", "value": "villager" },
+                { "test": "is_family", "subject": "other", "value": "wandering_trader" }
+              ]
+            },
+            "max_dist": 35,
+            "must_see": false
+          }
+        ]
+      },
+      "minecraft:behavior.melee_attack": { "priority": 3 },
+      "minecraft:behavior.random_stroll": {
+        "priority": 7,
+        "speed_multiplier": 1
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 8,
+        "look_distance": 6,
+        "probability": 0.02
+      },
+      "minecraft:behavior.random_look_around": { "priority": 9 }
+    }
+  }
+}</div>
+      </div>
+      <p>エンティティに関してはかなり量が多いです。</p>
+      <hr>
+      <h3 id="sec01sec02">● 内容の意味</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled" style="right: 2em;">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json" style="height: 75vh;">{
+  "format_version": "1.17.20",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "~#M(83ffd9)(アドオンID)M#~:~#M(83ffd9)(エンティティのID)M#~",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+
+    "components": {
+      "minecraft:attack": { "damage": ~#M(83ffd9)3M#~ }, // 攻撃力
+      "minecraft:can_climb": {},
+      "minecraft:collision_box": { "width": ~#M(83ffd9)0.6M#~, "height": ~#M(83ffd9)1.9M#~ }, // 当たり判定の幅、高さ
+      "minecraft:conditional_bandwidth_optimization": {},
+      "minecraft:despawn": { "despawn_from_distance": {} },
+      "minecraft:health": { "value": ~#M(83ffd9)20M#~, "max": ~#M(83ffd9)20M#~ }, // 体力の現在の値、最大値
+      "minecraft:is_hidden_when_invisible": {},
+      "minecraft:loot": { "table": "~#M(83ffd9)loot_tables/entities/zombie.jsonM#~" }, // (※1)
+      "minecraft:nameable": {},
+      "minecraft:physics": {},
+
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0
+      },
+      "minecraft:hurt_on_condition": {
+        "damage_conditions": [
+          {
+            "filters": { "test": "in_lava", "subject": "self", "operator": "==", "value": true },
+            "cause": "lava",
+            "damage_per_tick": 4
+          }
+        ]
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:type_family": {
+        "family": [ "monster", "mob" ]
+      },
+
+      // 以下AIに関するコンポーネント群
+      "minecraft:jump.static": {},
+      "minecraft:movement.basic": {},
+      "minecraft:navigation.walk": {
+        "is_amphibious": true,
+        "can_pass_doors": true,
+        "can_walk": true,
+        "can_break_doors": true
+      },
+      "minecraft:behavior.hurt_by_target": { "priority": 1 },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 2,
+        "must_see": true,
+        "reselect_targets": true,
+        "within_radius": 25.0,
+        "must_see_forget_duration": 17.0,
+        "entity_types": [
+          {
+            "filters": {
+              "any_of": [
+                { "test": "is_family", "subject": "other", "value": "player" },
+                { "test": "is_family", "subject": "other", "value": "snowgolem" },
+                { "test": "is_family", "subject": "other", "value": "irongolem" }
+              ]
+            },
+            "max_dist": 35
+          }
+        ]
+      },
+      "minecraft:behavior.melee_attack": { "priority": 3 },
+      "minecraft:behavior.random_stroll": {
+        "priority": 4,
+        "speed_multiplier": 1
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 5,
+        "look_distance": 6,
+        "probability": 0.02
+      },
+      "minecraft:behavior.random_look_around": { "priority": 6 }
+    }
+  }
+}</div>
+      </div>
+      <p>
+        アドオンIDとエンティティのIDは<u>書き方</u>を守って各自で決めてください。
+      </p>
+      <details><summary>書き方</summary>
+        <div class="center">
+          <div class="colorBox blue_box">
+            <h4>アドオンID</h4>
+            <p>アドオン全体で共通のID</p>
+            <h4>エンティティID</h4>
+            <p>個別のID(バニラとカブらないほうがよい)</p>
+            <h4>基本の書式</h4>
+            <ul>
+              <li>アルファベット、数字、「_」「-」以外は使わない</li>
+              <li>頭文字はアルファベット</li>
+              <li>アルファベットの大文字は使わないほうがいい</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+      <p>基本なので、説明が書いていないところはとりあえず書いとけばいいみたいに思ってください。</p>
+      <p>
+        <b>(※1)</b>　エンティティを倒したときにドロップするアイテムを決める、ルートテーブルを指定します。<br>
+        オリジナルのルートテーブルを作る場合は：<a href="MCBE-A_lootTables.html" target="_blank">ルートテーブルの作り方</a> <img src="img/external_link_icon.png" class="ignore text_icon">
+      </p>
+      <h3 id="sec01sec03">● ビヘイビアは完成</h3>
+      <p>
+        あとはこの記事(<a href="MCBE-A_basic02.html">アドオンづくりの基礎#2</a>)の
+        「<a href="MCBE-A_basic02.html#sec01sec06">圧縮</a>」以降の手順になります。
+      </p>
+      <div id="sec02" class="headline" style="border-color: #31af37;">リソース</div>
+      <h3 id="sec02sec01">● テクスチャを用意</h3>
+      <p><b>リソースパック</b>の<b>textures</b>フォルダ(なければ新規作成)の中に<b>entity</b>フォルダを作ります。</p>
+      <p>
+        その中にテクスチャファイルを入れてください。今回は「simple_entity.png」であるとします。
+      </p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ textures<br>
+          　 　 ┗ entity<br>
+          　 　 　 ┗ <b>simple_entity.png</b>
+        </div>
+      </div>
+      <hr>
+      <h3 id="sec02sec02">● エンティティ本体と様々なリソース情報を紐づけ</h3>
+      <p>
+        リソースパックのentityフォルダ内に<b>simple_entity.entity.json</b>を新規作成します。名前は自由です。
+      </p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┣ textures<br>
+          　 ┃ ┗ entity<br>
+          　 ┃ 　 ┗ simple_entity.png<br>
+          　 ┗ entity<br>
+          　 　 ┗ <b>simple_entity.entity.json</b>
+        </div>
+      </div>
+      <div class="pRes">Res</div><div class="dir">entity/simple_entity.entity.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('entity_client:div')" style="right: 2em;">コピー</button>
+        <textarea class="copyBoard" id="entity_client" cols="5" rows="5" readonly></textarea>
+        <div class="json" style="height: 75vh;">{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ex:simple_entity",
+      "materials": { "default": "entity_alphatest" },
+      "textures": { "default": "textures/entity/simple_entity" },
+      "geometry": { "default": "geometry.humanoid.custom" },
+      "scripts": {
+        "pre_animation": [
+          "variable.tcos0 = (Math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;"
+        ],
+        "animate": [
+          "controller_humanoid_baby_big_head",
+          "controller_look_at_target",
+          "controller_move",
+          "controller_riding",
+          "controller_holding",
+          "controller_brandish_spear",
+          "controller_charging",
+          "controller_attack",
+          "controller_sneaking",
+          "controller_bob",
+          "controller_damage_nearby_mobs",
+          "controller_bow_and_arrow",
+          "controller_use_item_progress",
+          "controller_zombie_attack_bare_hand",
+          "controller_swimming"
+        ]
+      },
+      "animations": {
+        "humanoid_big_head": "animation.humanoid.big_head",
+        "look_at_target_default": "animation.humanoid.look_at_target.default",
+        "look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+        "look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+        "move": "animation.humanoid.move",
+        "riding.arms": "animation.humanoid.riding.arms",
+        "riding.legs": "animation.humanoid.riding.legs",
+        "holding": "animation.humanoid.holding",
+        "brandish_spear": "animation.humanoid.brandish_spear",
+        "charging": "animation.humanoid.charging",
+        "attack.rotations": "animation.humanoid.attack.rotations",
+        "sneaking": "animation.humanoid.sneaking",
+        "bob": "animation.humanoid.bob",
+        "damage_nearby_mobs": "animation.humanoid.damage_nearby_mobs",
+        "bow_and_arrow": "animation.humanoid.bow_and_arrow",
+        "use_item_progress": "animation.humanoid.use_item_progress",
+        "zombie_attack_bare_hand": "animation.zombie.attack_bare_hand",
+        "swimming": "animation.zombie.swimming",
+
+        "controller_humanoid_baby_big_head": "controller.animation.humanoid.baby_big_head",
+        "controller_look_at_target": "controller.animation.humanoid.look_at_target",
+        "controller_move": "controller.animation.humanoid.move",
+        "controller_riding": "controller.animation.humanoid.riding",
+        "controller_holding": "controller.animation.humanoid.holding",
+        "controller_brandish_spear": "controller.animation.humanoid.brandish_spear",
+        "controller_charging": "controller.animation.humanoid.charging",
+        "controller_attack": "controller.animation.humanoid.attack",
+        "controller_sneaking": "controller.animation.humanoid.sneaking",
+        "controller_bob": "controller.animation.humanoid.bob",
+        "controller_damage_nearby_mobs": "controller.animation.humanoid.damage_nearby_mobs",
+        "controller_bow_and_arrow": "controller.animation.humanoid.bow_and_arrow",
+        "controller_use_item_progress": "controller.animation.humanoid.use_item_progress",
+        "controller_zombie_attack_bare_hand": "controller.animation.zombie.attack_bare_hand",
+        "controller_swimming": "controller.animation.zombie.swimming"
+      },
+      "render_controllers": [ "controller.render.zombie" ],
+      "enable_attachables": true
+    }
+  }
+}</div>
+      </div>
+      <hr>
+      <h3 id="sec02sec03">● 内容の意味</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled" style="right: 2em;">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json" style="height: 75vh;">{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "~#M(83ffd9)ex:simple_entityM#~", // エンティティのフルID
+      "enable_attachables": true,
+      "materials": { "default": "entity_alphatest" },
+      "textures": { "default": "textures/entity/~#M(83ffd9)(テクスチャ名)M#~" },
+      // 以下、中上級者向け項目
+      "geometry": { "default": "geometry.humanoid.custom" },
+      "scripts": {
+        "pre_animation": [
+          "variable.tcos0 = (Math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;"
+        ],
+        "animate": [
+          // (省略)
+        ]
+      },
+      "animations": {
+        // (省略)
+      },
+      "render_controllers": [ "controller.render.zombie" ]
+    }
+  }
+}</div>
+      </div>
+      <p>こちらも同様に、基礎の段階ですべて説明できるものではないので大部分はコピペしたままでOKです。</p>
+      <hr>
+      <h3 id="sec02sec04">● リソースも完成</h3>
+      <p>
+        あとはこの記事(<a href="MCBE-A_basic02.html">アドオンづくりの基礎#2</a>)の
+        「<a href="MCBE-A_basic02.html#sec01sec06">圧縮</a>」以降の手順になります。
+      </p>
+      <div id="sec03" class="headline" style="border-color: #587eff;">完成！</div>
+      <p>
+        作ったパックを<b>両方ともインポート</b>して確認してみましょう！<br>
+        以下のことに気をつけてください：
+      </p>
+      <ul style="line-height: 2em;">
+        <li>ワールドの設定で「試験的なゲームプレイ」をオンにする</li>
+        <li>ビヘイビアパックとリソースパックの両方を忘れずに適用する</li>
+      </ul>
+      <div id="sec04" class="headline" style="border-color: #587eff;">二つ目以降のエンティティの追加のしかた</div>
+      <p>ファイル自体を増やすのか、ファイルの中身を増やすのかに注意してください。</p>
+      <h3 id="sec04sec01">● エンティティ本体(ビヘイビア)</h3>
+      <p>ファイル自体をまたentitiesフォルダ内に新規作成してください。</p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          ビヘイビア<br>
+          　 ┣ pack_icon.png<br>
+          　 ┣ manifest.json<br>
+          　 ┗ entities<br>
+          　 　 ┣ simple_entity.json<br>
+          　 　 ┣ <b>myentity_2.json</b><br>
+          　 　 ：<br>
+          　 　 ┗ <b>myentity_n.json</b>
+        </div>
+      </div>
+      <h3 id="sec04sec02">● 本体と様々な情報を紐づけ(リソース)</h3>
+      <p>ファイル自体をまたentityフォルダ内に新規作成してください。</p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┣ textures<br>
+          　 ┗ entity<br>
+          　 　 ┣ simple_entity.entity.json<br>
+          　 　 ┣ <b>myentity_2.entity.json</b><br>
+          　 　 ：<br>
+          　 　 ┗ <b>myentity_n.entity.json</b>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">ビヘイビア</a></h4>
+        <ul>
+          <li><a href="#sec01sec01">エンティティの本体を作る</a></li>
+          <li><a href="#sec01sec02">内容の意味</a></li>
+          <li><a href="#sec01sec03">ビヘイビアは完成</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec02">リソース</a></h4>
+        <ul>
+          <li><a href="#sec02sec01">テクスチャを用意</a></li>
+          <li><a href="#sec02sec02">エンティティ本体と様々なリソース情報を紐づけ</a></li>
+          <li><a href="#sec02sec03">内容の意味</a></li>
+          <li><a href="#sec02sec04">リソースも完成</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec03">完成！</a></h4>
+        <hr>
+        <h4><a href="#sec04">二つ目以降のエンティティの追加のしかた</a></h4>
+        <ul>
+          <li><a href="#sec04sec01">エンティティ本体(ビヘイビア)</a></li>
+          <li><a href="#sec04sec02">本体と様々な情報を紐づけ(リソース)</a></li>
+        </ul>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

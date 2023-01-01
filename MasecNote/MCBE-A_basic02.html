@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】アドオンづくりの基礎#2 - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="アドオンを作るうえで欠かせない「パック」の作り方を説明します！" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, 作り方">
+  <meta name="description" content="アドオンを作るうえで欠かせない「パック」の作り方を説明します！">
+  <title>【Minecraft BE(統合版)】アドオンづくりの基礎#2 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">アドオンづくりの基礎#2</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <p>
+        今回はどんなアドオンを作るのにも必要不可欠な「パック」の作り方を説明するために、からっぽのアドオンを追加しようと思います。
+      </p>
+      <div id="sec01" class="headline" style="border-color: #587eff;">からっぽのアドオンを追加</div>
+      <h3 id="sec01sec01">(1) 作業用フォルダの用意</h3>
+      <p>
+        整理がきくように、作業用のフォルダを用意します。たとえば以下のようなフォルダ構成がいいと思います。
+      </p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          <span style="font-size: small;">例)</span><br>
+          アドオン製作所<br>
+          　 ┗ 〇〇(アドオン名)<br>
+          　 　 ┣ Dat<br>
+          　 　 ┗ Res
+        </div>
+      </div>
+      <p>
+        必須なのは上の構成でいうところの「Dat」「Res」です。
+        「Dat」はビヘイビアパック、「Res」はリソースパックです。名前は自由に変えられ、どちらか一方だけを作る場合は片方だけで十分です。
+      </p>
+      <p>
+        今回は「<b>ビヘイビア</b>」「<b>リソース</b>」という名前のフォルダを作業フォルダに作ったとします。
+      </p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          作業フォルダ<br>
+          　 ┣ ビヘイビア<br>
+          　 ┗ リソース
+        </div>
+      </div>
+      <h3 id="sec01sec02">(2) パックのアイコン</h3>
+      <p>
+        今回は両方作るので「ビヘイビア」「リソース」フォルダ両方に「<b>pack_icon</b>」という名前の画像ファイルをいれます。拡張子は.pngでいいと思います。
+      </p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          作業フォルダ<br>
+          　 ┣ ビヘイビア<br>
+          　 ┃ ┗ <b>pack_icon.png</b><br>
+          　 ┗ リソース<br>
+          　 　 ┗ <b>pack_icon.png</b>
+        </div>
+      </div>
+      <p>この画面のアイコンになります↓</p>
+      <div class="center"><img src="img/MCBE-A_basic02_01.png" style="width: 80%; min-width: 300px;"></div>
+      <h3 id="sec01sec03">(3) マニフェスト</h3>
+      <p>
+        マニフェストは、インポートしたものがアドオンであることを示すファイルです。
+        「<b>ビヘイビア</b>」フォルダに<b>「manifest.json」というファイルを新規作成して以下のJSONをコピペ</b>してください。
+      </p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          作業フォルダ<br>
+          　 ┣ ビヘイビア<br>
+          　 ┃ ┣ pack_icon.png<br>
+          　 ┃ ┗ <b>manifest.json</b><br>
+          　 ┗ リソース<br>
+          　 　 ┗ pack_icon.png
+        </div>
+      </div>
+      <div class="pDat">Dat</div><div class="dir">manifest.json</div><div class="jsonDiv">
+        <button onclick="copyToClipboard('basic:div')">コピー</button>
+        <textarea class="copyBoard" id="basic" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": 2,
+  "header": {
+    "description": "Example vanilla behavior pack",
+    "name": "Vanilla Behavior Pack",
+    "uuid": "ee649bcf-256c-4013-9068-6a802b89d756",
+    "version": [ 0, 0, 1 ],
+    "min_engine_version": [ 1, 18, 10 ]
+  },
+  "modules": [
+    {
+      "description": "Example vanilla behavior pack",
+      "type": "data",
+      "uuid": "fa6e90c8-c925-460f-8155-c8a60b753caa",
+      "version": [ 0, 0, 1 ]
+    }
+  ]
+}</div>
+      </div>
+      <p>少し書き換える部分を説明します。以下のマーカー部分を書き換えてください。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": 2,
+  "header": {
+    "description": "~#M(83ffd9)Example vanilla behavior packM#~",
+    "name": "~#M(83ffd9)Vanilla Behavior PackM#~",
+    "uuid": "~#M(83ffd9)ee649bcf-256c-4013-9068-6a802b89d756M#~",
+    "version": [ 0, 0, 1 ],
+    "min_engine_version": [ 1, 18, 10 ]
+  },
+  "modules": [
+    {
+      "description": "~#M(83ffd9)Example vanilla behavior packM#~",
+      "type": "~#M(83ffd9)dataM#~",
+      "uuid": "~#M(83ffd9)fa6e90c8-c925-460f-8155-c8a60b753caaM#~",
+      "version": [ 0, 0, 1 ]
+    }
+  ]
+}</div>
+      </div>
+      <p>
+        UUIDというのは、マインクラフトがパックを識別するためのIDです。
+        <b>ほかのパックと同じUUIDをもつとインポートできない</b>ので別のUUIDに変えます。
+      </p>
+      <p>
+        UUIDは<a href="https://www.uuidgenerator.net/">このサイト</a>で生成することができます
+        (Copyボタンでコピー、サイトを更新して新しく生成)。
+      </p>
+      <h4>例)</h4>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": 2,
+  "header": {
+    "description": "テスト用のからっぽなビヘイビアパックです",
+    "name": "テストアドオン(ビヘイビア)",
+    "uuid": "c83699f6-7f51-4f7a-85c0-fca639167758",
+    "version": [ 0, 0, 1 ],
+    "min_engine_version": [ 1, 18, 10 ]
+  },
+  "modules": [
+    {
+      "description": "テスト用のからっぽなビヘイビアパックです",
+      "type": "data",
+      "uuid": "87e2d5d6-7cf6-4ef2-a5cf-a5a334bcf6a0",
+      "version": [ 0, 0, 1 ]
+    }
+  ]
+}</div>
+      </div>
+      <h3 id="sec01sec04">(4) リソースパックにもマニフェスト</h3>
+      <p>
+        <b>同じく「リソースパック」フォルダのほうにも</b>パックのタイプを「<b>resource</b>」にしてUUIDを変えたマニフェストを<b>作成してください</b>。
+        UUIDはビヘイビアのものと全て変えてください！
+      </p>
+      <h4>例)</h4>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": 2,
+  "header": {
+    "description": "テスト用のからっぽなリソースパックです",
+    "name": "テストアドオン(リソース)",
+    "uuid": "015cc3f8-3ce1-4143-944c-718fb7201032",
+    "version": [ 0, 0, 1 ],
+    "min_engine_version": [ 1, 18, 10 ]
+  },
+  "modules": [
+    {
+      "description": "テスト用のからっぽなリソースパックです",
+      "type": "data",
+      "uuid": "1c08ad04-ab46-4e7d-8c0a-f5d28d396e6d",
+      "version": [ 0, 0, 1 ]
+    }
+  ]
+}</div>
+      </div>
+      <p>最終的にこのようになったと思います。</p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          作業フォルダ<br>
+          　 ┣ ビヘイビア<br>
+          　 ┃ ┣ manifest.json<br>
+          　 ┃ ┗ pack_icon.png<br>
+          　 ┗ リソース<br>
+          　 　 ┣ manifest.json<br>
+          　 　 ┗ pack_icon.png
+        </div>
+      </div>
+      <h3 id="sec01sec05">(5) 追加するコンテンツのフォルダ</h3>
+      <p>
+        例えば、ブロックを追加したいとなったら、「ビヘイビア」フォルダ内に専用の「blocks」フォルダをマニフェストと同じ層に追加します。
+        アイテムなら「ビヘイビア」フォルダに「items」フォルダを...といったように<b>追加したいものの専用のフォルダ</b>をマニフェストと同じ層に追加していきます。<br>
+        詳しくはそれぞれの作り方の記事で説明します。
+      </p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          ビヘイビア<br>
+          　 ┣ <b>blocks</b><br>
+          　 ┣ <b>items</b><br>
+          　 ┣ manifest.json<br>
+          　 ┗ pack_icon.png
+        </div>
+      </div>
+      <p>
+        今回はからっぽのアドオンを作るので「manifest.json」と「pack_icon.png」だけになります。
+      </p>
+      <h3 id="sec01sec06">(6) 圧縮</h3>
+      <p>
+        「<b>ビヘイビア</b>」(または「<b>リソース</b>」)フォルダの中にあるファイルとフォルダを<b>すべて選択して圧縮します</b>。
+        圧縮したファイル「〇〇.<b>zip</b>」を名前の変更で「〇〇.<b>mcpack</b>」にします。
+      </p>
+      <ul style="line-height: 2em;">
+        <li>.zipから.mcpackへの変更でファイルは壊れません。</li>
+        <li>このファイルの名前「〇〇」は自由です。</li>
+      </ul>
+      <h3 id="sec01sec07">(7) インポート</h3>
+      <p>できたmcpackファイルを開くとマインクラフトで開けると思います。</p>
+      <div id="sec02" class="headline" style="border-color: #587eff;">アドオンをアップデート</div>
+      <p>マニフェストのUUIDを変えて圧縮したものをインポートします。</p>
+      <div id="sec03" class="headline" style="border-color: #587eff;">中身を作ろう</div>
+      <ul style="line-height: 2em;">
+        <li><a href="MCBE-A_easyBlock01.html">ブロック</a></li>
+        <li><a href="MCBE-A_easyItem01.html">アイテム</a></li>
+        <li><a href="MCBE-A_easyEntity00.html">モブ(エンティティ)</a></li>
+        <li>バイオーム</li>
+        <li>構造物(フィーチャー)</li>
+        <li>パーティクル</li>
+      </ul>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">からっぽのアドオンを追加</a></h4>
+        <ul>
+          <li><a href="#sec01sec01">作業用フォルダの用意</a></li>
+          <li><a href="#sec01sec02">パックのアイコン</a></li>
+          <li><a href="#sec01sec03">マニフェスト</a></li>
+          <li><a href="#sec01sec04">リソースパックにもマニフェスト</a></li>
+          <li><a href="#sec01sec05">追加するコンテンツのフォルダ</a></li>
+          <li><a href="#sec01sec06">圧縮</a></li>
+          <li><a href="#sec01sec07">インポート</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec02">アドオンをアップデート</a></h4>
+        <hr>
+        <h4><a href="#sec03">中身を作ろう</a></h4>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="ますえくノート" />
+  <meta property="og:title" content="ホーム - ますえくノート" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="ここは、わたしの知識の備忘録として作られた場所です" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <title>ますえくノート</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <style type="text/css">
+    img#masec_note_white {
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, 0);
+      width: 60%;
+    }
+    .whiteBox {
+      margin: 1em 0em;
+      padding: 0.5em;
+      background: #fffdf2;
+      border-left: solid 5px #c6c5bc;
+      border-bottom: solid 5px #c6c5bc;
+    }
+    .whiteBox .thumb { display: inline-block; margin: 0.5em; }
+    .whiteBox .thumb > img { transform: translate(0, 10px); height: 100px; }
+    .whiteBox .cont { display: inline-block; margin: 0.5em; max-width: calc(100% - 3em - 100px); }
+    .profile_img { text-align: center; vertical-align: middle; margin: 1em; }
+    .profile_img > img { height: 100px; width: 100px; }
+    .profile_txt { display: inline-block; max-width: 800px; vertical-align: middle; }
+    .noblue a:not(:hover) { text-decoration: none; color: #000; }
+    .noblue a:hover { text-decoration: underline; color: #8cf; }
+  </style>
+</head>
+<body style="background-color: #000;">
+  <img src="img/masec_note_white.png" id="masec_note_white" class="homeLogo" style="position: fixed; z-index: -1;">
+  <img src="img/home/01.png" style="width: 100vw; position: fixed; z-index: -2;" class="homePic">
+  <!--
+    <div class="top-margin"></div>
+  -->
+  <div style="height: 100vh;" class="pic-margin">
+  </div>
+  <div style="background: #FFF5D0; width: 100%; margin: 0;">
+    <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+    <div class="main">
+      <div class="left">
+        <h1>ようこそ！</h1>
+        <p>
+          ここは、わたしの知識の備忘録として作られた場所です<br>
+          その中でも共有したいものを記事として載せていくので誰かのためになれたらうれしいです😊<br><br>
+          まだコンテンツが充実していませんが、<b>これから記事などを増やしていく予定です！</b>
+        </p>
+        <div class="headline" style="border-left-color: #64ec86;">主な記事(メイン解説以外)</div>
+        <div class="whiteBox">
+          <div class="thumb"><img src="img/MCBE-S_article01_thumb.png"></div>
+          <div class="cont">
+            <h3 class="noblue"><a href="MCBE-S_article01.html">パーティクルだけでHPバーをつくる</a></h3>
+            <p style="color: #767676;">2022.03.25</p>
+          </div>
+        </div>
+        <div class="whiteBox">
+          <div class="thumb"><img src="img/MCBE-S_blog01_thumb.png"></div>
+          <div class="cont">
+            <h3 class="noblue"><a href="MCBE-S_blog01.html">圧倒的パラメータの量！飛び道具エンティティを制御するコンポーネント「minecraft:projectile」</a></h3>
+            <p style="color: #767676;">2021.12.10</p>
+          </div>
+        </div>
+        <div class="whiteBox">
+          <div class="thumb"><img src="img/MCBE-S_article02_thumb.png"></div>
+          <div class="cont">
+            <h3 class="noblue"><a href="MCBE-S_article02.html">ストラクチャ錬金術のやり方</a></h3>
+            <p style="color: #767676;">2021.11.16</p>
+          </div>
+        </div>
+        <div class="headline" style="border-left-color: #64ec86;">書いてるひとProfile</div>
+        <div class="whiteBox" style="padding: 1em;">
+          <div class="profile_img"><img src="img/masec_icon.png"></div>
+          <div class="profile_txt">
+            <div style="margin: 2.5em 1em;"><span style="font-size: 2em; font-weight: bold;">ますえく</span>　<span style="color: #767676;">@masuec_MC</span></div>
+            <div class="section"><p>ぎゃふん</p></div>
+          </div>
+        </div>
+        <div class="center">
+          <a class="twitter-timeline" data-height="500" data-width="500" href="https://twitter.com/masuec_MC?ref_src=twsrc%5Etfw">Tweets by masuec_MC</a>
+          <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        <div class="headline" style="border-left-color: #64ec86;">このサイトに関する予定</div>
+        <ul style="line-height: 2em;">
+          <li>まだ不親切な記事があるので書き直すか書き足すかする</li>
+          <li>リファレンスを作る(たぶん時間かかる)</li>
+          <li>JEのデータパックの記事</li>
+        </ul>
+        <h3 id="secsec">● 大幅に変更する予定がある記事</h3>
+        <ul style="line-height: 2em;">
+          <li><a href="MCBE-A_easyEntity00.html">【Minecraft BE(統合版)】エンティティのカスタマイズ - Masec's Note</a></li>
+          <li><a href="MCBE-A_easyEntity01.html">【Minecraft BE(統合版)】エンティティの作り方#1 - Masec's Note</a></li>
+          <li><a href="MCBE-A_entitiesRes.html">【Minecraft BE(統合版)】アドオン作成「エンティティ(リソース)」 - Masec's Note</a></li>
+          <li><a href="MCBE-S_article02.html">【Minecraft BE(統合版)】ストラクチャ錬金術のやり方 - Masec's Note</a></li>
+          <li><a href="MCBE-S_tools.html">【Minecraft BE(統合版)】便利かもしれないツール - Masec's Note</a></li>
+        </ul>
+        <p>
+          ※ 急遽これ以外が変わることもあります。
+        </p>
+      </div>
+      <div class="right">
+        <iframe src="MasecNote_SIDEBAR.html"></iframe>
+      </div>
+    </div>
+    <div class="footerText">©2023 Rinca Hayamine</span></div>
+  </div>
+  <!--
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+  </header>
+  -->
+  <script src="MasecNote_SCRIPT.js"></script>
+  <script src="MasecNote_PhotoRandomizer.js"></script>
+</body>
+</html>

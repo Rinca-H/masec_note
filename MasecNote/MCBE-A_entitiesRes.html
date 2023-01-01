@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】アドオン作成「エンティティ(リソース)」 - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="リソースパックのエンティティについて解説します。" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, リソースパック, 作り方">
+  <meta name="description" content="リソースパックのエンティティについて解説します。">
+  <title>【Minecraft BE(統合版)】アドオン作成「エンティティ(リソース)」 - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">アドオン作成 - エンティティ(リソース)</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <div id="sec01" class="headline" style="border-color: #31af37;">エンティティのリソースの仕組み</div>
+      <p>
+        エンティティはビヘイビアもリソースもどちらも複雑です。
+        リソースパックでは、テクスチャを貼り付けるだけでなく、
+        アニメーションやジオメトリ、その他細かい要素、任意でパーティクルとサウンドを紐づける必要があります。
+      </p>
+      <div class="center"><img src="img/MCBE-A_entitiesRes_01.png" style="width: 80%; min-width: 300px;"></div>
+      <p>
+        「entity_client」がメインとなって、エンティティとそれらの紐づける要素すべての中継となります。
+      </p>
+      <h3 id="sec01sec01">● 略語</h3>
+      <p>
+        この記事では以下のような略語を使います。
+      </p>
+      <div class="center">
+        <div class="colorBox blue_box">
+          <b>Anim</b>：「アニメーション」<br>
+          <ruby><rb><b>AniCon</b></rb><rp>(</rp><rt>アニコン</rt><rp>)</rp></ruby>：「アニメーションコントローラ」<br>
+          <ruby><rb><b>RenCon</b></rb><rp>(</rp><rt>レンコン</rt><rp>)</rp></ruby>：「レンダーコントローラ」
+        </div>
+      </div>
+      <div id="sec02" class="headline" style="border-color: #31af37;">entity_client</div>
+      <h3 id="sec02sec01">● ファイルの場所</h3>
+      <div class="center">
+        <div class="colorBox gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ <b>entity</b><br>
+          　 　 ┗ <b>〇〇.entity.json</b>
+        </div>
+      </div>
+      <p>
+        ファイル名は他のファイルとの区別のため「<b>〇〇.entity.json</b>」にするのを強くおすすめします。
+        別に「〇〇.json」でも動作はします。
+      </p>
+      <h3 id="sec02sec02">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('basic:div')">コピー</button>
+        <textarea class="copyBoard" id="basic" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ex:my_entity",
+      "materials": {
+        // マテリアル
+      },
+      "textures": {
+        // テクスチャ
+      },
+      "geometry": {
+        // ジオメトリ
+      },
+      "spawn_egg": {
+        // スポーンエッグのテクスチャ
+      },
+      "scripts": {
+        "animate": [
+          // Animキー
+        ]
+      },
+      "animations": {
+        // Anim, AniCon
+      },
+      "render_controllers": [
+        // RenCon
+      ]
+    }
+  }
+}</div>
+      </div>
+      <h3 id="sec02sec03">● 詳細な構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('entity_client_complex:div')" style="right: 2em;">コピー</button>
+        <textarea class="copyBoard" id="entity_client_complex" cols="5" rows="5" readonly></textarea>
+        <div class="json" style="height: 75vh;">{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ex:my_entity",
+      "min_engine_version": "1.18.0",
+      "materials": {
+        // マテリアル
+      },
+      "textures": {
+        // テクスチャ
+      },
+      "geometry": {
+        // ジオメトリ
+      },
+      "queryable_geometry": "Str",
+      "spawn_egg": {
+        // スポーンエッグのテクスチャ
+      },
+      "particle_effects": {
+        // パーティクル
+      },
+      "particle_emitters": {
+        // パーティクル・エミッター
+      },
+      "sound_effects": {
+        // サウンド
+      },
+      ~#r"scripts": {
+%%%%%%  "variables": {
+%%%%%%    // Molang変数に関する設定
+%%%%%%  },
+%%%%%%  "initialize": "Molng-n",
+%%%%%%  "pre_animation": "Molang-n",
+%%%%%%  "scale": "Molang",
+%%%%%%  "scaleX": "Molang",
+%%%%%%  "scaleY": "Molang",
+%%%%%%  "scaleZ": "Molang",
+%%%%%%  "parent_setup": "Molang",
+%%%%%%  "animate": [
+%%%%%%    // Animキー
+%%%%%%  ],
+%%%%%%  "should_update_bones_and_effects_offscreen": "Molang",
+%%%%%%  "should_update_effects_offscreen": "Molang"
+%%%%%%},r#~
+      "animations": {
+        // Anim, AniCon
+      },
+      "render_controllers": [ 
+        // RenCon
+      ],
+      "enable_attachables": "Bool",
+      "hide_armor": "Bool",
+      "item": "Str"
+    }
+  }
+}</div>
+      </div>
+      <h3 id="sec02sec04">● テクスチャ・ジオメトリ・マテリアルの紐づけ</h3>
+      <p>後に説明する「複雑なエンティティ」ではない場合、以下のように紐づけが簡単になります。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"materials": {
+  "default": "(マテリアルID)"
+},
+"textures": {
+  "default": "(テクスチャのファイルパス)"
+},
+"geometry": {
+  "default": "(ジオメトリID)"
+}</div>
+      </div>
+      <p>また、これも後に詳しい説明をしますが、RenConの指定も簡単になります。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"render_controllers": [
+  "(RenConID)"
+]</div>
+      </div>
+      <p>
+        複雑なエンティティとは、複数の状態をもったエンティティのことです。たとえば、村人は様々な職業という形で「状態」をもっています。
+        村人のように「状態」でテクスチャ、ジオメトリ、マテリアルが変わるエンティティを作る場合には紐づけが難しくなります。
+      </p>
+      <p>
+        2つの状態A、Bをもつエンティティにリソースを紐づける例で説明します。<br>
+        まず、entity_clientでテクスチャなどを紐づける用意をします。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"materials": {
+  // "state1", "state2"の部分は自由
+
+  "state1": "(マテリアルID)",
+  "state2": "(マテリアルID)"
+},
+"textures": {
+  // すべて連動するわけではないので、
+  // 状態によって変わらなければそのまま"default"1つだけでOK
+
+  "default": "(テクスチャのファイルパス)"
+}
+// テクスチャ、ジオメトリ、マテリアルで書き方は変わらない</div>
+      </div>
+      <p>
+        そして、RenCon側で状態に応じた条件分岐を作ってこれらのキー(上記の
+        <span class="inline">"state1"</span>, <span class="inline">"state2"</span>, <span class="inline">"default"</span>の部分)
+        を指定して、状態でテクスチャなどが切り替わるようにします。
+      </p>
+      <p>RenConの作りかた/編集のしかたはRenConの章で説明します。</p>
+      <h3 id="sec02sec05">● スポーンエッグのテクスチャ</h3>
+      <p>色を二つ指定するか、アイテムのTerrainID(とインデックス)を指定してテクスチャを決めます。</p>
+      <p>
+        色を二つ指定する場合は、
+        <span class="inline">"base_color"</span>に下地の色、
+        <span class="inline">"overlay_color"</span>に模様の色を16進カラーコードで指定します。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"spawn_egg": {
+  "base_color": "#ffffff",
+  "overlay_color": "#0000ff"
+}</div>
+      </div>
+      <p>
+        テクスチャを指定する場合は、
+        <span class="inline">"texture"</span>にTerrainIDを、必要なら
+        <span class="inline">"texture_index"</span>の項目を追加してインデックスを整数で指定します。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"spawn_egg": {
+  "texture": "my_entity_spawn_egg"
+}</div>
+      </div>
+      <h3 id="sec02sec06">● Animの紐づけ</h3>
+      <p>
+        先に大まかな説明をすると、Animはentity_clientと直接紐づけて常時そのAnimを実行するか、
+        AniConをはさんでentity_clientと紐づけて、条件に応じてAnimの実行するタイミングをコントロールするといった形になります。
+      </p>
+      <p>
+        まず、紐づけるAnimまたはAniConをentity_clientの
+        <span class="inline">"animations"</span>
+        で列挙しておきます。この際、自由にAnimキー名を決めます。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"animations": {
+  "(Animキー)": "(AnimID/AniConID)",
+  "(Animキー)": "(AnimID/AniConID)",
+  "(Animキー)": "(AnimID/AniConID)"
+  // ...
+}</div>
+      </div>
+      <p>
+        これらのうち、常に実行する/処理するもののAnimキーを
+        <span class="inline">"scripts"</span>の
+        <span class="inline">"animate"</span>に列挙します。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"scripts": {
+  "animate": [
+    "(Animキー)",
+    "(Animキー)",
+    "(Animキー)"
+    // ...
+  ]
+}</div>
+      </div>
+      <p>
+        AniConを挟む場合は、そのAniCon内で
+        <span class="inline">"scripts"</span>の
+        <span class="inline">"animate"</span>のような場所があって、そこにAnimキーを書きます。
+      </p>
+      <h3 id="sec02sec07">● RenConの紐づけ</h3>
+      <p>
+        <span class="inline">"render_controllers"</span>プロパティにRenConのIDを列挙します。
+        高度なことをしない限り、指定するのは1つになるはずです。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"render_controllers": [
+  "(RenConID)",
+  "(RenConID)"
+  // ...
+]</div>
+      </div>
+      <p>
+        また、Molang式で条件を添えることができます。
+        この場合、RenConはテクスチャやジオメトリなど、直接見た目に関わるものをコントロールしているという役割上、
+        条件を満たさないとエンティティが透明になります。<br>
+        意図的でないならば、複数紐づけていずれか一つの条件が満たされるようにしましょう。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"render_controllers": [
+  { "(RenConID)": "(条件(Molang))" },
+  { "(RenConID)": "(条件(Molang))" }
+  // ...
+]</div>
+      </div>
+      <h3 id="sec02sec08">● パーティクルとサウンド</h3>
+      <p>
+        Animと同じ要領でパーティクルとサウンドもAniConを使うことによって、条件に応じてそれらを発生させることができます。
+        entity_clientではこのような準備をします。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"particle_effects": {
+  "(パーティクルキー)": "(パーティクルID)"
+  // ...
+},
+"sound_effects": {
+  "(サウンドキー)": "(サウンドID)"
+  // ...
+},</div>
+      </div>
+      <p>
+        パーティクルキー、サウンドキーはAnimキーと同じで、名前を自由に決めます。
+      </p>
+      <h3 id="sec02sec09">● variable変数の定義</h3>
+      <p>
+        <span class="inline">"scripts"</span>内の
+        <span class="inline">"pre_animation"</span>でMolangのvariable変数を定義することができます。
+        ここで定義した変数はAnimやAniConなど様々な場所で使うことができます。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"scripts": {
+  "pre_animation": [
+    "v.foo = math.sin(q.life_time);"
+  ]
+},</div>
+      </div>
+      <p>
+        また、
+        <span class="inline">"initialize"</span>プロパティでそれら変数の初期値を設定できます。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"initialize": [
+  "v.foo = 0.0;"
+]</div>
+      </div>
+      <p>
+        <span class="adv">上級</span> さらに、
+        <span class="inline">"variables"</span>プロパティでvariable変数をパブリックに設定して、矢印演算子を用いて読み取れるようにします。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"variables": {
+  "variable.foo": "public"
+}</div>
+      </div>
+      <p>
+        プロパティ名は設定したい変数、値は
+        <span class="inline">"public"</span>しかありません。
+      </p>
+      <h3 id="sec02sec10">● Attachableに関する設定</h3>
+      <p>
+        <span class="inline">"enable_attachables"</span>の項目を
+        <span class="inline">true</span>に設定すると、Attachableを有効にできます。<br>
+        防具を身に着けるモブなのに防具が表示されないという場合はこの項目の設定を忘れている可能性が高いです。
+      </p>
+      <div id="sec03" class="headline" style="border-color: #31af37;">AniCon</div>
+      <h3 id="sec03sec01">● ファイルの場所</h3>
+      <div class="center">
+        <div class="colorBox gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ <b>animation_controllers</b><br>
+          　 　 ┗ <b>〇〇.animation_controllers.json</b>
+        </div>
+      </div>
+      <p>
+        ファイル名は他のファイルとの区別のため「<b>〇〇.animation_controllers.json</b>」(バニラ準拠)にするのをおすすめします。
+        別に「〇〇.json」でも動作はします。
+      </p>
+      <h3 id="sec03sec02">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('anicon:div')">コピー</button>
+        <textarea class="copyBoard" id="anicon" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    ~#r"~#M(83ffd9)controller.animation.my_entity.mainM#~": {
+%%%%  "initial_state": "(state名)",
+%%%%  "states": {
+%%%%    ~#b"(state名)": {
+%%%%%%%%  "animations":[
+%%%%%%%%    "(Animキー)",
+%%%%%%%%
+%%%%%%%%    // または
+%%%%%%%%    { "(Animキー)": "(条件(Molang式))" }
+%%%%%%%%  
+%%%%%%%%    // ...
+%%%%%%%%  ],
+%%%%%%%%  "transitions": [
+%%%%%%%%    { "(state名)": "(条件(Molang式))" }
+%%%%%%%%    // ...
+%%%%%%%%  ]
+%%%%%%%%}b#~
+%%%%  }
+%%%%}r#~
+  }
+}</div>
+      </div>
+      <h3 id="sec03sec03">● 詳細な構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('anicon_complex:div')" style="right: 2em;">コピー</button>
+        <textarea class="copyBoard" id="anicon_complex" cols="5" rows="5" readonly></textarea>
+        <div class="json" style="height: 75vh;">{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    ~#r"~#M(83ffd9)controller.animation.my_entity.mainM#~": {
+%%%%  "initial_state": "(state名)",
+%%%%  "states": {
+%%%%    ~#b"(state名)": {
+%%%%%%%%  "animations":[
+%%%%%%%%    "(Animキー)",
+%%%%%%%%  
+%%%%%%%%    // または
+%%%%%%%%    { "(Animキー)": "(条件(Molang))" }
+%%%%%%%%
+%%%%%%%%    // ...
+%%%%%%%%  ],
+%%%%%%%%  "transitions": [
+%%%%%%%%    { "(state名)": "(条件(Molang))" }
+%%%%%%%%
+%%%%%%%%    // ...
+%%%%%%%%  ],
+%%%%%%%%  "particle_effects": [
+%%%%%%%%    {
+%%%%%%%%      "effect": "(パーティクルキー)",
+%%%%%%%%      "locator": "(Str)",
+%%%%%%%%      "pre_effect_script": "(Molang)",
+%%%%%%%%      "bind_to_actor": "(Bool)"
+%%%%%%%%    }
+%%%%%%%%    // ...
+%%%%%%%%  ],
+%%%%%%%%  "sound_effects": [
+%%%%%%%%    { "effect": "(サウンドキー)" }
+%%%%%%%%    // ...
+%%%%%%%%  ]
+%%%%%%%%}b#~
+%%%%  }
+%%%%}r#~
+  }
+}</div>
+      </div>
+      <h3 id="sec03sec04">● AniConのしくみ</h3>
+      <p>
+        AniConは複数のstateの移動と、そのための条件(transition)をもとにAnimをコントロールします。
+      </p>
+      <p>
+        たとえば「stand」「walk」という2つのstateがあって、初めは「stand」だとします。
+        「stand」のtransitionに「歩いているか」という条件を設定して、その条件を満たしたら「walk」に移るようにして、
+        「walk」では歩くAnimが紐づいているAnimキーを指定すれば、歩き始めたときに歩くAnimがスタートするようになります。
+      </p>
+      <p>
+        「walk」にもtransitionに「立ち止まっているか(=歩いていないか))」の条件を設定して、その条件を満たしたら「stand」に移るようにするのを忘れてはいけません。
+        でないと立ち止まってもstateが「walk」のまま「stand」に移らず、歩くAnimが立ち止まっても再生されたままになってしまいます。
+      </p>
+      <h3 id="sec03sec05">● 具体的な書き方</h3>
+      <p>
+        まず基本構造のマーカー部分がIDになります。「controller.animation.〇〇」という形でないといけません。
+        上記の例では〇〇の部分が「(エンティティ名).(どんなAniConか)」のようにさらにドット( . )で区切っています。
+      </p>
+      <p>
+        IDをプロパティ名とするオブジェクトの中にはまず、初めのstateをどれにするか指定する
+        <span class="inline">"initial_state"</span>と、stateをまとめる
+        <span class="inline">"states"</span>オブジェクトを書きます。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    ~#r"controller.animation.my_entity.main": {
+%%%%  ~#M(83ffd9)"initial_state": "(state名)"M#~,
+%%%%  ~#M(83ffd9)"states"M#~: {
+%%%%    
+%%%%  }
+%%%%}r#~
+  }
+}</div>
+      </div>
+      <p>
+        <span class="inline">"states"</span>オブジェクトの中にstateを列挙していきます。
+        stateは名前を自由に決め、その名前をプロパティ名とするオブジェクトになります。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    ~#r"controller.animation.my_entity.main": {
+%%%%  "initial_state": "(state名)",
+%%%%  "states": {
+%%%%    ~#b~#M(83ffd9)"(state名)"M#~: {
+%%%%%%%%  
+%%%%%%%%}b#~
+%%%%  }
+%%%%}r#~
+  }
+}</div>
+      </div>
+      <p>
+        各stateの中身には
+        <span class="inline">"animations"</span>、
+        <span class="inline">"transition"</span>をプロパティ名とする配列を置きます。
+      </p>
+      <p>
+        <span class="inline">"animations"</span>にはこのstateに入ったときに再生されるAnimキーを列挙し、
+        <span class="inline">"transition"</span>には次はどのstateに移動するかを決める条件を以下のように列挙します。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    ~#r"controller.animation.my_entity.main": {
+%%%%  "initial_state": "(state名)",
+%%%%  "states": {
+%%%%    ~#b"(state名)": {
+%%%%%%%%  "animate": [
+%%%%%%%%    "(Animキー)",
+%%%%%%%%    "(Animキー)"
+%%%%%%%%    // ...
+%%%%%%%%  ],
+%%%%%%%%  "transitions": [
+%%%%%%%%    { "(state名)": "(条件(Molang))" },
+%%%%%%%%    { "(state名)": "(条件(Molang))" }
+%%%%%%%%    // ...
+%%%%%%%%  ]
+%%%%%%%%}b#~
+%%%%  }
+%%%%}r#~
+  }
+}</div>
+      </div>
+      <h3 id="sec03sec06">● パーティクルとサウンド</h3>
+      <p>
+        <span class="inline">"animations"</span>、
+        <span class="inline">"transition"</span>と並べて、そのstateに入ったときに発生させるパーティクルとサウンドを以下のように指定します。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"particle_effects": [
+  {
+    "effect": "(パーティクルキー)",
+    "pre_effect_script": "(Molang)"
+  }
+  // ...
+],
+"sound_effects": [
+  { "effect": "(サウンドキー)" }
+  // ...
+]</div>
+      </div>
+      <p>
+        <span class="inline">"pre_effect_script"</span>ではそのパーティクル内で使うためのvariable変数を定義できます。
+      </p>
+      <div id="sec04" class="headline" style="border-color: #31af37;">RenCon <span class="adv">上級</span></div>
+      <h3 id="sec04sec01">● ファイルの場所</h3>
+      <div class="center">
+        <div class="colorBox gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ <b>render_controllers</b><br>
+          　 　 ┗ <b>〇〇.render_controllers.json</b>
+        </div>
+      </div>
+      <p>
+        ファイル名は他のファイルとの区別のため「<b>〇〇.render_controllers.json</b>」(バニラ準拠)にするのをおすすめします。
+        別に「〇〇.json」でも動作はします。
+      </p>
+      <h3 id="sec04sec02">● 基本構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('rencon:div')">コピー</button>
+        <textarea class="copyBoard" id="rencon" cols="5" rows="5" readonly></textarea>
+        <div class="json">{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.my_entity": {
+      "arrays": {
+        "geometries": {
+          "Array.XXX": [ "Geometry.XXX", "Geometry.XXX" /* ... */ ]
+        },
+        "materials": {
+          "Array.XXX": [ "Material.XXX", "Material.XXX" /* ... */ ]
+        },
+        "textures": {
+          "Array.XXX": [ "Texture.XXX", "Texture.XXX" /* ... */ ]
+        }
+      },
+      "geometry": "Geometry.XXX",
+      "materials": [
+        { "(ボーン名)": "Material.XXX" }
+        // ...
+      ],
+      "textures": [ "Texture.XXX", "Texture.XXX" /* ... */ ]
+    }
+  }
+}</div>
+      </div>
+      <h3 id="sec04sec03">● 詳細な構造</h3>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('rencon_complex:div')" style="right: 2em;">コピー</button>
+        <textarea class="copyBoard" id="rencon_complex" cols="5" rows="5" readonly></textarea>
+        <div class="json" style="height: 75vh;">{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.Str": {
+      "rebuild_animation_matrices": "Bool",
+      "arrays": {
+        "geometries": {
+          "Array.XXX": [ "Geometry.XXX", "Geometry.XXX" /* ... */ ]
+        },
+        "materials": {
+          "Array.XXX": [ "Material.XXX", "Material.XXX" /* ... */ ]
+        },
+        "textures": {
+          "Array.XXX": [ "Texture.XXX", "Texture.XXX" /* ... */ ]
+        }
+      },
+      "geometry": "Geometry.XXX",
+      "part_visibility": [
+        { "(ボーン名)": "Molang" }
+        // ...
+      ],
+      "materials": [
+        { "(ボーン名)": "Material.XXX" }
+        // ...
+      ],
+      "textures": [ "Texture.XXX", "Texture.XXX" /* ... */ ],
+      "color": {
+        "r": "(Molang)",
+        "g": "(Molang)",
+        "b": "(Molang)",
+        "a": "(Molang)"
+      },
+      "overlay_color": {
+        "r": "(Molang)",
+        "g": "(Molang)",
+        "b": "(Molang)",
+        "a": "(Molang)"
+      },
+      "on_fire_color": {
+        "r": "(Molang)",
+        "g": "(Molang)",
+        "b": "(Molang)",
+        "a": "(Molang)"
+      },
+      "is_hurt_color": {
+        "r": "(Molang)",
+        "g": "(Molang)",
+        "b": "(Molang)",
+        "a": "(Molang)"
+      },
+      "uv_anim": {
+        "offset": [ "(Molang)", "(Molang)" ],
+        "scale": [ "(Molang)", "(Molang)" ]
+      },
+      "light_color_multiplier": "(Molang)",
+      "ignore_lighting": "(Bool)",
+      "filter_lighting": "(Bool)"
+    }
+  }
+}</div>
+      </div>
+      <h3 id="sec04sec04">● 具体的な説明</h3>
+      <p>
+        <span class="inline">"arrays"</span>でアレイを定義します。
+        複数のジオメトリ、マテリアル、テクスチャを紐づける場合でなければ定義する必要はありません。
+      </p>
+      <p>
+        ジオメトリのアレイは
+        <span class="inline">"geometries"</span>で、マテリアルは
+        <span class="inline">"materials"</span>で、テクスチャは
+        <span class="inline">"textures"</span>で定義します。
+      </p>
+      <p>
+        たとえば、entity_clientで以下のように紐づけていたとします。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"textures": {
+  "~#M(83ffd9)state1M#~": "(テクスチャのファイルパス1)",
+  "~#M(83ffd9)state2M#~": "(テクスチャのファイルパス2)"
+}</div>
+      </div>
+      <p>これでアレイを定義すると、</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"textures": {
+  "Array.texture": [ "Texture.~#M(83ffd9)state1M#~", "Texture.~#M(83ffd9)state2M#~" ]
+}</div>
+      </div>
+      <p>
+        左の
+        <span class="inline">"Array.XX"</span>のXXの部分は自由に決められます。
+        並べる順番も自由です。
+      </p>
+      <p>
+        ジオメトリやマテリアルも
+        <span class="inline">Texure</span>の部分を
+        <span class="inline">Geometry</span>や
+        <span class="inline">Material</span>に変えるだけであとは同様です。
+      </p>
+      <p>
+        次に、ジオメトリやテクスチャなど、どれを適用するかを決める部分です。
+        直接指定する場合は直接指定するだけですが、状態などによって条件分岐する場合は、アレイから値をMolangで選ぶ必要があります。
+      </p>
+      <p>
+        アレイの値は1番目から
+        <span class="inline">Array.XX[0]</span>、
+        <span class="inline">Array.XX[1]</span>、
+        <span class="inline">Array.XX[2]</span>......のように指定します。
+        <span class="inline">[ ]</span>の中をMolangで記述することによって条件分岐を実現します。
+      </p>
+      <p>
+        先ほどのテクスチャの例で
+        <span class="inline">minecraft:variant</span>コンポーネントの値によってテクスチャが変わるとすると、
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"textures": [
+  "Array.texture[q.variant]"
+]</div>
+      </div>
+      <p>
+        のように指定します。このMolang式ができるだけ簡単になるようにアレイの値の順番を決めましょう。
+      </p>
+      <p>
+        以下、簡単に例を示します。entity_clientは以下のようになっているとします。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"materials": {
+  "material1": "(マテリアルID1)",
+  "material2": "(マテリアルID2)"
+},
+"textures": {
+  "texture1": "(テクスチャのファイルパス1)",
+  "texture2": "(テクスチャのファイルパス2)"
+},
+"geometry": {
+  "geo1": "(ジオメトリID1)",
+  "geo2": "(ジオメトリID2)"
+}</div>
+      </div>
+      <h4>・直接指定</h4>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"geometry": "Geometry.geo1",
+"materials": [
+  { "*": "Material.material1" }
+],
+"textures": [ "Texture.texture1" ]</div>
+      </div>
+      <h4>・ジオメトリを切り替わるようにする</h4>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"arrays": {
+  "geometries": {
+    "Array.geos": [ "Geometry.geo1", "Geometry.geo2" ]
+  }
+},
+"geometry": "Array.geos[(Molang式)]"</div>
+      </div>
+      <h4>・ボーンごとに異なるマテリアルを適用する</h4>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"materials": [
+  { "(ボーン名1)": "Material.material1" },
+  { "(ボーン名2)": "Material.material2" }
+]</div>
+      </div>
+      <p>
+        ボーン名を指定するときに、まとめて指定する書き方があります。たとえば、
+        <span class="inline">"bone_head"</span>と
+        <span class="inline">"bone_body"</span>は後半だけが違うので、
+        <span class="inline">"bone_*"</span>というようにまとめて指定できます。
+      </p>
+      <h4>・複数のテクスチャを適用する</h4>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"textures": [
+  "Texture.texture1",
+  "Texture.texture2"
+]</div>
+      </div>
+      <p>
+        同時にテクスチャを適用するので、当然重なります。
+        実用するシチュエーションとして、たとえば「顔が変わるエンティティ」を実装する場合は、
+        顔とそれ以外のテクスチャは別々にして、顔のテクスチャの指定にだけアレイを使うといったような感じです。
+      </p>
+      <h3 id="sec04sec05">● ボーンの表示/非表示をコントロールする</h3>
+      <p>
+        <span class="inline">"part_visibility"</span>でボーン名とMolang式を指定します。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"part_visibility": [
+  { "(ボーン名)": "Molang" }
+  // ...
+]</div>
+      </div>
+      <h3 id="sec04sec06">● テクスチャに関わる様々な色を変更する</h3>
+      <p>
+        <span class="inline">"overlay_color"</span>でオーバーレイする色、
+        <span class="inline">"on_fire_color"</span>で燃えているときにオーバーレイする色、
+        <span class="inline">"is_hurt_color"</span>でダメージを受けた瞬間にオーバーレイする色を決められます。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"overlay_color": {
+  "r": "(Molang)",
+  "g": "(Molang)",
+  "b": "(Molang)",
+  "a": "(Molang)"
+},
+"on_fire_color": {
+  "r": "(Molang)",
+  "g": "(Molang)",
+  "b": "(Molang)",
+  "a": "(Molang)"
+},
+"is_hurt_color": {
+  "r": "(Molang)",
+  "g": "(Molang)",
+  "b": "(Molang)",
+  "a": "(Molang)"
+}</div>
+      </div>
+      <h3 id="sec04sec07">● テクスチャをアニメーションさせる</h3>
+      <p>
+        <span class="inline">"uv_anim"</span>で値を設定することで、テクスチャをアニメーションさせることができます。
+        方式として、"テクスチャのどこを切り取るか"の長方形を動かしてアニメーションする方式になるので、
+        ブロックのようにパラパラ漫画式でアニメーションさせたい場合は工夫が必要です。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"uv_anim": {
+  "offset": [ "(Molang)", "(Molang)" ],
+  "scale": [ "(Molang)", "(Molang)" ]
+}</div>
+      </div>
+      <p>
+        <span class="inline">"offset"</span>でuvを指定し、
+        <span class="inline">"scale"</span>はそのuvのスケールを指定します。
+      </p>
+      <h3 id="sec04sec08">● 特殊発光</h3>
+      <p>
+        <span class="inline">"ignore_lighting"</span>を
+        <span class="inline">true</span>にすることで、周囲の明暗を無視する、
+        つまり暗さを無視して光っているようになります。
+      </p>
+      <p>
+        このプロパティが書いてあるRenConで紐づけたテクスチャに適用されるので、
+        目だけ光らせたい場合は、このRenConでは目だけのテクスチャを指定する必要があります。
+      </p>
+      <div id="sec05" class="headline" style="border-color: #31af37;"><ruby><rb>Attachable</rb><rp>(</rp><rt>アタッチャブル</rt><rp>)</rp></ruby></div>
+      <p>
+        Attachableとは、防具や手に持っているアイテムなど、エンティティ本体とは別となるモデルではあるが、Animが本体に追従するような部品のことです。
+        そして、ホットバーや左手スロット、または防具スロットのインベントリのアイテムと連動する必要があります。
+      </p>
+      <p>
+        一言で正しくするのは難しいです。基本的に<b>「防具」と「手に持っているアイテム」のモデルであると思っても大丈夫</b>です。
+      </p>
+      <h3 id="sec05sec01">● ファイルの場所</h3>
+      <div class="center">
+        <div class="colorBox gray_box">
+          リソース<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ <b>attachables</b><br>
+          　 　 ┗ <b>〇〇.json</b>
+        </div>
+      </div>
+      <h3 id="sec05sec02">● 具体的な説明</h3>
+      <p>
+        JSONの書き方はほとんどentity_clientと同じです。
+        ただし、IDは対応させるアイテムのIDと一致させてください。
+      </p>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">エンティティのリソースの仕組み</a></h4>
+        <ul>
+          <li><a href="#sec01sec01">略語</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec02">entity_client</a></h4>
+        <ul>
+          <li><a href="#sec02sec01">ファイルの場所</a></li>
+          <li><a href="#sec02sec02">基本構造</a></li>
+          <li><a href="#sec02sec03">詳細な構造</a></li>
+          <li><a href="#sec02sec04">テクスチャ・ジオメトリ・マテリアルの紐づけ</a></li>
+          <li><a href="#sec02sec05">スポーンエッグのテクスチャ</a></li>
+          <li><a href="#sec02sec06">Animの紐づけ</a></li>
+          <li><a href="#sec02sec07">RenConの紐づけ</a></li>
+          <li><a href="#sec02sec08">パーティクルとサウンド</a></li>
+          <li><a href="#sec02sec09">variable変数の定義</a></li>
+          <li><a href="#sec02sec10">Attachableに関する設定</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec03">AniCon</a></h4>
+        <ul>
+          <li><a href="#sec03sec01">ファイルの場所</a></li>
+          <li><a href="#sec03sec02">基本構造</a></li>
+          <li><a href="#sec03sec03">詳細な構造</a></li>
+          <li><a href="#sec03sec04">AniConのしくみ</a></li>
+          <li><a href="#sec03sec05">具体的な書き方</a></li>
+          <li><a href="#sec03sec06">パーティクルとサウンド</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec04">RenCon</a></h4>
+        <ul>
+          <li><a href="#sec04sec01">ファイルの場所</a></li>
+          <li><a href="#sec04sec02">基本構造</a></li>
+          <li><a href="#sec04sec03">詳細な構造</a></li>
+          <li><a href="#sec04sec04">具体的な説明</a></li>
+          <li><a href="#sec04sec05">ボーンの表示/非表示をコントロールする</a></li>
+          <li><a href="#sec04sec06">テクスチャに関する様々な色を変更する</a></li>
+          <li><a href="#sec04sec07">テクスチャをアニメーションさせる</a></li>
+          <li><a href="#sec04sec08">特殊発光</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec05"><ruby><rb>Attachable</rb><rp>(</rp><rt>アタッチャブル</rt><rp>)</rp></ruby></a></h4>
+        <ul>
+          <li><a href="#sec05sec01">ファイルの場所</a></li>
+          <li><a href="#sec05sec02">具体的な説明</a></li>
+        </ul>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>

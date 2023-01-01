@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta property="og:site_name" content="Masec's Note" />
+  <meta property="og:title" content="【Minecraft BE(統合版)】エンティティのカスタマイズ - Masec's Note" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://rinca-h.github.io/masec_note/masec%20note/img/masec_note_thumb.png" />
+  <meta property="og:description" content="バニラのエンティティをカスタマイズする方法を説明します！" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="keyword" content="minecraft, マイクラ, マインクラフト, アドオン, 作り方">
+  <meta name="description" content="バニラのエンティティをカスタマイズする方法を説明します！">
+  <title>【Minecraft BE(統合版)】エンティティのカスタマイズ - Masec's Note</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- <pre><code class="json">//コード</code></pre> -->
+  <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
+  <!--<style type="text/css"></style>-->
+</head>
+<body>
+  <div class="top-margin"></div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="main">
+    <div class="left">
+      <h1 id="top">アドオン作りの基礎 - エンティティのカスタマイズ</h1>
+      <div class="announce">目次は右上の「≡」から！</div>
+      <p>
+        オリジナルのエンティティを作るのは難しいので、まずはバニラのモブのカスタマイズについて解説します！<br>
+        前回の記事(<a href="MCBE-A_basic02.html">アドオンづくりの基礎#2</a>)の
+        「<a href="MCBE-A_basic02.html#sec01sec05">追加するコンテンツのフォルダ</a>」まで手順を進めているのが前提です。
+      </p>
+      <div id="sec01" class="headline" style="border-color: #ff6169;">主な手順</div>
+      <h3 id="sec01sec01">● バニラのJSONをコピーしてくる</h3>
+      <p>
+        前々回の記事(<a href="MCBE-A_basic01.html">アドオンづくりの基礎#1</a>)で説明した「テンプレート」のビヘイビアパックから
+        今回は試しにエンダーマンのJSONをコピーして今回作るパックの中に入れます。<br>
+      </p>
+      <p>
+        場所はどちらも「ビヘイビアパック/entities/endeman.json」です。
+      </p>
+      <div class="center">
+        <div class="colorBox gray_box">
+          ビヘイビア<br>
+          　 ┣ manifest.json<br>
+          　 ┣ pack_icon.png<br>
+          　 ┗ <b>entities</b><br>
+          　 　 ┗ <b>enderman.json</b>
+        </div>
+      </div>
+      <p>エンダーマンにしたのは、他のモブだとファイルの中身が多かったり複雑だったりしたからです......</p>
+      <h3 id="sec01sec02">● 中身を変えてみる</h3>
+      <p>
+        わかりやすい変化をする数値にマーカーをしてみました(半分より下にはないです)。
+        もともと整数のところは小数にできないので注意してください！
+      </p>
+      <div class="pDat">Dat</div><div class="dir">entities/enderman.json</div>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('base:div')" style="right: 2em;">コピー</button>
+        <textarea class="copyBoard" id="base" cols="5" rows="5" readonly></textarea>
+        <div class="json" style="height: 75vh;">{
+  "format_version": "1.16.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:enderman",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "minecraft:enderman_calm": { // 怒っていないときの性質
+        "minecraft:on_target_acquired": {
+          "event": "minecraft:become_angry",
+          "target": "self"
+        },
+        "minecraft:movement": {
+          "value": ~#M(83ffd9)0.3M#~ // 通常時の移動速度
+        }
+      },
+
+      "minecraft:enderman_angry": { // 怒っているときの性質
+        "minecraft:angry": {
+          "duration": 25,
+          "calm_event": {
+            "event": "minecraft:on_calm",
+            "target": "self"
+          }
+        },
+        "minecraft:movement": {
+          "value": ~#M(83ffd9)0.45M#~ // 怒っている時の移動速度
+        },
+        "minecraft:behavior.melee_attack": {
+          "priority": 2
+        }
+      }
+    },
+
+    "components": { // メインの性質
+      "minecraft:is_hidden_when_invisible": {
+      },
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? ~#M(83ffd9)5M#~ : 0" // 落とす経験値の量
+      },
+      "minecraft:type_family": {
+        "family": [ "enderman", "monster", "mob" ]
+      },
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0
+      },
+      "minecraft:nameable": {
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/enderman.json"
+      },
+      "minecraft:health": {
+        "value": 40,
+        "max": ~#M(83ffd9)40M#~ // 最大HP(ハート1つで2)
+      },
+      "minecraft:hurt_on_condition": {
+        "damage_conditions": [
+          {
+            "filters": { "test": "in_lava", "subject": "self", "operator": "==", "value": true },
+            "cause": "lava",
+            "damage_per_tick": 4
+          },
+          {
+            "filters": { "test": "in_contact_with_water", "operator": "==", "value": true },
+            "cause": "drowning",
+            "damage_per_tick": 1
+          }
+        ]
+      },
+      "minecraft:attack": {
+        "damage": ~#M(83ffd9)7M#~ // 攻撃力(ハート1つで2)
+      },
+      "minecraft:follow_range": {
+        "value": 32,
+        "max": 32
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 2.9
+      },
+      "minecraft:teleport": {
+        "random_teleports": true,
+        "max_random_teleport_time": 30,
+        "random_teleport_cube": [ ~#M(83ffd9)32M#~, ~#M(83ffd9)32M#~, ~#M(83ffd9)32M#~ ], // テレポートする範囲
+        "target_distance": 16,
+        "target_teleport_chance": 0.05,
+        "light_teleport_chance": 0.05
+      },
+      "minecraft:lookat": {
+        "search_radius": 64.0,
+        "set_target": true,
+        "look_cooldown": 5.0,
+        "filters": {
+          "all_of": [
+            {
+              "subject": "other",
+              "test": "is_family",
+              "value": "player"
+            },
+            {
+              "test": "has_equipment",
+              "domain": "head",
+              "subject": "other",
+              "operator": "not",
+              "value": "carved_pumpkin"
+            }
+          ]
+        }
+      },
+      "minecraft:despawn": {
+        "despawn_from_distance": {}
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 5,
+        "must_see": true,
+        "attack_interval": 10,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "endermite"
+            },
+            "max_dist": 64
+          }
+        ]
+      },
+      "minecraft:navigation.walk": {
+        "can_path_over_water": false,
+        "avoid_water": true
+      },
+      "minecraft:movement.basic": {
+
+      },
+      "minecraft:jump.static": {
+      },
+      "minecraft:can_climb": {
+      },
+      "minecraft:behavior.float": {
+        "priority": 0
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 7,
+        "speed_multiplier": 1.0
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 8,
+        "look_distance": 8.0,
+        "probability": 8.0
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 8
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 3
+      },
+      "minecraft:behavior.enderman_leave_block": {
+        "priority": 10
+      },
+      "minecraft:behavior.enderman_take_block": {
+        "priority": 11
+      },
+      "minecraft:physics": {
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+        "default_values": {
+          "max_optimized_distance": 80.0,
+          "max_dropped_ticks": 10,
+          "use_motion_prediction_hints": true
+        }
+      }
+    },
+
+    "events": {
+      "minecraft:entity_spawned": {
+        "remove": {
+        },
+        "add": {
+          "component_groups": [
+            "minecraft:enderman_calm"
+          ]
+        }
+      },
+      "minecraft:become_angry": {
+        "remove": {
+          "component_groups": [
+            "minecraft:enderman_calm"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "minecraft:enderman_angry"
+          ]
+        }
+      },
+      "minecraft:on_calm": {
+        "remove": {
+          "component_groups": [
+            "minecraft:enderman_angry"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "minecraft:enderman_calm"
+          ]
+        }
+      }
+    }
+  }
+}</div>
+      </div>
+      <p>ただ値を変えて楽しむだけでなく、この数値はここで変えられるんだというのを少しでいいのでなんとなく把握できたらいいと思います。</p>
+      <hr>
+      <h3 id="sec01sec03">● 完成</h3>
+      <p>
+        あとはこの記事(<a href="MCBE-A_basic02.html">アドオンづくりの基礎#2</a>)の
+        「<a href="MCBE-A_basic02.html#sec01sec06">圧縮</a>」以降の手順になります。
+      </p>
+      <div id="sec02" class="headline" style="border-color: #ff6169;">おかわり！</div>
+      <p>
+        他のモブで他の性質もいじってみたいと思うので、またいくつかわかりやすいものを挙げます。<br>
+        ──その前に、数値をいじる以外の変更方法を追加で紹介したいと思います。
+      </p>
+      <h3 id="sec02sec01">● 真偽値を変える</h3>
+      <p>真偽値とは「true(はい)」か「false(いいえ)」の二択のことです。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"minecraft:behavior.nearest_attackable_target": {
+  "priority": 5,
+  "must_see": ~#M(83ffd9)trueM#~,
+  "attack_interval": 10,
+  "entity_types": [
+    {
+      "filters": {
+        "test": "is_family",
+        "subject": "other",
+        "value": "endermite" // 近くのエンダーマイトに敵対
+      },
+      "max_dist": 64 //「近く」の限界
+    }
+  ]
+}</div>
+      </div>
+      <p>
+        たとえば、エンダーマンのこの部分は「敵対するために相手が物陰に隠れていない必要があるか」を示すので、
+        ここをfalseに変えると壁越しにでもエンダーマイトの気配を感じ取って敵対します。
+      </p>
+      <h3 id="sec02sec02">● 文字列を変える</h3>
+      <p>例えばブロックやアイテムを指定するときにそれらのIDが使われます。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"minecraft:breedable": {
+  "require_tame": false, // 手なずけている必要があるかどうか
+  "breed_items": ~#M(83ffd9)"wheat"M#~,
+  "breeds_with": {
+    "mate_type": "minecraft:cow", // 繁殖する相手
+    "baby_type": "minecraft:cow", // 生まれるこども
+    "breed_event": {
+      "event": "minecraft:entity_born",
+      "target": "baby"
+    }
+  }
+}</div>
+      </div>
+      <p>
+        たとえば、牛のこの部分は「繁殖に使用するアイテム」を示すので、例として"apple"にすればリンゴで繁殖するようになります。
+      </p>
+      <p>
+        ちなみにバニラのアイテムのIDの「minecraft:」は省略できるので、今回は省略してありますね。
+      </p>
+      <h3 id="sec02sec03">● 「コンポーネント」を変更</h3>
+      <p>
+        <span class="inline">"components": {}</span>や
+        <span class="inline">"component_groups": {}</span>のカッコの中身にある、
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"minecraft:〇〇": {
+  // 中身はいろいろ
+}</div>
+      </div>
+      <p>
+        というようなカタマリをコンポーネントといい、エンティティの性質を決めます。
+      </p>
+      <p>
+        一つのコンポーネント全体を消してエンティティからその性質をなくすことができたり、
+        他のモブからコンポーネントをコピペして性質を移植することができます。
+      </p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"minecraft:teleport": {
+  "random_teleports": true,
+  "max_random_teleport_time": 30,
+  "random_teleport_cube": [ 32, 32, 32 ], // テレポートする範囲
+  "target_distance": 16,
+  "target_teleport_chance": 0.05,
+  "light_teleport_chance": 0.05
+}</div>
+      </div>
+      <p>たとえば、エンダーマンのこのコンポーネントを丸ごと消すとテレポートしなくなります。</p>
+      <div class="jsonDiv">
+        <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+        <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+        <div class="json">"minecraft:knockback_resistance": {
+  "value": 100,
+  "max": 100
+}</div>
+      </div>
+      <p>
+        また、エンダードラゴンのこのコンポーネントを追加すると、ノックバックしなくなります。
+      </p>
+      <div class="center">
+        <div class="colorBox caution">
+          <img src="img/caution.png" class="ignore"> <b>注意！</b>
+          <p>コンポーネントを追加・削除するときにはカンマ( , )の有無に気をつけてください。</p>
+          <div class="jsonDiv">
+            <button onclick="copyToClipboard('none:div')" class="disabled">コピー</button>
+            <textarea class="copyBoard" id="none" cols="5" rows="5" readonly></textarea>
+            <div class="json">"minecraft:〇〇": {
+}~#M(83ffd9),M#~
+"minecraft:△△": {
+}</div>
+          </div>
+          <p>
+            コンポーネントが下に続くときだけカンマを閉じカッコにつけます。
+            カンマの有無を間違えるとこのファイルのすべての変更が適用されなくなります。
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <iframe src="MasecNote_SIDEBAR.html"></iframe>
+    </div>
+  </div>
+  <div class="footerText">©2023 Rinca Hayamine</span></div>
+  <header>
+    <div class="always-show">
+      <div style="display: inline-block; vertical-align: middle;"><a href="MasecNote_HOME.html"><img id="logo" src="img/masec_note_black.png"></a></div>
+      <div class="mokuzi-icon no-select"><label for="mokuzi-button"><div>≡</div></label></div>
+    </div>
+    <input type="checkbox" name="mokuzi-button" id="mokuzi-button" style="display: none;">
+    <div id="move-box">
+      <div class="mokuzi-close no-select"><label for="mokuzi-button">×</label></div>
+      <div class="mokuzi-content">
+        <div style="display: flex;">
+          <div style="display: inline-block; width: 50%;"><h2>もくじ</h2></div>
+          <div style="display: inline-block; width: 50%; text-align: right; transform: translate(0em, 3em);"><a href="#top">ページのトップへ</a></div>
+        </div>
+        <hr>
+        <h4><a href="#sec01">主な手順</a></h4>
+        <ul>
+          <li><a href="#sec01sec01">バニラのJSONをコピーしてくる</a></li>
+          <li><a href="#sec01sec02">中身を変えてみる</a></li>
+          <li><a href="#sec01sec03">完成</a></li>
+        </ul>
+        <hr>
+        <h4><a href="#sec02">おかわり！</a></h4>
+        <ul>
+          <li><a href="#sec02sec01">真偽値を変える</a></li>
+          <li><a href="#sec02sec02">文字列を変える</a></li>
+          <li><a href="#sec02sec03">「コンポーネント」を変更</a></li>
+        </ul>
+        <hr>
+      </div>
+    </div>
+  </header>
+  <script src="MasecNote_SCRIPT.js"></script>
+</body>
+</html>
