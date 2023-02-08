@@ -1,4 +1,4 @@
-/* Last Edit 2022/07/17 */ 
+/* Last Edit 2023/02/08 */ 
 
 var getVal = (id) => document.getElementById(id).value;
 var getElem = (id) => document.getElementById(id);
@@ -97,14 +97,14 @@ function tool2() { // スマート整形
 
 function returnBlock() {
   try {
-    document.getElementById("blockOutput").textContent = makeBlock();
+    document.getElementById("blockOutput").textContent = createBlock();
   } catch(e) {
     document.getElementById("blockOutput").textContent = e;
   }
 }
 function returnItem() {
   try {
-    document.getElementById("itemOutput").textContent = makeItem();
+    document.getElementById("itemOutput").textContent = createItem();
   } catch(e) {
     document.getElementById("itemOutput").textContent = e;
   }
@@ -118,7 +118,17 @@ function allange(id, type, to) {
   }
 }
 
-function makeBlock() {
+class vec3 {
+  constructor(x,y,z) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+  }
+}
+let mc = s => `minecraft:${s}`;
+let getNum = id => Number(getVal(id));
+
+function createBlock() {
   let err = [];
   let res = {
     format_version: "1.18.0",
@@ -132,82 +142,66 @@ function makeBlock() {
     }
   }
 
-  let isOverAimBox = Number(getVal("AimCollision_origin_x"))+Number(getVal("AimCollision_size_x")) > 8
-    || Number(getVal("AimCollision_origin_y"))+Number(getVal("AimCollision_size_y")) > 16
-    || Number(getVal("AimCollision_origin_z"))+Number(getVal("AimCollision_size_z")) > 8;
-  let isOverBlockBox = Number(getVal("BlockCollision_origin_x"))+Number(getVal("BlockCollision_size_x")) > 8
-    || Number(getVal("BlockCollision_origin_y"))+Number(getVal("BlockCollision_size_y")) > 16
-    || Number(getVal("BlockCollision_origin_z"))+Number(getVal("BlockCollision_size_z")) > 8;
   if(getVal("prefix") == "") err.push("ネームスペースは必須項目です");
   if(getVal("name") == "") err.push("名前は必須項目です");
+  let ac_o = new vec3(getNum('AimCollision_origin_x'), getNum('AimCollision_origin_y'), getNum('AimCollision_origin_z'));
+  let ac_s = new vec3(getNum('AimCollision_size_x'), getNum('AimCollision_size_y'), getNum('AimCollision_size_z'));
+  let isOverAimBox = ac_o.x+ac_s.x > 8 || ac_o.y+ac_s.y > 16 || ac_o.z+ac_s.z > 8;
+  let bc_o = new vec3(getNum('BlockCollision_origin_x'), getNum('BlockCollision_origin_y'), getNum('BlockCollision_origin_z'));
+  let bc_s = new vec3(getNum('BlockCollision_size_x'), getNum('BlockCollision_size_y'), getNum('BlockCollision_size_z'));
+  let isOverBlockBox = bc_o.x+bc_s.x > 8 || bc_o.y+bc_s.y > 16 || bc_o.z+bc_s.z > 8;
   if(isOverAimBox) err.push("エイムコリジョンはブロックのサイズを超えることができません")
   if(isOverBlockBox) err.push("ブロックコリジョンはブロックのサイズを超えることができません")
 
-  let compone = res["minecraft:block"].components;
-  let changeAimBox = Number(getVal("AimCollision_origin_x")) != -8
-    || Number(getVal("AimCollision_origin_y")) != 0
-    || Number(getVal("AimCollision_origin_z")) != -8
-    || Number(getVal("AimCollision_size_x")) != 16
-    || Number(getVal("AimCollision_size_y")) != 16
-    || Number(getVal("AimCollision_size_z")) != 16;
-  let changeBlockBox = Number(getVal("BlockCollision_origin_x")) != -8
-    || Number(getVal("BlockCollision_origin_y")) != 0
-    || Number(getVal("BlockCollision_origin_z")) != -8
-    || Number(getVal("BlockCollision_size_x")) != 16
-    || Number(getVal("BlockCollision_size_y")) != 16
-    || Number(getVal("BlockCollision_size_z")) != 16;
+  let compone = res[mc('block')].components;
+  let changeAimBox = ac_o.x != -8 || ac_o.y != 0 || ac_o.z != -8 || ac_s.x != 16 || ac_s.y != 16 || ac_s.z != 16;
+  let changeBlockBox = bc_o.x != -8 || bc_o.y != 0 || bc_o.z != -8 || bc_s.x != 16 || bc_s.y != 16 || bc_s.z != 16;
 
   if(getElem("hasAimCollision").checked && changeAimBox) {
-    compone["minecraft:aim_collision"] = {};
-    compone["minecraft:aim_collision"].origin = [
-      Number(getVal("AimCollision_origin_x")),
-      Number(getVal("AimCollision_origin_y")),
-      Number(getVal("AimCollision_origin_z"))
-    ];
-    compone["minecraft:aim_collision"].size = [
-      Number(getVal("AimCollision_size_x")),
-      Number(getVal("AimCollision_size_y")),
-      Number(getVal("AimCollision_size_z"))
-    ];
-  } else if (!getElem("hasAimCollision").checked) compone["minecraft:aim_collision"] = false;
+    compone[mc('selection_box')] = {};
+    compone[mc('selection_box')].origin = [ ac_o.x, ac_o.y, ac_o.z ];
+    compone[mc('selection_box')].size = [ ac_s.x, ac_s.y, ac_s.z ];
+  } else if (!getElem("hasAimCollision").checked) compone[mc('selection_box')] = false;
   if(getElem("hasBlockCollision").checked && changeBlockBox) {
-    compone["minecraft:block_collision"] = {};
-    compone["minecraft:block_collision"].origin = [
-      Number(getVal("BlockCollision_origin_x")),
-      Number(getVal("BlockCollision_origin_y")),
-      Number(getVal("BlockCollision_origin_z"))
-    ];
-    compone["minecraft:block_collision"].size = [
-      Number(getVal("BlockCollision_size_x")),
-      Number(getVal("BlockCollision_size_y")),
-      Number(getVal("BlockCollision_size_z"))
-    ];
-  } else if (!getElem("hasBlockCollision").checked) compone["minecraft:block_collision"] = false;
-  if(Number(getVal("blockLightEmission")) != 0) compone["minecraft:block_light_emission"] = Math.floor(1000*Number(getVal("blockLightEmission"))/15)/1000;
-  if(Number(getVal("blockLightFilter")) != 15) compone["minecraft:block_light_filter"] = Number(getVal("blockLightFilter"));
-  // if(getElem("breakOnPush").checked) compone["minecraft:break_on_push"] = true;
-  compone["minecraft:breathability"] = getElem("breathability").checked? "air": "solid";
+    compone[mc('collision_box')] = {};
+    compone[mc('collision_box')].origin = [ bc_o.x, bc_o.y, bc_o.z ];
+    compone[mc('collision_box')].size = [ bc_s.x, bc_s.y, bc_s.z ];
+  } else if (!getElem("hasBlockCollision").checked) compone[mc('collision_box')] = false;
+  if(getNum('blockLightEmission') != 0) compone[mc('light_emission')] = getNum('blockLightEmission');
+  if(getNum('blockLightFilter') != 15) compone[mc('light_dampening')] = getNum('blockLightFilter');
+  // if(getElem("breakOnPush").checked) compone[mc('break_on_push')] = true;
+  // compone[mc('breathability')] = getElem("breathability").checked? "air": "solid";
+  /*
   if(getVal("creativeCategory") != "") {
-    compone["minecraft:creative_category"] = {};
-    compone["minecraft:creative_category"].category = getVal("creativeCategory");
+    compone[mc('creative_category')] = {};
+    compone[mc('creative_category')].category = getVal("creativeCategory");
   }
   if(getVal("creativeCategory") != "" && getVal("creativeGroup") != "") {
-    compone["minecraft:creative_category"].group = getVal("creativeGroup");
+    compone[mc('creative_category')].group = getVal("creativeGroup");
   }
-  if(Number(getVal("destroyTime")) != 0.0) compone["minecraft:destroy_time"] = Number(getVal("destroyTime"));
-  if(Number(getVal("explosionResistance")) != 0.0) compone["minecraft:explosion_resistance"] = Number(getVal("explosionResistance"));
+  */
+  if(getElem("destructibleByMining").checked && getNum('destructibleByMining_secondsToDestroy') != 0.0) {
+    compone[mc('destructible_by_mining')] = {};
+    compone[mc('destructible_by_mining')].seconds_to_destroy = getNum('destructibleByMining_secondsToDestroy');
+  }
+  // if(getNum('destroyTime') != 0.0) compone[mc('destroy_time')] = getNum('destroyTime');
+  if(getElem("destructibleByExplosion").checked && getNum('destructibleByExplosion_explosionResistance') != 0.0) {
+    compone[mc('destructible_by_explosion')] = {};
+    compone[mc('destructible_by_explosion')].explosion_resistance = getNum('destructibleByExplosion_explosionResistance');
+  }
+  // if(getNum('explosionResistance') != 0.0) compone[mc('explosion_resistance')] = getNum('explosionResistance');
   if(getElem("flamable").checked) {
-    compone["minecraft:flamable"] = {};
-    compone["minecraft:flamable"].burn_odds = Number(getVal("flamable_burnOdds"));
-    compone["minecraft:flamable"].flame_odds = Number(getVal("flamable_flameOdds"));
+    compone[mc('flamable')] = {};
+    compone[mc('flamable')].burn_odds = getNum('flamable_burnOdds');
+    compone[mc('flamable')].flame_odds = getNum('flamable_flameOdds');
   }
-  if(getElem("isSpecialFriction").checked) compone["minecraft:friction"] = Number(getVal("friction"));
-  // if(!getElem("immovable").checked) compone["minecraft:immovable"] = true;
-  if(getVal("lootTable") != "") compone["minecraft:loot_table"] = getVal("lootTable");
-  if(getElem("hasMapColor").checked) compone["minecraft:map_color"] = getVal("mapColor");
-  // if(!getElem("onlyPistonPush").checked) compone["minecraft:onlypistonpush"] = true;
-  // if(getElem("preventsJumping").checked) compone["minecraft:preventsjumping"] = true;
-  if(getElem("unwalkable").checked) compone["minecraft:unwalkable"] = true;
+  if(getElem("isSpecialFriction").checked) compone[mc('friction')] = getNum('friction');
+  // if(!getElem("immovable").checked) compone[mc('immovable')] = true;
+  if(getVal("lootTable") != "") compone[mc('loot')] = getVal("lootTable");
+  if(getElem("hasMapColor").checked) compone[mc('map_color')] = getVal("mapColor");
+  // if(!getElem("onlyPistonPush").checked) compone[mc('onlypistonpush')] = true;
+  // if(getElem("preventsJumping").checked) compone[mc('preventsjumping')] = true;
+  // if(getElem("unwalkable").checked) compone[mc('unwalkable')] = true;
 
   if(err.length > 0) {
     let text = "エラー\n";
@@ -218,7 +212,7 @@ function makeBlock() {
   } else return shaping(JSON.stringify(res, null, "  "), 20);
 }
 
-function makeItem() {
+function createItem() {
   let err = [];
   let res = {
     format_version: "1.16.100",
@@ -230,82 +224,82 @@ function makeItem() {
     }
   }
 
-  if(getVal("creativeCategory_i") != "") res["minecraft:item"].description.category = getVal("creativeCategory_i");
+  if(getVal("creativeCategory_i") != "") res[mc('item')].description.category = getVal("creativeCategory_i");
 
-  let compone = res["minecraft:item"].components;
+  let compone = res[mc('item')].components;
   if(getVal("prefix_i") == "") err.push("ネームスペースは必須項目です");
   if(getVal("name_i") == "") err.push("名前は必須項目です");
-  if(getElem("allowOffHand").checked) compone["minecraft:allow_off_hand"] = true;
+  if(getElem("allowOffHand").checked) compone[mc('allow_off_hand')] = true;
   if(getElem("armor").checked) {
-    compone["minecraft:armor"] = {};
-    compone["minecraft:armor"].protection = Number(getVal("armor_protection"));
-    compone["minecraft:armor"].texture_type = getVal("armor_textureType");
+    compone[mc('armor')] = {};
+    compone[mc('armor')].protection = getNum('armor_protection');
+    compone[mc('armor')].texture_type = getVal("armor_textureType");
   }
-  if(!getElem("canDestroyInCreative").checked) compone["minecraft:can_destroy_in_creative"] = false;
+  if(!getElem("canDestroyInCreative").checked) compone[mc('can_destroy_in_creative')] = false;
   if(getElem("cooldown").checked) {
-    compone["minecraft:cooldown"] = {};
-    compone["minecraft:cooldown"].protection = getVal("cooldown_category");
-    compone["minecraft:cooldown"].texture_type = Number(getVal("cooldown_duration"));
+    compone[mc('cooldown')] = {};
+    compone[mc('cooldown')].protection = getVal("cooldown_category");
+    compone[mc('cooldown')].texture_type = getNum('cooldown_duration');
   }
   if(getVal("creativeGroup_i") != "") {
-    compone["minecraft:creative_category"] = {};
-    compone["minecraft:creative_category"].parent = getVal("creativeGroup_i");
+    compone[mc('creative_category')] = {};
+    compone[mc('creative_category')].parent = getVal("creativeGroup_i");
   }
-  if(Number(getVal("damage")) != 0) compone["minecraft:damage"] = Number(getVal("damage"));
-  if(Number(getVal("durability")) != 0) {
-    compone["minecraft:durability"] = {};
-    compone["minecraft:durability"].max_durability = Number(getVal("durability"));
+  if(getNum('damage') != 0) compone[mc('damage')] = getNum('damage');
+  if(getNum('durability') != 0) {
+    compone[mc('durability')] = {};
+    compone[mc('durability')].max_durability = getNum('durability');
   }
   if(getElem("enchantable").checked) {
-    compone["minecraft:enchantable"] = {};
-    compone["minecraft:enchantable"].slot = getVal("enchantable_slot");
-    compone["minecraft:enchantable"].value = Number(getVal("enchantable_value"));
+    compone[mc('enchantable')] = {};
+    compone[mc('enchantable')].slot = getVal("enchantable_slot");
+    compone[mc('enchantable')].value = getNum('enchantable_value');
   }
-  if(!getElem("explodable").checked) compone["minecraft:explodable"] = false;
-  if(getElem("foil").checked) compone["minecraft:foil"] = true;
-  if(Number(getVal("fuel")) != 0) {
-    compone["minecraft:fuel"] = {};
-    compone["minecraft:fuel"].duration = Number(getVal("fuel"));
+  if(!getElem("explodable").checked) compone[mc('explodable')] = false;
+  if(getElem("foil").checked) compone[mc('foil')] = true;
+  if(getNum('fuel') != 0) {
+    compone[mc('fuel')] = {};
+    compone[mc('fuel')].duration = getNum('fuel');
   }
-  if(getElem("handEquipped").checked) compone["minecraft:hand_equipped"] = true;
-  if(Number(getVal("icon")) != "") {
-    compone["minecraft:icon"] = {};
-    compone["minecraft:icon"].texture = getVal("icon");
+  if(getElem("handEquipped").checked) compone[mc('hand_equipped')] = true;
+  if(getNum('icon') != "") {
+    compone[mc('icon')] = {};
+    compone[mc('icon')].texture = getVal("icon");
   } else {
-    compone["minecraft:icon"] = {};
-    compone["minecraft:icon"].texture = getVal("name_i")
+    compone[mc('icon')] = {};
+    compone[mc('icon')].texture = getVal("name_i")
   }
-  if(getElem("ignoresPermission").checked) compone["minecraft:ignores_permission"] = true;
-  if(Number(getVal("knockbackResistance")) != 0) {
-    compone["minecraft:knockback_resistance"] = {};
-    compone["minecraft:knockback_resistance"].protection = Number(getVal("knockbackResistance"));
+  if(getElem("ignoresPermission").checked) compone[mc('ignores_permission')] = true;
+  if(getNum('knockbackResistance') != 0) {
+    compone[mc('knockback_resistance')] = {};
+    compone[mc('knockback_resistance')].protection = getNum('knockbackResistance');
   }
-  if(getElem("liqidClipped").checked) compone["minecraft:liquid_clipped"] = true;
-  if(Number(getVal("maxStackSize")) != 64) compone["minecraft:max_stack_size"] = Number(getVal("maxStackSize"));
-  if(Number(getVal("miningSpeed")) != 1) compone["minecraft:mining_speed"] = Number(getVal("miningSpeed"));
+  if(getElem("liqidClipped").checked) compone[mc('liquid_clipped')] = true;
+  if(getNum('maxStackSize') != 64) compone[mc('max_stack_size')] = getNum('maxStackSize');
+  if(getNum('miningSpeed') != 1) compone[mc('mining_speed')] = getNum('miningSpeed');
   if(getElem("repairable").checked) {
-    compone["minecraft:repairable"] = {};
-    compone["minecraft:repairable"].repair_items = [];
+    compone[mc('repairable')] = {};
+    compone[mc('repairable')].repair_items = [];
     let i = {
       items: [ getVal("repairable_item") ],
-      repair_amount: Number(getVal("repairable_amount"))
+      repair_amount: getNum('repairable_amount')
     };
-    compone["minecraft:repairable"].repair_items.push(i);
+    compone[mc('repairable')].repair_items.push(i);
     if(getElem("repairable_useSelf").checked) {
       let j = {
         items: [ `${getVal("prefix_i")}:${getVal("name_i")}` ],
         repair_amount: "(c.other->q.remaining_durability)+0.05*(c.other->q.max_durability)"
       };
-      compone["minecraft:repairable"].repair_items.push(j);
+      compone[mc('repairable')].repair_items.push(j);
     }
   }
-  if(!getElem("shouldDespawn").checked) compone["minecraft:shuold_despawn"] = false;
-  if(!getElem("stackedByData").checked) compone["minecraft:stacked_by_data"] = true;
-  if(Number(getVal("useDuration")) != 0) compone["minecraft:use_duration"] = Number(getVal("useDuration"));
+  if(!getElem("shouldDespawn").checked) compone[mc('shuold_despawn')] = false;
+  if(!getElem("stackedByData").checked) compone[mc('stacked_by_data')] = true;
+  if(getNum('useDuration') != 0) compone[mc('use_duration')] = getNum('useDuration');
   if(getElem("wearable").checked) {
-    compone["minecraft:wearable"] = {};
-    compone["minecraft:wearable"].dispensable = getElem("wearable_dispensable").checked;
-    compone["minecraft:wearable"].slot = getVal("wearable_slot");
+    compone[mc('wearable')] = {};
+    compone[mc('wearable')].dispensable = getElem("wearable_dispensable").checked;
+    compone[mc('wearable')].slot = getVal("wearable_slot");
   }
 
   if(err.length > 0) {
@@ -481,7 +475,7 @@ function tool7() { // 特殊な変換2
 function tool8() {
   function formatConverter(json, molang, pref, num) {
     let _j = JSON.parse(json);
-    let j = _j["minecraft:client_entity"]["description"];
+    let j = _j[mc('client_entity')]["description"];
 
     let n = {
       format_version: "1.10.0",
@@ -508,13 +502,13 @@ function tool8() {
         }
       }
       if(j.animations != undefined) {
-        n_.scripts.animate = Object.keys(j.animations);
+        n_.scripts.animate = [];
       }
       if(j.animation_controllers != undefined) {
-        n_.scripts.animate.push("~!Space!~");
+        // n_.scripts.animate.push("~!Space!~");
         let anicon = specialTrans2(JSON.stringify({ anicons: j.animation_controllers }));
         for(let i of Object.keys(anicon.anicons)) {
-          n_.scripts.animate.push(pref + "." + i);
+          n_.scripts.animate.push(pref + i);
         }
       }
     }
@@ -525,13 +519,13 @@ function tool8() {
       n_.animations["~!Space!~"] = "~!Space!~";
       let anicon = specialTrans2(JSON.stringify({ anicons: j.animation_controllers }));
       for(let i of Object.keys(anicon.anicons)) {
-        n_.animations[pref + "." + i] = anicon.anicons[i];
+        n_.animations[pref + i] = anicon.anicons[i];
       }
     }
 
     n_["render_controllers"] = j.render_controllers;
     if(j.enable_attachables != undefined) n_["enable_attachables"] = j.enable_attachables;
-    n["minecraft:client_entity"]["description"] = n_;
+    n[mc('client_entity')]["description"] = n_;
 
     return shaping(JSON.stringify(n), num)
       .replace(/        "~!Space!~": "~!Space!~",/g, "")
@@ -547,7 +541,7 @@ function tool8() {
     let molang = getElem("tool8-molang").checked;
     let pref = getVal("tool8-pref");
     let num = getVal("tool8-num");
-    if(pref == "") pref = "ctrl";
+    if(pref == "") pref = "ctrl.";
 
     getElem("output8").textContent = formatConverter(json, molang, pref, num);
   } catch(e) {
