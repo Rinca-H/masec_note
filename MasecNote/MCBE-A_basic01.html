@@ -17,51 +17,67 @@
   <script>hljs.initHighlightingOnLoad();</script>
   <!-- <pre><code class="json">//コード</code></pre> -->
   <link rel="stylesheet" type="text/css" href="MasecNote_v1.0.2022.11.01.css">
-  <!--<style type="text/css"></style>-->
+  <style type="text/css">
+    .number {
+      background-color: #222; color: #fff;
+      font-weight: bolder;
+      border-radius: 1em;
+      padding: 2px;
+      width: 1.3em; height: 1.3em;
+      display: inline-block;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
   <div class="top-margin"></div>
-  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/01/01</div>
+  <div class="headerText">Uploaded:2023/01/01　Latest-Update:2023/02/25</div>
   <div class="main">
     <div class="left">
       <h1 id="top">アドオンづくりの基礎#1</h1>
       <div class="announce">目次は右上の「≡」から！</div>
-      <div id="sec01" class="headline" style="border-color: #587eff;">アドオンについて</div>
+      <div id="sec01" class="headline" style="border-color: #587eff;">事前に知っておきたいこと</div>
       <p>
-        こちらの記事で、アドオンについてよくありそうな疑問について書いています
+        こちらの記事で、アドオンについてよくありそうな疑問として事前に知っておきたいことをまとめています。
       </p>
       <div class="question">？</div>
       <a href="MCBE-A_forBeginner.html" target="_blank">アドオンを作るひとへ</a>
       <img src="img/external_link_icon.png" class="ignore text_icon"><br>
       <div id="sec02" class="headline" style="border-color: #587eff;">アドオン作りに必要なもの</div>
-      <p>
-        ぜんぶ無料で手に入ると思います。そして、パソコンでもスマホでもできます。
-      </p>
-      <h3 id="sec02sec01">● ファイルエクスプローラ</h3>
+      <p>ぜんぶ無料で手に入ると思います。そして、PCでもスマホでもできます。</p>
+      <h3 id="sec02sec01"><div class="number">1</div> ファイルエクスプローラ</h3>
       <div class="center"><img src="img/MCBE-A_basic01_01.png" style="width: 80%; min-width: 300px;"></div>
-      <b>・PC</b>
-      <p>
-        画像や動画、テキストファイルなど、スマホやパソコンのデータを整理するやつです。パソコンなら<b>標準搭載のファイルエクスプローラで十分</b>だと思います。
-      </p>
-      <b>・スマホ</b>
-      <p>
-        しかし、スマホは標準搭載のものだと<b>うまくファイルを扱えなかったりする</b>ので、アプリをインストールすることをおすすめします。<br>
-        Androidでのオススメ：「<a href="https://play.google.com/store/apps/details?id=com.alphainventor.filemanager">ファイルマネージャー</a>」
-      </p>
+      <h4>・PCの場合</h4>
+      <div class="section">
+        <p>
+          画像や動画、テキストファイルなど、スマホやPC内のデータを整理するやつです。
+          PCなら<b>標準搭載のファイルエクスプローラで十分</b>だと思います。
+        </p>
+      </div>
+      <h4>・スマホの場合</h4>
+      <div class="section">
+        <p>
+          スマホは標準搭載のものだと機能が足りないかもしれないので、アプリをインストールすることをおすすめします。<br>
+          Androidでのオススメ：「<a href="https://play.google.com/store/apps/details?id=com.alphainventor.filemanager">ファイルマネージャー</a>」
+        </p>
+      </div>
       <div class="center">
         <div class="colorBox warning">
+          <img src="img/caution.png"> <b>注意</b>
           <p>
-            パソコンの場合、ひとつ設定しておきたいことがあります。<br>
-            左上の「<b>表示</b>」を押して出てきたメニューの中にある「<b>ファイル名拡張子</b>」にチェックをつけておきましょう。
+            PCの場合、ひとつ設定しておきたいことがあります。<br>
+            左上の「<b>表示</b>」タブを押して出てきたメニューの中にある項目「<b>ファイル名拡張子</b>」にチェックをつけておきましょう。
           </p>
         </div>
       </div>
-      <h3 id="sec02sec02">● テキストエディタ</h3>
+      <h3 id="sec02sec02"><div class="number">2</div> テキストエディタ</h3>
       <div class="center"><img src="img/MCBE-A_basic01_02.png" style="width: 80%; min-width: 300px;"></div>
       <p>
-        パソコンで言うところのメモ帳のようなものです。ただ、<b>メモ帳でもできるけどめちゃくちゃ不便</b>なので、プログラミング向けのようなテキストエディタを入手することをおすすめします。<br>
-        以下の機能を目安に探してみてください。「あるとうれしい機能」となるとスマホのアプリではなかなかなかったり、重かったりします。
+        PC(Windows)で言うところのメモ帳のようなものです。
+        <b>メモ帳でもできますが、めちゃくちゃ不便</b>なので、プログラミング向けのようなテキストエディタを入手することをおすすめします。<br>
+        スマホでもアプリの使用を推奨します。しかし、PCのソフト並みにすごいものはあまりなかったり、重かったりするので、以下の項目を目安に探してみてください。
       </p>
+      <p>ちなみに、どちらも無料で手に入れることができます。</p>
       <div class="center">
         <div class="colorBox blue_box">
           <p style="margin: 1em 0;"><b>最低限あったほうがいい機能</b></p>
@@ -83,55 +99,50 @@
         Androidでのオススメ：「<a href="https://play.google.com/store/apps/details?id=com.rhmsoft.edit">QuickEdit</a>」または「<a href="https://play.google.com/store/apps/details?id=com.rhmsoft.code">コードエディター</a>」<br>
         PCでのオススメ：「<a href="https://code.visualstudio.com/download">Visual Studio Code</a>」
       </p>
-      <h3 id="sec02sec03">● テンプレート</h3>
-			<p>
-			  公式が配布しているアドオンのテンプレートです。何も変更や追加を加えていない、いわゆるバニラのデータがだいたいすべて入っています。
-      </p>
+      <h3 id="sec02sec03"><div class="number">3</div> テンプレート</h3>
       <p>
-			  ここで手に入ります→<a href="https://www.minecraft.net/ja-jp/addons/">公式サイト</a>
-			</p>
-			<div class="center"><img src="img/MCBE-A_basic01_03.png" style="width: 80%; min-width: 300px;"></div>
-      <p>
-        マインクラフト本体がアップデートすると、適宜この<b>テンプレートも新しいバージョン向けに更新される</b>ので、
-        <b>アップデートのたびに新しくすることをおすすめします</b>。
+        公式が配布しているアドオンのテンプレートです。何も変更や追加を加えていない、いわゆるバニラのデータがだいたいすべて入っています。<br>
+        <b>今後、なんの前置きもなしに「テンプレート」といったらこれのことを指します。覚えてください。</b>
       </p>
+      <h4>● 入手方法</h4>
+      <ol style="line-height: 2em;">
+        <li><a href="https://github.com/Mojang/bedrock-samples/releases">ここ</a>へ行く</li>
+        <li>テンプレートがほしいバージョン(大きい字)をクリック/タップする</li>
+        <li>Assetsの下にある「Source code(zip)」をクリック/タップでダウンロード開始</li>
+      </ol>
       <p>
         このテンプレートを手に入れたら<b>解凍しておきましょう</b>。
         コピペのコピー元として使うぐらいなのでどこでもいいですが、分かりやすいところにしましょう。
       </p>
       <p>
-        <b>今後、なんの前置きもなしに「テンプレート」といったらこれのことを指します。覚えてください。</b>
-      </p>
-			<p>
-        そして、ビヘイビア(behavior)のほうには「documentation」フォルダの中に.htmlファイルが入っていると思いますが、アドオンの説明書みたいなものです。
+        そのファイルの中にある「documentation」フォルダの中身の.htmlファイルはアドオンの説明書(英語)です。
         <b>この説明書を「リファレンス」と呼ぶのでそちらも覚えておいてください。</b>
-			</p>
-      <h3 id="sec02sec04">● ペイントツール</h3>
-      <p>
-        テクスチャを描くならば必要です。ドット絵が描ければなんでもいいと思います。
       </p>
-      <h3 id="sec02sec05">● やる気と根性</h3>
+      <h3 id="sec02sec04"><div class="number">4</div> ペイントツール</h3>
+      <p>テクスチャを描くときに必要です。<u>ドット絵が描ければ</u>なんでもいいと思います。</p>
+      <h3 id="sec02sec05"><div class="number">5</div> やる気と根性</h3>
       <p>
         アドオン作りはなかなか思い通りにいかないです。そして、ミスをしたときにどこでミスをしたのかわかりづらいので、それを探す根性がいります。
       </p>
       <div id="sec03" class="headline" style="border-color: #587eff;">前提知識</div>
       <p>
         エクスプローラを使う際の「<b>ファイル</b>」「<b>フォルダ</b>」「<b>ファイルパス</b>」「<b>解凍</b>」「<b>圧縮</b>」「<b>拡張子</b>」は何だかわかるようにしておきましょう。
+        これのことだと指させるようになるぐらいでいいです。
       </p>
       <p>
         ここで、拡張子について一つ明確にしておきます。このサイトでは例えば「zombie.json」なら「zombie」の部分を<b>ファイル名</b>、「.json」または「json」の部分を<b>拡張子</b>と呼びます。
-        「zombie.json」のファイル名を例えば「my_entity」にする場合に「.json」は消さないということです。
+        「zombie.jsonのファイル名をmy_entityにする」と書かれていたときに「.json」は消さないということです。
       </p>
-      <p>
-        あとは以下のマイクラ用語を知らないと多くの解説が通じないと思います。
-      </p>
+      <p>あとは以下のマイクラ用語を知らないと多くの解説が通じないと思います。</p>
       <h4>● テクスチャ</h4>
       <p>
-        ブロックやモブ、アイテムなどの<b>見た目</b>のことです。
+        ブロックやモブ、アイテムなどの<b>見た目</b>またはその見た目にするために貼る画像ファイルのことです。
       </p>
       <h4>● エンティティ</h4>
+      <p>まず、モブなどといった<b>生き物はすべてエンティティです</b><span style="color: #aaa">("カメの卵は生き物だけどブロックじゃん"とか頼むから言わないでください)</span>。</p>
       <p>
-        <b>エンティティのほとんどはモブ</b>です。例えば、<b>ゾンビやスケルトン、村人やプレイヤーなどのモブである生き物はすべてエンティティ</b>です。しかし、コマンドをやっているひとならば詳しいと思いますが、生き物以外にもエンティティと分類されるものがあります。例えば、<b>矢、防具立て、トロッコ、ガストの火の玉、落下中のブロック、エンドクリスタル</b>……などなど、<b>/killコマンドが通用するものはすべてエンティティ</b>となります。
+        実はそれ以外も<b>矢、防具立て、トロッコ、ガストの火の玉、落下中のブロック、エンドクリスタル</b>などもエンティティです。<br>
+        コマンドが分かるひとならば「/killコマンドが通用するもの」で十分伝わると思います。
       </p>
       <div style="height: 150px; position: relative;">
         <div style="width: fit-content; position: absolute; right: 2em; top: 50%; transform: translateY(-50%);">
