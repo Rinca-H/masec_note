@@ -1,6 +1,6 @@
 /*
 
-  Last Edit: 2022/11/26
+  Last Edit: 2023/03/03
   v1.1.2022.11.26
 
 */
@@ -294,4 +294,9 @@ function copyToClipboard(id) {
     document.getSelection().removeAllRanges();
   }
 
+}
+
+function jumpTo(id, offset=0) {
+  const target = getElem(id);
+  if(target) scrollBy(0, target.getBoundingClientRect().top - 80 + offset);
 }
