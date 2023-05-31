@@ -1,4 +1,4 @@
-/* Last Edit 2023/02/08 */ 
+/* Last Edit 2023/05/31 */ 
 
 var getVal = (id) => document.getElementById(id).value;
 var getElem = (id) => document.getElementById(id);
@@ -475,59 +475,80 @@ function tool7() { // 特殊な変換2
 function tool8() {
   function formatConverter(json, molang, pref, num) {
     let _j = JSON.parse(json);
-    let j = _j[mc('client_entity')]["description"];
-
-    let n = {
-      format_version: "1.10.0",
-      "minecraft:client_entity": { description: {} }
+    let j = _j['minecraft:client_entity']['description'];
+    let r = {
+      format_version: '1.10.0',
+      'minecraft:client_entity': {
+        description: {}
+      }
     };
-    let n_ = {
+    let desc = {
       identifier: j.identifier,
       min_engine_version: j.min_engine_version,
       materials: j.materials,
       textures: j.textures,
       geometry: j.geometry,
       spawn_egg: j.spawn_egg
-    }
+    };
 
-    if(j.scripts != undefined) {
-      n_.scripts = j.scripts;
-      if(j.scripts.pre_animation != undefined) {
+    if(j.particle_effects) desc.particle_effects = j.particle_effects;
+    if(j.particle_emitters) desc.particle_emitters = j.particle_emitters;
+    if(j.sound_effects) desc.sound_effects = j.sound_effects;
+
+    desc.scripts = {};
+
+    if(j.scripts) {
+      if(j.scripts.pre_animation) {
         if(molang) {
           let s = [];
           for(let i of j.scripts.pre_animation) {
-            s.push(i.replace(/variable./g, "v.").replace(/query./g, "q."));
+            s.push(i.replace(/variable./g, 'v.').replace(/query./g, 'q.'));
           }
-          n_.scripts.pre_animation = s;
+          desc.scripts.pre_animation = s;
+        } else {
+          desc.scripts.pre_animation = j.scripts.pre_animation;
         }
       }
-      if(j.animations != undefined) {
-        n_.scripts.animate = [];
-      }
-      if(j.animation_controllers != undefined) {
-        // n_.scripts.animate.push("~!Space!~");
-        let anicon = specialTrans2(JSON.stringify({ anicons: j.animation_controllers }));
-        for(let i of Object.keys(anicon.anicons)) {
-          n_.scripts.animate.push(pref + i);
-        }
-      }
+      if(j.scripts.initialize!=undefined) desc.scripts.initialize = j.scripts.initialize;
+      if(j.scripts.variables!=undefined) desc.scripts.variables = j.scripts.variables;
+      if(j.scripts.scale!=undefined) desc.scripts.scale = j.scripts.scale;
+      if(j.scripts.scaleX!=undefined) desc.scripts.scaleX = j.scripts.scaleX;
+      if(j.scripts.scaleY!=undefined) desc.scripts.scaleY = j.scripts.scaleY;
+      if(j.scripts.scaleZ!=undefined) desc.scripts.scaleZ = j.scripts.scaleZ;
+      if(j.scripts.parent_setup!=undefined) desc.scripts.parent_setup = j.scripts.parent_setup;
+      if(j.scripts.should_update_bones_and_effects_offscreen!=undefined) desc.scripts.should_update_bones_and_effects_offscreen = j.scripts.should_update_bones_and_effects_offscreen;
+      if(j.scripts.should_update_effects_offscreen!=undefined) desc.scripts.should_update_effects_offscreen = j.scripts.should_update_effects_offscreen;
     }
-    if(j.animations != undefined) {
-      n_.animations = j.animations;
-    }
-    if(j.animation_controllers != undefined) {
-      n_.animations["~!Space!~"] = "~!Space!~";
+
+    desc.scripts.animate = [];
+
+    if(j.animation_controllers) {
       let anicon = specialTrans2(JSON.stringify({ anicons: j.animation_controllers }));
       for(let i of Object.keys(anicon.anicons)) {
-        n_.animations[pref + i] = anicon.anicons[i];
+        desc.scripts.animate.push(pref + i);
       }
     }
 
-    n_["render_controllers"] = j.render_controllers;
-    if(j.enable_attachables != undefined) n_["enable_attachables"] = j.enable_attachables;
-    n[mc('client_entity')]["description"] = n_;
+    if(j.animations) {
+      desc.animations = j.animations;
+    }
 
-    return shaping(JSON.stringify(n), num)
+    if(j.animation_controllers != undefined) {
+      desc.animations['~!Space!~'] = '~!Space!~';
+      let anicon = specialTrans2(JSON.stringify({ anicons: j.animation_controllers }));
+      for(let i of Object.keys(anicon.anicons)) {
+        desc.animations[pref + i] = anicon.anicons[i];
+      }
+    }
+
+    desc.render_controllers = j.render_controllers;
+    if(j.enable_attachables!=undefined) desc.enable_attachables = j.enable_attachables;
+    if(j.hide_armor!=undefined) desc.hide_armor = j.hide_armor;
+    if(j.item!=undefined) desc.item = j.item;
+
+    r['minecraft:client_entity'].description = desc;
+
+    return shaping(JSON.stringify(r), num)
       .replace(/        "~!Space!~": "~!Space!~",/g, "")
       .replace(/ "~!Space!~": "~!Space!~",/g, "")
       .replace(/           "~!Space!~",\n/g, "\n")
