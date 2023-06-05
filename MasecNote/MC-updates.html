@@ -67,7 +67,7 @@
 </head>
 <body>
   <div class="top-margin"></div>
-  <div class="headerText">Uploaded:2023/05/09　Latest-Update:2023/05/09</div>
+  <div class="headerText">Uploaded:2023/05/09　Latest-Update:2023/06/05</div>
   <div class="main">
     <div>
       <h1 id="top">Minecraft - アップデート要約</h1>
@@ -75,8 +75,371 @@
       <label for="mcbe" class="no-select">MCBE</label><label for="mcje" class="no-select">MCJE</label>
       <div class="panel">
         <div class="mcbe">
-        <div class="elem">
-          <details open><summary id="1.20.0.23">1.20.0.23β</summary>
+          <div class="elem">
+            <details open><summary id="1.20.10.21">1.20.10.21β</summary>
+              <hr>
+              <h3 id="secsec">● 新要素</h3>
+              <ul>
+                <li>レシピのロック・アンロック(JEの仕様)</li>
+              </ul>
+              <h3 id="secsec">● 変更</h3>
+              <ul>
+                <li>水中などのフォグの設定はプレイヤーの位置ではなくカメラの位置で決まるように</li>
+                <li>竹のイカダのクラフトにシャベルは必要なくなった (<a href="https://bugs.mojang.com/browse/MCPE-170896">MCPE-170896</a>)</li>
+                <li>その他2つの変更</li>
+              </ul>
+              <h3 id="secsec">● 技術的アップデート</h3>
+              <h4>コマンド</h4>
+              <ul>
+                <li>2つの要素</li>
+              </ul>
+              <h4>アドオン</h4>
+              <ul>
+                <li><span class="inline">minecraft:block_placer</span>コンポーネントをもつカスタムアイテムは正しい向きでブロックを設置するように</li>
+                <li><span class="inline">minecraft:block_placer</span>コンポーネントをもつカスタムアイテムは特定のブロックを間違った場所に設置しなくなった</li>
+                <li>カスタムカメラプリセットでカメラのピッチを±90度までしか指定できないように</li>
+                <li>その他3つの要素</li>
+              </ul>
+              <h4>ScriptAPI</h4>
+              <ul>
+                <li><span class="inline">System.events</span>が <span class="inline">System.beforeEvents</span>と <span class="inline">System.afterEvents</span>に変わった</li>
+                <li><span class="inline">System.beforeWatchdogTerminate</span>を <span class="inline">System.beforeEvents.watchdogTerminate</span>へ移動し、改名した</li>
+                <li><span class="inline">System.scriptEventReceive</span>を <span class="inline">System.afterEvents</span>へ移動</li>
+                <li><span class="inline">MessageReceiveAfterEvent.sourceType</span>削除</li>
+                <li><span class="inline">MessageSourceType</span>を<span class="inline">ScriptEventSource</span>に改名</li>
+                <li>その他2つの要素</li>
+              </ul>
+              <h3 id="secsec">● バグ修正</h3>
+              <ul>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-170836">MCPE-170836</a>
+                  トラップドアで這う状態になったときに、大釜やコンポスターの中に閉じ込められることはなくなった
+                </li>
+                <li>怪しげな砂、砂利が地図上で正しく表示されるように</li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-170858">MCPE-170858</a>
+                  エンドクリスタルをエンドに置くと発生する可能性のあるクラッシュを修正
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-170832">MCPE-170832</a>
+                  ダッシュなどで視野角が変わった時に、一人称視点の手の表示に影響が出ていた問題を修正
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-123608">MCPE-123608</a>
+                  設定項目「ファンシーな葉っぱ」がすぐに適用されるようになり、地下が透けて見えることはなくなった
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-170208">MCPE-170208</a>
+                  夜間のモブのデスポーン速度が今まで通りに
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-166566">MCPE-166566</a>
+                  ラクダがダメージを受けるときに手足が動くように
+                </li>
+                <li>スニファーが空中を掘り起こすことがなくなった</li>
+                <li>AI系コンポーネント<span class="inline">go_and_give_items_to_noteblock</span>の実行時に発生する可能性があるクラッシュを修正</li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-170645">MCPE-170645</a>
+                  ブロックに接しているモブがスケールを変更しようとすると発生する可能性があるクラッシュを修正
+                </li>
+                <li>その他4つのバグ修正</li>
+              </ul>
+            </details>
+          </div>
+          <div class="elem">
+            <details><summary id="1.20.10.20">1.20.10.20β</summary>
+              <hr>
+              <h3 id="secsec">● 新要素</h3>
+              <ul>
+                <li>プレイヤーが1ブロックの高さの場所にいると這いつくばるように</li>
+              </ul>
+              <h3 id="secsec">● 変更</h3>
+              <ul>
+                <li>スニークしているとき、泳いでるとき、滑空中、プレイヤーはカメラの位置から発射物を発射するように</li>
+                <li>忠誠エンチャントのトライデントはプレイヤーのカメラの位置へ戻るように</li>
+                <li>1つ以上模様が入った飾り壺はインベントリ内でホバーしたときツールチップに欠片の材料が表示されるように</li>
+                <li>サウンドの聞こえ方が、プレイヤーのカメラの位置や回転で決まるようになった</li>
+                <li class="b">ボートのクラフトにシャベルが必要なくなった(竹のイカダはまだ)</li>
+                <li class="b">樽のクラフトがJEと統一された</li>
+                <li class="b">クモの巣から糸をクラフトできなくなった</li>
+                <li>その他2つの変更</li>
+              </ul>
+              <h3 id="secsec">● スカルクセンサーの振動</h3>
+              <p>以下の動作はすべて振動を発するようになった：</p>
+              <ul>
+                <li>
+                  各種額縁にアイテムを入れる/回転する/取る
+                  (<a href="https://bugs.mojang.com/browse/MCPE-166741">MCPE-166741</a>)
+                </li>
+                <li>
+                  リスポーンアンカーのチャージ
+                  (<a href="https://bugs.mojang.com/browse/MCPE-157409">MCPE-157409</a>)
+                </li>
+                <li>各種銅ブロックにワックスを塗る/はがす</li>
+                <li>日照センサーのモード切り替え</li>
+                <li>焚き火に食べ物を置く</li>
+                <li>ジュークボックスにレコードを入れる/出す</li>
+                <li>泥ブロックが粘土ブロックに変化する</li>
+                <li>スイートベリーを収穫する</li>
+                <li>
+                  エンドポータルフレームにエンダーアイを入れる
+                  (<a href="https://bugs.mojang.com/browse/MCPE-155372">MCPE-155372</a>)
+                </li>
+                <li>
+                  ミツバチの巣の出入り
+                  (<a href="https://bugs.mojang.com/browse/MCPE-156199">MCPE-156199</a>)
+                </li>
+                <li>
+                  コンポスターの使用
+                  (<a href="https://bugs.mojang.com/browse/MCPE-156199">MCPE-156199</a>)
+                </li>
+                <li>
+                  フェンスにリードをつける/はずす
+                  (<a href="https://bugs.mojang.com/browse/MCPE-156199">MCPE-156199</a>)
+                </li>
+                <li>
+                  ヒツジが死ぬ
+                  (<a href="https://bugs.mojang.com/browse/MCPE-156199">MCPE-156199</a>)
+                </li>
+                <li>
+                  グロウベリーの収穫
+                  (<a href="https://bugs.mojang.com/browse/MCPE-156199">MCPE-156199</a>)
+                </li>
+                <li>
+                  耕地ブロックが土ブロックに変化する
+                  (<a href="https://bugs.mojang.com/browse/MCPE-156199">MCPE-156199</a>)
+                </li>
+                <li>
+                  モンスタースポナーの中身をスポーンエッグで設定する
+                  (<a href="https://bugs.mojang.com/browse/MCPE-156199">MCPE-156199</a>)
+                </li>
+                <li>
+                  シルバーフィッシュがブロックに入る
+                  (<a href="https://bugs.mojang.com/browse/MCPE-156199">MCPE-156199</a>)
+                </li>
+                <li>
+                  根付いた土をクワで耕す
+                  (<a href="https://bugs.mojang.com/browse/MCPE-156199">MCPE-156199</a>)
+                </li>
+                <li>
+                  シャベルで土の道を作る
+                  (<a href="https://bugs.mojang.com/browse/MCPE-156199">MCPE-156199</a>)
+                </li>
+                <li>ドアを置く</li>
+                <li>農地ブロックに種を植える</li>
+              </ul>
+              <h3 id="secsec">● 技術的アップデート</h3>
+              <h4>コマンド</h4>
+              <ul>
+                <li>/executeコマンドを介して/functionコマンドを実行するとき、コマンドの基準位置に現在の位置・回転が使用されるように</li>
+                <li>各種コンクリートブロックのIDのデータ値分化</li>
+                <li class="b">
+                  コマンドにおけるブロックステート指定の書式がJEと統一
+                  (<a href="https://bugs.mojang.com/browse/MCPE-168056">MCPE-168056</a>)
+                </li>
+                <li>/cameraコマンドにおけるフェード色の設定値として0～1の小数値ではなく0～255の整数値を取るようになった</li>
+                <li>/cameraコマンドにおけるフェードの長さは0～10秒へ制限されるように</li>
+                <li>/cameraコマンドにおいて、カメラのピッチを-90～90の角度へ制限されるように</li>
+                <li>その他3つの要素</li>
+              </ul>
+              <h4>アドオン</h4>
+              <ul>
+                <li class="b">カスタムブロックの、<span class="inline">minecraft:geometry</span>コンポーネントの<span class="inline">part_visibility</span>の値をMolangで指定できるように</li>
+                <li><span class="inline">minecraft:block_placer</span>コンポーネントをもつカスタムアイテムは正しい向きでブロックを配置するように</li>
+                <li><span class="inline">minecraft:block_placer</span>コンポーネントをもつカスタムアイテムが特定のブロックを間違った場所に設置しなくなった</li>
+                <li>カスタムアイテムの<span class="inline">minecraft:shooter</span>コンポーネントのプロパティ <span class="inline">charge_on_draw</span>が <span class="inline">true</span>のときはアイテムのチャージ時のみ発射するアイテムを消費するように</li>
+                <li>その他7つの要素</li>
+              </ul>
+              <h4>エディターモード</h4>
+              <p>4つの要素</p>
+              <h4>ScriptingAPI</h4>
+              <ul>
+                <li>ダイナミックプロパティにデフォルト値を設定できるように</li>
+                <li>ダイナミックプロパティの容量の増加；エンティティ：1KB → 128KB；ワールド：10KB → 1MB</li>
+                <li class="removed"><span class="inline">ScreenDisplay.clearTitle()</span>削除</li>
+                <li>
+                  <span class="inline">TitleDisplayOptions</span>クラスの
+                  <span class="inline">fadeInSeconds</span>、 <span class="inline">staySeconds</span>、 <span class="inline">fadeOutSeconds</span>を
+                  <span class="inline">fadeInDuration</span>、 <span class="inline">stayDuration</span>、 <span class="inline">fadeOutDuration</span>へ改名し、
+                  実際に値の単位を「秒」から「tick」に変更
+                </li>
+                <li><span class="inline">Entity</span>クラスに以下のプロパティ・メソッドを追加<ul>
+                  <li class="added"><span class="inline">isGliding</span></li>
+                  <li class="added"><span class="inline">isJumpling</span></li>
+                  <li class="added"><span class="inline">isFlying</span></li>
+                  <li class="added"><span class="inline">isSprinting</span></li>
+                  <li class="added"><span class="inline">isSwimming</span></li>
+                  <li class="added"><span class="inline">isClimbing</span></li>
+                  <li class="added"><span class="inline">isOnGround</span></li>
+                  <li class="added"><span class="inline">isInWater</span></li>
+                  <li class="added"><span class="inline">isFalling</span></li>
+                  <li class="added"><span class="inline">fallDistance</span></li>
+                  <li class="added"><span class="inline">fly()</span></li>
+                  <li class="added"><span class="inline">stopFlying()</span></li>
+                  <li class="added"><span class="inline">glide()</span></li>
+                  <li class="added"><span class="inline">stopGliding()</span></li>
+                  <li class="added"><span class="inline">swim()</span></li>
+                  <li class="added"><span class="inline">stopSwimming()</span></li>
+                </ul></li>
+                <li>BlockEventsを継承するクラスの追加<ul>
+                  <li><span class="inline">PressurePlatePushEvent</span></li>
+                  <li><span class="inline">PressurePlatePopEvent</span></li>
+                  <li><span class="inline">TargetBlockHitEvent</span></li>
+                  <li><span class="inline">TripWireTripEvent</span></li>
+                  <li><span class="inline">ContainerSlot.clone()</span>削除</li>
+                  <li><span class="inline">EntityHealableComponent.filters</span>削除</li>
+                  <li><span class="inline">EntityAttributeComponent.effectiveMin</span>、 <span class="inline">EntityAttributeComponent.effectiveMax</span>追加</li>
+                  <li>
+                    <span class="inline">EntityAttributeComponent</span>クラスの
+                    <span class="inline">value</span>、 <span class="inline">current</span>、 <span class="inline">setCurrent()</span>を
+                    <span class="inline">defaultValue</span>、 <span class="inline">currentValue</span>、 <span class="inline">setCurrentValue()</span>に改名
+                  </li>
+                  <li><span class="inline">EntityHealthChangedAfterEvent</span>追加</li>
+                </ul></li>
+                <li>その他4つの要素</li>
+              </ul>
+              <h3 id="secsec">● バグ修正</h3>
+              <ul>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-54294">MCPE-54294</a>
+                  プレイヤーが泳いでいるとき、当たり判定の中心にモデルが配置されるように
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-170613">MCPE-170613</a>
+                  プレイヤーが乗り物に乗っているときにスニークできなくなった
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-166451">MCPE-166451</a>
+                  2ブロックの高さの場所でラクダに乗っても窒息しなくなった
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-166411">MCPE-166411</a>
+                  上からハーフブロックに押されてスニークするときに少し前進することがなくなった
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-170610">MCPE-170610</a>
+                  スニークが強制される高さの場所に立ってスニークしているとき、スニークボタンを押していないにも拘わらず、ブロックのインベントリを開けないバグを修正
+                </li>
+                <li>磨かれた玄武岩と模様入りの深層岩は、ワールド生成中にスカルクに置き換えられなくなった</li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-160238">MCPE-160238</a>
+                  ワールド生成中に、磨かれた深層岩をスカルクに置き換えることができるようになった
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-160238">MCPE-160238</a>
+                  村人がトーチフラワーの種とウツボカズラのさやを扱えるようになった(植えられるのみで、収穫はできない)
+                </li>
+                <li>インベントリのあるブロックを開く権限がないプレイヤーは模様付き本棚の中身を操作できなくなった</li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-170427">MCPE-170427</a>
+                  大釜の水のテクスチャが正しいものになった
+                </li>
+                <li>ソウルソイルの上の音符ブロックの音がスネアの音ではなくハープの音になった</li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-161207">MCPE-161207</a>
+                  シャベルで泥塊をツルハシと同じ速さで採掘できなくなった
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-162785">MCPE-162785</a>
+                  ブロック設置のボタンを長押ししながら特定の動きをすると不自然にブロックを積み重ねられてしまうバグを修正
+                </li>
+                <li>雪や雨粒の表示はプレイヤーの位置ではなくカメラの位置に基づくように</li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-54294">MCPE-54294</a>
+                  跳躍力上昇のポーションエフェクトがマグマキューブに影響しないバグを修正
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-46795">MCPE-46795</a>
+                  Shift+クリックでインベントリのアイテムを移動するとインベントリが操作できなくなることがあるバグを修正
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-160189">MCPE-160189</a>
+                  インベントリを持つエンティティがドロップしたアイテムは最も近いブロックの中央にドロップされるように
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-163670">MCPE-163670</a>
+                  防具など、アイテムを持った村人ゾンビが治療されたときにそれらのアイテムをドロップしないバグを修正
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-140814">MCPE-140814</a>
+                  野生の馬、ラバ、ロバは金のリンゴ、ニンジン、エンチャントされた金リンゴを持ったプレイヤーに寄り付くようになった
+                </li>
+                <li>カスタムエンティティに<span class="inline">minecraft:peek</span>コンポーネントを使うとクラッシュするバグを修正</li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-169974">MCPE-169974</a>
+                  一部の/executeコマンドがRelmsで動作しないバグを修正
+                </li>
+                <li class="b">
+                  <a href="https://bugs.mojang.com/browse/MCPE-152002">MCPE-152002</a>
+                  コマンドセレクタ <span class="inline">hasitem</span>はインベントリ内でカーソルが持っているアイテムを検知することができるように
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-168129">MCPE-168129</a>
+                  エンティティのコンポーネント<span class="inline">minecraft:behavior.nearest_attachable_target</span>内の無効な構造によってクラッシュしなくなった
+                </li>
+                <li>その他5つのバグ修正</li>
+              </ul>
+            </details>
+          </div>
+          <div class="elem">
+            <details><summary id="1.20.0.25">1.20.0.25β</summary>
+              <hr>
+              <h3 id="secsec">● バグ修正</h3>
+              <ul>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-170070">MCPE-170070</a>
+                  プレイヤーが埋まる場所へ移動させられたとき、クリエイティブ飛行が強制的に解除されなくなった
+                </li>
+                <li>その他2つのバグ修正</li>
+              </ul>
+            </details>
+          </div>
+          <div class="elem">
+            <details><summary id="1.20.0.24">1.20.0.24β</summary>
+              <hr>
+              <h3 id="secsec">● 新要素</h3>
+              <ul>
+                <li>実績「Smithing with Style」を追加</li>
+              </ul>
+              <h3 id="secsec">● 変更</h3>
+              <ul>
+                <li>ワールド作成時のシード選択にある桜の木立バイオームのシードを更新</li>
+              </ul>
+              <h3 id="secsec">● バグ修正</h3>
+              <ul>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-170070">MCPE-170070</a>
+                  ロードしていないチャンクへテレポートしてもクリエイティブ飛行は解除されなくなった
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-169748">MCPE-169748</a>
+                  トリムされた防具のアイコンが高画質なリソースパックでも正しく表示されるように
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-169604">MCPE-169604</a>
+                  高画質なリソースパックがスニファーの卵とウツボカズラに正しく適用されるように
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-169497">MCPE-169733</a>
+                  スニファーの卵が繁殖で生まれたときにサウンドが鳴るように
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-170275">MCPE-170275</a>
+                  ブタが高原と桜の木立バイオームだけではなく、他の多くのバイオームでもスポーンするように
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-170021">MCPE-170021</a>
+                  釣竿が壊れたときにゲームがクラッシュすることはなくなった
+                </li>
+                <li>
+                  <a href="https://bugs.mojang.com/browse/MCPE-170184">MCPE-170184</a>
+                  交易テーブルにカスタムエンティティのスポーンエッグが使えない問題を修正
+                </li>
+              </ul>
+            </details>
+          </div>
+          <div class="elem">
+            <details><summary id="1.20.0.23">1.20.0.23β</summary>
             <hr>
             <h3 id="secsec">● 新要素</h3>
             <p>特になし</p>
@@ -223,10 +586,10 @@
               </li>
               <li>各種スカルクセンサーはクールダウンフェーズの最後に「非アクティブ」になったサウンドを再生するように</li>
             </ul>
-          </details>
-        </div>
-        <div class="elem">
-          <details><summary id="1.20.0.22">1.20.0.22β</summary>
+            </details>
+          </div>
+          <div class="elem">
+            <details><summary id="1.20.0.22">1.20.0.22β</summary>
             <hr>
             <h3 id="secsec">● 新要素</h3>
             <ul>
@@ -357,10 +720,10 @@
             <ul>
               <li class="b">/cameraコマンド追加</li>
             </ul>
-          </details>
-        </div>
-        <div class="elem">
-          <details><summary id="1.20.0.21">1.20.0.21β</summary>
+            </details>
+          </div>
+          <div class="elem">
+            <details><summary id="1.20.0.21">1.20.0.21β</summary>
             <hr>
             <h3 id="secsec">● 試験的な新要素に関わる変更と修正</h3>
             <ul>
@@ -488,10 +851,10 @@
               <li><span class="inline">BlockPermutation.getAllProperties()</span>を <span class="inline">BlockPermutation.getAllStates</span>に改名</li>
               <li><span class="inline">BlockPermutation.getProperty()</span>を<span class="inline">BlockPermutation.getState()</span>に改名</li>
             </ul>
-          </details>
-        </div>
-        <div class="elem">
-          <details><summary id="1.20.0.20">1.20.0.20β</summary>
+            </details>
+          </div>
+          <div class="elem">
+            <details><summary id="1.20.0.20">1.20.0.20β</summary>
             <hr>
             <h3 id="secsec">● 新要素</h3>
             <ul>
@@ -786,10 +1149,10 @@
               <li><span class="inline">ItemUseOnEvent.faceLocationX</span>と<span class="inline">ItemUseOnEvent.faceLocationY</span>をVector2を返す<span class="inline">ItemUseOnEvent.faceLocation</span>に変更</li>
               <li><span class="inline">BlockHitInformation.faceLocationX</span>と<span class="inline">BlockHitInformation.faceLocationY</span>をVector2を返す<span class="inline">BlockHitInformation.faceLocation</span>に変更</li>
             </ul>
-          </details>
-        </div>
-        <div class="elem">
-          <details><summary id="1.19.80.24">1.19.80.24β</summary>
+            </details>
+          </div>
+          <div class="elem">
+            <details><summary id="1.19.80.24">1.19.80.24β</summary>
             <hr>
             <h3 id="secsec">● バグ修正と変更</h3>
             <ul>
@@ -817,10 +1180,10 @@
                 スニークしているとエンティティの<span class="inline">minecraft:interact</span>コンポーネントが正しく動作しない問題を修正
               </li>
             </ul>
-          </details>
-        </div>
-        <div class="elem">
-          <details><summary id="1.19.80.23">1.19.80.23β</summary>
+            </details>
+          </div>
+          <div class="elem">
+            <details><summary id="1.19.80.23">1.19.80.23β</summary>
             <hr>
             <h3 id="secsec">● バグ修正と変更</h3>
             <ul>
@@ -839,10 +1202,10 @@
                 ガストのサウンドの音量と可聴距離が小さすぎる問題を修正
               </li>
             </ul>
-          </details>
-        </div>
-        <div class="elem">
-          <details><summary id="1.19.80.22">1.19.80.22β</summary>
+            </details>
+          </div>
+          <div class="elem">
+            <details><summary id="1.19.80.22">1.19.80.22β</summary>
             <hr>
             <h3 id="secsec">● 試験的な新要素</h3>
             <ul>
@@ -948,10 +1311,10 @@
               <li>/gametest stopall追加</li>
               <li>/gametest runsetuntilfail追加</li>
             </ul>
-          </details>
-        </div>
-        <div class="elem">
-          <details><summary id="1.19.80.21">1.19.80.21β</summary>
+            </details>
+          </div>
+          <div class="elem">
+            <details><summary id="1.19.80.21">1.19.80.21β</summary>
             <hr>
             <h3 id="secsec">● 試験的要素</h3>
             <h4>アーマートリム</h4>
@@ -1043,10 +1406,10 @@
               <li>バニラのアイテムに対しても<span class="inline">ItemDurabilityComponent</span>が使えるように</li>
               <li><span class="inline">ItemDurabilityComponent.damageRange</span>削除</li>
             </ul>
-          </details>
-        </div>
-        <div class="elem">
-          <details><summary id="1.19.80.20">1.19.80.20β</summary>
+            </details>
+          </div>
+          <div class="elem">
+            <details><summary id="1.19.80.20">1.19.80.20β</summary>
             <hr>
             <h3 id="secsec">● 試験的要素</h3>
             <h4>桜の木立</h4>
@@ -1232,10 +1595,10 @@
               <li><span class="inline">Container.swapItems()</span>が空白スロットとスワップできるように</li>
               <li><span class="inline">Container.clearItem()</span>を削除、代わりに<span class="inline">Container.seItem(undefined)</span>を使えばよい</li>
             </ul>
-          </details>
-        </div>
-        <div class="elem">
-          <details><summary id="1.19.70.26">1.19.70.26β</summary>
+            </details>
+          </div>
+          <div class="elem">
+            <details><summary id="1.19.70.26">1.19.70.26β</summary>
             <hr>
             <h4>全般</h4>
             <ul>
@@ -1247,10 +1610,10 @@
             <ul>
               <li>プレイヤーのプロジェクタイルが<span class="inline">"born"</span>スポーンメソッドを利用してスポーンしたとき、ブロックのマスに合わせてスナップしなくなった</li>
             </ul>
-          </details>
-        </div>
-        <div class="elem">
-          <details><summary id="1.19.70.25">1.19.70.24/25β</summary>
+            </details>
+          </div>
+          <div class="elem">
+            <details><summary id="1.19.70.25">1.19.70.24/25β</summary>
             <hr>
             <h3 id="secsec">● 仕様とバグ修正</h3>
             <h4>ゲームプレイ</h4>
@@ -1258,10 +1621,10 @@
               <li>粉雪の中でスニークボタンを離してもスニークが解除されるようになった</li>
               <li>一時的にスニークの新仕様を元に戻した</li>
             </ul>
-          </details>
-        </div>
-        <div class="elem">
-          <details><summary id="1.19.70.23">1.19.70.23β</summary>
+            </details>
+          </div>
+          <div class="elem">
+            <details><summary id="1.19.70.23">1.19.70.23β</summary>
             <hr>
             <h3 id="secsec">● 試験的要素</h3>
             <h4>考古学の要素</h4>
@@ -1330,10 +1693,10 @@
             <h4>カスタムブロック</h4>
             <li>プロパティとパーミュテーションがフォーマットバージョン1.19.70以上で試験的要素ではなくなった</li>
             <li>65536個以上のパーミュテーションを持つカスタムブロックをロードしたときに警告するコンテンツログを追加</li>
-          </details>
-        </div>
-        <div class="elem">
-          <details><summary id="1.19.70.22">1.19.70.22β</summary>
+            </details>
+          </div>
+          <div class="elem">
+            <details><summary id="1.19.70.22">1.19.70.22β</summary>
             <hr>
             <h3 id="secsec">● 試験的な仕様</h3>
             <h4>ブロック</h4>
@@ -1449,10 +1812,10 @@
               <li class="added"><span class="inline">ItemStack.setCanPlaceOn()</span>追加</li>
               <li class="added"><span class="inline">ItemStack.setCanDestroy()</span>追加</li>
             </ul>
-          </details>
-        </div>
-        <div class="elem">
-          <details><summary id="1.19.70.21">1.19.70.21β</summary>
+            </details>
+          </div>
+          <div class="elem">
+            <details><summary id="1.19.70.21">1.19.70.21β</summary>
             <hr>
             <h3 id="secsec">● 試験的な仕様</h3>
             <h4>ブロック</h4>
@@ -1502,8 +1865,8 @@
               <li><span class="inline">ContainerSlot.clearItem()</span>を削除；<span class="inline">setItem()</span>で<span class="inline">undefined</span>を指定すればいい</li>
               <li><span class="inline">ContainerSlot.clearLore()</span>を削除；<span class="inline">setLore()</span>で<span class="inline">[]</span>か<span class="inline">undefined</span>を指定すればいい</li>
             </ul>
-          </details>
-        </div>
+            </details>
+          </div>
         </div>
         <div class="mcje">
         <div class="elem">
@@ -2289,6 +2652,10 @@
         <hr>
         <h4>MCBE</h4>
         <ul>
+          <li><a onclick="jumpTo('1.20.10.21')">v1.20.10.21β</a></li>
+          <li><a onclick="jumpTo('1.20.10.20')">v1.20.10.20β</a></li>
+          <li><a onclick="jumpTo('1.20.0.25')">v1.20.0.25β</a></li>
+          <li><a onclick="jumpTo('1.20.0.24')">v1.20.0.24β</a></li>
           <li><a onclick="jumpTo('1.20.0.23')">v1.20.0.23β</a></li>
           <li><a onclick="jumpTo('1.20.0.22')">v1.20.0.22β</a></li>
           <li><a onclick="jumpTo('1.20.0.21')">v1.20.0.21β</a></li>
