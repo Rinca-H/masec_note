@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Original Reference - LaTeX</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="or_main.css">
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="root">
+      <label for="sidebar_switch" class="sidebar_switch no-select"><span>≡</span></label>
+      <input type="checkbox" id="sidebar_switch">
+      <label class="black" for="sidebar_switch"></label>
+      <div id="main">
+        <h1 id="top">LaTeX</h1>
+        <hr>
+        <h2 class="sec">基礎</h2>
+        <h3 class="subsec">基礎</h3>
+        <div>
+          <code class="latex">\documentclass[uplatex, dvipdfmx, 12pt, a4paper]{jsarticle}
+\begin{document}
+
+Hello World
+
+\end{document}</code>
+        </div>
+        <h3 class="subsec">改行</h3>
+        <p><span class="inline">\\</span>で改行する</p>
+        <h3 class="subsec">文中の数式</h3>
+        <div><code class="latex">$y=ax+b$</code></div>
+        <h3 class="subsec">数式の行</h3>
+        <div><code class="latex">$$y=ax+b$$</code></div>
+        <h3 class="subsec">コメントアウト</h3>
+        <div><code class="latex">% Comment like this</code></div>
+        <h2 class="sec">環境</h2>
+        <div>
+          <code class="latex">\begin{環境名}
+  // 内容
+\end{環境名}</code>
+        </div>
+        <table style="width: 100%;">
+          <tr><th>名前</th><th>概要</th></tr>
+          <tr><td>align</td><td></td></tr>
+          <tr><td>hlalign</td><td></td></tr>
+          <tr><td>enum</td><td></td></tr>
+          <tr><td>item</td><td></td></tr>
+          <tr><td>description</td><td></td></tr>
+          <tr><td>array</td><td></td></tr>
+          <tr><td>aligned</td><td></td></tr>
+          <tr><td>pmatrix</td><td></td></tr>
+          <tr><td>bmatrix</td><td></td></tr>
+          <tr><td>vmatrix</td><td></td></tr>
+          <tr><td>Vmatrix</td><td></td></tr>
+          <tr><td>subarray</td><td></td></tr>
+        </table>
+        <h2 class="sec">ドキュメント</h2>
+        <table style="width: 100%;">
+          <tr><th>コマンド</th><th>概要</th></tr>
+          <tr><td><span class="inline">\title{タイトル}</span></td><td></td></tr>
+          <tr><td><span class="inline">\author{著者名}</span></td><td></td></tr>
+          <tr><td><span class="inline">\thanks{著者の注意書き}</span></td><td></td></tr>
+          <tr><td><span class="inline">\date{日付}</span></td><td></td></tr>
+          <tr><td><span class="inline">\maketitle</span></td><td>タイトルを出力</td></tr>
+          <tr><td><span class="inline">\par</span></td><td>段落の改行(空行でも同様</td></tr>
+          <tr><td><span class="inline">\\*</span></td><td>改行を抑制</td></tr>
+          <tr><td><span class="inline">\\[幅]</span></td><td>改行の幅を数値で指定. 単位はpt, pc, mm, cmなど</td></tr>
+          <tr><td><span class="inline">\newpage</span></td><td>改ページ. <span class="inline">\charpage</span>, <span class="inline">\pagebreak</span>でも同じ.</td></tr>
+          <tr><td><span class="inline">\noindent</span></td><td>字下げ解除</td></tr>
+        </table>
+        <h2 class="sec">テキスト</h2>
+        <table style="width: 100%;">
+          <tr><th>コマンド</th><th>概要</th></tr>
+          <tr><td><span class="inline">\verb|テキスト|</span></td><td>1行のテキストをそのまま出力. <span class="inline">\verb*</span>で空白も出力.</td></tr>
+          <tr><td><span class="inline">\leftline{テキスト}</span></td><td>左寄せ</td></tr>
+          <tr><td><span class="inline">\centerline{テキスト}</span></td><td>中央寄せ</td></tr>
+          <tr><td><span class="inline">\rightline{テキスト}</span></td><td>右寄せ</td></tr>
+          <tr><td><span class="inline">\tiny</span></td><td></td></tr>
+          <tr><td><span class="inline">\scriptsize</span></td><td></td></tr>
+          <tr><td><span class="inline">\footnotesize</span></td><td></td></tr>
+          <tr><td><span class="inline">\small</span></td><td></td></tr>
+          <tr><td><span class="inline">\normalsize</span></td><td></td></tr>
+          <tr><td><span class="inline">\large</span></td><td></td></tr>
+          <tr><td><span class="inline">\Large</span></td><td></td></tr>
+          <tr><td><span class="inline">\LARGE</span></td><td></td></tr>
+          <tr><td><span class="inline">\huge</span></td><td></td></tr>
+          <tr><td><span class="inline">\Huge</span></td><td></td></tr>
+          <tr><td><span class="inline">\fontsize{文字サイズ}{行送り}\selectfont</span></td><td>文字サイズの絶対指定</td></tr>
+          <tr><td><span class="inline">\textrm</span></td><td>ローマン体</td></tr>
+          <tr><td><span class="inline">\textsf</span></td><td>サンセリフ体</td></tr>
+          <tr><td><span class="inline">\texttt</span></td><td>タイプライタ体</td></tr>
+          <tr><td><span class="inline">\textmd</span></td><td>標準の太さ</td></tr>
+          <tr><td><span class="inline">\textbf</span></td><td>太字</td></tr>
+          <tr><td><span class="inline">\textup</span></td><td>直立体</td></tr>
+          <tr><td><span class="inline">\textit</span></td><td>イタリック体</td></tr>
+          <tr><td><span class="inline">\textsl</span></td><td>スラント体</td></tr>
+          <tr><td><span class="inline">\textsc</span></td><td>スモール・キャプス</td></tr>
+          <tr><td><span class="inline">\textmc</span></td><td>明朝体</td></tr>
+          <tr><td><span class="inline">\textgt</span></td><td>ゴシック体</td></tr>
+          <tr><td><span class="inline">\ruby{漢字}{フリガナ}</span></td><td></td></tr>
+          <tr><td><span class="inline">\substack{添え字\\ 添え字}</span></td><td>多重添え字</td></tr>
+          <tr><td><span class="inline">\overline{式}</span></td><td>式の上に線</td></tr>
+          <tr><td><span class="inline">\underline{式}</span></td><td>式の下に線</td></tr>
+          <tr><td><span class="inline">\overbrace{式}^{文}</span></td><td>式の上にカッコと説明</td></tr>
+          <tr><td><span class="inline">\underbrace{式}^{文}</span></td><td>式に下にカッコと説明</td></tr>
+        </table>
+        <h2 class="sec">空白</h2>
+        <table style="width: 100%;">
+          <tr><th>コマンド</th><th>概要</th></tr>
+          <tr><td><span class="inline">\.</span></td><td>小さいスペース</td></tr>
+          <tr><td><span class="inline">\!</span></td><td>-3/18emのスペース</td></tr>
+          <tr><td><span class="inline">\,</span></td><td>3/18emのスペース</td></tr>
+          <tr><td><span class="inline">\></span></td><td>4/18emのスペース</td></tr>
+          <tr><td><span class="inline">\:</span></td><td>4/18emのスペース</td></tr>
+          <tr><td><span class="inline">\;</span></td><td>5/18emのスペース</td></tr>
+          <tr><td><span class="inline">\ </span></td><td>半角スペース</td></tr>
+          <tr><td><span class="inline">~</span></td><td>半角スペース(改行禁止)</td></tr>
+          <tr><td><span class="inline">\quad</span></td><td>1emのスペース</td></tr>
+          <tr><td><span class="inline">\qquad</span></td><td>2emのスペース</td></tr>
+          <tr><td><span class="inline">\hspace{幅}</span></td><td>調節可能スペース. 単位はpt, pc, mm, cmなど</td></tr>
+          <tr><td><span class="inline">\vspace{幅}</span></td><td>垂直方向のスペース. 単位はpt, pc, mm, cmなど</td></tr>
+          <tr><td><span class="inline">\vspace{\fill}</span></td><td>ページの最後までスペース</td></tr>
+        </table>
+        <h2 class="sec">ギリシャ文字</h2>
+        <table style="width: 100%;">
+          <tr><th>文字名</th><th colspan="2">小文字</th><th colspan="2">大文字</th><th colspan="2">異体字</th></tr>
+          <tr><td>アルファ</td><td><span class="inline">\alpha</span></td><td>$\alpha$</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>ベータ</td><td><span class="inline">\beta</span></td><td>$\beta$</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>ガンマ</td><td><span class="inline">\gamma</span></td><td>$\gamma$</td><td><span class="inline">\Gamma</span></td><td>$\Gamma$</td><td></td><td></td></tr>
+          <tr><td>デルタ</td><td><span class="inline">\delta</span></td><td>$\delta$</td><td><span class="inline">\Delta</span></td><td>$\Delta$</td><td></td><td></td></tr>
+          <tr><td>イプシロン</td><td><span class="inline">\epsilon</span></td><td>$\epsilon$</td><td></td><td></td><td><span class="inline">\varepsilon</span></td><td>$\varepsilon$</td></tr>
+          <tr><td>ゼータ</td><td><span class="inline">\zeta</span></td><td>$\zeta$</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>エータ</td><td><span class="inline">\eta</span></td><td>$\eta$</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>シータ</td><td><span class="inline">\theta</span></td><td>$\theta$</td><td><span class="inline">\Theta</span></td><td>$\Theta$</td><td><span class="inline">\vartheta</span></td><td>$\vartheta$</td></tr>
+          <tr><td>イオタ</td><td><span class="inline">\iota</span></td><td>$\iota$</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>カッパ</td><td><span class="inline">\kappa</span></td><td>$\kappa$</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>ラムダ</td><td><span class="inline">\lambda</span></td><td>$\lambda$</td><td><span class="inline">\Lambda</span></td><td>$\Lambda$</td><td></td><td></td></tr>
+          <tr><td>ミュー</td><td><span class="inline">\mu</span></td><td>$\mu$</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>ニュー</td><td><span class="inline">\nu</span></td><td>$\nu$</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>クシー</td><td><span class="inline">\xi</span></td><td>$\xi$</td><td><span class="inline">\Xi</span></td><td>$\Xi$</td><td></td><td></td></tr>
+          <tr><td>オミクロン</td><td><span class="inline">o</span></td><td>$o$</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>パイ</td><td><span class="inline">\pi</span></td><td>$\pi$</td><td><span class="inline">\Pi</span></td><td>$\Pi$</td><td><span class="inline">\varpi</span></td><td>$\varpi$</td></tr>
+          <tr><td>ロー</td><td><span class="inline">\rho</span></td><td>$\rho$</td><td></td><td></td><td><span class="inline">\varrho</span></td><td>$\varrho$</td></tr>
+          <tr><td>シグマ</td><td><span class="inline">\sigma</span></td><td>$\sigma$</td><td><span class="inline">\Sigma</span></td><td>$\Sigma$</td><td><span class="inline">\varsigma</span></td><td>$\varsigma$</td></tr>
+          <tr><td>タウ</td><td><span class="inline">\tau</span></td><td>$\tau$</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>ユプシロン</td><td><span class="inline">\upsilon</span></td><td>$\upsilon$</td><td><span class="inline">\Upsilon</span></td><td>$\Upsilon$</td><td></td><td></td></tr>
+          <tr><td>ファイ</td><td><span class="inline">\phi</span></td><td>$\phi$</td><td><span class="inline">\Phi</span></td><td>$\Phi$</td><td><span class="inline">\varphi</span></td><td>$\varphi$</td></tr>
+          <tr><td>カイ</td><td><span class="inline">\chi</span></td><td>$\chi$</td><td></td><td></td><td></td><td></td></tr>
+          <tr><td>サイ</td><td><span class="inline">\psi</span></td><td>$\psi$</td><td><span class="inline">\Psi</span></td><td>$\Psi$</td><td></td><td></td></tr>
+          <tr><td>オメガ</td><td><span class="inline">\omega</span></td><td>$\omega$</td><td><span class="inline">\Omega</span></td><td>$\Omega$</td><td></td><td></td></tr>
+        </table>
+        <h2 class="sec">記号・アクセント</h2>
+        <table style="width: 100%;">
+          <tr><th>コマンド</th><th>概要</th></tr>
+          <tr><td><span class="inline">\cdot</span></td><td>ドット</td></tr>
+          <tr><td><span class="inline">\cdots</span></td><td>3点リーダー(横)</td></tr>
+          <tr><td><span class="inline">\vdots</span></td><td>3点リーダー(縦)</td></tr>
+          <tr><td><span class="inline">\ddots</span></td><td>3点リーダー(斜め)</td></tr>
+          <tr><td><span class="inline">\ldots</span></td><td>3点リーダー(横, 下)</td></tr>
+          <tr><td><span class="inline">\rule{幅}{高さ}</span></td><td>黒いボックス</td></tr>
+          <tr><td><span class="inline">\rule[位置]{幅}{高さ}</span></td><td>高さを指定</td></tr>
+        </table>
+        <h4>文字の装飾(アクセント)</h4>
+        <table style="width: 100%;">
+          <tr><th>コマンド</th><th>概要</th></tr>
+          <tr><td><span class="inline">\vec{a}</span></td><td style="text-align: center;">$\vec{a}$</td></tr>
+          <tr><td><span class="inline">\acute{a}</span></td><td style="text-align: center;">$\acute{a}$</td></tr>
+          <tr><td><span class="inline">\grave{a}</span></td><td style="text-align: center;">$\grave{a}$</td></tr>
+          <tr><td><span class="inline">\hat{a}</span></td><td style="text-align: center;">$\hat{a}$</td></tr>
+          <tr><td><span class="inline">\bar{a}</span></td><td style="text-align: center;">$\bar{a}$</td></tr>
+          <tr><td><span class="inline">\breve{a}</span></td><td style="text-align: center;">$\breve{a}$</td></tr>
+          <tr><td><span class="inline">\check{a}</span></td><td style="text-align: center;">$\check{a}$</td></tr>
+          <tr><td><span class="inline">\tilde{a}</span></td><td style="text-align: center;">$\tilde{a}$</td></tr>
+          <tr><td><span class="inline">\dot{a}</span></td><td style="text-align: center;">$\dot{a}$</td></tr>
+          <tr><td><span class="inline">\ddot{a}</span></td><td style="text-align: center;">$\ddot{a}$</td></tr>
+          <tr><td><span class="inline">\dddot{a}</span></td><td style="text-align: center;">$\dddot{a}$</td></tr>
+          <tr><td><span class="inline">\ddddot{a}</span></td><td style="text-align: center;">$\ddddot{a}$</td></tr>
+        </table>
+        <h2 class="sec">矢印</h2>
+        <table style="width: 100%;">
+          <tr><th>コマンド</th><th>概要</th><th>プレビュー</th></tr>
+          <tr><td><span class="inline">\leftarrow</span></td><td>左の矢印</td><td style="text-align: center;">$\leftarrow$</td></tr>
+          <tr><td><span class="inline">\rightarrow</span></td><td>右の矢印</td><td style="text-align: center;">$\rightarrow$</td></tr>
+          <tr><td><span class="inline">\Leftarrow</span></td><td>左の二重矢印</td><td style="text-align: center;">$\Leftarrow$</td></tr>
+          <tr><td><span class="inline">\Rightarrow</span></td><td>右の二重矢印</td><td style="text-align: center;">$\Rightarrow$</td></tr>
+          <tr><td><span class="inline">\leftrightarrow</span></td><td>左右の矢印</td><td style="text-align: center;">$\leftrightarrow$</td></tr>
+          <tr><td><span class="inline">\Leftrightarrow</span></td><td>左右の二重矢印</td><td style="text-align: center;">$\Leftrightarrow$</td></tr>
+          <tr><td><span class="inline">\mapsto</span></td><td></td><td style="text-align: center;">$\mapsto$</td></tr>
+          <tr><td><span class="inline">\hookleftarrow</span></td><td>左の単射の矢印</td><td style="text-align: center;">$\hookleftarrow$</td></tr>
+          <tr><td><span class="inline">\hookrightarrow</span></td><td>右の単射の矢印</td><td style="text-align: center;">$\hookrightarrow$</td></tr>
+          <tr><td><span class="inline">\leftharpoonup</span></td><td></td><td style="text-align: center;">$\leftharpoonup$</td></tr>
+          <tr><td><span class="inline">\rightharpoonup</span></td><td></td><td style="text-align: center;">$\rightharpoonup$</td></tr>
+          <tr><td><span class="inline">\leftharpoondown</span></td><td></td><td style="text-align: center;">$\leftharpoondown$</td></tr>
+          <tr><td><span class="inline">\rightharpoondown</span></td><td></td><td style="text-align: center;">$\rightharpoondown$</td></tr>
+          <tr><td><span class="inline">\rightleftharpoons</span></td><td></td><td style="text-align: center;">$\rightleftharpoons$</td></tr>
+          <tr><td><span class="inline">\longleftarrow</span></td><td>左の長い矢印</td><td style="text-align: center;">$\longleftarrow$</td></tr>
+          <tr><td><span class="inline">\longrightarrow</span></td><td>右の長い矢印</td><td style="text-align: center;">$\longrightarrow$</td></tr>
+          <tr><td><span class="inline">\Longleftarrow</span></td><td>左の長い二重矢印</td><td style="text-align: center;">$\Longleftarrow$</td></tr>
+          <tr><td><span class="inline">\Longrightarrow</span></td><td>右の長い二重矢印</td><td style="text-align: center;">$\Longrightarrow$</td></tr>
+          <tr><td><span class="inline">\longleftrightarrow</span></td><td>左右の長い矢印</td><td style="text-align: center;">$\longleftrightarrow$</td></tr>
+          <tr><td><span class="inline">\Longleftrightarrow</span></td><td>左右の長い二重矢印</td><td style="text-align: center;">$\Longleftrightarrow$</td></tr>
+          <tr><td><span class="inline">\longmapsto</span></td><td></td><td style="text-align: center;">$\longmapsto$</td></tr>
+          <tr><td><span class="inline">\nearrow</span></td><td>右上の矢印</td><td style="text-align: center;">$\nearrow$</td></tr>
+          <tr><td><span class="inline">\searrow</span></td><td>右下の矢印</td><td style="text-align: center;">$\searrow$</td></tr>
+          <tr><td><span class="inline">\swarrow</span></td><td>左上の矢印</td><td style="text-align: center;">$\swarrow$</td></tr>
+          <tr><td><span class="inline">\nwarrow</span></td><td>左下の矢印</td><td style="text-align: center;">$\nwarrow$</td></tr>
+          <tr><td><span class="inline">\xleftarrow[b]{a}</span></td><td>左向き矢印の上下に文字列</td><td style="text-align: center;">$\xleftarrow[b]{a}$</td></tr>
+          <tr><td><span class="inline">\xrightarrow[b]{a}</span></td><td>右向き矢印の上下に文字列</td><td style="text-align: center;">$\xrightarrow[b]{a}$</td></tr>
+        </table>
+        <h2 class="sec">カッコ</h2>
+        <table style="width: 100%;">
+          <tr><th>コマンド</th><th>概要</th></tr>
+          <tr><td><span class="inline">\Biggl</span></td><td></td></tr>
+          <tr><td><span class="inline">\biggl</span></td><td></td></tr>
+          <tr><td><span class="inline">\Bigl</span></td><td></td></tr>
+          <tr><td><span class="inline">\bigl</span></td><td></td></tr>
+          <tr><td><span class="inline">\Biggr</span></td><td></td></tr>
+          <tr><td><span class="inline">\biggr</span></td><td></td></tr>
+          <tr><td><span class="inline">\Bigr</span></td><td></td></tr>
+          <tr><td><span class="inline">\bigr</span></td><td></td></tr>
+          <tr><td><span class="inline">\left</span></td><td></td></tr>
+          <tr><td><span class="inline">\right</span></td><td></td></tr>
+        </table>
+        <h2 class="sec">数学記号</h2>
+        <table style="width: 100%;">
+          <tr><th>コマンド</th><th>プレビュー</th><th>概要</th></tr>
+          <tr><td><span class="inline">\sqrt[n]{x}</span></td><td style="text-align: center;">$\sqrt[n]{x}$</td><td>n乗根</td></tr>
+          <tr><td><span class="inline">\lim_{n\to\infty}</span></td><td style="text-align: center;">$\lim_{n\to\infty}$</td><td>極限</td></tr>
+          <tr><td><span class="inline">\binom{n}{k}</span></td><td style="text-align: center;">$\binom{n}{k}$</td><td>二項係数</td></tr>
+          <tr><td><span class="inline">\partial</span></td><td style="text-align: center;">$\partial$</td><td>偏微分</td></tr>
+          <tr><td><span class="inline">\nabla</span></td><td style="text-align: center;">$\nabla$</td><td>ナブラ</td></tr>
+          <tr><td><span class="inline">\Delta</span></td><td style="text-align: center;">$\Delta$</td><td>ラプラシアン</td></tr>
+          <tr><td><span class="inline">{}_nC_r</span></td><td style="text-align: center;">${}_nC_r$</td><td></td></tr>
+          <tr><td><span class="inline">=</span></td><td style="text-align: center;">$=$</td><td></td></tr>
+          <tr><td><span class="inline">\neq</span></td><td style="text-align: center;">$\neq$</td><td></td></tr>
+          <tr><td><span class="inline">\sim</span></td><td style="text-align: center;">$\sim$</td><td>(同値)関係</td></tr>
+          <tr><td><span class="inline">\simeq</span></td><td style="text-align: center;">$\simeq$</td><td>ホモトピー</td></tr>
+          <tr><td><span class="inline">\approx</span></td><td style="text-align: center;">$\approx$</td><td>同相, 近似</td></tr>
+          <tr><td><span class="inline">\fallingdotseq</span></td><td style="text-align: center;">$\fallingdotseq$</td><td>近似</td></tr>
+          <tr><td><span class="inline">\risingdotseq</span></td><td style="text-align: center;">$\risingdotseq$</td><td>近似</td></tr>
+          <tr><td><span class="inline">\equiv</span></td><td style="text-align: center;">$\equiv$</td><td>合同</td></tr>
+          <tr><td><span class="inline">></span></td><td style="text-align: center;">$>$</td><td></td></tr>
+          <tr><td><span class="inline">&lt;</span></td><td style="text-align: center;">$&lt;$</td><td></td></tr>
+          <tr><td><span class="inline">\geq</span></td><td style="text-align: center;">$\geq$</td><td>大なりイコール</td></tr>
+          <tr><td><span class="inline">\geqq</span></td><td style="text-align: center;">$\geqq$</td><td>大なりイコール</td></tr>
+          <tr><td><span class="inline">\leq</span></td><td style="text-align: center;">$\leq$</td><td>小なりイコール</td></tr>
+          <tr><td><span class="inline">\leqq</span></td><td style="text-align: center;">$\leqq$</td><td>小なりイコール</td></tr>
+          <tr><td><span class="inline">\gg</span></td><td style="text-align: center;">$\gg$</td><td></td></tr>
+          <tr><td><span class="inline">\ll</span></td><td style="text-align: center;">$\ll$</td><td></td></tr>
+          <tr><td><span class="inline">+</span></td><td style="text-align: center;">$+$</td><td></td></tr>
+          <tr><td><span class="inline">-</span></td><td style="text-align: center;">$-$</td><td></td></tr>
+          <tr><td><span class="inline">\times</span></td><td style="text-align: center;">$\times$</td><td>かける</td></tr>
+          <tr><td><span class="inline">\div</span></td><td style="text-align: center;">$\div$</td><td>割る</td></tr>
+          <tr><td><span class="inline">\pm</span></td><td style="text-align: center;">$\pm$</td><td>プラスマイナス</td></tr>
+          <tr><td><span class="inline">\mp</span></td><td style="text-align: center;">$\mp$</td><td>マイナスプラス</td></tr>
+          <tr><td><span class="inline">\oplus</span></td><td style="text-align: center;">$\oplus$</td><td>直和</td></tr>
+          <tr><td><span class="inline">\ominus</span></td><td style="text-align: center;">$\ominus$</td><td></td></tr>
+          <tr><td><span class="inline">\otimes</span></td><td style="text-align: center;">$\otimes$</td><td>直積</td></tr>
+          <tr><td><span class="inline">\oslash</span></td><td style="text-align: center;">$\oslash$</td><td></td></tr>
+          <tr><td><span class="inline">\circ</span></td><td style="text-align: center;">$\circ$</td><td>角度, 写像の合成</td></tr>
+          <tr><td><span class="inline">\cdot</span></td><td style="text-align: center;">$\cdot$</td><td>積, 内積</td></tr>
+          <tr><td><span class="inline">\bullet</span></td><td style="text-align: center;">$\bullet$</td><td></td></tr>
+          <tr><td><span class="inline">\ltimes</span></td><td style="text-align: center;">$\ltimes$</td><td>半直積</td></tr>
+          <tr><td><span class="inline">\rtimes</span></td><td style="text-align: center;">$\rtimes$</td><td>半直積</td></tr>
+          <tr><td><span class="inline">\in</span></td><td style="text-align: center;">$\in$</td><td>属する</td></tr>
+          <tr><td><span class="inline">\ni</span></td><td style="text-align: center;">$\ni$</td><td>属する</td></tr>
+          <tr><td><span class="inline">\notin</span></td><td style="text-align: center;">$\notin$</td><td>属さない</td></tr>
+          <tr><td><span class="inline">\subset</span></td><td style="text-align: center;">$\subset$</td><td>部分集合</td></tr>
+          <tr><td><span class="inline">\supset</span></td><td style="text-align: center;">$\supset$</td><td>部分集合</td></tr>
+          <tr><td><span class="inline">\subseteq</span></td><td style="text-align: center;">$\subseteq$</td><td></td></tr>
+          <tr><td><span class="inline">\supseteq</span></td><td style="text-align: center;">$\supseteq$</td><td></td></tr>
+          <tr><td><span class="inline">\nsubseteq</span></td><td style="text-align: center;">$\nsubseteq$</td><td></td></tr>
+          <tr><td><span class="inline">\nsupseteq</span></td><td style="text-align: center;">$\nsupseteq$</td><td></td></tr>
+          <tr><td><span class="inline">\subsetneq</span></td><td style="text-align: center;">$\subsetneq$</td><td></td></tr>
+          <tr><td><span class="inline">\supsetneq</span></td><td style="text-align: center;">$\supsetneq$</td><td></td></tr>
+          <tr><td><span class="inline">\cap</span></td><td style="text-align: center;">$\cap$</td><td>共通部分</td></tr>
+          <tr><td><span class="inline">\cup</span></td><td style="text-align: center;">$\cup$</td><td>和集合</td></tr>
+          <tr><td><span class="inline">\emptyset</span></td><td style="text-align: center;">$\emptyset$</td><td>空集合</td></tr>
+          <tr><td><span class="inline">\infty</span></td><td style="text-align: center;">$\infty$</td><td>無限</td></tr>
+          <tr><td><span class="inline">\log</span></td><td style="text-align: center;">$\log$</td><td>対数</td></tr>
+          <tr><td><span class="inline">\ln</span></td><td style="text-align: center;">$\ln$</td><td>自然対数</td></tr>
+          <tr><td><span class="inline">\sin</span></td><td style="text-align: center;">$\sin$</td><td>正弦</td></tr>
+          <tr><td><span class="inline">\cos</span></td><td style="text-align: center;">$\cos$</td><td>余弦</td></tr>
+          <tr><td><span class="inline">\tan</span></td><td style="text-align: center;">$\tan$</td><td>正接</td></tr>
+          <tr><td><span class="inline">\csc</span></td><td style="text-align: center;">$\csc$</td><td>余割</td></tr>
+          <tr><td><span class="inline">\sec</span></td><td style="text-align: center;">$\sec$</td><td>正割</td></tr>
+          <tr><td><span class="inline">\cot</span></td><td style="text-align: center;">$\cot$</td><td>余接</td></tr>
+          <tr><td><span class="inline">\arcsin</span></td><td style="text-align: center;">$\arcsin$</td><td>逆正弦</td></tr>
+          <tr><td><span class="inline">\arccos</span></td><td style="text-align: center;">$\arccos$</td><td>逆余弦</td></tr>
+          <tr><td><span class="inline">\arctan</span></td><td style="text-align: center;">$\arctan$</td><td>逆正接</td></tr>
+          <tr><td><span class="inline">\sinh</span></td><td style="text-align: center;">$\sinh$</td><td></td></tr>
+          <tr><td><span class="inline">\cosh</span></td><td style="text-align: center;">$\cosh$</td><td></td></tr>
+          <tr><td><span class="inline">\tanh</span></td><td style="text-align: center;">$\tanh$</td><td></td></tr>
+          <tr><td><span class="inline">\frac{a}{b}</span></td><td style="text-align: center;">$\frac{a}{b}$</td><td>分数</td></tr>
+        </table>
+        <h2 class="sec">大型演算子</h2>
+        <table style="width: 100%;">
+          <tr><th>コマンド</th><th>プレビュー</th><th>概要</th></tr>
+          <tr><td><span class="inline">\sum</span></td><td>$\sum$</td><td>総和</td></tr>
+          <tr><td><span class="inline">\int</span></td><td>$\int$</td><td>積分</td></tr>
+          <tr><td><span class="inline">\oint</span></td><td>$\oint$</td><td>周回積分</td></tr>
+          <tr><td><span class="inline">\prod</span></td><td>$\prod$</td><td>総乗</td></tr>
+          <tr><td><span class="inline">\coprod</span></td><td>$\coprod$</td><td></td></tr>
+          <tr><td><span class="inline">\bigcap</span></td><td>$\bigcap$</td><td>共通部分</td></tr>
+          <tr><td><span class="inline">\bigcup</span></td><td>$\bigcup$</td><td>和集合</td></tr>
+          <tr><td><span class="inline">\bigsqcup</span></td><td>$\bigsqcup$</td><td>非交和</td></tr>
+          <tr><td><span class="inline">\bigvee</span></td><td>$\bigvee$</td><td></td></tr>
+          <tr><td><span class="inline">\bigwedge</span></td><td>$\bigwedge$</td><td></td></tr>
+          <tr><td><span class="inline">\bigodot</span></td><td>$\bigodot$</td><td></td></tr>
+          <tr><td><span class="inline">\bigotimes</span></td><td>$\bigotimes$</td><td></td></tr>
+          <tr><td><span class="inline">\bigoplus</span></td><td>$\bigoplus$</td><td></td></tr>
+          <tr><td><span class="inline">\biguplus</span></td><td>$\biguplus$</td><td></td></tr>
+        </table>
+        <h2 class="sec">要import</h2>
+        <h3 class="subsec">color</h3>
+        <table style="width: 100%;">
+          <tr><th>コマンド</th><th>概要</th></tr>
+          <tr><td><span class="inline">\color{色}</span></td><td>以降の文字の色を指定</td></tr>
+          <tr><td><span class="inline">\textcolor{色}{テキスト}</span></td><td>文字の色を指定</td></tr>
+          <tr><td><span class="inline">\colorbox</span></td><td>文字の背景色を指定</td></tr>
+        </table>
+        <p>
+          指定に使える色: red, blue, green, yellow, magenta, white, black
+        </p>
+        <h3 class="subsec">graphics</h3>
+        <table style="width: 100%;">
+          <tr><th>コマンド</th><th>概要</th></tr>
+          <tr><td><span class="inline">\rotatebox{角度}{文字}</span></td><td>文字を回転</td></tr>
+          <tr><td><span class="inline">\rotatebox[オプション]{角度}{文字}</span></td><td>文字を回転</td></tr>
+          <tr><td><span class="inline">\scalebox{倍率}{文字}</span></td><td>文字の拡大・縮小(正方形)</td></tr>
+          <tr><td><span class="inline">\scalebox{幅の倍率}{高さの倍率}{文字}</span></td><td>文字の拡大・縮小(長方形)</td></tr>
+          <tr><td><span class="inline">\resizebox{幅の長さ}{高さの長さ}{文字}</span></td><td>長さを指定する文字の拡大・縮小</td></tr>
+          <tr><td><span class="inline">\reflectbox{文字}</span></td><td>文字の左右反転</td></tr>
+        </table>
+        <h3 class="subsec">comment</h3>
+        <p>comment環境で複数行コメントができる</p>
+        <h3 class="subsec">amsmath</h3>
+        <table style="width: 100%;">
+          <tr><th>コマンド</th><th>概要</th></tr>
+          <tr><td><span class="inline">\iint</span></td><td></td></tr>
+          <tr><td><span class="inline">\iiint</span></td><td></td></tr>
+          <tr><td><span class="inline">\iiiint</span></td><td></td></tr>
+          <tr><td><span class="inline">\idotsint</span></td><td></td></tr>
+        </table>
+        <h2 class="sec">tikz</h2>
+        <p>お楽しみに！</p>
+      </div>
+      <div id="side">
+        <h2 style="margin: 16px;">もくじ</h2>
+        <div class="to_top"><span onclick="jumpTo('top', 0)">ページのトップへ</span></div>
+        <hr style="margin: 0; border-width: 1.5px; ">
+        <div class="contents"></div>
+      </div>
+    </div>
+  </body>
+  <script src="or_main.js"></script>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Original Reference - GLSL</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="or_main.css">
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="root">
+      <label for="sidebar_switch" class="sidebar_switch no-select"><span>≡</span></label>
+      <input type="checkbox" id="sidebar_switch">
+      <label class="black" for="sidebar_switch"></label>
+      <div id="main">
+        <h1 id="top">GLSL</h1>
+        <hr>
+        <h2 class="sec">具体的な構文</h2>
+        <h3 class="subsec">コメントアウト</h3>
+        <div>
+          <code>// コメント
+
+/*
+  複数行コメント
+*/</code>
+        </div>
+        <h3 class="subsec">定数</h3>
+        <div>
+          <code>const float a = 3.14;</code>
+        </div>
+        <h3 class="subsec">関数</h3>
+        <div>
+          <code>vec3 myFunction() {
+  return vec3(0.0);
+}
+
+void myFuction2() {
+  // 処理
+}
+
+void myFunction3(float a, vec2 b) {
+  // 処理
+}
+
+void main() {
+  vec3 v = myFunction();
+}</code>
+        </div>
+        <h3 class="subsec">繰り返し処理</h3>
+        <div>
+          <code>for(float i=0.0; i&lt;5.0; i++) {
+  // 処理
+}</code>
+        </div>
+        <h2 class="sec">ユーティリティ</h2>
+        <h3 class="subsec">defineマクロ</h3>
+        <p>基本は定数宣言と同じだが, 次のような使い方をすることができる.</p>
+        <div>
+          <code>#define f float
+
+f a = 1.0;</code>
+        </div>
+      </div>
+      <div id="side">
+        <h2 style="margin: 16px;">もくじ</h2>
+        <div class="to_top"><span onclick="jumpTo('top', 0)">ページのトップへ</span></div>
+        <hr style="margin: 0; border-width: 1.5px; ">
+        <div class="contents"></div>
+      </div>
+    </div>
+  </body>
+  <script src="or_main.js"></script>
+</html>

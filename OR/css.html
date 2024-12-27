@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Original Reference - CSS</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="or_main.css">
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="root">
+      <label for="sidebar_switch" class="sidebar_switch no-select"><span>≡</span></label>
+      <input type="checkbox" id="sidebar_switch">
+      <label class="black" for="sidebar_switch"></label>
+      <div id="main">
+        <h1 id="top">CSS</h1>
+        <hr>
+        <h2 class="sec">構文</h2>
+        <h3 class="subsec">コメントアウト</h3>
+        <div>
+          <code class="css">/* コメント */
+
+/*
+  複数行コメント
+*/</code>
+        </div>
+        <h3 class="subsec">値の単位</h3>
+        <h4>絶対長</h4>
+        <table style="width: 100%;">
+          <tr><th>Unit</th><th>名前</th><th>換算</th></tr>
+          <tr><td><span class="inline">cm</span></td><td>センチメートル</td><td>1cm = 96px/2.54</td></tr>
+          <tr><td><span class="inline">mm</span></td><td>ミリメートル</td><td>1mm = 1/10cm</td></tr>
+          <tr><td><span class="inline">Q</span></td><td>1/4ミリメートル</td><td>1Q = 1/40cm</td></tr>
+          <tr><td><span class="inline">in</span></td><td>インチ</td><td>1in = 2.54cm = 96px</td></tr>
+          <tr><td><span class="inline">pc</span></td><td>パイカ</td><td>1pc = 1inの1/6</td></tr>
+          <tr><td><span class="inline">pt</span></td><td>ポイント</td><td>1pt = 1inの1/72</td></tr>
+          <tr><td><span class="inline">px</span></td><td>ピクセル</td><td>1px = 1inの1/96</td></tr>
+        </table>
+        <h4>相対長</h4>
+        <table style="width: 100%;">
+          <tr><th>Unit</th><th>関係先</th></tr>
+          <tr><td><span class="inline">em</span></td><td>親要素のフォントサイズ</td></tr>
+          <tr><td><span class="inline">ex</span></td><td>その要素のフォントの文字<span class="inline">"x"</span>の高さ</td></tr>
+          <tr><td><span class="inline">ch</span></td><td>その要素のフォントの文字<span class="inline">"0"</span>の幅</td></tr>
+          <tr><td><span class="inline">rem</span></td><td>ルート要素のフォントサイズ</td></tr>
+          <tr><td><span class="inline">lh</span></td><td>その要素の<span class="inline">line-hight</span>プロパティと同じ</td></tr>
+          <tr><td><span class="inline">vw</span></td><td>ビューポート幅の1%</td></tr>
+          <tr><td><span class="inline">vh</span></td><td>ビューポート高さの1%</td></tr>
+          <tr><td><span class="inline">vmin</span></td><td>ビューポート幅と高さの小さいほうの1%</td></tr>
+          <tr><td><span class="inline">vmax</span></td><td>ビューポート幅と高さの小さいほうの1%</td></tr>
+        </table>
+        <h3 class="subsec">アニメーション</h3>
+        <div>
+          <code class="css">div {
+  animation: My_Animation 1s linear 0s infinite normal;
+}
+@keyframes My_Animation {
+  0% { background: red; }
+  100% { background: blue; }
+}</code>
+        </div>
+        <p>前半は以下と同じ</p>
+        <div>
+          <code class="css">div {
+  animation-name: My_Animation;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-delay: 0s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+}</code>
+        </div>
+        <p>
+          <span class="inline">animation-timing-function</span>で有効な値は<span class="inline">ease</span>、<span class="inline">ease-in</span>、<span class="inline">ease-out</span>、<span class="inline">ease-in-out</span>、<span class="inline">linear</span>、<span class="inline">step-start</span>、<span class="inline">step-end</span>など
+        </p>
+        <p>
+          <span class="inline">animation-iteration-count</span>で有効な値は数値もしくは<span class="inline">infinite</span>など
+        </p>
+        <p>
+          <span class="inline">animation-direction</span>で有効な値は<span class="inline">normal</span>、<span class="inline">reverse</span>、<span class="inline">alternate</span>、<span class="inline">alternate-reverse</span>など
+        </p>
+        <h3 class="subsec">共通の値</h3>
+        <h4>初期値</h4>
+        <div class="section">
+          <p>CSSの全てのプロパティは<span class="inline">initial</span>で初期値を指定できる。</p>
+        </div>
+        <h4>unset</h4>
+        <div class="section">
+          <p>親要素から継承できる場合は継承値、できない場合は初期値になる。</p>
+        </div>
+        <h2 class="sec">CSS値関数</h2>
+        <h3 class="subsec">数学関数</h3>
+        <table style="width: 100%;">
+          <tr><th>関数</th><th>概要</th></tr>
+          <tr><td><span class="inline">calc()</span></td><td>基本的な演算</td></tr>
+          <tr><td><span class="inline">min()</span></td><td>最小値</td></tr>
+          <tr><td><span class="inline">max()</span></td><td>最大値</td></tr>
+          <tr><td><span class="inline">clamp(MIN, VAL, MAX)</span></td><td></td></tr>
+          <tr><td><span class="inline">round()</span></td><td>四捨五入</td></tr>
+          <tr><td><span class="inline">mod(a, b)</span></td><td>あまり</td></tr>
+          <tr><td><span class="inline">rem(a, b)</span></td><td>あまり</td></tr>
+          <tr><td><span class="inline">sin()</span></td><td>正弦</td></tr>
+          <tr><td><span class="inline">cos()</span></td><td>余弦</td></tr>
+          <tr><td><span class="inline">tan()</span></td><td>正接</td></tr>
+          <tr><td><span class="inline">asin()</span></td><td>逆正弦</td></tr>
+          <tr><td><span class="inline">acos()</span></td><td>逆余弦</td></tr>
+          <tr><td><span class="inline">atan()</span></td><td>逆正接</td></tr>
+          <tr><td><span class="inline">atan2(x, y)</span></td><td>逆正接</td></tr>
+          <tr><td><span class="inline">pow(x, y)</span></td><td>xのy乗</td></tr>
+          <tr><td><span class="inline">sqrt()</span></td><td>2乗根</td></tr>
+          <tr><td><span class="inline">hypot(...x)</span></td><td>平方和の根</td></tr>
+          <tr><td><span class="inline">log()</span></td><td>対数</td></tr>
+          <tr><td><span class="inline">exp()</span></td><td>ネイピア数の指数関数</td></tr>
+          <tr><td><span class="inline">abs()</span></td><td>絶対値</td></tr>
+          <tr><td><span class="inline">sign()</span></td><td>符号関数</td></tr>
+        </table>
+        <h3 class="subsec">フィルター関数</h3>
+        <table style="width: 100%;">
+          <tr><th>関数</th><th>概要</th></tr>
+          <tr><td><span class="inline">blur(radius)</span></td><td>ぼかし</td></tr>
+          <tr><td><span class="inline">brightness(amount)</span></td><td>明るさ</td></tr>
+          <tr><td><span class="inline">contrast(amount)</span></td><td>コントラスト</td></tr>
+          <tr><td><span class="inline">drop-shadow(length, length, length, color)</span></td><td>ドロップシャドウ</td></tr>
+          <tr><td><span class="inline">grayscale(amount)</span></td><td>グレースケール</td></tr>
+          <tr><td><span class="inline">hue-rotate(angle)</span></td><td>色相</td></tr>
+          <tr><td><span class="inline">invert(amount)</span></td><td>色反転</td></tr>
+          <tr><td><span class="inline">opacity(amount)</span></td><td>半透明</td></tr>
+          <tr><td><span class="inline">saturate(amount)</span></td><td>彩度</td></tr>
+          <tr><td><span class="inline">sepia(amount)</span></td><td>セピア</td></tr>
+        </table>
+        <h3 class="subsec">その他</h3>
+        <table style="width: 100%;">
+          <tr><th>関数</th><th>概要</th></tr>
+          <tr><td><span class="inline">rgb(R, G, B, A?)</span></td><td>RGB色指定</td></tr>
+          <tr><td><span class="inline">hsl(H[deg], S[%], L[%], A[%])</span></td><td>HSL色指定</td></tr>
+          <tr><td><span class="inline">linear-gradient()</span></td><td>線形グラデーション</td></tr>
+          <tr><td><span class="inline">radial-gradient()</span></td><td>放射グラデーション</td></tr>
+          <tr><td><span class="inline">conic-gradient()</span></td><td>扇形グラデーション</td></tr>
+          <tr><td><span class="inline">repeating-linear-gradient()</span></td><td>繰り返す線形グラデーション</td></tr>
+          <tr><td><span class="inline">repeating-radial-gradient()</span></td><td>繰り返す放射グラデーション</td></tr>
+          <tr><td><span class="inline">repeating-conic-gradient()</span></td><td>繰り返す扇形グラデーション</td></tr>
+          <tr><td><span class="inline">linear()</span></td><td>線形補間イージング</td></tr>
+          <tr><td><span class="inline">cubic-bezier()</span></td><td>3次ベジェ曲線イージング</td></tr>
+          <tr><td><span class="inline">steps()</span></td><td>ステップイージング</td></tr>
+        </table>
+        <h2 class="sec">プロパティ</h2>
+        <h3 class="subsec">要素の大きさ</h3>
+        <div>
+          <code class="css">height: 20px;
+width: 20px;</code>
+        </div>
+        <div>
+          <code class="css">min-height: 0.5em; max-height: 0.5em;
+min-width: 0.5em; max-width: 0.5em;</code>
+        </div>
+        <h3 class="subsec">要素の枠</h3>
+        <ul>
+          <li>
+            一部の場合は<span class="inline">border-top</span>のようにする。
+            <span class="inline">top</span>、<span class="inline">bottom</span>、<span class="inline">right</span>、<span class="inline">left</span>から選択
+          </li>
+          <li><span class="inline">border-radius</span>で角を丸く</li>
+          <li>
+            通常は<span class="inline">solid</span>、点線は<span class="inline">dotted</span>、破線は<span class="inline">dashed</span>、二重線は<span class="inline">double</span>
+          </li>
+        </ul>
+        <div><code class="css">border: solid 3px #000000;</code></div>
+        <h3 class="subsec">内側の余白</h3>
+        <div>
+          <code class="css">padding: 10px;
+padding-top: 10px;
+padding-right: 10px;
+padding-left: 10px;
+padding-bottom: 10px;</code>
+        </div>
+        <p>このようにすると、上下が10px、左右が20pxになる</p>
+        <div><code class="css">padding: 10px 20px;</code></div>
+        <p>これだと上、右、下、左</p>
+        <div><code class="css">padding: 10px 20px 30px 40px;</code></div>
+        <h3 class="subsec">外側の余白</h3>
+        <div>
+          <code class="css">margin: 10px;
+margin-top: 10px;
+margin-right: 10px;
+margin-left: 10px;
+margin-bottom: 10px;</code>
+        </div>
+        <p>このようにすると、上下が10px、左右が20pxになる</p>
+        <div><code class="css">margin: 10px 20px;</code></div>
+        <p>これだと上、右、下、左</p>
+        <div><code class="css">margin: 10px 20px 30px 40px;</code></div>
+        <h3 class="subsec">accent-color</h3>
+        <p>一部のinput要素などのアクセントカラーを変更する。</p>
+        <div><code class="css">accent-color: #64ec86;</code></div>
+        <h3 class="subsec">backdrop-filter</h3>
+        <p>要素の背後にグラフィック効果を適用する。</p>
+        <div>
+          <code class="css">backdrop-filter: blur(10px);
+backdrop-filter: invert(80%);
+backdrop-filter: sepia(90%);</code>
+        </div>
+        <h3 class="subsec">background-color</h3>
+        <div><code class="css">background-color: #64ec86;</code></div>
+        <h3 class="subsec">background-image</h3>
+        <p>背景画像を指定する。</p>
+        <div><code class="css">background-image: url("../../media/examples/lizard.png");</code></div>
+        <h3 class="subsec">border-collapse</h3>
+        <p>
+          表のセルの間に隙間を作るかどうか。
+          <span class="inline">collapse</span>(作らない)か<span class="inline">separate</span>(作る)で指定。
+        </p>
+        <div><code class="css">border-collapse: collapse;</code></div>
+        <h3 class="subsec">box-shadow</h3>
+        <div>
+          <code class="css">/* 無くす場合 */
+box-shadow: none;
+
+/* オフセット(X) | オフセット(Y) | 色 */
+box-shadow: 60px -16px teal;
+
+/* オフセット(X) | オフセット(Y) | ブラー半径 | 色 */
+box-shadow: 10px 5px 5px black;
+
+/* オフセット(X) | オフセット(Y) | ブラー半径 | 拡散半径 | 色 */
+box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+
+/* inset | オフセット(X) | オフセット(Y) | 色 */
+box-shadow: inset 5em 1em gold;
+
+/* 複数の影はカンマで区切る */
+box-shadow:
+  3px 3px red,
+  -1em 0 0.4em olive;</code>
+        </div>
+        <h3 class="subsec">box-sizing</h3>
+        <p>枠を外側ではなく内側に膨らませる場合：</p>
+        <div><code class="css">box-sizing: border-box;</code></div>
+        <h3 class="subsec">caret-color</h3>
+        <p>input要素内などのキャレット(テキスト入力カーソル)の色を変更する。</p>
+        <div><code class="css">caret-color: red;</code></div>
+        <h3 class="subsec">color</h3>
+        <p>文字の色を指定する。</p>
+        <div><code class="css">color: #64ec86;</code></div>
+        <h3 class="subsec">cursor</h3>
+        <p>マウスカーソルの種類。画像を指定することもでき、その場合は画像指定の後にカーソルの種類も指定する必要がある。</p>
+        <div>
+          <code class="css">cursor: help;
+cursor: url(hand.cur), pointer;</code>
+        </div>
+        <details><summary>カーソルの種類</summary>
+          <table style="width: 100%;">
+            <tr><th>値</th><th>概要</th></tr>
+            <tr><td style="cursor: default;"><span class="inline">default</span></td><td>デフォルト</td></tr>
+            <tr><td style="cursor: none;"><span class="inline">none</span></td><td>非表示</td></tr>
+            <tr><td style="cursor: context-menu;"><span class="inline">context-menu</span></td><td>右クリックメニューが利用できる</td></tr>
+            <tr><td style="cursor: help;"><span class="inline">help</span></td><td>ヘルプ</td></tr>
+            <tr><td style="cursor: pointer;"><span class="inline">pointer</span></td><td>ポインター</td></tr>
+            <tr><td style="cursor: progress;"><span class="inline">progress</span></td><td>ビジー状態だが操作できる</td></tr>
+            <tr><td style="cursor: wait;"><span class="inline">wait</span></td><td>ビジー状態で操作できない</td></tr>
+            <tr><td style="cursor: cell;"><span class="inline">cell</span></td><td>セル</td></tr>
+            <tr><td style="cursor: crosshair;"><span class="inline">crosshair</span></td><td>ビットマップの選択</td></tr>
+            <tr><td style="cursor: text;"><span class="inline">text</span></td><td>テキスト</td></tr>
+            <tr><td style="cursor: vertical-text;"><span class="inline">vertical-text</span></td><td>縦書きテキスト</td></tr>
+            <tr><td style="cursor: alias;"><span class="inline">alias</span></td><td>エイリアスやショートカットが作成される</td></tr>
+            <tr><td style="cursor: copy;"><span class="inline">copy</span></td><td>コピーされる</td></tr>
+            <tr><td style="cursor: move;"><span class="inline">move</span></td><td>移動される</td></tr>
+            <tr><td style="cursor: no-drop;"><span class="inline">no-drop</span></td><td>ドロップできない</td></tr>
+            <tr><td style="cursor: not-allowed;"><span class="inline">not-allowed</span></td><td>操作が禁止されている</td></tr>
+            <tr><td style="cursor: grab;"><span class="inline">grab</span></td><td>つかめる</td></tr>
+            <tr><td style="cursor: grabbing;"><span class="inline">grabbing</span></td><td>つかんでいる</td></tr>
+            <tr><td style="cursor: all-scroll;"><span class="inline">all-scroll</span></td><td>スクロール可能</td></tr>
+            <tr><td style="cursor: col-resize;"><span class="inline">col-resize</span></td><td>水平方向にスクロール可能</td></tr>
+            <tr><td style="cursor: row-resize	;"><span class="inline">row-resize</span></td><td>垂直方向にスクロール可能</td></tr>
+            <tr><td style="cursor: n-resize;"><span class="inline">n-resize</span></td><td>辺の移動(上)</td></tr>
+            <tr><td style="cursor: e-resize;"><span class="inline">e-resize</span></td><td>辺の移動(右)</td></tr>
+            <tr><td style="cursor: s-resize;"><span class="inline">s-resize</span></td><td>辺の移動(下)</td></tr>
+            <tr><td style="cursor: w-resize;"><span class="inline">w-resize</span></td><td>辺の移動(左)</td></tr>
+            <tr><td style="cursor: ne-resize;"><span class="inline">ne-resize</span></td><td>辺の移動(右上)</td></tr>
+            <tr><td style="cursor: nw-resize;"><span class="inline">nw-resize</span></td><td>辺の移動(左上)</td></tr>
+            <tr><td style="cursor: se-resize;"><span class="inline">se-resize</span></td><td>辺の移動(右下)</td></tr>
+            <tr><td style="cursor: sw-resize;"><span class="inline">sw-resize</span></td><td>辺の移動(左下)</td></tr>
+            <tr><td style="cursor: ew-resize;"><span class="inline">ew-resize</span></td><td>辺の移動(左右)</td></tr>
+            <tr><td style="cursor: ns-resize;"><span class="inline">ns-resize</span></td><td>辺の移動(上下)</td></tr>
+            <tr><td style="cursor: nesw-resize;"><span class="inline">nesw-resize</span></td><td>辺の移動(右上左下)</td></tr>
+            <tr><td style="cursor: nwse-resize;"><span class="inline">nwse-resize</span></td><td>辺の移動(左上右下)</td></tr>
+            <tr><td style="cursor: zoom-in;"><span class="inline">zoom-in</span></td><td>拡大</td></tr>
+            <tr><td style="cursor: zoom-out;"><span class="inline">zoom-out</span></td><td>縮小</td></tr>
+          </table>
+        </details>
+        <h3 class="subsec">direction</h3>
+        <p>文字の向きを<span class="inline">ltr</span>(左から右)または<span class="inline">rtl</span>(右から左)で指定する。</p>
+        <div><code class="css">direction: ltr;</code></div>
+        <h3 class="subsec">display</h3>
+        <ul>
+          <li><span class="inline">block</span>：divのようなブロック要素</li>
+          <li><span class="inline">inline</span>：spanのようなインライン要素</li>
+          <li><span class="inline">inline-block</span>：外側にはインラインのようなふるまいをしておきながら、本体はブロックのようにふるまう</li>
+          <li><span class="inline">flex</span>：中身のブロック要素を均等に分割する</li>
+          <li><span class="inline">grid</span>：中身のブロック要素をグリッドのように分割する</li>
+        </ul>
+        <p>要素を非表示にする例：</p>
+        <div><code class="css">display: none;</code></div>
+        <h3 class="subsec">filter</h3>
+        <p>背後の要素を色反転する例：</p>
+        <div><code class="css">filter: invert();</code></div>
+        <h3 class="subsec">flex</h3>
+        <p>flexボックス内での横幅の比を指定する。</p>
+        <div><code class="css">flex: 1;</code></div>
+        <h3 class="subsec">font-family</h3>
+        <p>フォントの指定。</p>
+        <div><code class="css">font-family: '';</code></div>
+        <p>.ttfファイルを読み込んで新しいフォントを定義する場合は以下の行を追加する。</p>
+        <div>
+          <code class="css">@font-face {
+  font-family: 'MyFont';
+  src: url(〇〇.ttf);
+}</code>
+        </div>
+        <h3 class="subsec">font-size</h3>
+        <p>フォントの大きさ。</p>
+        <div><code class="css">font-size: medium;</code></div>
+        <details><summary>指定できる値</summary>
+          <p>
+            指定できる値：<span class="inline">[length]</span>、<span class="inline">[percentage]</span>、<span class="inline">xx-small</span>、<span class="inline">x-small</span>、<span class="inline">small</span>、<span class="inline">medium</span>、<span class="inline">large</span>、<span class="inline">x-large</span>、<span class="inline">xx-large</span>、<span class="inline">xxx-large</span>、<span class="inline">larger</span>、<span class="inline">smaller</span>
+          </p>
+        </details>
+        <h3 class="subsec">font-weight</h3>
+        <p>
+          フォントの太さ。<br>
+          指定できる値：<span class="inline">[number]</span>、<span class="inline">normal</span>、<span class="inline">bold</span>、<span class="inline">lighter</span>、<span class="inline">bolder</span>
+        </p>
+        <div><code class="css">font-weight: bold;</code></div>
+        <h3 class="subsec">height</h3>
+        <div><code class="css">height: 20px;</code></div>
+        <h3 class="subsec">letter-spacing</h3>
+        <p>文字と文字の間隔。</p>
+        <div><code class="css">letter-spacing: 0.5em;</code></div>
+        <h3 class="subsec">line-height</h3>
+        <p>
+          文章の行間。<br>
+          指定できる値：<span class="inline">normal</span>、<span class="inline">[number]</span>、<span class="inline">[length]</span>、<span class="inline">[percentage]</span>
+        </p>
+        <div><code class="css">line-height: normal;</code></div>
+        <h3 class="subsec">overflow</h3>
+        <p>
+          <span class="inline">visible</span>で見えてはみ出す、<span class="inline">hidden</span>で見えずにはみ出す、<span class="inline">scroll</span>でスクロール、<span class="inline">auto</span>でおさまらないときだけスクロール
+        </p>
+        <div>
+          <code class="css">overflow: visible;
+overflow-x: visible;
+overflow-y: visible;</code>
+        </div>
+        <h3 class="subsec">list-style</h3>
+        <p>箇条書きの点の部分。</p>
+        <div><code class="css">list-style: square;</code></div>
+        <details><summary>指定できる値の種類</summary>
+          <table style="width: 100%;">
+            <tr><th>値</th><th>概要</th></tr>
+            <tr><td><span class="inline">none</span></td><td>非表示</td></tr>
+            <tr><td><span class="inline">disc</span></td><td>黒丸</td></tr>
+            <tr><td><span class="inline">circle</span></td><td>白丸</td></tr>
+            <tr><td><span class="inline">square</span></td><td>黒四角</td></tr>
+            <tr><td><span class="inline">decimal</span></td><td>数値</td></tr>
+            <tr><td><span class="inline">cjk-decimal</span></td><td>漢数字</td></tr>
+            <tr><td><span class="inline">decimal-leading-zero</span></td><td>ゼロ埋め数値</td></tr>
+            <tr><td><span class="inline">lower-roman</span></td><td>小文字のローマ数字</td></tr>
+            <tr><td><span class="inline">upper-roman</span></td><td>大文字のローマ数字</td></tr>
+            <tr><td><span class="inline">lower-greek</span></td><td>小文字の古代ギリシャ文字</td></tr>
+            <tr><td><span class="inline">lower-latin</span></td><td>小文字のASCII文字</td></tr>
+            <tr><td><span class="inline">upper-latin</span></td><td>大文字のASCII文字</td></tr>
+            <tr><td><span class="inline">cjk-earthly-branch</span></td><td>十二支</td></tr>
+            <tr><td><span class="inline">cjk-heavenly-stem</span></td><td>十干</td></tr>
+            <tr><td><span class="inline">hiragana</span></td><td>ひらがな</td></tr>
+            <tr><td><span class="inline">hiragana-iroha</span></td><td>いろは</td></tr>
+            <tr><td><span class="inline">japanese-formal</span></td><td>日本の公的漢数字</td></tr>
+            <tr><td><span class="inline">japanese-informal</span></td><td>日本の日常的な数値</td></tr>
+            <tr><td><span class="inline">katakana</span></td><td>カタカナ</td></tr>
+            <tr><td><span class="inline">katakana-iroha</span></td><td>カタカナいろは</td></tr>
+          </table>
+        </details>
+        <h3 class="subsec">opacity</h3>
+        <p>要素の不透明度。</p>
+        <div><code class="css">opacity: 1;</code></div>
+        <h3 class="subsec">outline</h3>
+        <p>要素をフォーカスしたとき(input要素にTabでフォーカスするなど)の枠。</p>
+        <div><code class="css">outline: solid 1px red;</code></div>
+        <h3 class="subsec">overflow-wrap</h3>
+        <p>単語中でも無理矢理改行する：</p>
+        <div><code class="css">overflow-wrap: break-word;</code></div>
+        <h3 class="subsec">overscroll-behavior</h3>
+        <p>スクロールが端まで達した後のスクロールで、親要素のスクロールをしないようにする：</p>
+        <div><code class="css">overscroll-behavior: none;</code></div>
+        <h3 class="subsec">pointer-events</h3>
+        <p>クリックやスクロールが貫通するようにする：</p>
+        <div><code class="css">pointer-events: none;</code></div>
+        <h3 class="subsec">resize</h3>
+        <p>ブロック要素をリサイズ可能にする。値は<span class="inline">both</span>、<span class="inline">horizontal</span>、<span class="inline">vertical</span>、<span class="inline">none</span>。</p>
+        <div><code class="css">resize: horizontal;</code></div>
+        <h3 class="subsec">text-align</h3>
+        <p>テキストを何揃えにするか(水平).</p>
+        <p>
+          指定できる値：<span class="inline">start</span>、<span class="inline">end</span>、<span class="inline">left</span>、<span class="inline">right</span>、<span class="inline">center</span>、<span class="inline">justify</span>、<span class="inline">match-parent</span>
+        </p>
+        <div><code class="css">text-align: left;</code></div>
+        <h3 class="subsec">text-decoration</h3>
+        <p>テキスト装飾を無効化する例(リンク要素など)：</p>
+        <div><code class="css">text-decoration: none;</code></div>
+        <h3 class="subsec">text-decoration-color</h3>
+        <p>下線や取り消し線など、テキストデコレーションの色。</p>
+        <div><code class="css">text-decoration-color: #64ec86;</code></div>
+        <h3 class="subsec">text-decoration-line</h3>
+        <p>
+          指定できる値：<span class="inline">none</span>、<span class="inline">underline</span>、<span class="inline">overline</span>、<span class="inline">line-through</span>
+        </p>
+        <div><code class="css">text-decoration-line: underline;</code></div>
+        <h3 class="subsec">text-decoration-style</h3>
+        <p>
+          指定できる値：<span class="inline">solid</span>、<span class="inline">double</span>、<span class="inline">dotted</span>、<span class="inline">dashed</span>、<span class="inline">wavy</span>
+        </p>
+        <div><code class="css">text-decoration-style: solid;</code></div>
+        <h3 class="subsec">text-decoration-thickness</h3>
+        <p>
+          指定できる値：<span class="inline">auto</span>、<span class="inline">from-font</span>、<span class="inline">[length]</span>、<span class="inline">[percentage]</span>
+        </p>
+        <div><code class="css">text-decoration-thickness: auto;</code></div>
+        <h3 class="subsec">text-emphasis</h3>
+        <p>テキストを強調するために<span style="text-emphasis: '﹅';">ふる</span>点(圏点)。</p>
+        <div><code class="css">text-emphasis: '、';</code></div>
+        <h3 class="subsec">text-indent</h3>
+        <div><code class="css">text-indent: 1em;</code></div>
+        <h3 class="subsec">text-overflow</h3>
+        <p>あふれたテキストの表示。文字列を指定することもできる。あふれたテキストを「...」にする例：</p>
+        <div><code class="css">text-overflow: ellipsis;</code></div>
+        <h3 class="subsec">text-shadow</h3>
+        <p>テキストに影を付ける。指定方法は「左右、上下、半径、色」。</p>
+        <div>
+          <code class="css">/* オフセット(X) | オフセット(Y) | ブラー半径 | 色 */
+text-shadow: 1px 1px 2px black;
+
+/* 色 | オフセット(X) | オフセット(Y) | ブラー半径 */
+text-shadow: #fc0 1px 0 10px;
+
+/* オフセット(X) | オフセット(Y) | 色 */
+text-shadow: 5px 5px #558abb;
+
+/* 色 | オフセット(X) | オフセット(Y) */
+text-shadow: white 2px 5px;
+
+/* オフセット(X) | オフセット(Y) */
+text-shadow: 5px 10px;</code>
+        </div>
+        <h3 class="subsec">transition</h3>
+        <p>要素が変化するときに、アニメーションを伴うようになる。</p>
+        <div><code class="css">transition: 1s;</code></div>
+        <h3 class="subsec">user-select</h3>
+        <p>テキストの選択を禁止する：</p>
+        <div>
+          <code class="css">user-select: none;
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;</code>
+        </div>
+        <h3 class="subsec">vertical-align</h3>
+        <p>
+          縦向きの何揃えか。<br>
+          <span class="inline">top</span>、<span class="inline">middle</span>、<span class="inline">bottom</span>、<span class="inline">baseline</span>から選択。
+        </p>
+        <div><code class="css">vertical-align: top;</code></div>
+        <h3 class="subsec">white-space</h3>
+        <p>
+          主な値は<span class="inline">normal</span>、<span class="inline">nowrap</span>、<span class="inline">pre</span>。
+        </p>
+        <div><code class="css">white-space: pre;</code></div>
+        <h3 class="subsec">width</h3>
+        <div><code class="css">width: 20px;</code></div>
+        <h3 class="subsec">z-index</h3>
+        <p>要素が重なったとき、この値が大きいほど手前に表示される。</p>
+        <div><code class="css">z-index: 100;</code></div>
+        <h3 class="subsec">zoom</h3>
+        <div><code class="css">zoom: 150%;</code></div>
+
+        <h2 class="sec">セレクター</h2>
+        <h3 class="subsec">全称セレクター</h3>
+        <div>
+          <code class="css">* {
+  color: green;
+}</code>
+        </div>
+        <h3 class="subsec">要素型セレクター</h3>
+        <div>
+          <code class="css">/* すべての&lt;a>要素。 */
+a {
+  color: red;
+}</code>
+        </div>
+        <h3 class="subsec">クラスセレクター</h3>
+        <div>
+          <code class="css">/* class="spacious"であるすべての要素 */
+.spacious {
+  margin: 2em;
+}
+
+/* class="spacious"であるすべての&lt;li>要素 */
+li.spacious {
+  margin: 2em;
+}
+
+/* "spacious"および"elegant"の両方をクラスリストに含む&lt;li>要素すべて */
+/* 例えば、class="elegant retro spacious" */
+li.spacious.elegant {
+  margin: 2em;
+}</code>
+        </div>
+        <h3 class="subsec">IDセレクター</h3>
+        <div>
+          <code class="css">/* id="demo" のついた要素 */
+#demo {
+  border: red 2px solid;
+}</code>
+        </div>
+        <h3 class="subsec">属性セレクター</h3>
+        <div>
+          <code class="css">/* title属性を持つ&lt;a>要素 */
+a[title] {
+  color: purple;
+}
+
+/* hrefが"https://example.org"と一致する&lt;a>要素 */
+a[href="https://example.org"]
+{
+  color: green;
+}
+
+/* hrefに"example"を含む&lt;a>要素 */
+a[href*="example"] {
+  font-size: 2em;
+}
+
+/* hrefが"org"で終わる&lt;a>要素 */
+a[href$=".org"] {
+  font-style: italic;
+}
+
+/* &lt;a>要素のclass属性に"logo"という語が含まれているもの */
+a[class~="logo"] {
+  padding: 2px;
+}
+
+/* URLのどこかに"cAsE"があるリンクに一致
+大文字小文字の区別しない */
+a[href*="cAsE" i] {
+  color: pink;
+}
+
+/* "https"で始まり".org"で終わるリンク */
+a[href^="https"][href$=".org"] {
+  color: green;
+}</code>
+        </div>
+        <h3 class="subsec">セレクターリスト</h3>
+        <div>
+          <code class="css">span, div {
+  border: red 2px solid;
+}</code>
+        </div>
+        <h3 class="subsec">子孫結合子</h3>
+        <div>
+          <code class="css">/* "my-things" リストの子孫のリスト項目 */
+ul.my-things li {
+  margin: 2em;
+}</code>
+        </div>
+        <h3 class="subsec">子結合子</h3>
+        <div>
+          <code class="css">/* "my-things"クラスを持つリストの子要素であるリスト項目 */
+ul.my-things > li {
+  margin: 2em;
+}</code>
+        </div>
+        <h3 class="subsec">後続兄弟結合子</h3>
+        <div>
+          <code class="css">img ~ p {
+  color: red;
+}</code>
+        </div>
+        <h3 class="subsec">次兄弟結合子</h3>
+        <div>
+          <code class="css">/* 画像の直後に来る段落 */
+img + p {
+  font-weight: bold;
+}</code>
+        </div>
+        <h3 class="subsec">擬似クラス</h3>
+        <div>
+          <code class="css">/* ユーザーのポインターが乗っているすべてのボタン */
+button:hover {
+  color: blue;
+}</code>
+        </div>
+        <table style="width: 100%;">
+          <tr><th>擬似クラス</th><th>概要</th></tr>
+          <tr><td><span class="inline">:fullscreen</span></td><td>現在全画面モードの要素</td></tr>
+          <tr><td><span class="inline">:picture-in-picture</span></td><td>現在ピクチャインピクチャモードの要素</td></tr>
+          <tr><td><span class="inline">:autofill</span></td><td>&lt;input>をブラウザーが自動補完した場合</td></tr>
+          <tr><td><span class="inline">:enabled</span></td><td>ユーザーインターフェイス要素が有効な状態である</td></tr>
+          <tr><td><span class="inline">:disabled</span></td><td>ユーザーインターフェイス要素が無効な状態である</td></tr>
+          <tr><td><span class="inline">:read-only</span></td><td>ユーザーが変更できない要素</td></tr>
+          <tr><td><span class="inline">:read-write</span></td><td>ユーザーが編集することができる要素</td></tr>
+          <tr><td><span class="inline">:placeholder-shown</span></td><td>プレイスホルダーテキスト, 例えば<span class="inline">placeholder</span>属性のものが表示されている&lt;input>および&lt;textarea>要素</td></tr>
+          <tr><td><span class="inline">:default</span></td><td>一連の要素のうち, 1つ以上の既定のUI要素</td></tr>
+          <tr><td><span class="inline">:indeterminate</span></td><td>UI要素が不定状態になっている場合</td></tr>
+          <tr><td><span class="inline">:blank</span></td><td>ユーザーが入力する要素が空である場合. 空文字列が入っているか, その他の空入力であること.</td></tr>
+          <tr><td><span class="inline">:valid</span></td><td>内容が妥当である要素</td></tr>
+          <tr><td><span class="inline">:invalid</span></td><td>無効な内容を持つ要素</td></tr>
+          <tr><td><span class="inline">:in-range</span></td><td>スライダーコントロールなどの範囲制限のある要素で, 選択した値が許容範囲内にある場合</td></tr>
+          <tr><td><span class="inline">:out-of-range</span></td><td>スライダーコントロールなどの範囲制限のある要素で, 選択した値が許容範囲外の場合</td></tr>
+          <tr><td><span class="inline">:required</span></td><td>フォーム要素が必須項目である場合</td></tr>
+          <tr><td><span class="inline">:optional</span></td><td>フォーム要素が省略可能である場合</td></tr>
+          <tr><td><span class="inline">:user-invalid</span></td><td>不正確な値が入力されている要素</td></tr>
+          <tr><td><span class="inline">:dir()</span></td><td>文書の言語によって決定される書字方向に基づいて要素を選択します.</td></tr>
+          <tr><td><span class="inline">:lang()</span></td><td>内容物の言語に基づいて要素を選択します.</td></tr>
+          <tr><td><span class="inline">:any-link</span></td><td>要素が<span class="inline">:link</span>または<span class="inline">:visited</span>のいずれかに一致する場合</td></tr>
+          <tr><td><span class="inline">:link</span></td><td>まだ訪問していないリンク</td></tr>
+          <tr><td><span class="inline">:visited</span></td><td>訪問したことのあるリンク</td></tr>
+          <tr><td><span class="inline">:local-link</span></td><td>絶対URLが対象URLと同じリンク, 例えば同じページへのアンカーリンクである場合</td></tr>
+          <tr><td><span class="inline">:target</span></td><td>文書の URL の対象である要素</td></tr>
+          <tr><td><span class="inline">:target-within</span></td><td>文書のURLの対象である要素だけでなく, 文書URLの対象である子孫を持つ要素にも一致します.</td></tr>
+          <tr><td><span class="inline">:scope</span></td><td>セレクターを照合するための参照点となる要素</td></tr>
+          <tr><td><span class="inline">:playing</span></td><td>その要素が再生可能なメディア要素であり, 再生中である</td></tr>
+          <tr><td><span class="inline">:paused</span></td><td>その要素が再生可能なメディア要素であり, 一時停止中である</td></tr>
+          <tr><td><span class="inline">:current</span></td><td>表示されている要素またはその祖先</td></tr>
+          <tr><td><span class="inline">:past</span></td><td>完全に<span class="inline">:current</span>要素の前に発生する要素</td></tr>
+          <tr><td><span class="inline">:future</span></td><td>完全に<span class="inline">:current</span>要素の後に発生する要素</td></tr>
+          <tr><td><span class="inline">:root</span></td><td>文書のルートである要素</td></tr>
+          <tr><td><span class="inline">:empty</span></td><td>ホワイトスペース文字以外に子がない要素</td></tr>
+          <tr><td><span class="inline">:nth-child</span></td><td><span class="inline">An+B</span>の表記を用いて, 兄弟要素のリストから要素を選択します.</td></tr>
+          <tr><td><span class="inline">:nth-last-child</span></td><td><span class="inline">An+B</span>の表記を用いて, 兄弟要素のリストから, リストの末尾から逆方向に数えて要素を選択します.</td></tr>
+          <tr><td><span class="inline">:first-child</span></td><td>兄弟のうちの最初の要素</td></tr>
+          <tr><td><span class="inline">:last-child</span></td><td>兄弟のうちの最後の要素</td></tr>
+          <tr><td><span class="inline">:only-child</span></td><td>要素に兄弟がいない場合</td></tr>
+          <tr><td><span class="inline">:nth-of-type</span></td><td><span class="inline">An+B</span>の表記を用いて, 兄弟要素のリストから, 特定の型に一致する要素を選択します.</td></tr>
+          <tr><td><span class="inline">:nth-last-of-type</span></td><td><span class="inline">An+B</span>の表記を用いて, 兄弟要素のリストから, リストの末尾から逆方向に数えて特定の型に一致する要素を選択します.</td></tr>
+          <tr><td><span class="inline">:first-of-type</span></td><td>兄弟のうちの最初の特定の型に一致する要素</td></tr>
+          <tr><td><span class="inline">:last-of-type</span></td><td>兄弟のうちの最後の特定の型に一致する要素</td></tr>
+          <tr><td><span class="inline">:only-of-type</span></td><td>指定された型セレクターで兄弟要素がない要素</td></tr>
+          <tr><td><span class="inline">:hover</span></td><td>ユーザーがポインティングデバイスでアイテムを指した場合</td></tr>
+          <tr><td><span class="inline">:active</span></td><td>アイテムがクリックされるなど, ユーザーによってアクティブになっているとき</td></tr>
+          <tr><td><span class="inline">:focus</span></td><td>要素にフォーカスがあるとき</td></tr>
+          <tr><td><span class="inline">:focus-visible</span></td><td>要素にフォーカスがあり, ユーザーエージェントがその要素のフォーカスを可視化する必要があると判断した場合</td></tr>
+          <tr><td><span class="inline">:focus-within</span></td><td><span class="inline">:focus</span>が適用される要素に加え, <span class="inline">:focus</span>が適用される子孫要素を持つ要素にも一致します.</td></tr>
+          <tr><td><span class="inline">:is()</span></td><td>指定されたリストのセレクターのどれかに一致する要素</td></tr>
+          <tr><td><span class="inline">:not()</span></td><td>引数で表されない要素</td></tr>
+          <tr><td><span class="inline">:where()</span></td><td>指定されたリストのセレクターのいずれかに一致する要素</td></tr>
+          <tr><td><span class="inline">:has()</span></td><td>付属の要素に対してアンカーを付けたときに, 相対セレクターのどれかが一致する場合</td></tr>
+        </table>
+        <h3 class="subsec">擬似要素</h3>
+        <div>
+          <code class="css">/* すべての&lt;p>要素の最初の行です. */
+p::first-line {
+  color: blue;
+  text-transform: uppercase;
+}</code>
+        </div>
+        <table style="width: 100%;">
+          <tr><th>擬似要素</th><th>概要</th></tr>
+          <tr><td><span class="inline">::after</span></td><td>選択した要素の最後の子要素</td></tr>
+          <tr><td><span class="inline">::backdrop</span></td><td>何らかの要素が全画面モードで表示される直下に直接表示されるviewportの寸法のボックス</td></tr>
+          <tr><td><span class="inline">::before</span></td><td>選択した要素の最初の子要素</td></tr>
+          <tr><td><span class="inline">::cue</span></td><td>選択された要素内のWebVTTキュー</td></tr>
+          <tr><td><span class="inline">::first-letter</span></td><td>ブロックレベル要素の最初の行の最初の文字</td></tr>
+          <tr><td><span class="inline">::first-line</span></td><td>ブロックレベル要素の最初の行</td></tr>
+          <tr><td><span class="inline">::file-selector-button</span></td><td>the button of an &lt;input> of type="file".</td></tr>
+          <tr><td><span class="inline">::marker</span></td><td>リスト項目の箇条書き記号ボックス(ふつうは黒丸や番号)</td></tr>
+          <tr><td><span class="inline">::part()</span></td><td>一致するpart属性を持つシャドウツリー内の要素</td></tr>
+          <tr><td><span class="inline">::placeholder</span></td><td>&lt;inputまたは&lt;textarea>要素のプレイスホルダー文字列</td></tr>
+          <tr><td><span class="inline">::selection</span></td><td>ユーザーが(テキストをマウスでクリックやドラッグすることで)選択した文書の一部</td></tr>
+          <tr><td><span class="inline">::slotted()</span></td><td>HTML テンプレート内にあるスロットに配置された任意の要素</td></tr>
+        </table>
+
+      </div>
+      <div id="side">
+        <h2 style="margin: 16px;">もくじ</h2>
+        <div class="to_top"><span onclick="jumpTo('top', 0)">ページのトップへ</span></div>
+        <hr style="margin: 0; border-width: 1.5px; ">
+        <div class="contents"></div>
+      </div>
+    </div>
+  </body>
+  <script src="or_main.js"></script>
+</html>

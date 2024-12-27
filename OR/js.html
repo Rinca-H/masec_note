@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Original Reference - JavaScript</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="or_main.css">
+    <style type="text/css">
+      span.bigline { line-height: 2.66em; }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <label for="sidebar_switch" class="sidebar_switch no-select"><span>≡</span></label>
+      <input type="checkbox" id="sidebar_switch">
+      <label class="black" for="sidebar_switch"></label>
+      <div id="main">
+        <h1 id="top">JavaScript</h1>
+        <hr>
+        <h2 class="sec">基本</h2>
+        <ul>
+          <li>大文字と小文字を区別する。</li>
+          <li>文末にはセミコロンを使う(単独の文の場合はあってもなくてもよい)。</li>
+          <li>変数の型は自動で変わる。</li>
+          <li>足し算のみでストリング型と数値型の結合を担う。引き算などは文字列が数であれば計算されてしまう。</li>
+          <li>バッククォートで囲んだ文字列に<span class="inline">${変数}</span>と書いて足し算を用いてつなぐ必要がなくなる。</li>
+        </ul>
+        <h3 class="subsec">データ型</h3>
+        <table style="width: 100%;">
+          <tr><th>型</th><th>備考</th></tr>
+          <tr><td>Boolean</td><td>真偽値。<span class="inline">true</span>または<span class="inline">false</span>。</td></tr>
+          <tr><td>null</td><td></td></tr>
+          <tr><td>undefined</td><td></td></tr>
+          <tr><td>Number</td><td>数値。<span class="inline">20</span>や<span class="inline">3.1415</span>など。</td></tr>
+          <tr><td>BigInt</td><td>長整数。<span class="inline">9007199254740992n</span>など。</td></tr>
+          <tr><td>String</td><td>文字列。<span class="inline">"Hello"</span>など。</td></tr>
+          <tr><td>Symbol</td><td></td></tr>
+          <tr><td>Object</td><td>オブジェクト。</td></tr>
+        </table>
+        <h3 class="subsec">予約語</h3>
+        <div style="height: 75vh; overflow-y: auto; width: min-content; padding: 0 24px;">
+          <div style="display: inline-block;">
+            <ul>
+              <li><span class="inline">await</span></li>
+              <li><span class="inline">break</span></li>
+              <li><span class="inline">case</span></li>
+              <li><span class="inline">catch</span></li>
+              <li><span class="inline">class</span></li>
+              <li><span class="inline">const</span></li>
+              <li><span class="inline">continue</span></li>
+              <li><span class="inline">debugger</span></li>
+              <li><span class="inline">default</span></li>
+              <li><span class="inline">delete</span></li>
+              <li><span class="inline">do</span></li>
+              <li><span class="inline">else</span></li>
+              <li><span class="inline">enum</span></li>
+              <li><span class="inline">export</span></li>
+              <li><span class="inline">extends</span></li>
+              <li><span class="inline">false</span></li>
+              <li><span class="inline">finally</span></li>
+              <li><span class="inline">for</span></li>
+              <li><span class="inline">function</span></li>
+              <li><span class="inline">if</span></li>
+              <li><span class="inline">import</span></li>
+              <li><span class="inline">in</span></li>
+              <li><span class="inline">instanceof</span></li>
+              <li><span class="inline">new</span></li>
+              <li><span class="inline">null</span></li>
+              <li><span class="inline">return</span></li>
+              <li><span class="inline">super</span></li>
+              <li><span class="inline">switch</span></li>
+              <li><span class="inline">this</span></li>
+              <li><span class="inline">throw</span></li>
+              <li><span class="inline">true</span></li>
+              <li><span class="inline">try</span></li>
+              <li><span class="inline">typeof</span></li>
+              <li><span class="inline">var</span></li>
+              <li><span class="inline">void</span></li>
+              <li><span class="inline">while</span></li>
+              <li><span class="inline">with</span></li>
+              <li><span class="inline">yield</span></li>
+            </ul>
+          </div>
+        </div>
+        <h4>strictモードでの予約語</h4>
+        <ul>
+          <li><span class="inline">let</span></li>
+          <li><span class="inline">static</span></li>
+          <li><span class="inline">implements</span></li>
+          <li><span class="inline">interface</span></li>
+          <li><span class="inline">package</span></li>
+          <li><span class="inline">private</span></li>
+          <li><span class="inline">protected</span></li>
+          <li><span class="inline">public</span></li>
+        </ul>
+        <h3 class="subsec">trueやfalseの代わりになる値</h3>
+        <div style="display: flex;">
+          <div style="border: solid 2px #e0e0e0; background-color: #f8f8f8; padding: 0 16px; margin: 0 16px; flex: 1;">
+            <h4>falseになる値</h4>
+            <ul>
+              <li><span class="inline">false</span></li>
+              <li><span class="inline">0</span></li>
+              <li><span class="inline">-0</span></li>
+              <li><span class="inline">0n</span></li>
+              <li><span class="inline">""</span> (空文字)</li>
+              <li><span class="inline">null</span></li>
+              <li><span class="inline">undefined</span></li>
+              <li><span class="inline">NaN</span></li>
+            </ul>
+          </div>
+          <div style="border: solid 2px #e0e0e0; background-color: #f8f8f8; padding: 0 16px; margin: 0 16px; flex: 1;">
+            <h4>trueになる値</h4>
+            <ul>
+              <li><span class="inline">true</span></li>
+              <li><span class="inline">43</span></li>
+              <li><span class="inline">'Red'</span></li>
+              <li><span class="inline">[3, 4]</span></li>
+            </ul>
+          </div>
+        </div>
+        <h3 class="subsec">特殊文字のエスケープ</h3>
+        <table style="width: 100%;">
+          <tr><th>文字</th><th>意味</th></tr>
+          <tr><td><span class="inline">\0</span></td><td>ヌル文字</td></tr>
+          <tr><td><span class="inline">\b</span></td><td>バックスペース</td></tr>
+          <tr><td><span class="inline">\f</span></td><td>改ページ</td></tr>
+          <tr><td><span class="inline">\n</span></td><td>改行</td></tr>
+          <tr><td><span class="inline">\r</span></td><td>復帰</td></tr>
+          <tr><td><span class="inline">\t</span></td><td>タブ</td></tr>
+          <tr><td><span class="inline">\v</span></td><td>垂直タブ</td></tr>
+          <tr><td><span class="inline">\'</span></td><td>アポストロフィ</td></tr>
+          <tr><td><span class="inline">\"</span></td><td>ダブルクォーテーション</td></tr>
+          <tr><td><span class="inline">\\</span></td><td>バックスラッシュ</td></tr>
+          <tr><td><span class="inline">\uXXXX</span></td><td>Unicodeエスケープシーケンス</td></tr>
+        </table>
+        <h2 class="sec">式と演算子</h2>
+        <h3 class="subsec">論理演算</h3>
+        <p>三つ以上でもカッコは要らない。</p>
+        <div>
+          <code class="js">a == 1 && b == 1
+c == 1 || d == 1</code>
+        </div>
+        <h2 class="sec">文と宣言</h2>
+        <h3 class="subsec">コメントアウト</h3>
+        <div>
+          <code class="js">// コメント
+
+/*
+  複数行コメント
+*/</code>
+        </div>
+        <h3 class="subsec">変数定義</h3>
+        <p>
+          <span class="inline">var</span>は基本の変数、<span class="inline">let</span>は宣言した場所のスコープブロック内でのみ定義され、<span class="inline">const</span>は定数で後から中身を変更できない。
+        </p>
+        <p>
+          <span class="inline">var a;</span>といったように初期値なしで定義した場合、中身の値は<span class="inline">undefined</span>になる。
+        </p>
+        <div>
+          <code class="js">var a = 1;
+let b = 1;
+const c = 1;</code>
+        </div>
+        <h4>変数の命名規則</h4>
+        <ul>
+          <li>Unicode文字、<span class="inline">_</span>、<span class="inline">$</span>が使える。</li>
+          <li>大文字と小文字を区別。</li>
+          <li>頭文字に数字は使えない。</li>
+          <li>予約語は使えない。</li>
+        </ul>
+        <h4>分割代入</h4>
+        <div>
+          <code class="js">let [a, b, c] = [1, 2];
+// a=1, b=2, c=undefined.
+
+let vv = new Vec3(3, 4, 5);
+let {x, y, z: z_} = vv;
+// "let [x, y, z_] = [vv.x, vv.y, vv.z];" と同じ</code>
+        </div>
+        <h4>多重代入</h4>
+        <div>
+          <code class="js">let a; let b; let c;
+a = b = c = 10;</code>
+        </div>
+        <h3 class="subsec">条件分岐</h3>
+        <div>
+          <code class="js">if(条件) {
+  <span class="bigline">/* --- 処理 --- */</span>
+} else {
+  <span class="bigline">/* --- 処理 --- */</span>
+}
+
+if(条件) {
+  <span class="bigline">/* --- 処理 --- */</span>
+} else if(条件) {
+  <span class="bigline">/* --- 処理 --- */</span>
+} else {
+  <span class="bigline">/* --- 処理 --- */</span>
+}</code>
+        </div>
+        <h3 class="subsec">switch文</h3>
+        <div>
+          <code class="js">switch(変数) {
+  case 値1: case 値2:
+    <span class="bigline">// 値1か値2のときここが実行される</span>
+  break;
+  case 値3:
+    <span class="bigline">// 値3のときにここが実行される</span>
+  break;
+  case 値4: {
+    <span class="bigline">// カッコを使うことができる</span>
+  } break;
+  default:
+    <span class="bigline">// 値1 ~ 4のいずれでもない時にここが実行される</span>
+}</code>
+        </div>
+        <h3 class="subsec">繰り返し処理</h3>
+        <div>
+          <code class="js">for(let k=0; k&lt;5; k++) {
+  <span class="bigline">/* --- 処理 --- */</span>
+}
+
+// iには'a', 'b', 'c'が順に入る
+for(let i of ['a', 'b', 'c']) {
+  console.log(i);
+}
+
+// iには'a', 'b', 'c'が順に入る
+for(let i in {a: 1, b: 2, c: 3}) {
+  console.log(i);
+}</code>
+        </div>
+        <h4>ループの途中から脱出</h4>
+        <div>
+          <code class="js">for(let i=0; i&lt;3; i++) {
+  for(let j=3; j>0; j--) {
+    if(i == j) break;
+    console.log(i, j);
+  }
+  // 脱出先はここ
+}
+
+/*
+  (i,j) =
+    (0,3), (0,2), (0,1),
+    (1,3), (1,2),
+    (2,3)
+*/</code>
+        </div>
+        <h4>ループを1回スキップ</h4>
+        <div>
+          <code class="js">for(let i=0; i&lt;3; i++) {
+  for(let j=3; j>0; j--) {
+    if(i == j) continue;
+    console.log(i, j);
+  }
+}
+
+/*
+  (i,j) =
+    (0,3), (0,2), (0,1),
+    (1,3), (1,2),
+    (2,3),        (2,1)
+*/</code>
+        </div>
+        <h4>ラベル</h4>
+        <p>ラベルをつけて<span class="inline">break</span>や<span class="inline">continue</span>をどの階層の<span class="inline">for</span>や<span class="inline">while</span>に対するものか指定できる。</p>
+        <div>
+          <code class="js">egLabel: for(let i=0; i&lt;3; i++) {
+  for(let j=3; j>0; j--) {
+    if(i == j) break egLabel;
+    console.log(i, j);
+  }
+}
+// 脱出先はここ
+
+/*
+  (i,j) =
+    (0,3), (0,2), (0,1),
+    (1,3), (1,2)
+*/</code>
+        </div>
+        <h4>応用</h4>
+        <p>for文のカッコの中は毎ループ左から処理され、変数は前回のループの内容を保持する。</p>
+        <div>
+          <code class="js">// # 例1 フィボナッチ数列
+for(let i=j=1, c=n=0; n&lt;0; c=j, j+=i, i=c, n++){
+  console.log(i)
+}
+
+// # 例2 RegExp.exec()の処理 (2つ目のセミコロンは必須)
+for(let i;(i=reg.exec(str))<b style="color: red;">;</b>) {
+  console.log(i);
+}</code>
+        </div>
+        <hr>
+        <p>条件が<span class="inline">false</span>になるまで繰り返す</p>
+        <div>
+          <code class="js">while(条件) {
+  <span class="bigline">/* --- 処理 --- */</span>
+}
+
+do {
+  <span class="bigline">/* --- 処理 --- */</span>
+} while(条件);</code>
+        </div>
+        <p>do文はあとで条件が検証されるので、通常のwhile文と違って必ず1回は実行される。</p>
+        <h3 class="subsec">例外処理</h3>
+        <div>
+          <code class="js">try {
+  <span class="bigline">/* --- 処理 --- */</span>
+} catch(e) {
+  <span class="bigline">/* --- 処理 --- */</span>
+}</code>
+        </div>
+        <h4>エラー</h4>
+        <table style="width: 100%;">
+          <tr><th>エラー</th><th>概要</th></tr>
+          <tr><td><span class="inline">Error</span></td><td>一般的なエラー</td></tr>
+          <tr><td><span class="inline">EvalError</span></td><td>eval関数のエラー</td></tr>
+          <tr><td><span class="inline">InternalError</span></td><td>内部エラー</td></tr>
+          <tr><td><span class="inline">RangeError</span></td><td>範囲エラー</td></tr>
+          <tr><td><span class="inline">ReferenceError</span></td><td>参照エラー</td></tr>
+          <tr><td><span class="inline">SyntaxError</span></td><td>構文エラー</td></tr>
+          <tr><td><span class="inline">TypeError</span></td><td>型エラー</td></tr>
+          <tr><td><span class="inline">URIError</span></td><td>encodeURIまたはdecodeURIのエラー</td></tr>
+        </table>
+        <h2 class="sec">関数</h2>
+        <p>下の「関数式」では「関数の巻き上げ」に対応しておらず、関数の定義より下でないとその関数が使えない。</p>
+        <div>
+          <code class="js">// 関数リテラル
+function f(x) {
+  <span class="bigline">/* --- 処理 --- */</span>
+  return 戻り値;
+};
+
+// 関数式
+var g = function() {
+  <span class="bigline">/* --- 処理 --- */</span>
+  return 戻り値;
+};</code>
+        </div>
+        <h4>アロー関数</h4>
+        <div>
+          <code class="js">// アロー関数
+(x, y) => x + y;
+
+// 従来の関数
+function f(x, y) {
+  return x + y;
+}</code>
+        </div>
+        <h4>任意の数の変数をもつ関数</h4>
+        <div>
+          <code class="js">function sum(...num) {
+  return num.reduce((sum, k) => sum + k);
+}</code>
+        </div>
+        <h2 class="sec">クラス</h2>
+        <div>
+          <code class="js">class Rectangle {
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
+}</code>
+        </div>
+        <h4>new演算子</h4>
+        <div>
+          <code class="js">const square = new Rectangle(3, 4);
+
+console.log(square.width);  // 4</code>
+        </div>
+        <h2 class="sec">値と型</h2>
+        <h3 class="subsec">型を取得</h3>
+        <p>出力される値自体は<span class="inline">string</span>型。</p>
+        <div><code class="js">console.log(typeof 100);   // "number"</code></div>
+        <h3 class="subsec">数値</h3>
+        <p><span class="inline">number</span>型に対して、「<span class="inline">0o</span>～」で8進数、「<span class="inline">0x</span>～」で16進数、「<span class="inline">0b</span>～」で2進数。</p>
+        <p>整数部分がゼロの場合は省略できる。<span class="inline">e</span>または<span class="inline">E</span>で指数表現ができる。</p>
+        <div>
+          <code class="js">3.1415926
+-.123456789
+-3.1E+12
+.1e-23</code>
+        </div>
+        <h4>メソッド</h4>
+        <div style="overflow-x: auto;">
+          <table>
+            <tr><th>名前</th><th>概要</th><th>使い方</th><th>例</th></tr>
+            <tr>
+              <td>toString</td>
+              <td>基数表現の文字列へ変換</td>
+              <td><span class="inline">(数).toString(基数)</span></td>
+              <td><span class="inline">(3).toString(2) // -> "11"</span></td>
+            </tr>
+            <tr>
+              <td>toExponential</td>
+              <td>指数表現の文字列へ変換</td>
+              <td><span class="inline">(数).toExponential(小数部分の桁数)</span></td>
+              <td><span class="inline">(100).toExponential(2) // -> "1.00e+2"</span></td>
+            </tr>
+            <tr>
+              <td>toFixed</td>
+              <td>有効数字を指定した文字列へ変換</td>
+              <td><span class="inline">(数).toFixed(小数部分の桁数)</span></td>
+              <td><span class="inline">(3.1415).toFixed(2) // -> "3.14"</span></td>
+            </tr>
+            <tr>
+              <td>toLocaleString</td>
+              <td>カンマで桁区切りした文字列へ変換</td>
+              <td><span class="inline">(数).toLocaleString()</span></td>
+              <td><span class="inline">(100000).toLocaleString() // -> "100,000"</span></td>
+            </tr>
+            <tr>
+              <td>parseInt</td>
+              <td>文字列を整数に変換</td>
+              <td><span class="inline">Number.parseInt(文字列, 基数?)</span></td>
+              <td><span class="inline">Number.parseInt("123") // -> 123</span></td>
+            </tr>
+            <tr>
+              <td>parseFloat</td>
+              <td>文字列を小数に変換</td>
+              <td><span class="inline">Number.parseFloat(文字列, 基数?)</span></td>
+              <td><span class="inline">Number.parseFloat("1.23") // -> 1.23</span></td>
+            </tr>
+            <tr>
+              <td>isNaN</td>
+              <td>値が<span class="inline">NaN</span>かつ数値であるかどうか</td>
+              <td><span class="inline">Number.isNaN(値)</span></td>
+              <td><span class="inline">Number.isNaN(12) // -> false</span></td>
+            </tr>
+          </table>
+        </div>
+        <h3 class="subsec">文字列</h3>
+        <p>文字列のn文字目は配列のように取得できる。</p>
+        <div><code class="js">console.log('0123456789'[5]) // -> '5'</code></div>
+        <h4>メソッド</h4>
+        <div style="overflow-x: auto;">
+          <table>
+            <tr><th>名前</th><th>概要</th><th>使い方</th><th>例</th></tr>
+            <tr>
+              <td>length</td>
+              <td>文字列の長さ</td>
+              <td><span class="inline">文字列.length</span></td>
+              <td><span class="inline">'abcde'.length // -> 5</span></td>
+            </tr>
+            <tr>
+              <td>split</td>
+              <td>指定した文字列で分割</td>
+              <td><span class="inline">文字列.split(区切り文字)</span></td>
+              <td><span class="inline">'a,bc,d,ef,'.split(',') // -> ['a', 'bc', 'd', 'ef', '']</span></td>
+            </tr>
+            <tr>
+              <td>replace</td>
+              <td>
+                文字列の一部を置換する。
+                置換後の文字列には<span class="inline">$</span>を使って特殊な文字列を指定できる
+                <sup><a onclick="jumpTo('replace_doller')">[☆]</a></sup>。
+              </td>
+              <td><span class="inline">文字列.replace(置換する文字列, 置換後の文字列)</span></td>
+              <td><span class="inline">'abcde'.replace('cd', 'X') // -> 'abXe'</span></td>
+            </tr>
+            <tr>
+              <td>repeat</td>
+              <td>文字列を繰り返す</td>
+              <td><span class="inline">文字列.repeat(回数)</span></td>
+              <td><span class="inline">'無駄'.repeat(2).repeat(3) // -> '無駄無駄無駄無駄無駄無駄'</span></td>
+            </tr>
+            <tr>
+              <td>slice</td>
+              <td>文字列の一部を切り出す。終了indexの文字は含まない。</td>
+              <td><span class="inline">文字列.slice(開始index, 終了index?)</span></td>
+              <td><span class="inline">'012345678'.slice(3, 7) // -> '3456'</span></td>
+            </tr>
+            <tr>
+              <td>substr</td>
+              <td>文字列の一部を切り出す。文字数を指定できる。</td>
+              <td><span class="inline">文字列.substr(開始index, 文字数)</span></td>
+              <td><span class="inline">'012345678'.substr(2, 5) // -> '23456'</span></td>
+            </tr>
+            <tr>
+              <td>includes</td>
+              <td>指定した文字列が元の文字列に含まれるかどうか</td>
+              <td><span class="inline">文字列.includes(探す文字列)</span></td>
+              <td><span class="inline">'abcdef'.includes('cd') // -> true</span></td>
+            </tr>
+            <tr>
+              <td>startsWith</td>
+              <td>元の文字列が指定した文字列で始まっているかどうか</td>
+              <td><span class="inline">文字列.startsWith(文字列)</span></td>
+              <td><span class="inline">'abcdef'.startsWith('abc') // -> true</span></td>
+            </tr>
+            <tr>
+              <td>endsWith</td>
+              <td>元の文字列が指定した文字列で終わっているかどうか</td>
+              <td><span class="inline">文字列.endsWith(文字列)</span></td>
+              <td><span class="inline">'abcdef'.endsWith('abc') // -> false</span></td>
+            </tr>
+            <tr>
+              <td>trim</td>
+              <td>先頭と末尾の空白を取り除く</td>
+              <td><span class="inline">文字列.trim()</span></td>
+              <td><span class="inline">'   abc   '.trim() // -> 'abc'</span></td>
+            </tr>
+            <tr>
+              <td>trimStart</td>
+              <td>先頭の空白だけを取り除く</td>
+              <td><span class="inline">文字列.trimStart()</span></td>
+              <td><span class="inline">'   abc   '.trimStart() // -> 'abc   '</span></td>
+            </tr>
+            <tr>
+              <td>trimEnd</td>
+              <td>末尾の空白だけを取り除く</td>
+              <td><span class="inline">文字列.trimEnd()</span></td>
+              <td><span class="inline">'   abc   '.trimEnd() // -> '   abc'</span></td>
+            </tr>
+            <tr>
+              <td>padStart</td>
+              <td>指定した文字数まで空白で埋める</td>
+              <td><span class="inline">文字列.padStart(長さ, 文字列?)</span></td>
+              <td><span class="inline">'123'.padStart(5, '0') // -> '00123'</span></td>
+            </tr>
+          </table>
+        </div>
+        <h4 id="replace_doller">[☆]</h4>
+        <table style="width: 100%;">
+          <tr><th>記号</th><th>概要</th></tr>
+          <tr><td><span class="inline">$&</span></td><td>マッチした部分文字列</td></tr>
+          <tr><td><span class="inline">$`</span></td><td>マッチした部分の前の文字列</td></tr>
+          <tr><td><span class="inline">$'</span></td><td>マッチした部分の後の文字列</td></tr>
+          <tr><td><span class="inline">$$</span></td><td><span class="inline">$</span>のエスケープ</td></tr>
+          <tr><td><span class="inline">$1</span>, <span class="inline">$2</span>, ...</td><td>正規表現で指定したときに使う</td></tr>
+        </table>
+        <h3 class="subsec">オブジェクト</h3>
+        <div>
+          <code class="js">let food = {type: 'fruits', color: 'red', taste: 'sweet'};
+console.log(food.type);   // -> 'fruits'</code>
+        </div>
+        <p>プロパティを削除するときはdelete演算子を使う。</p>
+        <div>
+          <code class="js">let obj = {a: 1, x: 0, b: 2};
+delete obj.x;
+console.log(obj); // -> {a: 1, b: 2}</code>
+        </div>
+        <h4>メソッド</h4>
+        <div style="overflow-x: auto;">
+          <table>
+            <tr><th>名前</th><th>概要</th><th>使い方</th><th>例</th></tr>
+            <tr>
+              <td>keys</td>
+              <td>キーの一覧を配列にする</td>
+              <td><span class="inline">Object.keys(オブジェクト)</span></td>
+              <td><span class="inline">Object.keys({a: 1, b: 2, c: 3}) // -> ['a', 'b', 'c']</span></td>
+            </tr>
+            <tr>
+              <td>values</td>
+              <td>値の一覧を配列にする</td>
+              <td><span class="inline">Object.values(オブジェクト)</span></td>
+              <td><span class="inline">Object.values({a: 1, b: 2, c: 3}) // -> [1, 2, 3]</span></td>
+            </tr>
+            <tr>
+              <td>entries</td>
+              <td>キーと値の組を配列にする</td>
+              <td><span class="inline">Object.entries(オブジェクト)</span></td>
+              <td><span class="inline">Object.entries({a: 1, b: 2, c: 3}) // -> [['a', 1], ['b', 2], ['c', 3]]</span></td>
+            </tr>
+            <tr>
+              <td>freeze</td>
+              <td>変更を禁止する</td>
+              <td><span class="inline">Object.freeze(オブジェクト)</span></td>
+              <td>
+                <div>
+                  <code class="js">let obj = {a: 1, b: 2};
+Object.freeze(obj);
+obj.c = 3; // エラーにはならない
+console.log(obj); // -> {a: 1, b: 2}</code>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>assign</td>
+              <td>複数のオブジェクトを結合する</td>
+              <td><span class="inline">Object.assign(コピー先, 結合元1, 結合元2, ...)</span></td>
+              <td><span class="inline">Object.assign({a: 1, b: 2}, {c: 3}) // -> {a: 1, b: 2, c: 3}</span></td>
+            </tr>
+          </table>
+        </div>
+        <h3 class="subsec">配列</h3>
+        <div>
+          <code class="js">let a = ['apple', 'banana', 'lemmon'];
+let b = ['dog', , 'cat'];
+console.log(a[0]); // -> 'apple'
+console.log(b[1]); // -> undefined</code>
+        </div>
+        <p>スプレッド演算子を使って要素をばらして代入ができる。</p>
+        <div>
+          <code class="js">let a = [4, 5];
+let b = [1, 2, 3, ...a];
+console.log(a); // -> [1, 2, 3, 4, 5]
+
+// 総和を計算するsumが定義されているとする
+sum(1, 2, 3, 4, 5) // -> 15
+sum(...b) // -> 15</code>
+        </div>
+        <h4>簡単なメソッド</h4>
+        <div style="overflow-x: auto;">
+          <table>
+            <tr><th>名前</th><th>概要</th><th>使い方</th><th>例</th></tr>
+            <tr>
+              <td>isArray</td>
+              <td>配列かどうかを判定する</td>
+              <td><span class="inline">Array.isArray(配列)</span></td>
+              <td><span class="inline">Array.isArray({0: 'a', 1: 'b'}) // -> false</span></td>
+            </tr>
+            <tr>
+              <td>push</td>
+              <td>末尾に要素を追加する</td>
+              <td><span class="inline">配列.push(値1, 値2, ...)</span></td>
+              <td>
+                <div>
+                  <code class="js">let a = [1, 2];
+a.push(3); // -> 3 == a.length
+console.log(a); // -> [1, 2, 3]</code>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>unshift</td>
+              <td>先頭に要素を追加する</td>
+              <td><span class="inline">配列.unshift(値1, 値2, ...)</span></td>
+              <td>
+                <div>
+                  <code class="js">let a = [2, 3];
+a.unshift(1); // -> 3 == a.length
+console.log(a); // -> [1, 2, 3]</code>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>pop</td>
+              <td>末尾の要素を削除する</td>
+              <td><span class="inline">配列.pop()</span></td>
+              <td>
+                <div>
+                  <code class="js">let a = [1, 2, 3];
+a.pop(); // -> 3
+console.log(a); // -> [1, 2]
+
+a.length = 1; // lengthは書き換えられる
+console.log(a); // -> [1]</code>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>shift</td>
+              <td>先頭の要素を削除する</td>
+              <td><span class="inline">配列.shift()</span></td>
+              <td>
+                <div>
+                  <code class="js">let a = [1, 2, 3];
+a.shift(); // -> 1
+console.log(a); // -> [2, 3]</code>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>splice</td>
+              <td>一部を削除・置き換える</td>
+              <td><span class="inline">配列.splice(開始index, 要素数, 置き換え1, ...)</span></td>
+              <td>
+                <div>
+                  <code class="js">let a = [0, 1, 2, 0, 5];
+a.splice(0, 1); // -> [0]
+console.log(a); // -> [1, 2, 0, 5]
+a.splice(2, 1, ...[3, 4]); // -> [0]
+console.log(a); // -> [1, 2, 3, 4, 5]</code>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>concat</td>
+              <td>複数の配列を結合する</td>
+              <td><span class="inline">配列.concat(配列, 配列, ...)</span></td>
+              <td><span class="inline">[1].concat([2, 3], [4]) // -> [1, 2, 3, 4]</span></td>
+            </tr>
+            <tr>
+              <td>indexOf</td>
+              <td>値を先頭から検索する</td>
+              <td><span class="inline">配列.indexOf(値, 開始index)</span></td>
+              <td><span class="inline">['a', 'b', 'c'].indexOf('c') // -> 2</span></td>
+            </tr>
+            <tr>
+              <td>lastIndexOf</td>
+              <td>値を末尾から検索する(開始indexから左に検索する)</td>
+              <td><span class="inline">配列.lastIndexOf(値, 開始index)</span></td>
+              <td><span class="inline">['a', 'b', 'c'].lastIndexOf('c', 0) // -> -1</span></td>
+            </tr>
+            <tr>
+              <td>slice</td>
+              <td>配列の一部を切り出す(終了indexの要素は含まない)</td>
+              <td><span class="inline">配列.slice(開始index, 終了index)</span></td>
+              <td><span class="inline">[1, 2, 3, 4, 5].slice(1, 3) // -> [2, 3]</span></td>
+            </tr>
+            <tr>
+              <td>join</td>
+              <td>区切り文字を挟んで値を結合し、文字列に変換する</td>
+              <td><span class="inline">配列.join(区切り文字)</span></td>
+              <td><span class="inline">['a', 'b', 'c'].join(', ') // -> 'a, b, c'</span></td>
+            </tr>
+            <tr>
+              <td>reverse</td>
+              <td>値を逆順にする</td>
+              <td><span class="inline">配列.reverse()</span></td>
+              <td><span class="inline">[1, 2, 3].reverse() // -> [3, 2, 1]</span></td>
+            </tr>
+          </table>
+        </div>
+        <h4>コールバックを使うメソッド</h4>
+        <div style="overflow-x: auto;">
+          <table>
+            <tr><th>名前</th><th>概要</th><th>使い方</th><th>例</th></tr>
+            <tr>
+              <td>forEach</td>
+              <td>各要素ごとに処理をする</td>
+              <td><span class="inline">配列.forEach((値, index, 元の配列) => callback)</span></td>
+              <td>
+                <div>
+                  <code class="js">let a = ['a', 'b', 'c'];
+a.forEach(x => console.log(x))
+// -> 'a'
+// -> 'b'
+// -> 'c'</code>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>findIndex</td>
+              <td>条件を満たす要素を検索し、indexを返す。</td>
+              <td><span class="inline">配列.findIndex((値, index, 元の配列) => callback)</span></td>
+              <td><span class="inline">['a', 'b', 'c'].findIndex(x => x == 'c') // -> 2</span></td>
+            </tr>
+            <tr>
+              <td>find</td>
+              <td>条件を満たす要素を検索し、見つけた要素を返す</td>
+              <td><span class="inline">配列.find((値, index, 元の配列) => callback)</span></td>
+              <td><span class="inline">['apple', 'banana', 'cherry'].find(x => x.includes('na')) // -> 'banana'</span></td>
+            </tr>
+            <tr>
+              <td>some</td>
+              <td>少なくとも1つの要素が条件を満たすかどうか</td>
+              <td><span class="inline">配列.some((値, index, 元の配列) => callback)</span></td>
+              <td><span class="inline">[1, 2, 3].some(x => x%2 == 0) // -> true</span></td>
+            </tr>
+            <tr>
+              <td>every</td>
+              <td>すべての要素が条件を満たすかどうか</td>
+              <td><span class="inline">配列.every((値, index, 元の配列) => callback)</span></td>
+              <td><span class="inline">[1, 2, 3].every(x => x%2 == 0) // -> false</span></td>
+            </tr>
+            <tr>
+              <td>sort</td>
+              <td>要素を並び替える</td>
+              <td><span class="inline">配列.sort((要素1, 要素2) => callback)</span></td>
+              <td><span class="inline">['bad', 'act', 'bed'].sort((x,y) => (x>y)?1:-1) // -> ['act', 'bad', 'bed']</span></td>
+            </tr>
+            <tr>
+              <td>map</td>
+              <td>すべての要素に処理をして要素を書き換える</td>
+              <td><span class="inline">配列.map((値, index, 元の配列) => callback)</span></td>
+              <td><span class="inline">[1, 2, 3].map(x => x**2) // -> [1, 4, 9]</span></td>
+            </tr>
+            <tr>
+              <td>filter</td>
+              <td>条件を満たさない要素を削除する</td>
+              <td><span class="inline">配列.filter((値, index, 元の配列) => callback)</span></td>
+              <td><span class="inline">[1, 2, 3].filter(x => x%2==0) // -> [2]</span></td>
+            </tr>
+            <tr>
+              <td>reduce</td>
+              <td>累積計算をする</td>
+              <td><span class="inline">配列.reduce((途中までの値, 値, index, 元の配列) => callback)</span></td>
+              <td><span class="inline">[1, 2, 3].reduce((sum, k) => sum + k) // -> 6</span></td>
+            </tr>
+          </table>
+        </div>
+        <h2 class="sec">正規表現</h2>
+        <h3 class="subsec">フラグ</h3>
+        <table style="width: 100%;">
+          <tr><th>フラグ</th><th>概要</th><th>プロパティ</th></tr>
+          <tr><td><span class="inline">d</span></td><td>部分文字列の一致のインデックスを生成します。</td><td><span class="inline">hasIndices</span></td></tr>
+          <tr><td><span class="inline">g</span></td><td>グローバル検索です。</td><td><span class="inline">global</span></td></tr>
+          <tr><td><span class="inline">i</span></td><td>大文字小文字を区別しない検索です。</td><td><span class="inline">ignoreCase</span></td></tr>
+          <tr><td><span class="inline">m</span></td><td>改行文字を<span class="inline">^</span>および<span class="inline">$</span>と一致させます。</td><td><span class="inline">multiline</span></td></tr>
+          <tr><td><span class="inline">s</span></td><td><span class="inline">.</span>を改行文字と一致させます。</td><td><span class="inline">dotAll</span></td></tr>
+          <tr><td><span class="inline">u</span></td><td>"Unicode"です。 パターンをUnicodeコードポイントの並びとして扱います。</td><td><span class="inline">unicode</span></td></tr>
+          <tr><td><span class="inline">v</span></td><td><span class="inline">u</span>モードをアップグレードし、もっと多くのUnicode機能を使用可能にします。</td><td><span class="inline">unicodeSets</span></td></tr>
+          <tr><td><span class="inline">y</span></td><td>対象とする文字列の現在位置から始めて一致する「粘着」(sticky)検索を行います。</td><td><span class="inline">sticky</span></td></tr>
+        </table>
+        <h3 class="subsec">記号</h3>
+        <h4>アサーション</h4>
+        <table style="width: 100%;">
+          <tr><th>記号</th><th>名前</th><th>概要</th></tr>
+          <tr>
+            <td><span class="inline">^</span>, <span class="inline">$</span></td>
+            <td>入力境界アサーション</td>
+            <td>現在の位置が入力の開始または終了であること、または<span class="inline">m</span>フラグが設定されている場合は、行の開始または終了であることを表します。</td>
+          </tr>
+          <tr>
+            <td><span class="inline">(?=...)</span>, <span class="inline">(?!...)</span></td>
+            <td>先読みアサーション</td>
+            <td>現在の位置が特定のパターンの後に来ること、または来ないことを表します。</td>
+          </tr>
+          <tr>
+            <td><span class="inline">(?&lt;=...)</span>, <span class="inline">(?&lt;!...)</span></td>
+            <td>後読みアサーション</td>
+            <td>現在の位置が特定のパターンの前に来ること、または来ないことを表します。</td>
+          </tr>
+          <tr>
+            <td><span class="inline">\b</span>, <span class="inline">\B</span></td>
+            <td>単語境界アサーション</td>
+            <td>現在の位置が単語境界であることを表します。</td>
+          </tr>
+        </table>
+        <h4>アトム</h4>
+        <table style="width: 100%;">
+          <tr><th>記号</th><th>名前</th><th>概要</th></tr>
+          <tr>
+            <td><span class="inline">\1</span>, <span class="inline">\2</span></td>
+            <td>後方参照</td>
+            <td>その前でキャプチャグループに一致し、捕捉されたサブパターンに一致します。</td>
+          </tr>
+          <tr>
+            <td><span class="inline">(...)</span></td>
+            <td>キャプチャグループ</td>
+            <td>サブパターンに一致し、一致した情報を記憶します。</td>
+          </tr>
+          <tr>
+            <td><span class="inline">[...]</span>, <span class="inline">[^...]</span></td>
+            <td>文字クラス</td>
+            <td>ある文字集合に含まれる、または含まれない文字と一致します。<span class="inline">v</span>フラグを有効にすると、可変長の文字列にも一致するように使用することができます。</td>
+          </tr>
+          <tr>
+            <td><span class="inline">\d</span>, <span class="inline">\D</span>, <span class="inline">\w</span>, \<span class="inline">\W</span>, <span class="inline">\s</span>, <span class="inline">\S</span></td>
+            <td>文字クラスエスケープ</td>
+            <td>あらかじめ設定された文字集合に含まれる、または含まれない文字と一致します。</td>
+          </tr>
+          <tr>
+            <td><span class="inline">\n</span>, <span class="inline">\u{...}</span></td>
+            <td>文字エスケープ</td>
+            <td>リテラル形式では表現しにくい文字と一致します。</td>
+          </tr>
+          <tr>
+            <td><span class="inline">a</span>, <span class="inline">b</span></td>
+            <td>リテラル文字</td>
+            <td>特定の文字と一致します。</td>
+          </tr>
+          <tr>
+            <td><span class="inline">\k名前</span></td>
+            <td>名前付き後方参照</td>
+            <td>その前で名前付きキャプチャグループに一致し、捕捉されたサブパターンに一致します。</td>
+          </tr>
+          <tr>
+            <td><span class="inline">(?名前...)</span></td>
+            <td>名前付きキャプチャグループ</td>
+            <td>サブパターンに一致し、一致した情報を記憶します。このグループは、パターン内のインデックスではなく、独自の名前で識別することができます。</td>
+          </tr>
+          <tr>
+            <td><span class="inline">(?:...)</span></td>
+            <td>非キャプチャグループ</td>
+            <td>一致した情報を記憶することなく、サブパターンに一致します。</td>
+          </tr>
+          <tr>
+            <td><span class="inline">\p{...}</span>, <span class="inline">\P{...}</span></td>
+            <td>Unicode文字クラスエスケープ</td>
+            <td>Unicodeプロパティを指定します。<span class="inline">v</span>フラグを有効にすると、可変長の文字列にも一致するように使用することができます。</td>
+          </tr>
+          <tr>
+            <td><span class="inline">.</span></td>
+            <td>ワイルドカード</td>
+            <td><span class="inline">s</span>フラグが設定されていない限り、改行以外の文字と一致します。</td>
+          </tr>
+        </table>
+        <h4>その他</h4>
+        <table style="width: 100%;">
+          <tr><th>記号</th><th>名前</th><th>概要</th></tr>
+          <tr>
+            <td><span class="inline">|</span></td>
+            <td>論理和</td>
+            <td><span class="inline">|</span>文字で区切られた選択肢の集合のいずれかと一致します。</td>
+          </tr>
+          <tr>
+            <td><span class="inline">*</span>, <span class="inline">+</span>, <span class="inline">?</span>, <span class="inline">{n}</span>, <span class="inline">{n,}</span>, <span class="inline">{n,m}</span></td>
+            <td>修飾子</td>
+            <td>アトムに一定回数一致します。</td>
+          </tr>
+        </table>
+      </div>
+      <div id="side">
+        <h2 style="margin: 16px;">もくじ</h2>
+        <div class="to_top"><span onclick="jumpTo('top', 0)">ページのトップへ</span></div>
+        <hr style="margin: 0; border-width: 1.5px; ">
+        <div class="contents"></div>
+      </div>
+    </div>
+  </body>
+  <script src="or_main.js"></script>
+</html>

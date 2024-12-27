@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Original Reference - HTML</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="or_main.css">
+    <style type="text/css">
+      div.demo {
+        background-color: #f8f8f8;
+        border: dashed 2.5px #d0d0d0; border-radius: 4px;
+        padding: 16px;
+      }
+      table.col_stripe td:nth-child(2n+1) {
+        background-color: #08f; color: #fff;
+      }
+      table.row_stripe tr:nth-child(2n+1) td {
+        background-color: #08f; color: #fff;
+      }
+      table.sticky_header th {
+        position: sticky; top: 0;
+      }
+      input:invalid {
+        color: red;
+        background-color: #ffd0d0;
+      }
+      input::placeholder {
+        font-style: italic; color: #a0a0a0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <label for="sidebar_switch" class="sidebar_switch no-select"><span>≡</span></label>
+      <input type="checkbox" id="sidebar_switch">
+      <label class="black" for="sidebar_switch"></label>
+      <div id="main">
+        <h1 id="top">HTML</h1>
+        <hr>
+        <h2 class="sec">メインルート・メタデータ</h2>
+        <h3 class="subsec">基本構造</h3>
+        <div>
+          <code class="html">&lt;!DOCTYPE html>
+&lt;html lang="ja">
+  &lt;head>
+    &lt;title>タイトル&lt;/title>
+    &lt;meta charset="UTF-8" />
+    &lt;meta name="viewport" content="width=device-width" />
+    &lt;link rel="stylesheet" href="" />
+    &lt;script src="">&lt;/script>
+    &lt;link rel="shortcut icon" href="img/favicon.ico" />
+    &lt;style type="text/css">&lt;/style>
+  &lt;/head>
+  &lt;body>
+    内容
+  &lt;/body>
+&lt;/html></code>
+        </div>
+        <h3 class="subsec">コメントアウト</h3>
+        <div><code class="html">&lt;!-- 複数行も同様 --></code></div>
+        <h3 class="subsec">エスケープシーケンス</h3>
+        <p><span class="inline">&amp;lt;</span>以外はエスケープしなくても問題ない。</p>
+        <table style="width: 100%;">
+          <tr><th>エスケープシーケンス</th><th>対象の文字</th></tr>
+          <tr>
+            <td><span class="inline">&amp;lt;</span></td>
+            <td><span class="inline">&lt;</span> (less than)</td>
+          </tr>
+          <tr>
+            <td><span class="inline">&amp;gt;</span></td>
+            <td><span class="inline">&gt;</span> (greater than)</td>
+          </tr>
+          <tr>
+            <td><span class="inline">&amp;quot;</span></td>
+            <td><span class="inline">"</span> (quatation)</td>
+          </tr>
+          <tr>
+            <td><span class="inline">&amp;apos;</span></td>
+            <td><span class="inline">'</span> (apostrophe)</td>
+          </tr>
+          <tr>
+            <td><span class="inline">&amp;amp;</span></td>
+            <td><span class="inline">&</span> (ampersand)</td>
+          </tr>
+          <tr>
+            <td><span class="inline">&amp;nbsp;</span></td>
+            <td>半角スペース</td>
+          </tr>
+        </table>
+        <h3 class="subsec">CSS埋め込み/紐づけ</h3>
+        <div>
+          <code class="html">&lt;!-- 埋め込み --&gt;
+&lt;style type="text/css">&lt;/style>
+
+&lt;!-- 紐づけ --&gt;
+&lt;link rel="stylesheet" href=""></code>
+        </div>
+        <h3 class="subsec">JavaScript埋め込み/紐づけ</h3>
+        <div>
+          <code class="html">&lt;!-- 埋め込み --&gt;
+&lt;script type="text/javascript">&lt;/script>
+
+&lt;!-- 紐づけ --&gt;
+&lt;script src="">&lt;/script></code>
+        </div>
+        <h3 class="subsec">メタデータ</h3>
+        <p>作成者と説明の追加</p>
+        <div>
+          <code class="html">&lt;meta name="author" content="Rinca Hayamine" />
+&lt;meta name="description" content="このページではHTMLのコードのあれこれについて説明しています。" /></code>
+        </div>
+        <h3 class="subsec">OGP</h3>
+        <p>Open Graph Protocol。サイト共有に使われる画像やタイトルなどの設定。</p>
+        <p>利用するために、headタグに以下の属性を追加する：</p>
+        <div><code class="html">&lt;head prefix="og:http://ogp.me/ns#"></code></div>
+        <div>
+          <code class="html">&lt;meta property="og:url" content="ページのURL(絶対パス)" />
+&lt;meta property="og:type" content="ページの種類" />
+&lt;meta property="og:title" content="ページのタイトル" />
+&lt;meta property="og:description" content="ページの説明文" />
+&lt;meta property="og:site_name" content="サイト名" />
+&lt;meta property="og:image" content="サムネイル画像のURL" />
+&lt;meta name="twitter:card" content="Twitterカードの種類" />
+&lt;meta name="twitter:site" content="@Twitterユーザー名" /></code>
+        </div>
+        <h4>ページの種類</h4>
+        <table style="width: 100%;">
+          <tr><th>タイプ</th><th>概要</th></tr>
+          <tr><td><span class="inline">website</span></td><td>WebサイトのTOPページ</td></tr>
+          <tr><td><span class="inline">blog</span></td><td>ブログのトップページ</td></tr>
+          <tr><td><span class="inline">article</span></td><td>ブログのトップページ</td></tr>
+          <tr><td><span class="inline">product</span></td><td>製品の紹介ページ</td></tr>
+        </table>
+        <h4>Twitterカードの種類</h4>
+        <p><span class="inline">"summary"</span>、<span class="inline">"summary_large_image"</span>、<span class="inline">"app"</span>、<span class="inline">"player"</span></p>
+        <h4>詳細</h4>
+        <p><a href="https://ogp.me/">Open Graph protocol</a></p>
+        <h2 class="sec">コンテンツ区分</h2>
+        <h3 class="subsec">見出し要素</h3>
+        <div>
+          <code class="html">&lt;h1>見出し1(最大)&lt;/h1>
+&lt;h2>見出し2&lt;/h2>
+&lt;h3>見出し3&lt;/h3>
+&lt;h4>見出し4&lt;/h4>
+&lt;h5>見出し5&lt;/h5>
+&lt;h6>見出し6&lt;/h6></code>
+        </div>
+        <div class="demo">
+          <h1>見出し1(最大)</h1>
+          <h2>見出し2</h2>
+          <h3>見出し3</h3>
+          <h4>見出し4</h4>
+          <h5>見出し5</h5>
+          <h6>見出し6</h6>
+        </div>
+        <table style="width: 100%;">
+          <tr><th>要素</th><th>デフォルトの文字の大きさ</th></tr>
+          <tr><td>h1</td><td>32px</td></tr>
+          <tr><td>h2</td><td>24px</td></tr>
+          <tr><td>h3</td><td>18.72px</td></tr>
+          <tr><td>h4</td><td>16px</td></tr>
+          <tr><td>h5</td><td>13.28px</td></tr>
+          <tr><td>h6</td><td>10.72px</td></tr>
+        </table>
+        <h3 class="subsec">あまり使わない要素</h3>
+        <p>機能や視覚的な意味などを持たないが、これらの要素で囲まれたページの内容が何を意味するのか明確にするために利用する。</p>
+        <table style="width: 100%;">
+          <tr><th>要素</th><th>説明</th></tr>
+          <tr>
+            <td>adress</td>
+            <td>個人、団体、組織の連絡先を提供していることを示す。</td>
+          </tr>
+          <tr>
+            <td>article</td>
+            <td>「記事」の内容であることを示す。</td>
+          </tr>
+          <tr>
+            <td>aside</td>
+            <td>サイドバーなど、メインの内容とは直接関係しない内容。</td>
+          </tr>
+          <tr>
+            <td>footer</td>
+            <td>ページの「フッタ」であることを示す。</td>
+          </tr>
+          <tr>
+            <td>header</td>
+            <td>ページの「ヘッダ」であることを示す。</td>
+          </tr>
+          <tr>
+            <td>hgroup</td>
+            <td>h1などの見出しよりもさらに小さな、副次的な見出し。</td>
+          </tr>
+          <tr>
+            <td>main</td>
+            <td>ページの主要な内容。</td>
+          </tr>
+          <tr>
+            <td>nav</td>
+            <td>もくじやメニューなど、ナビゲーションのための領域であることを示す。</td>
+          </tr>
+          <tr>
+            <td>section</td>
+            <td>ページの内容のセクションであることを示す。この中には見出しを含むことが推奨されている。</td>
+          </tr>
+        </table>
+        <h2 class="sec">テキストコンテンツ</h2>
+        <h3 class="subsec">コンテンツ区分要素</h3>
+        <p>CSS装飾の要。</p>
+        <div><code class="html">&lt;div>&lt;/div></code></div>
+        <h3 class="subsec">箇条書き</h3>
+        <p>順序なしリスト要素、順序付きリスト要素、説明リスト要素。</p>
+        <div>
+          <code class="html">&lt;ul>
+  &lt;li>本x1&lt;/li>
+  &lt;li>ダイヤモンドx2&lt;/li>
+  &lt;li>黒曜石x4&lt;/li>
+&lt;/ul>
+&lt;ol>
+  &lt;li>お金を入れる&lt;/li>
+  &lt;li>ボタンを押す&lt;/li>
+  &lt;li>商品を下から取り出す&lt;/li>
+&lt;/ol>
+&lt;dl>
+  &lt;dt>爬虫類&lt;/dt>
+  &lt;dd>ヘビ&lt;dd>
+  &lt;dd>ワニ&lt;dd>
+  &lt;dd>トカゲ&lt;dd>
+&lt;/dl>
+</code>
+        </div>
+        <div class="demo">
+          <ul>
+            <li>本x1</li>
+            <li>ダイヤモンドx2</li>
+            <li>黒曜石x4</li>
+          </ul>
+          <ol>
+            <li>お金を入れる</li>
+            <li>ボタンを押す</li>
+            <li>商品を下から取り出す</li>
+          </ol>
+          <dl>
+            <dt>爬虫類</dt>
+            <dd>ヘビ<dd>
+            <dd>ワニ<dd>
+            <dd>トカゲ<dd>
+          </dl>
+        </div>
+        <h4>[CSS] list-style-type (ul, ol)</h4>
+        <div class="section">
+          <p>
+            <span class="inline">circle</span>、<span class="inline">disc</span>、<span class="inline">square</span>を指定してリストの行頭記号の形状を指定する。
+          </p>
+        </div>
+        <h4>その他</h4>
+        <div class="section">
+          <p>
+            CSSの<span class="inline">line-height</span>で行間を指定できる。
+          </p>
+        </div>
+        <h3 class="subsec">主題区切り(水平線)要素</h3>
+        <div><code class="html">&lt;hr></code></div>
+        <div class="demo"><hr></div>
+        <h4>Tips</h4>
+        <div class="section">
+          <p>
+            CSSで<span class="inline">background-color</span>、<span class="inline">border</span>を指定して太さや色を変える。
+          </p>
+        </div>
+        <h3 class="subsec">段落要素</h3>
+        <p>性質自体はdivと同じ。パラグラフを囲う専用のボックスとしてdivと区別するために使う。</p>
+        <div><code class="html">&lt;p>&lt;/p></code></div>
+        <h3 class="subsec">整形済みテキスト要素</h3>
+        <p>preformatted text。基本的にはdivと同じだが、この中では半角スペースと改行がそのまま反映される。</p>
+        <div><code class="html">&lt;pre>&lt;/pre></code></div>
+        <h3 class="subsec">あまり使わない要素</h3>
+        <table style="width: 100%;">
+          <tr><th>要素</th><th>説明</th></tr>
+          <tr>
+            <td>blockquote</td>
+            <td>引用文であることを示す。デフォルトでインデントされる。</td>
+          </tr>
+          <tr>
+            <td>figure/figcaption</td>
+            <td>図とキャプション。</td>
+          </tr>
+          <tr>
+            <td>menu</td>
+            <td>表示や用法はul要素と同じ。</td>
+          </tr>
+        </table>
+        <h2 class="sec">インラインテキスト意味づけ</h2>
+        <h3 class="subsec">アンカー要素</h3>
+        <p><span class="inline">#</span>から始まるリンクでページ内リンク。指定したIDのところへ飛ぶ。</p>
+        <div><code class="html">&lt;a href="#">リンク&lt;/a></code></div>
+        <h4>target属性</h4>
+        <div class="section">
+          <p><span class="inline">"_blank"</span>にすると、リンクを新しいタブで開くことができる。</p>
+        </div>
+        <h4>title属性</h4>
+        <div class="section">
+          <p>マウスホバーしたときに出るツールチップの内容を設定できる。</p>
+        </div>
+        <h4>download属性</h4>
+        <div class="section">
+          <p>ダウンロードファイルを指定して、そのファイルをダウンロードするようにする。</p>
+        </div>
+        <h3 class="subsec">文字の装飾</h3>
+        <div>
+          <code class="html">&lt;b>太字&lt;/b>
+&lt;i>斜体&lt;/i>
+&lt;s>取り消し線&lt;/s>
+&lt;strong>強調&lt;/strong>
+&lt;u>下線&lt;/u></code>
+        </div>
+        <div class="demo">
+          <b>太字</b><br>
+          <i>斜体</i><br>
+          <s>取り消し線</s><br>
+          <strong>強調</strong><br>
+          <u>下線</u>
+        </div>
+        <h3 class="subsec">改行要素</h3>
+        <div><code class="html">&lt;br></code></div>
+        <h3 class="subsec">インラインコード要素</h3>
+        <p>性質自体は<span class="inline">span</span>と同じ。コードを囲う専用のボックスとしてdivと区別するために使う。</p>
+        <div><code class="html">&lt;code>&lt;/code></code></div>
+        <h3 class="subsec">ルビ注釈要素</h3>
+        <div>
+          <code class="html">&lt;ruby>
+  &lt;rb>薔薇&lt;/rb>
+  &lt;rp>(&lt;/rp>
+  &lt;rt>ばら&lt;rt>
+  &lt;rp>)&lt;/rp>
+&lt;/ruby></code>
+        </div>
+        <div class="demo">
+          <ruby>
+            <rb>薔薇</rb>
+            <rp>(</rp>
+            <rt>ばら</rt>
+            <rp>)</rp>
+          </ruby>
+        </div>
+        <h3 class="subsec">コンテンツ区間要素</h3>
+        <p>CSS装飾用。</p>
+        <div><code class="html">&lt;span>&lt;/span></code></div>
+        <h3 class="subsec">上付き・下付き文字</h3>
+        <div>
+          <code class="html">x&lt;sup>n&lt;/sup>
+a&lt;sub>n&lt;/sub></code>
+        </div>
+        <div class="demo">
+          x<sup>n</sup><br>
+          a<sub>n</sub>
+        </div>
+        <h3 class="subsec">あまり使わない要素</h3>
+        <table style="width: 100%;">
+          <tr><th>要素</th><th>説明</th></tr>
+          <tr>
+            <td>abbr</td>
+            <td>略語であることを示す。</td>
+          </tr>
+          <tr>
+            <td>dfn</td>
+            <td>文脈中での定義であることを示す。</td>
+          </tr>
+          <tr>
+            <td>em</td>
+            <td>強調されていることを示す。</td>
+          </tr>
+          <tr>
+            <td>kbd</td>
+            <td>キーボードなどの入力端末からの入力であることを示す。</td>
+          </tr>
+          <tr>
+            <td>mark</td>
+            <td>目立たせたり強調するためのもの。</td>
+          </tr>
+          <tr>
+            <td>q</td>
+            <td>インラインの引用であることを示す。</td>
+          </tr>
+          <tr>
+            <td>samp</td>
+            <td>プロンプトなどの出力やログであることを示す。</td>
+          </tr>
+          <tr>
+            <td>small</td>
+            <td>著作権表示や法的表記のような注釈的なテキストで、小さく表示されるもの。</td>
+          </tr>
+          <tr>
+            <td>time</td>
+            <td>時間や期間を表していることを示す。</td>
+          </tr>
+          <tr>
+            <td>var</td>
+            <td>数式やプログラムの変数であることを示す。</td>
+          </tr>
+        </table>
+        <h2 class="sec">画像とマルチメディア</h2>
+        <h3 class="subsec">画像埋め込み要素・動画埋め込み要素</h3>
+        <div>
+          <code class="html">&lt;img src="">
+&lt;video src="" controls>&lt;/video></code>
+        </div>
+        <h4>alt属性 (img)</h4>
+        <div class="section">
+          <p>画像を説明する代替文字列を設定する。</p>
+        </div>
+        <h4>autoplay属性 (video)</h4>
+        <div class="section">
+          <p>データの読み込みが完了し、再生可能な状態になった時点で即座にコンテンツの再生が始まる。</p>
+        </div>
+        <h4>loop属性 (video)</h4>
+        <div class="section">
+          <p>動画の末尾に達すると、自動的に先頭に戻る。</p>
+        </div>
+        <h4>muted属性 (video)</h4>
+        <div class="section">
+          <p>初期状態が消音になる。</p>
+        </div>
+        <h4>poster属性 (video)</h4>
+        <div class="section">
+          <p>動画のダウンロード中に表示される画像のURL。</p>
+        </div>
+        <h3 class="subsec">埋め込み音声要素</h3>
+        <p></p>
+        <div><code class="html">&lt;audio src="" controls>&lt;/audio></code></div>
+        <h3 class="subsec">画像内のリンク</h3>
+        <p>map要素とarea要素を利用してSVG画像のような画像を描画する。さらに多角形など、画像の内容に忠実な形状のリンク領域を作ることができる。</p>
+        <p><a href="https://developer.mozilla.org/ja/docs/Web/HTML/Element/area">area要素</a></p>
+        <h2 class="sec">埋め込みコンテンツ</h2>
+        <h3 class="subsec">インラインフレーム要素</h3>
+        <p><span class="inline">src</span>属性にhtmlファイルを指定すれば、このボックスの中にそのHTMLを表示できる。</p>
+        <div><code class="html">&lt;iframe>&lt;/iframe></code></div>
+        <h2 class="sec">表コンテンツ</h2>
+        <h3 class="subsec">表要素</h3>
+        <div>
+          <code class="html">&lt;table border="1">
+  &lt;tr>
+    &lt;th>列1&lt;/th>
+    &lt;th>列2&lt;/th>
+    &lt;th>列3&lt;/th>
+  &lt;/tr>
+  &lt;tr>
+    &lt;td colspan="2">横2マス&lt;/td>
+    &lt;td rowspan="2">縦&lt;br>2マス&lt;/td>
+  &lt;/tr>
+  &lt;tr>
+    &lt;td colspan="2" rowspan="2">2x2&lt;br>マス&lt;/td>
+  &lt;/tr>
+  &lt;tr>
+    &lt;td>1マス&lt;/td>
+  &lt;/tr>
+&lt;/table></code>
+        </div>
+        <div class="demo">
+          <table border="1">
+            <tr>
+              <th>列1</th>
+              <th>列2</th>
+              <th>列3</th>
+            </tr>
+            <tr>
+              <td colspan="2">横2マス</td>
+              <td rowspan="2">縦<br>2マス</td>
+            </tr>
+            <tr>
+              <td colspan="2" rowspan="2">2x2<br>マス</td>
+            </tr>
+            <tr>
+              <td>1マス</td>
+            </tr>
+          </table>
+        </div>
+        <h4>行/列ごとの色付け</h4>
+        <div class="section">
+          <p>列ごとのスタイル用にcolgroupは使えない。素直に<span class="inline">:nth-child</span>を使う。</p>
+        </div>
+        <div>
+          <code class="css">table.col_stripe td:nth-child(2n+1) {
+  background-color: #08f; color: #fff;
+}
+table.row_stripe tr:nth-child(2n+1) td {
+  background-color: #08f; color: #fff;
+}</code>
+        </div>
+        <div class="demo">
+          <table class="col_stripe" style="display: inline-block; margin: 0 24px;">
+            <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+            <tr><th>1</th><td>A1</td><td>B1</td><td>C1</td><td>D1</td><td>E1</td></tr>
+            <tr><th>2</th><td>A2</td><td>B2</td><td>C2</td><td>D2</td><td>E2</td></tr>
+            <tr><th>3</th><td>A3</td><td>B3</td><td>C3</td><td>D3</td><td>E3</td></tr>
+            <tr><th>4</th><td>A4</td><td>B4</td><td>C4</td><td>D4</td><td>E4</td></tr>
+          </table>
+          <table class="row_stripe" style="display: inline-block; margin: 0 24px;">
+            <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+            <tr><th>1</th><td>A1</td><td>B1</td><td>C1</td><td>D1</td><td>E1</td></tr>
+            <tr><th>2</th><td>A2</td><td>B2</td><td>C2</td><td>D2</td><td>E2</td></tr>
+            <tr><th>3</th><td>A3</td><td>B3</td><td>C3</td><td>D3</td><td>E3</td></tr>
+            <tr><th>4</th><td>A4</td><td>B4</td><td>C4</td><td>D4</td><td>E4</td></tr>
+          </table>
+        </div>
+        <h4>見出し固定</h4>
+        <div>
+          <code class="css">table.sticky_header th {
+  position: sticky; top: 0;
+}</code>
+        </div>
+        <div class="demo">
+          <div style="height: 200px; overflow: auto;">
+            <table class="sticky_header" style="margin: 0;">
+              <tr><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+              <tr><td>A1</td><td>B1</td><td>C1</td><td>D1</td><td>E1</td></tr>
+              <tr><td>A2</td><td>B2</td><td>C2</td><td>D2</td><td>E2</td></tr>
+              <tr><td>A3</td><td>B3</td><td>C3</td><td>D3</td><td>E3</td></tr>
+              <tr><td>A4</td><td>B4</td><td>C4</td><td>D4</td><td>E4</td></tr>
+              <tr><td>A5</td><td>B5</td><td>C5</td><td>D5</td><td>E5</td></tr>
+              <tr><td>A6</td><td>B6</td><td>C6</td><td>D6</td><td>E6</td></tr>
+              <tr><td>A7</td><td>B7</td><td>C7</td><td>D7</td><td>E7</td></tr>
+              <tr><td>A8</td><td>B8</td><td>C8</td><td>D8</td><td>E8</td></tr>
+              <tr><td>A9</td><td>B9</td><td>C9</td><td>D9</td><td>E9</td></tr>
+              <tr><td>A10</td><td>B10</td><td>C10</td><td>D10</td><td>E10</td></tr>
+            </table>
+          </div>
+        </div>
+        <h4>その他</h4>
+        <div class="section">
+          <p>
+            <a href="https://developer.mozilla.org/ja/docs/Web/HTML/Element/table">th 要素をクリックすることによるソート</a>
+          </p>
+        </div>
+        <h2 class="sec">フォーム</h2>
+        <h3 class="subsec">ボタン要素</h3>
+        <div><code class="html">&lt;button>ボタン&lt;/button></code></div>
+        <div class="demo"><button>ボタン</button></div>
+        <h3 class="subsec">さまざまな入力</h3>
+        <div>
+          <code class="html">&lt;input type="button" value="ボタン">
+&lt;input type="checkbox">&lt;input type="checkbox" checked>
+&lt;input type="color">
+&lt;input type="date">
+&lt;input type="file">
+&lt;input type="password">
+&lt;input type="radio" name="demo" checked>&lt;input type="radio" name="demo">&lt;input type="radio" name="demo">
+&lt;input type="range">
+&lt;input type="text"></code>
+        </div>
+        <div class="demo">
+          <input type="button" value="ボタン"><br>
+          <input type="checkbox"><input type="checkbox" checked><br>
+          <input type="color"><br>
+          <input type="date"><br>
+          <input type="file"><br>
+          <input type="password"><br>
+          <input type="radio" name="demo" checked><input type="radio" name="demo"><input type="radio" name="demo"><br>
+          <input type="range"><br>
+          <input type="text">
+        </div>
+        <h4>disabled属性</h4>
+        <div class="section">
+          <p>無効にすることができる。</p>
+          <div class="demo">
+            <input type="button" value="ボタン" disabled><br>
+            <input type="checkbox" disabled><input type="checkbox" checked disabled><br>
+            <input type="color" disabled><br>
+            <input type="date" disabled><br>
+            <input type="file" disabled><br>
+            <input type="password" disabled><br>
+            <input type="radio" name="demo2" checked disabled><input type="radio" name="demo2" disabled><br>
+            <input type="range" disabled><br>
+            <input type="text" disabled>
+          </div>
+        </div>
+        <h4>pattern属性</h4>
+        <div class="section">
+          <p>入力した値が指定されたパターンに一致するか検証するようにする。見た目はデフォルトで変化しないので、独自でスタイルを設定する必要がある。</p>
+          <div><code class="html">&lt;input type="text" pattern="[a-z][a-z0-9_]*:[a-z][a-z0-9_]"></code></div>
+          <div class="demo">
+            <input type="text" pattern="[a-z][a-z0-9_]*:[a-z][a-z0-9_]*">
+          </div>
+        </div>
+        <h4>placeholder属性</h4>
+        <div class="section">
+          <p>中身がないときに表示するテキスト。</p>
+          <div class="demo">
+            <input type="text" placeholder="ここにテキストを入力">
+          </div>
+          <p>プレイスホルダーに対してCSSを適用する場合は、専用の擬似要素を使う。</p>
+          <div>
+            <code class="css">input::placeholder {
+  font-style: italic; color: #a0a0a0;
+}</code>
+          </div>
+        </div>
+        <h4>読み取り専用</h4>
+        <div class="section">
+          <div class="demo">
+            <input type="date" value="2002-05-18" readonly><br>
+            <input type="password" value="bad_password_12345" readonly><br>
+            <input type="text" value="読み取り専用" readonly>
+          </div>
+        </div>
+        <h4>自動補完</h4>
+        <div class="section">
+          <p>一部のタイプの入力要素に対して、自動補完の選択肢を設定することができる。</p>
+          <div>
+            <code class="html">&lt;input type="text" list="ice-cream-flavors">
+&lt;datalist id="ice-cream-flavors">
+  &lt;option value="チョコレート">&lt;/option>
+  &lt;option value="ココナッツ">&lt;/option>
+  &lt;option value="ミント">&lt;/option>
+  &lt;option value="イチゴ">&lt;/option>
+  &lt;option value="バニラ">&lt;/option>
+&lt;/datalist></code>
+          </div>
+          <div class="demo">
+            <input type="text" list="ice-cream-flavors">
+            <datalist id="ice-cream-flavors">
+              <option value="チョコレート"></option>
+              <option value="ココナッツ"></option>
+              <option value="ミント"></option>
+              <option value="イチゴ"></option>
+              <option value="バニラ"></option>
+            </datalist>
+          </div>
+        </div>
+        <h4>アクセントカラー</h4>
+        <div class="section">
+          <p>CSSで<span class="inline">accent-color</span>を利用すると、アクセントカラーを変更できる。</p>
+          <div class="demo">
+            <input type="checkbox" style="accent-color: #8f0;"><input type="checkbox" style="accent-color: #8f0;" checked><br>
+            <input type="radio" style="accent-color: #8f0;" name="demo3" checked>
+            <input type="radio" style="accent-color: #8f0;" name="demo3">
+            <input type="radio" style="accent-color: #8f0;" name="demo3"><br>
+            <input type="range" style="accent-color: #8f0;">
+          </div>
+          <p>明るい色にすると、もともと白かったところが自動で黒になる。</p>
+        </div>
+        <h3 class="subsec">ラベル要素</h3>
+        <p><span class="inline">for</span>属性で指定したidを持つinput要素を操作できるようにする。以下のように、ラベルのテキストをクリックしてチェックボックスを操作できる。</p>
+        <div>
+          <code class="html">&lt;label for="label_demo">ラベル&lt;/label>
+&lt;input type="checkbox" id="label_demo"></code>
+        </div>
+        <div class="demo">
+          <label for="label_demo">ラベル</label>
+          <input type="checkbox" id="label_demo">
+        </div>
+        <h3 class="subsec">選択要素</h3>
+        <div>
+          <code class="html">&lt;select>
+  &lt;option value="">--選択してください--&lt;/option>
+  &lt;option value="dog">犬&lt;/option>
+  &lt;option value="cat">猫&lt;/option>
+  &lt;option value="hamster">ハムスター&lt;/option>
+  &lt;option value="parrot">オウム&lt;/option>
+  &lt;option value="spider">クモ&lt;/option>
+  &lt;option value="goldfish">金魚&lt;/option>
+&lt;/select></code>
+        </div>
+        <div class="demo">
+          <select>
+            <option value="">--選択してください--</option>
+            <option value="dog">犬</option>
+            <option value="cat">猫</option>
+            <option value="hamster">ハムスター</option>
+            <option value="parrot">オウム</option>
+            <option value="spider">クモ</option>
+            <option value="goldfish">金魚</option>
+          </select>
+        </div>
+        <h3 class="subsec">テキストエリア要素</h3>
+        <div><code class="html">&lt;textarea cols=20 rows=2 style="resize: vertical;">&lt;/textarea></code></div>
+        <div class="demo"><textarea cols="30" rows="2" style="resize: vertical;"></textarea></div>
+        <h4>disabled属性</h4>
+        <div class="section">
+          <p>無効にする。</p>
+        </div>
+        <h4>maxlength、minlength属性</h4>
+        <div class="section">
+          <p>最大文字数、最小文字数。</p>
+        </div>
+        <h4>readonly属性</h4>
+        <div class="section">
+          <p>読み取り専用にする。</p>
+        </div>
+        <h4>spellcheck属性</h4>
+        <div class="section">
+          <p>
+            スペルチェックをするかどうか。<span class="inline">true</span>、<span class="inline">defalt</span>、<span class="inline">false</span>から選ぶ。
+          </p>
+        </div>
+        <h4>placeholder属性</h4>
+        <div class="section">
+          <p>表示用のテキスト。内容が0文字のときのみに表示される。</p>
+        </div>
+        <h4>[CSS] resize</h4>
+        <div class="section">
+          <p><span class="inline">none</span>で大きさの変更を無効にする。</p>
+        </div>
+        <h4>[CSS] :invalid、:valid</h4>
+        <div class="section">
+          <p>中の値が有効かどうかでスタイルを変えることができる。</p>
+        </div>
+        <h3 class="subsec">進捗インジケーター要素</h3>
+        <div>
+          <code class="html">&lt;progress max="100" value="70">70%&lt;/progress>&lt;br>
+&lt;progress max="100" value="30" style="accent-color: #8f0;">30%&lt;/progress></code>
+        </div>
+        <div class="demo">
+          <progress max="100" value="70">70%</progress><br>
+          <progress max="100" value="30" style="accent-color: #8f0;">30%</progress>
+        </div>
+        <h2 class="sec">インタラクティブ要素</h2>
+        <h3 class="subsec">詳細折りたたみ要素</h3>
+        <div>
+          <code class="html">&lt;details>&lt;summary>クリックで展開&lt;/summary>
+  &lt;p>こんにちは！&lt;/p>
+&lt;/detail></code>
+        </div>
+        <div class="demo">
+          <details><summary>クリックで展開</summary>
+            <p>こんにちは！</p>
+          </details>
+        </div>
+        <h4>open属性 (details)</h4>
+        <div class="section">
+          <p>先に開いてる状態にする</p>
+        </div>
+        <h4>[CSS] list-style (summary)</h4>
+        <div class="section">
+          <p>
+            summaryタグにCSSで<span class="inline">list-style</span>の値を<span class="inline">none</span>にすると三角アイコンを消せる。
+          </p>
+        </div>
+        <h2 class="sec">SVGとMathML</h2>
+        <p>お楽しみに！</p>
+        <h2 class="sec">スクリプト</h2>
+        <h3 class="subsec">スクリプト無し要素</h3>
+        <p>閲覧者のブラウザの設定でJavaScriptが無効になっているときにのみ表示される要素。</p>
+        <div><code class="html">&lt;noscript>&lt;/noscript></code></div>
+        <h2 class="sec">DOM</h2>
+        <p>Document Object Model。</p>
+        <h3 class="subsec">主要なクラス</h3>
+        <table style="width: 100%;">
+          <tr><th>データ型</th><th>概要</th></tr>
+          <tr><td><span class="inline">Document</span></td><td></td></tr>
+          <tr><td><span class="inline">Node</span></td><td>コメントタグやテキストノードも含む、文書内のあらゆるオブジェクト。</td></tr>
+          <tr><td><span class="inline">Element</span></td><td><span class="inline">Node</span>を継承する、一般的な要素。</td></tr>
+          <tr><td><span class="inline">NodeList</span></td><td><span class="inline">Node</span>の配列。</td></tr>
+          <tr><td><span class="inline">HTMLElement</span></td><td><span class="inline">Element</span>を継承している、スタイルが設定できる要素。</tr>
+        </table>
+        <h3 class="subsec">要素を取得</h3>
+        <h4>querySelector</h4>
+        <p>指定したCSSセレクタを満たす最初の<span class="inline">Element</span>を取得する。</p>
+        <div>
+          <code class="js">document.querySelector(selector); // ドキュメント内
+
+/** @type {Element} */
+let elem;
+elem.querySelector(selector); // ある要素内</code>
+        </div>
+        <h4>querySelectorAll</h4>
+        <p>指定したCSSセレクタを満たす全ての<span class="inline">Elemenet</span>を取得し、<span class="inline">NodeList</span>として返す。</p>
+        <div>
+          <code class="js">document.querySelectorAll(selector); // ドキュメント内
+
+/** @type {Element} */
+let elem;
+elem.querySelectorAll(selector); // ある要素内</code>
+        </div>
+        <h4>getElementById</h4>
+        <p>指定したIDの<span class="inline">Element</span>を取得する。<span class="inline">querySelector</span>で済むことが多い。</p>
+        <div><code class="js">document.getElementById(id);</code></div>
+        <h3 class="subsec">要素内のHTML</h3>
+        <p>HTMLコードとして要素の内容を設定することができる。</p>
+        <div>
+          <code class="js">/** @type {Element} */
+let elem;
+
+elem.innerHTML = '&lt;p>置き換えられた段落&lt;/p>';</code>
+        </div>
+        <h3 class="subsec">属性の操作</h3>
+        <h4>setAttribute</h4>
+        <p>指定した属性の値を設定する。<span class="inline">value</span>は文字列。</p>
+        <div>
+          <code class="js">/** @type {Element} */
+let elem;
+
+elem.setAttribute(name, value);</code>
+        </div>
+        <h4>getAttribute</h4>
+        <p>指定した属性の値を取得する。返り値は文字列。</p>
+        <div>
+          <code class="js">/** @type {Element} */
+let elem;
+
+elem.getAttribute(attributeName)</code>
+        </div>
+        <h3 class="subsec">スタイルの設定</h3>
+        <p>値は<b>文字列</b>で指定する。</p>
+        <div>
+          <code class="js">/** @type {HTMLElement} */
+let elem;
+
+elem.style.color = '#64ec86';
+elem.style.width = '100%';</code>
+        </div>
+        <h3 class="subsec">要素の新規作成</h3>
+        <p>指定した名前の要素を新規作成する。</p>
+        <div>
+          <code class="js">const newElem = document.createElement(tagName);
+
+// 属性などの設定はあとから
+newElem.id = 'new_id';</code>
+        </div>
+        <h3 class="subsec">要素の追加・削除</h3>
+        <h4>appendChild</h4>
+        <p>ノード内の最後に指定したノードを追加する。</p>
+        <div>
+          <code class="js">/** @type {Node} */
+let node;
+
+node.appendChild(childElem);</code>
+        </div>
+        <h4>removeChild</h4>
+        <p>指定した子ノードを削除する。</p>
+        <div>
+          <code class="js">/** @type {Node} */
+let node;
+
+node.removeChild(childNode);</code>
+        </div>
+        <h3 class="subsec">ページのスクロール</h3>
+        <p>指定した座標へスクロールさせる。</p>
+        <div>
+          <code class="js">window.scrollTo(0, 1000);
+
+window.scrollTo({
+  top: 100,
+  left: 100,
+  behavior: "smooth",
+});</code>
+        </div>
+        <h3 class="subsec">イベントの追加</h3>
+        <div>
+          <code class="js">/** @type {Element} */
+let elem;
+
+elem.addEventListener('click', ev => {
+  console.log('クリックされました');
+});</code>
+        </div>
+        <h2 class="sec">イベント</h2>
+        <h3 class="subsec">要素が発行するイベント</h3>
+        <table style="width: 100%;">
+          <tr><th>イベント名</th><th>概要</th></tr>
+          <tr><td><span class="inline">scroll</span></td><td>スクロールされたとき</td></tr>
+          <tr><td><span class="inline">scrollend</span></td><td>最後までスクロールがされたとき</td></tr>
+          <tr><td><span class="inline">wheel</span></td><td>マウスホイールを動かしたとき</td></tr>
+          <tr><td><span class="inline">copy</span></td><td>コピーしたとき</td></tr>
+          <tr><td><span class="inline">cut</span></td><td>切り取りしたとき</td></tr>
+          <tr><td><span class="inline">paste</span></td><td>貼り付けしたとき</td></tr>
+          <tr><td><span class="inline">blur</span></td><td>フォーカスを失ったとき</td></tr>
+          <tr><td><span class="inline">focus</span></td><td>フォーカスを得たとき</td></tr>
+          <tr><td><span class="inline">keydown</span></td><td>キーが押されたとき</td></tr>
+          <tr><td><span class="inline">keyup</span></td><td>キーが離されたとき</td></tr>
+          <tr><td><span class="inline">auxclick</span></td><td>左クリック以外のクリックをしたとき</td></tr>
+          <tr><td><span class="inline">click</span></td><td>クリックしたとき</td></tr>
+          <tr><td><span class="inline">contextmenu</span></td><td>右クリックメニューを開こうとしたとき</td></tr>
+          <tr><td><span class="inline">dblclick</span></td><td>ダブルクリックしたとき</td></tr>
+          <tr><td><span class="inline">mousedown</span></td><td>マウスのボタンを押したとき</td></tr>
+          <tr><td><span class="inline">mouseenter</span></td><td>マウスカーソルが要素上に移動したとき</td></tr>
+          <tr><td><span class="inline">mouseleave</span></td><td>マウスカーソルが要素上から出たとき</td></tr>
+          <tr><td><span class="inline">mousemove</span></td><td>マウスカーソルが要素内で移動したとき</td></tr>
+          <tr><td><span class="inline">mouseout</span></td><td>マウスカーソルが要素またはその子要素上から出たとき</td></tr>
+          <tr><td><span class="inline">mouseover</span></td><td>マウスカーソルが要素またはその子要素上に移動したとき</td></tr>
+          <tr><td><span class="inline">mouseup</span></td><td>マウスのボタンを離したとき</td></tr>
+          <tr><td><span class="inline">touchend</span></td><td>画面のタッチをやめたとき</td></tr>
+          <tr><td><span class="inline">touchmove</span></td><td>要素上をタッチ面がが移動したとき</td></tr>
+          <tr><td><span class="inline">touchstart</span></td><td>画面のタッチをはじめたとき</td></tr>
+        </table>
+        <h3 class="subsec">Eventクラス</h3>
+        <p>ほぼすべてのイベントクラスは<span class="inline">Event</span>を継承しているため、ほぼすべてのイベントクラスから以下のプロパティやメソッドを参照できる。</p>
+        <table style="width: 100%;">
+          <tr><th>プロパティ・メソッド</th><th>概要</th></tr>
+          <tr><td>cancelable</td><td>読み取り専用。イベントがキャンセル可能かどうか。</td></tr>
+          <tr><td>currentTarget</td><td>読み取り専用。イベント発生元の要素。</td></tr>
+          <tr><td>preventDefault()</td><td>イベントをキャンセルする。</td></tr>
+        </table>
+        <h3 class="subsec">クリップボードイベント</h3>
+        <p>
+          <span class="inline">Document</span>、<span class="inline">Element</span>、<span class="inline">window</span>で発行される。
+          イベント名は<span class="inline">'cut'</span>、<span class="inline">'copy'</span>、<span class="inline">'paste'</span>。
+        </p>
+        <h4>clipboardData</h4>
+        <p>切り取られた、コピーされた、貼り付けられた内容。</p>
+
+        <h2 class="sec">Canvas Scripting API</h2>
+        <p>お楽しみに！</p>
+        <h2 class="sec">WebGL API</h2>
+        <p>お楽しみに！</p>
+      </div>
+      <div id="side">
+        <h2 style="margin: 16px;">もくじ</h2>
+        <div class="to_top"><span onclick="jumpTo('top', 0)">ページのトップへ</span></div>
+        <hr style="margin: 0; border-width: 1.5px; ">
+        <div class="contents"></div>
+      </div>
+    </div>
+    <script src="or_main.js"></script>
+  </body>
+</html>

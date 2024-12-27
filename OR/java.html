@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Original Reference - Java</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="or_main.css">
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="root">
+      <label for="sidebar_switch" class="sidebar_switch no-select"><span>≡</span></label>
+      <input type="checkbox" id="sidebar_switch">
+      <label class="black" for="sidebar_switch"></label>
+      <div id="main">
+        <h1 id="top">Java</h1>
+        <hr>
+        <h2 class="sec">性質</h2>
+        <p>
+          整数/整数は整数、つまり<span class="inline">10/3</span>は<span class="inline">3</span>となってしまうため、<span class="inline">10.0f/3.0f</span>としないといけない。
+        </p>
+        <h3 class="subsec">Hello World</h3>
+        <p>クラス名(<span class="inline">class</span>の右の単語)はファイル名「○○.java」の「○○」と一致しないといけない。</p>
+        <div>
+          <code class="java">public class Main {
+  public static void main(String[] args) {
+    System.out.println("Hello World!");
+  }
+}</code>
+        </div>
+        <h3 class="subsec">ファイルの実行</h3>
+        <p>一度.classファイルにコンパイルしてから、Main(クラス)を実行する。</p>
+        <div>
+          <code>$ javac Main.java
+$ java Main</code>
+        </div>
+        <h2 class="sec">データ型</h2>
+        <table style="width: 100%;">
+          <tr><th>型</th><th>備考</th></tr>
+          <tr><td>byte</td><td>8ビット符号つき整数。<span class="inline">-128</span>から<span class="inline">127</span>まで</td></tr>
+          <tr><td>short</td><td>16ビット符号つき整数。<span class="inline">-32768</span>から<span class="inline">32767</span>まで</td></tr>
+          <tr><td>int</td><td>32ビット符号つき整数。<span class="inline">-2147483648</span>から<span class="inline">2147483647</span>まで</td></tr>
+          <tr><td>long</td><td>64ビット符号つき整数。<span class="inline">-9223372036854775808</span>から<span class="inline">9223372036854775807</span>まで</td></tr>
+          <tr><td>double</td><td>小数型、<span class="inline">3.14</span>など</td></tr>
+          <tr><td>float</td><td>浮動小数型、<span class="inline">3.14F</span>など</td></tr>
+          <tr><td>char</td><td>文字型、<span class="inline">'A'</span>など。シングルクォーテーションを使う。</td></tr>
+          <tr><td>boolean</td><td>真偽値、<span class="inline">true</span>または<span class="inline">false</span></td></tr>
+          <tr><td>String</td><td>文字列型、<span class="inline">"Hello"</span>など。ダブルクォーテーションを使う。「S」は大文字。</td></tr>
+        </table>
+        <h3 class="subsec">整数型リテラル</h3>
+        <ul>
+          <li>普通の整数型は<span class="inline">int</span>型として扱われ、末尾に<span class="inline">l</span>または<span class="inline">L</span>をつけると<span class="inline">long</span>型になる。</li>
+          <li>「<span class="inline">0b</span>～」で2進数、「<span class="inline">0</span>～」で8進数、「<span class="inline">0x</span>～」で16進数を表す。</li>
+          <li>また、表記内の<span class="inline">_</span>は無視される。</li>
+        </ul>
+        <h3 class="subsec">小数型リテラル</h3>
+        <p>
+          普通の小数は<span class="inline">double</span>型として扱われ、末尾に<span class="inline">f</span>または<span class="inline">F</span>をつけると<span class="inline">float</span>型になる。
+          また、表記内の<span class="inline">_</span>は無視される。
+        </p>
+        <h3 class="subsec">配列</h3>
+        <p>通常の配列の長さは事前に指定する必要がある。</p>
+        <div>
+          <code class="java">int[] a = new int[5];
+a[0] = 1;
+
+int[] a = { 1, 2, 3 };</code>
+        </div>
+        <h2 class="sec">具体的な構文</h2>
+        <h3 class="subsec">条件分岐</h3>
+        <div>
+          <code class="java">if(条件) {
+  // 処理
+
+} else {
+  // 処理
+
+}
+
+if(条件) {
+  // 処理
+
+} else if(条件) {
+  // 処理
+
+} else {
+  // 処理
+
+}</code>
+        </div>
+        <h3 class="subsec">switch文</h3>
+        <div>
+          <code class="java">switch(変数) {
+  case 値1:
+  case 値2:
+    // 値1か値2のときここが実行される
+  break;
+
+  case 値3:
+    // 値3のときにここが実行される
+  break;
+    
+  default:
+    // 値1、2、3のいずれでもない時にここが実行される
+  break;
+}</code>
+        </div>
+        <h3 class="subsec">関数(メソッド)</h3>
+        <div>
+          <code>private static double calcArea(double a, double b) {
+  double result = a * b;
+  return result;
+}</code>
+        </div>
+        <p>プログラム全体ではこのようになる</p>
+        <div>
+          <code class="java">public class Main {
+
+  public static void main(String[] args) {
+    System.out.println(factorial(6));
+  }
+
+  private static int factorial(int input) {
+    int k = 1;
+    int result = 1;
+
+    do {
+      result *= k;
+      k++;
+
+    } while(k &lt;= input);
+
+    return result;
+  }
+}</code>
+        </div>
+        <h2 class="sec">繰り返し処理</h2>
+        <div>
+          <code class="java">while(条件) {
+  // 処理
+}
+
+while(i &lt; 3) {
+  System.out.println(i);
+  i++;
+}
+// -> 0 1 2</code>
+        </div>
+        <p>do文は「何か処理を実行して処理の結果を評価し、成功するまで繰り返す」といったようなものを作るときに使う。</p>
+        <div>
+          <code class="java">do {
+  // 処理
+
+} while(条件);</code>
+        </div>
+        <p>また、</p>
+        <div>
+          <code class="java">for(int i=0; i&lt;3; i++) {
+  // 処理
+
+}
+
+int[] indexes = {1, 2, 3};
+for(int i: indexes) {
+  // 処理;
+
+}</code>
+        </div>
+        <h2 class="sec">ユーティリティ</h2>
+        <h3 class="subsec">文字列から数値を読み取る</h3>
+        <div><code class="java">int i = Integer.parseInt("123");</code></div>
+        <h2 class="sec">実例</h2>
+        <h3 class="subsec">ターミナルから整数の入力を受け取る</h3>
+        <div>
+          <code class="java">import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class Main {
+  public static void main(String[] args) {
+    try {
+      Scanner scanner = new Scanner(System.in);
+      System.out.print("Input > ");
+
+      int t = scanner.nextInt();
+
+      System.out.println(t * t);
+      scanner.close();
+      
+    } catch (InputMismatchException e) { 
+      System.out.println("Please input the integer.");
+    }
+  }
+}</code>
+        </div>
+      </div>
+      <div id="side">
+        <h2 style="margin: 16px;">もくじ</h2>
+        <div class="to_top"><span onclick="jumpTo('top', 0)">ページのトップへ</span></div>
+        <hr style="margin: 0; border-width: 1.5px; ">
+        <div class="contents"></div>
+      </div>
+    </div>
+  </body>
+  <script src="or_main.js"></script>
+</html>
