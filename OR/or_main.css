@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'M PLUS Rounded 1c';
-  src: url('../MPLUSRounded1c-Regular.ttf');
+  src: url('./MPLUSRounded1c-Regular.ttf');
 }
 
 @font-face {
   font-family: 'Source Han Code JP R';
-  src: url('../MasecNote3/SourceHanCodeJP-Regular.otf');
+  src: url('./SourceHanCodeJP-Regular.otf');
 }
 
 /* --------------------------- */
