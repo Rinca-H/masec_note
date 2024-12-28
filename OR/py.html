@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Original Reference - Python</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="or_main.css">
+    <style type="text/css"></style>
+  </head>
+  <body>
+    <div id="root">
+      <label for="sidebar_switch" class="sidebar_switch no-select"><span>≡</span></label>
+      <input type="checkbox" id="sidebar_switch">
+      <label class="black" for="sidebar_switch"></label>
+      <div id="main">
+        <h1 id="top">Python</h1>
+        <hr>
+        <h2 class="sec">基本事項</h2>
+        <ul>
+          <li>インデントの数でブロックを示す</li>
+        </ul>
+        <h3 class="subsec">キーワード</h3>
+        <div style="height: 75vh; overflow-y: auto; width: min-content; padding: 0 24px;">
+          <div style="display: inline-block;">
+            <ul>
+              <li><span class="inline">_</span></li>
+              <li><span class="inline">and</span></li>
+              <li><span class="inline">as</span></li>
+              <li><span class="inline">assert</span></li>
+              <li><span class="inline">async</span></li>
+              <li><span class="inline">await</span></li>
+              <li><span class="inline">break</span></li>
+              <li><span class="inline">case</span></li>
+              <li><span class="inline">class</span></li>
+              <li><span class="inline">continue</span></li>
+              <li><span class="inline">def</span></li>
+              <li><span class="inline">del</span></li>
+              <li><span class="inline">elif</span></li>
+              <li><span class="inline">else</span></li>
+              <li><span class="inline">except</span></li>
+              <li><span class="inline">False</span></li>
+              <li><span class="inline">finally</span></li>
+              <li><span class="inline">for</span></li>
+              <li><span class="inline">from</span></li>
+              <li><span class="inline">global</span></li>
+              <li><span class="inline">if</span></li>
+              <li><span class="inline">import</span></li>
+              <li><span class="inline">in</span></li>
+              <li><span class="inline">is</span></li>
+              <li><span class="inline">lambda</span></li>
+              <li><span class="inline">match</span></li>
+              <li><span class="inline">None</span></li>
+              <li><span class="inline">nonlocal</span></li>
+              <li><span class="inline">not</span></li>
+              <li><span class="inline">or</span></li>
+              <li><span class="inline">pass</span></li>
+              <li><span class="inline">raise</span></li>
+              <li><span class="inline">return</span></li>
+              <li><span class="inline">True</span></li>
+              <li><span class="inline">try</span></li>
+              <li><span class="inline">while</span></li>
+              <li><span class="inline">with</span></li>
+              <li><span class="inline">yield</span></li>
+            </ul>
+          </div>
+        </div>
+        <h2 class="sec">構文</h2>
+        <h3 class="subsec">Hello World!</h3>
+        <div>
+          <code class="py">print('Hello, world!')</code>
+        </div>
+        <h3 class="subsec">文・式</h3>
+        <p>
+          改行が文の区切りとなり、セミコロンなどの句読点は必須ではない。
+          しかし、あえて区切るときにセミコロンを使うことができる。
+        </p>
+        <div>
+          <code class="py">a = 5; b = 3; c = a + b
+print(c)</code>
+        </div>
+        <p>文を数行に分けて記述する場合、行末にバックスラッシュ(<span class="inline">\</span>)が必要。</p>
+        <div>
+          <code class="py">total = 123 \
+      + 456 \
+      + 789</code>
+        </div>
+        <p>任意のカッコ内のカンマ(<span class="inline">,</span>)後には必要ない。</p>
+        <div>
+          <code class="py">months = [ 'Jan', 'Feb', 'Mar', 'Apr',
+           'May', 'Jun', 'Jul', 'Aug',
+           'Sep', 'Oct', 'Nov', 'Dec' ]</code>
+        </div>
+        <h3 class="subsec">コメントアウト</h3>
+        <div>
+          <code class="py">print("Hello")   # Helloと表示します</code>
+        </div>
+        <p>改行エスケープには注意。</p>
+        <div>
+          <code class="py">total = 123 \   # ここにコメントは記述できない
+      + 456     # ここには記述できる
+
+months = [ 'Jan', 'Feb', 'Mar', 'Apr',   # ここにはコメントを記述できる
+           'May', 'Jun', 'Jul', 'Aug',   # ここにはコメントを記述できる
+           'Sep', 'Oct', 'Nov', 'Dec' ]</code>
+        </div>
+        <h3 class="subsec">print文</h3>
+        <div>
+          <code class="py">print("ABC")
+
+print("AAA", "BBB")    #=> AAA BBB
+
+print("AAA", end="")   # 改行しない
+print("BBB")           # 改行する</code>
+        </div>
+        <p>ファイルに出力する場合：</p>
+        <div>
+          <code class="py">f = open("test.txt", "w")
+print("Hello world!", file=f)
+f.close()</code>
+        </div>
+        <h2 class="sec">数値・文字列・型</h2>
+        <h3 class="subsec">整数(int)</h3>
+        <div>
+          <code class="py">num = 1234         # 正の整数 (10進数)
+num = 0b11000100   #  2進数 (0b/0Bで始まる数値は 2進数とみなされる)
+num = 0o777        #  8進数 (0o/0Oで始まる数値は 8進数とみなされる)
+num = 0xffff       # 16進数 (0x/0Xで始まる数値は16進数とみなされる)</code>
+        </div>
+        <h3 class="subsec">浮動小数点数(float)</h3>
+        <p>末尾に<span class="inline">e</span>または<span class="inline">E</span>を付けて指数表記することもできる。</p>
+        <div>
+          <code class="py">num = 1.234    # 浮動小数点数
+num = 1.2e3    # 浮動小数点数(指数表記) 1.2 × 10^3
+num = 1.2E-3   # 浮動小数点数(指数表記) 1.2 × 10^(-3)</code>
+        </div>
+        <h3 class="subsec">虚数(complex)</h3>
+        <p>末尾に<span class="inline">j</span>または<span class="inline">J</span>をつけて虚数型になる。</p>
+        <div><code class="py">num = 3.14j</code></div>
+        <h3 class="subsec">真偽値(bool)</h3>
+        <p>頭文字が大文字であることに注意。</p>
+        <div>
+          <code class="py">bool = True
+bool = False</code>
+        </div>
+        <p><span class="inline">False</span>と見なされる値：</p>
+        <ul>
+          <li><span class="inline">0</span></li>
+          <li><span class="inline">0.0</span></li>
+          <li><span class="inline">''</span></li>
+          <li><span class="inline">[]</span></li>
+          <li><span class="inline">()</span></li>
+          <li><span class="inline">{}</span></li>
+        </ul>
+        <p>これ以外は<span class="inline">True</span>になる。</p>
+        <h3 class="subsec">値無し(None)</h3>
+        <div><code class="py">x = None</code></div>
+        <h3 class="subsec">文字列(str)</h3>
+        <div>
+          <code class="py">str = "Hello world"
+str = 'Hello world'</code>
+        </div>
+        <h4>生文字列</h4>
+        <p><span class="inline">r</span>または<span class="inline">R</span>を各クォーテーションの前につけると、文字列内のエスケープシーケンスを無視する。</p>
+        <div>
+          <code class="py">str = 'aaa\nbbb'    # \n は改行とみなされる
+str = r'aaa\nbbb'   # \n はバックスラッシュ文字(\)と小文字nとみなされる</code>
+        </div>
+        <h4>フォーマット文字列</h4>
+        <p><span class="inline">f</span>または<span class="inline">F</span>を各クォーテーションの前につけると、文字列中の<span class="inline">{}</span>に式を埋め込むことができる。</p>
+        <div>
+          <code class="py">name = "Yamada"
+age = 26
+print(f"My name is {name}. I'm {age} years old.")
+
+a = 5
+b = 3
+print(f"{a + b}")   #=> 8</code>
+        </div>
+        <p><span class="inline">{}</span>を二重にしてエスケープ：</p>
+        <div><code class="py">print(f"{{n}}")   # {n} </code></div>
+        <p>カンマ(<span class="inline">,</span>)で数値の桁区切りをする。</p>
+        <div>
+          <code class="py">n = 12345
+print(f"{n:,}")   # 12,345</code>
+        </div>
+        <p>進数表記に変換できる。</p>
+        <div>
+          <code class="py">n = 123
+print(f"{n}")       # 123 ... 10進数
+print(f"{n:b}")     # 1111011 ... 2進数
+print(f"{n:o}")     # 173 ... 8進数
+print(f"{n:x}")     # 7b ... 16進数(小文字)
+print(f"{n:X}")     # 7B ... 16進数(大文字)
+
+print(f"{n:#}")     # 123
+print(f"{n:#b}")    # 0b1111011
+print(f"{n:#o}")    # 0o173
+print(f"{n:#x}")    # 0x7b
+print(f"{n:#X}")    # 0X7B
+
+print(f"{n:08}")    # 00000123
+print(f"{n:08b}")   # 01111011
+print(f"{n:08o}")   # 00000173
+print(f"{n:08x}")   # 0000007b
+print(f"{n:08X}")   # 0000007B</code>
+        </div>
+        <p>小数の表示のフォーマット</p>
+        <div>
+          <code class="py">n = 12.3456
+print(f"{n:.2f}")    # 12.35
+print(f"{n:8.2f}")   #    12.35
+print(f"{n:.2e}")    # 1.23e+01
+print(f"{n:.2E}")    # 1.23E+01
+print(f"{n:.2g}")    # 1.23
+print(f"{n:.2%}")    # 1234.56%</code>
+        </div>
+        <h4>複数行文字列</h4>
+        <div>
+          <code class="py">str = """A simple example module
+This module is ...
+"""</code>
+        </div>
+        <p>改行エスケープでもいい。</p>
+        <div>
+          <code class="py">str = "Hello \
+world!"</code>
+        </div>
+        <h4>文字列の連結</h4>
+        <div><code class="py">print("Hello " "world!")</code></div>
+        <h3 class="subsec">文字列のフォーマット</h3>
+        <div>
+          <code class="py">errmsg = "Can't open file"
+errcode = 19042
+msg = "ERROR: %s (%d)" % (errmsg, errcode)
+print(msg)   #=> ERROR: Can't open file (19042)
+
+print("%s" % "ABC")         #=> ABC
+print("%d" % 123)           #=> 123
+print("%f" % 1.23)          #=> 1.230000
+print("%x" % 255)           #=> ff
+print("%o" % 255)           #=> 377
+print("%%%d" % 80)          #=> %80</code>
+        </div>
+        <h3 class="subsec">その他の処理</h3>
+        <details><summary>詳細</summary>
+          <h4>間に挟んで連結</h4>
+          <div>
+            <code class="py">li = ['a', 'b', 'c']
+print(','.join(li))   # 'a,b,c'</code>
+          </div>
+          <h4>置換</h4>
+          <div>
+            <code class="py">s = 'abcde, abcde'
+print(s.replace('bcd', 'XXX'))   # 'aXXXe, aXXXe'
+print(s.replace('e', 'X', 1))   # 'abcdX, abcde'</code>
+          </div>
+          <h4>検索</h4>
+          <div>
+            <code class="py">s = 'abcabcabc'
+print('初めて現れるbは' + str(s.find('b') + 1) + '文字目')   # '初めて現れるbは2文字目'
+print('3文字目以降に初めて現れるbは' + str(s.find('b', 2) + 1) + '文字目')   # '3文字目以降に初めて現れるbは4文字目'</code>
+          </div>
+          <h4>出現回数</h4>
+          <div>
+            <code class="py">s = 'aaabbc'
+print(s.count('b'))   # 2
+</code>
+          </div>
+          <h4>スペースで分割</h4>
+          <div>
+            <code class="py">a = 'Nice to meet you'
+print(a.split())   # ['Nice', 'to', 'meet', 'you']</code>
+          </div>
+          <h4>繰り返し</h4>
+          <div>
+            <code class="py">s = 'abc'
+print(s*2) # 'abcabc'</code>
+          </div>
+        </details>
+        <h2 class="sec">変数・定数</h2>
+        <h3 class="subsec">変数</h3>
+        <p>
+          変数名は英数字とアンダーバー(<span class="inline">_</span>)で構成する。頭文字に数字は使えない。
+          正規表現では<span class="inline">[a-zA-Z_][a-zA-Z0-9_]*</span>。
+        </p>
+        <div>
+          <code class="py">value1 = 123
+_value1 = 123
+test_value = 123
+TEST_VALUE = 123</code>
+        </div>
+        <h2 class="sec">リスト・タプル・辞書</h2>
+        <h3 class="subsec">リスト(list)</h3>
+        <div><code class="py">a = [10, 20, 30, 40]</code></div>
+        <p><span class="inline">[]</span>を使って要素を参照する。</p>
+        <div>
+          <code class="py">a = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+a1 = a[0]   # 0番目: 'A'
+a2 = a[2]   # 2番目: 'C'
+
+a1 = a[-1]      # 最後の文字 'G'
+a2 = a[-3:-1]   # 最後から3番目の文字から最後から1番目の前の文字: ['E', 'F']
+
+a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+a1 = a[2:4]   # 2番目から3番目: [2, 3]
+a2 = a[2:]    # 2番目から最後: [2, 3, 4, 5, 6, 7, 8, 9]
+a3 = a[:4]    # 最初から3番目: [0, 1, 2, 3]
+
+a1 = a[1:8:2]   # 1番目から7番目まで2個とばし: [1, 3, 5, 7]</code>
+        </div>
+        <p><span class="inline">+</span>でリストを結合できる。</p>
+        <div><code class="py">print([1, 2, 3] + [4, 5, 6])   #=> [1, 2, 3, 4, 5, 6]</code></div>
+        <p>リストの長さ</p>
+        <div><code class="py">print(len([1, 2, 3]))   #=> 3</code></div>
+        <h3 class="subsec">タプル(tuple)</h3>
+        <p>リストと違って中身を変更できない。</p>
+        <div><code class="py">a = (10, 20, 30, 40)</code></div>
+        <p>要素が1つのときは注意が必要。</p>
+        <div>
+          <code class="py">a = (10)    # タプルではなく数値の10となる
+a = (10,)   # タプルの(10,)となる</code>
+        </div>
+        <p>タプルを戻り値にする場合</p>
+        <div>
+          <code class="py">def get_date():
+    return 2022, 10, 9
+
+year, month, day = get_date()
+print("%04d/%02d/%02d" % (year, month, day))   # 2022/10/09</code>
+        </div>
+        <h3 class="subsec">辞書(dict)</h3>
+        <div><code class="py">d = {'Yamada': 30, 'Suzuki': 40, 'Tanaka': 80}</code></div>
+        <p><span class="inline">[]</span>を使って要素にアクセスする。</p>
+        <div>
+          <code class="py">d1 = d['Yamada']
+d2 = d['Suzuki']
+d3 = d['Tanaka']</code>
+        </div>
+        <h3 class="subsec">リスト関数</h3>
+        <p><span class="inline">map()</span>はリストの各要素に処理をしたものを返す。</p>
+        <div>
+          <code class="py">a = [1, 2, 3]
+
+def double(x): return x * 2
+
+print(list(map(double, a)))            #=> [2, 4, 6] : 関数方式
+print(list(map(lambda x: x * 2, a)))   #=> [2, 4, 6] : lambda方式
+print([x * 2 for x in a])              #=> [2, 4, 6] : 内包表記(後述)</code>
+        </div>
+        <p><span class="inline">filter()</span>は元のリストから条件を満たす要素だけを残したリストを返す。</p>
+        <div>
+          <code class="py">a = [1, 2, 3]
+
+def isodd(x): return x % 2
+print(list(filter(isodd, a)))             #=> [1, 3] : 関数方式
+print(list(filter(lambda x: x % 2, a)))   #=> [1, 3] : lambda方式
+print([x for x in a if x % 2])            #=> [1, 3] : 内包表記(後述)</code>
+        </div>
+        <p><span class="inline">reduce()</span>は総和を計算するときなどに使う。</p>
+        <div>
+          <code class="py">from functools import reduce
+
+a = [1, 2, 3, 4, 5]
+
+def add(x, y): return x + y
+print(reduce(add, a))                  #=> 15 : 関数方式
+print(reduce(lambda x, y: x + y, a))   #=> 15 : lambda方式</code>
+        </div>
+        <h3 class="subsec">リストの内包表記</h3>
+        <div>
+          <code class="py">a = [1, 2, 3]
+print([2*x for x in a])               #=> [2, 4, 6]
+print([2*x for x in a if x == 3])     #=> [6]
+print([[x, 2*x] for x in a])          #=> [[1, 2], [2, 4], [3, 6]]
+print([(x, 2*x) for x in a])          #=> [(1, 2), (2, 4), (3, 6)]
+
+b = [4, 5, 6]
+print([x * y for x in a for y in b])          #=> [4, 5, 6, 8, 10, 12, 12, 15, 18]
+print([a[i] * b[i] for i in range(len(a))])   #=> [4, 10, 18]</code>
+        </div>
+        <h3 class="subsec">セット(set)</h3>
+        <p>重複のないリスト。いくつかの論理演算ができる。</p>
+        <div>
+          <code class="py">a = set(['red', 'blue', 'green'])
+b = set(['green', 'yellow', 'white'])
+
+print(a)              #=> set(['red', 'blue', 'green'])
+print(b)              #=> set(['green', 'yellow', 'white'])
+print(a - b)          #=> set(['red', 'blue'])
+print(a | b)          #=> set(['red', 'blue', 'green', 'yellow', 'white'])
+print(a & b)          #=> set(['green'])
+print(a ^ b)          #=> set(['red', 'blue', 'yellow', 'white'])
+print('green' in a)   #=> True
+a.add('black')
+print(a)              #=> set(['red', 'blue', 'green', 'black'])</code>
+        </div>
+        <h3 class="subsec">その他の処理</h3>
+        <details><summary>詳細</summary>
+          <h4>要素追加・拡張・結合</h4>
+          <div>
+            <code class="py">li = [1, 2, 3, 4]
+li.append(5)
+print(li)   # [1, 2, 3, 4, 5]
+
+li = [1, 2, 3]
+li.extend([4, 5])
+print(li)   # [1, 2, 3, 4, 5]
+
+tpl = 1, 2, 3
+tpl2 = 4, 5, 6
+print(tpl + tpl2)   # (1, 2, 3, 4, 5, 6)
+
+dict = {'a': 1, 'b': 'Hi', 'c': True}
+dict['d'] = 123
+dict.setdefault('e', 'default')
+
+dict = {'a': 1, 'b': 2, 'c': 3}
+dict2 = {'c': 4, 'd': 5, 'e': 6}
+
+print(dict.update(dict2))   # {'a': 1, 'b': 2, 'c': 4, 'd': 5, 'e': 6}</code>
+          </div>
+          <h4>末尾の要素を消す</h4>
+          <div>
+            <code class="py">li = [1, 2, 3, 2]
+li.remove(2)
+print(li)   # [1, 3, 2]</code>
+          </div>
+          <h4>挿入</h4>
+          <div>
+            <code class="py">li = [1, 3]
+li.insert(1, 2)
+print(li)   # [1, 2, 3]</code>
+          </div>
+          <h4>含まれている個数</h4>
+          <div>
+            <code class="py">li = [1, 2, 3, 2, 2]
+print(li.count(2))   # 3
+
+tpl = 1, 2, 3
+print(tpl.count(3))   # 1</code>
+          </div>
+          <h4>検索</h4>
+          <div>
+            <code class="py">li = [1, 2, 3]
+print('初めて現れる2は' + str(li.index(2)+1) + '文字目')
+
+tpl = 1,2,3
+print(tpl.index(1))   # 0</code>
+          </div>
+          <h4>最大・最小</h4>
+          <div>
+            <code class="py">li = [1, 2, 3]
+print(max(li))   # 3
+print(min(li))   # 1
+
+tpl = 1, 2, 3
+print(max(tpl))   # 3
+print(min(tpl))   # 1</code>
+          </div>
+          <h4>ソート</h4>
+          <div>
+            <code class="py">li = [2, 1, 3]
+print(li.sort())   # [1, 2, 3]
+
+tpl = 2, 1, 3
+print(surted(tpl))   # (1, 2, 3)</code>
+          </div>
+          <h4>辞書のリスト化</h4>
+          <div>
+            <code class="py">dict = {'a': 1, 'b': 'Hi', 'c': True}
+print(list(dict.keys()))   # ['a', 'b', 'c']
+
+dict = {'a': 1, 'b': 'Hi', 'c': True}
+print(list(dict.values()))   # [1, 'Hi', True]</code>
+          </div>
+        </details>
+        <h2 class="sec">演算子</h2>
+        <h3 class="subsec">算術演算子</h3>
+        <div>
+          <code class="py">+a       # 正数
+-a       # 負数
+a + b    # 加算
+a - b    # 減算
+a * b    # 乗算
+a / b    # 除算
+a % b    # a を b で割った余り
+a ** b   # a の b 乗
+a // b   # 切り捨て除算</code>
+        </div>
+        <h3 class="subsec">ビット演算子</h3>
+        <div>
+          <code class="py">~a       # ビット反転
+a & b    # AND:論理積(aもbも1のビットが1)
+a | b    # OR:論理和(aまたはbが1のビットが1)
+a ^ b    # XOR:排他的論理和(aまたはbが1のビットが1)
+a &lt;&lt; b   # b ビット左シフト
+a >> b   # b ビット右シフト</code>
+        </div>
+        <h3 class="subsec">代入演算子</h3>
+        <div>
+          <code class="py">a = b     # a に b を代入する
+a += b    # a = a + b に同じ
+a -= b    # a = a - b に同じ
+a *= b    # a = a * b に同じ
+a /= b    # a = a / b に同じ
+a %= b    # a = a % b に同じ
+a **= b   # a = a ** b に同じ
+a //= b   # a = a // b に同じ
+a &= b    # a = a & b に同じ
+a |= b    # a = a | b に同じ
+a ^= b    # a = a ^ b に同じ
+a &lt;&lt;= b   # a = a &lt;&lt; b に同じ
+a >>= b   # a = a >> b に同じ</code>
+        </div>
+        <h3 class="subsec">比較演算子</h3>
+        <div>
+          <code class="py">a == b       # a が b と等しい
+a != b       # a が b と異なる
+a &lt; b        # a が b よりも小さい
+a > b        # a が b よりも大きい
+a &lt;= b       # a が b 以下である
+a >= b       # a が b 以上である
+a is b       # a が b と等しい
+a is not b   # a が b と異なる
+a in b       # a が b に含まれる (a, b は共に文字列、または、b はリストやタプル)
+a not in b   # a が b に含まれない (a, b は共に文字列、または、b はリストやタプル)</code>
+        </div>
+        <h3 class="subsec">ブール演算子</h3>
+        <div>
+          <code class="py">a and b   # a も b も真であれば真
+a or b    # a または b が真であれば真
+not a     # a が偽であれば真</code>
+        </div>
+        <h3 class="subsec">条件演算</h3>
+        <div><code class="py">x if c else y</code></div>
+        <h3 class="subsec">文字列演算</h3>
+        <div>
+          <code class="py">a + b      # 文字列 a と 文字列 b を連結します
+a * n      # 文字列 a を n 回繰り返します
+a[n]       # 文字列 a の中の n 番目の文字を取り出します
+a[n:m]     # 文字列 a の中の n 番目から m 番目までの文字列を取り出します
+a[n:]      # 文字列 a の中の n 番目から最後までの文字列を取り出します
+a[:m]      # 文字列 a の中の 0 番目から m 番目までの文字列を取り出します
+a[n:m:s]   # 文字列 a の中の n 番目から m 番目までの文字列を s個とばしで取り出します</code>
+        </div>
+        <h3 class="subsec">条件式(三項演算子)</h3>
+        <div>
+          <code class="py">err = 0
+print("OK" if err == 0 else "NG")</code>
+        </div>
+        <h3 class="subsec">代入式</h3>
+        <p>代入の文が値を返すようになる。</p>
+        <div>
+          <code class="py">s = "ABCDEF"
+
+if (len := len(s)) > 5:
+    print("LONG")
+else:
+    print("SHORT")</code>
+        </div>
+        <h3 class="subsec">行列積</h3>
+        <div>
+          <code class="py">import numpy as np
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[5, 6], [7, 8]])
+# [[1*5+2*7=19, 1*6+2*8=22], [3*5+4*7=43, 3*6+4*8=50]]
+print(np.dot(A, B))   # [[19, 22], [43, 50]]
+print(A @ B)          # [[19, 22], [43, 50]]</code>
+        </div>
+        <h2 class="sec">制御構文</h2>
+        <h3 class="subsec">条件式(if, else, elsif)</h3>
+        <div>
+          <code class="py">num = 12
+if num > 10:
+    print("BIG")
+    print("BIG")
+    print("BIG")
+  
+if num > 10:
+    print("BIG")
+else:
+    print("SMALL")
+
+if num > 10:
+    print("BIG")
+elif num == 10:
+    print("NORMAL")
+else:
+    print("SMALL")</code>
+        </div>
+        <h3 class="subsec">繰り返し(while, else)</h3>
+        <div>
+          <code class="py">n = 0
+while n < 10:
+    print(n)
+    n += 1
+  
+n = 0
+while n < 10:
+    print(n)
+    n += 1
+else:
+    print('END')</code>
+        </div>
+        <h3 class="subsec">繰り返し(for, in)</h3>
+        <div>
+          <code class="py">for n in [1, 2, 3]:   # 配列
+    print(n)          #=> 1, 2, 3
+
+for n in (1, 2, 3):   # タプル
+    print(n)          #=> 1, 2, 3
+
+for c in "ABC":   # 文字列
+    print(c)      #=> A, B, C
+
+for k in {'one': 1, 'two': 2, 'three': 3}:   # 辞書
+    print(k)                                 #=> one, two, three
+
+for line in open("sample.txt"):   # ファイルの中身
+    print(line)                   # 1行ずつ表示</code>
+        </div>
+        <p><span class="inline">else</span>を使う例</p>
+        <div>
+          <code class="py">for n in [1, 2, 3]:
+    print(n)
+else:
+    print('END')</code>
+        </div>
+        <p>単に指定回数分繰り返す場合</p>
+        <div>
+          <code class="py">for n in range(10):
+    print(n)</code>
+        </div>
+        <h3 class="subsec">ループを抜ける(break)</h3>
+        <div>
+          <code class="py">for n in range(10):
+    if n == 5:
+        break
+    print(n)   # 0, 1, 2, 3, 4</code>
+        </div>
+        <h3 class="subsec">ループを繰り返す(continue)</h3>
+        <div>
+          <code class="py">for n in range(10):
+    if n == 5:
+        continue
+    print(n)   # 0, 1, 2, 3, 4, 6, 7, 8, 9</code>
+        </div>
+        <h3 class="subsec">例外処理(try, except, else, finally, as, raise)</h3>
+        <div>
+          <code class="py">str = 'ABC'
+try:
+    c = str[5]            # 5番目の文字が無いので、IndexError例外が発生します
+except IOError:
+    print('IOError')      # IOError例外の場合、このブロックが実行されます
+except IndexError:
+    print('IndexError')   # IndexError例外の場合、このブロックが実行されます
+except:
+    print('Unknown')      # 上記以外の例外の場合、このブロックが実行されます
+else:
+    print('Other')        # 例外が発生しなかった場合、このブロックが実行されます
+finally:
+    print('Finally')      # 常に、このブロックが実行されます</code>
+        </div>
+        <p><span class="inline">as</span>で例外情報を変数に格納する。</p>
+        <div>
+          <code class="py">try:
+    xxx
+except SystemError as e:
+    print("SystemError")
+    print(e)</code>
+        </div>
+        <p><span class="inline">raise</span>は例外を発生させる。</p>
+        <div>
+          <code class="py"># 元の例外をそのまま投げる
+except Exception as e:
+    raise e
+
+# 新たな例外を生成して投げる
+except Exception:
+    raise MyError()
+
+# 元の例外情報をつけて、新たな例外を投げる
+except Exception as e:
+    raise MyError() from e
+
+# 元の例外を無視して、新たな例外を投げる
+except Exception:
+    raise MyError() from None</code>
+        </div>
+        <h3 class="subsec">with構文</h3>
+        <p>例えば<span class="inline">file</span>オブジェクトは<span class="inline">open()</span>すると<span class="inline">close()</span>しないといけないが、<span class="inline">with</span>は自動で呼び出してくれる。</p>
+        <div>
+          <code class="py"># withを用いない書き方
+f = open("test.txt")
+print(f.read())
+f.close()
+
+# withを用いた書き方1
+with open("test.txt") as f:
+    print(f.read())
+
+# withを用いた書き方2
+f = open("test.txt")
+with f:
+    print(f.read())</code>
+        </div>
+        <h3 class="subsec">デリート文(del)</h3>
+        <p>オブジェクトを削除する。</p>
+        <div>
+          <code class="py">x = 5
+y = [1, 2, 3]
+z = MyClass()
+del x, y, z</code>
+        </div>
+        <h3 class="subsec">マッチ文(match)</h3>
+        <p>他の言語の<span class="inline">switch</span>文。</p>
+        <div>
+          <code class="py">c = 3
+match c:
+    case 1:
+        print("One")
+    case 2:
+        print("Two")
+    case 3:
+        print("Three")
+    case _:
+        print("Other")</code>
+        </div>
+        <h3 class="subsec">コルーチン(async, await)</h3>
+        <div>
+          <code class="py">import asyncio
+import requests
+
+urls = [
+    "https://www.yahoo.co.jp",
+    "https://www.google.com",
+    "https://www.wikipedia.com"
+]
+
+async def getsize(url):
+    print(f"getsize({url}) START")
+    loop = asyncio.get_event_loop()
+    r = await loop.run_in_executor(None, requests.get, url)
+    print(f"getsize({url}) END {len(r.text)} bytes")
+
+async def main():
+    print('main() START')
+    tasks = [asyncio.create_task(getsize(url)) for url in urls]
+    await asyncio.gather(*tasks)
+    print('main() END')
+
+if __name__ == "__main__":
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main())</code>
+        </div>
+        <h2 class="sec">関数</h2>
+        <h3 class="subsec">関数</h3>
+        <div>
+          <code class="py">def add(x, y):
+    print(x + y)
+
+add(3, 5)   #=> 8
+
+def add(x, y):
+    ans = x + y
+    return ans
+
+n = add(3, 5)
+print(n)   #=> 8
+
+def func():
+    return 3, "ABC"
+
+n, s = func()
+print(n, s)   #=> 3 ABC</code>
+        </div>
+        <h4>キーワード引数</h4>
+        <div>
+          <code class="py">def repeat_msg(msg, repeat=3):
+    for i in range(repeat):
+        print(msg)
+
+repeat_msg('Hello')             # Hello, Hello, Hello
+repeat_msg('Yahho', repeat=5)   # Yahho, Yahho, Yahho, Yahho, Yahho</code>
+        </div>
+        <h4>可変引数</h4>
+        <div>
+          <code class="py">def func(a1, a2, *args, **kwargs):
+    print(a1)       #=> A
+    print(a2)       #=> B
+    print(args)     #=> ('C', 'D')
+    print(kwargs)   #=> {'k1': 'K1', 'k2': 'K2'}
+
+func('A', 'B', 'C', 'D', k1='K1', k2='K2')</code>
+        </div>
+        <p>変数を渡す場合は<span class="inline">*</span>や<span class="inline">**</span>を付ける必要がある。</p>
+        <div>
+          <code class="py">def func(a1, a2, *args, **kwargs):
+    print(a1)       #=> A
+    print(a2)       #=> B
+    print(args)     #=> ('C', 'D')
+    print(kwargs)   #=> {'k1': 'K1', 'k2': 'K2'}
+
+args = ('C', 'D')
+kwargs = {'k1': 'K1', 'k2': 'K2'}
+func('A', 'B', *args, **kwargs)   #=> A, B, ('C', 'D'), {'k1': 'K1', 'k2': 'K2'}</code>
+        </div>
+        <h3 class="subsec">グローバル変数(global)</h3>
+        <p>関数の中でグローバル変数に代入できないので、<span class="inline">global</span>を使って関数内で定義した変数をグローバル化して扱う必要がある。</p>
+        <div>
+          <code class="py">count = 0          # グローバル変数
+
+def func1():
+    print(count)   # 参照することはできる
+
+def func2():
+    global count   # global宣言してやれば
+    count += 1     # 代入することもできる</code>
+        </div>
+        <h3 class="subsec">ラムダ式(lambda)</h3>
+        <div>
+          <code class="py">myfunc = lambda x, y: x + y
+print(myfunc(3, 5))   #=> 8</code>
+        </div>
+        <h3 class="subsec">イテレータ(iterator)</h3>
+        <div>
+          <code class="py">class MyRange:
+    def __init__(self, max):
+        self._max = max
+
+    def __iter__(self):
+        self._count = 0
+        return self
+
+    def __next__(self):
+        result = self._count
+        if result >= self._max:
+            raise StopIteration
+        self._count += 1
+        return result
+
+for n in MyRange(5):
+    print(n)   #=> 0, 1, 2, 3, 4</code>
+        </div>
+        <h3 class="subsec">ジェネレータ(yield)</h3>
+        <div>
+          <code class="py">def funcA(list):
+    ret = []
+    for n in list:
+        ret.append(n * 2)
+    return ret
+
+for n in funcA([1, 2, 3, 4, 5]):
+    print(n)   #=> 2, 4, 6, 8, 10</code>
+        </div>
+        <p>上記は下記と同値</p>
+        <div>
+          <code class="py">def funcB(list):
+    for n in list:
+        yield n * 2
+
+for n in funcB([1, 2, 3, 4, 5]):
+    print(n)   #=> 2, 4, 6, 8, 10</code>
+        </div>
+        <h3 class="subsec">デコレータ(@)</h3>
+        <p>指定した関数の前後に処理を行う。</p>
+        <div>
+          <code class="py">def mydecolater(func):   # デコレータを定義する
+    def wrapper():
+        print("start")   # 前処理を実行する
+        func()           # デコレート対象の関数を実行する
+        print("end")     # 後処理を実行する
+    return wrapper
+
+@mydecolater
+def hello():
+    print("hello")
+
+hello()                  #=> start, hello, end</code>
+        </div>
+        <h2 class="sec">クラス</h2>
+        <h3 class="subsec">クラス(class)</h3>
+        <div>
+          <code class="py">class MyClass:
+    """A simple example class"""   # 三重クォートによるコメント
+
+    def __init__(self):            # コンストラクタ
+        self.name = ""
+
+    def getName(self):             # getName()メソッド
+        return self.name
+
+    def setName(self, name):       # setName()メソッド
+        self.name = name
+
+a = MyClass()                      # クラスのインスタンスを生成
+a.setName("Tanaka")                # setName()メソッドをコール
+print(a.getName())                 # getName()メソッドをコール</code>
+        </div>
+        <h3 class="subsec">クラス変数・インスタンス変数(attribute)</h3>
+        <div>
+          <code class="py">class MyClass:
+    def __init__(self):
+        self.name = ""   # インスタンス変数
+
+a1 = MyClass()
+a1.name = "Tanaka"
+
+a2 = MyClass()
+a2.name = "Suzuki"
+
+print(a1.name)            #=> Tanaka
+print(a2.name)            #=> Suzuki</code>
+        </div>
+        <h3 class="subsec">メソッド(method)</h3>
+        <div>
+          <code class="py">class MyClass:
+    name = ""
+    def setName(self, name):   # 第一引数は自インスタンス(self)
+        self.name = name
+
+a = MyClass()
+a.setName("Tanaka")</code>
+        </div>
+        <h3 class="subsec">コンストラクタ(__init__)</h3>
+        <div>
+          <code class="py">class MyClass:
+    def __init__(self, name):
+        self.name = name
+    def getName(self):
+        return self.name
+
+a = MyClass("Tanaka")
+print(a.getName())   #=> Tanaka</code>
+        </div>
+        <h3 class="subsec">デストラクタ(__del__)</h3>
+        <div>
+          <code class="py">class MyClass:
+    def __init__(self):
+        print("INIT!")
+    def __del__(self):
+        print("DEL!")
+
+a = MyClass()   #=> INIT!
+del a           #=> DEL!</code>
+        </div>
+        <h3 class="subse">文字列化(__str__)</h3>
+        <div>
+          <code class="py">class MyClass:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return "My name is " + self.name
+
+a = MyClass("Yamada")
+print(a)   #=> My name is Yamada</code>
+        </div>
+        <h3 class="subsec">継承(inheritance)</h3>
+        <div>
+          <code class="py">class MyClass:
+    def hello(self):
+        print("Hello")
+
+class MyClass2(MyClass):
+    def world(self):
+        print("World")
+
+a = MyClass2()
+a.hello()   #=> Hello
+a.world()   #=> World</code>
+        </div>
+        <h3 class="subsec">親クラス(super())</h3>
+        <div>
+          <code class="py">class MyClass1(object):
+    def __init__(self):
+       self.val1 = 123
+
+class MyClass2(MyClass1):
+    def __init__(self):
+        super(MyClass2, self).__init__()
+        self.val2 = 456
+
+a = MyClass2()
+print(a.val1)   #=> 123
+print(a.val2)   #=> 456</code>
+        </div>
+        <h2 class="sec">パッケージとモジュール</h2>
+        <h3 class="subsec">モジュール(module)</h3>
+        <p>「mymod.py」の中身が以下であるとする：</p>
+        <div>
+          <code class="py">def myfunc():
+    print("Hello!")</code>
+        </div>
+        <p>このとき、</p>
+        <div>
+          <code class="py">import mymod
+
+mymod.myfunc()   #=> Hello!</code>
+        </div>
+        <h2 class="sec">その他</h2>
+        <h3 class="subsec">型の取得</h3>
+        <div><code class="py">type('10') == str   # true</code></div>
+        <h3 class="subsec">ファイル生成</h3>
+        <div>
+          <code class="py">f = open('○○.txt', 'w')
+f.write('Hi')
+f.close()</code>
+        </div>
+        <h3 class="subsec">現在時刻</h3>
+        <div>
+          <code class="py">import datetime
+
+now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9)))
+print(now.hour)   # (現在の時間)</code>
+        </div>
+        <h3 class="subsec">ランダム</h3>
+        <div>
+          <code class="py">import random
+
+rand = random.random()   # [0.0, 1.0) からランダムな実数
+rand_int = random.randint(a, b)   # [a, b] からランダムな整数
+
+li = [ 'a', 'b', 'c', 'd' ]
+rand_choice = random.choice(li)   # リストからランダムに1つ選択</code>
+        </div>
+        <h3 class="subsec">重複なしランダム抽出</h3>
+        <div>
+          <code class="py">import random
+
+print(random.sample(list_, 10)</code>
+        </div>
+        <h3 class="subsec">ディレクトリのファイル一覧</h3>
+        <div>
+          <code class="py">import os
+
+path = "./○○"
+
+files = os.listdir(path)
+files_file = [i for i in files if os.path.isfile(os.path.join(path, i))]</code>
+        </div>
+        <h3 class="subsec">JSON</h3>
+        <h4>開く</h4>
+        <div>
+          <code class="py">import json
+
+a = json.load(open('○○.json'), encoding="utf-8")</code>
+        </div>
+        <h4>書き換える</h4>
+        <div>
+          <code class="py">import json
+
+dict = { 'a': 'Hi' }
+with open('○○.json', 'w') as changed_file:
+  json.dump(dict, changed_file, indent=2)</code>
+        </div>
+        <h2 class="sec">tkinter</h2>
+        <h3 class="subsec">ウィンドウを開く</h3>
+        <div>
+          <code class="py">import tkinter
+import tkinter.font as font
+
+frm = tkinter.Tk()
+geo = '600x400'   # ウィンドウのサイズ
+
+frm.geometry(geo)
+frm.title(config.window.name)
+fontC = font.Font(family='Helvetica', size=20, weight='bold')
+tkinter.Label(
+  frm,
+  text='Text',   # テキスト
+  fg='#64ec86',   # 文字色
+  bg='#ffff00',   # 文字の背景色
+  font=fontC
+).pack(side='top')
+button = tkinter.Button(frm)    # ボタン作成
+button["text"] = 'Click here!'   # ボタンのテキスト設定
+button.pack(side='top')   # ボタンの設置位置変更
+      
+frm.mainloop()</code>
+        </div>
+        <h3 class="subsec">メッセージボックス</h3>
+        <div>
+          <code class="py">from tkinter import messagebox
+
+messagebox.showinfo('タイトル', '内容')
+messagebox.showerror('タイトル', '内容')</code>
+        </div>
+
+        <h2 class="sec">参考</h2>
+        <ul>
+          <li><a href="https://www.tohoho-web.com/python/">とほほのPython入門 - とほほのWWW入門</a></li>
+        </ul>
+      </div>
+      <div id="side">
+        <h2 style="margin: 16px;">もくじ</h2>
+        <div class="to_top"><span onclick="jumpTo('top', 0)">ページのトップへ</span></div>
+        <hr style="margin: 0; border-width: 1.5px; ">
+        <div class="contents"></div>
+      </div>
+    </div>
+  </body>
+  <script src="or_main.js"></script>
+</html>
