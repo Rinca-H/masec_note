@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft JE(Java版)】Mod制作日記「武器とツール」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft JE(Java版)】Mod制作日記「武器とツール」 - ますえくNOTE" />
+    <meta property="og:description" content="v1.20のModでツールを追加します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft JE(Java版) > Mod制作日記 > 武器とツール</div>
+        <h1 class="title" id="top">Mod制作日記 - 武器とツール</h1>
+        <div class="days">アップロード:2024/12/05　最終更新:2024/12/05</div>
+        <div style="padding: 8px 0;"></div>
+        <p><a href="MCJE01_itemsAndBlocks_20.html">前回</a>から内容が続いています。</p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">はじめに</h2>
+        <p>わたしは初め解説動画を見てやったんですが、その方法だとツール適性がバグってバニラのツールさえも使えない状態になってしまったので、今回はわたしの独自の方法で実装します。</p>
+        <p>
+          独自の方法でやる欠点としては、他のModのブロックの適性に対応しないことかと思ってます。
+          ただ、実験してないし、バニラのそれと大差ないと思っているので、もしかしたら一切問題ないかもしれません。
+        </p>
+        <h2 class="sec">カスタムティア</h2>
+        <h3 class="subsec">CustomTier列挙型</h3>
+        <p>「com.(作者名)(.ModのID)」にCustomTiersの列挙型を作ります。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">CustomTiers.java</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="java">package com.masuec.my_mod;
+
+import java.util.function.Supplier;
+
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
+
+public enum CustomTiers implements Tier {
+  // ティアのレベル, 耐久値, 攻撃速度, ダメージ, エンチャント値, 修復素材
+  TEST(0, 1500, 2.0F, 0.0F, 15, () -> Ingredient.of(Items.DIAMOND));
+
+  private final int level;
+  private final int uses;
+  private final float speed;
+  private final float damage;
+  private final int enchantmentValue;
+  private final LazyLoadedValue&lt;Ingredient> repairIngredient;
+
+  private CustomTiers(int pLevel, int pUses, float pSpeed, float pDamage, int pEnchantmentValue, Supplier&lt;Ingredient> pRepairIngredient) {
+    this.level = pLevel;
+    this.uses = pUses;
+    this.speed = pSpeed;
+    this.damage = pDamage;
+    this.enchantmentValue = pEnchantmentValue;
+    this.repairIngredient = new LazyLoadedValue&lt;>(pRepairIngredient);
+  }
+
+  public float getAttackDamageBonus() {
+    return this.damage;
+  }
+
+  public int getEnchantmentValue() {
+    return this.enchantmentValue;
+  }
+
+  public int getLevel() {
+    return this.level;
+  }
+
+  public Ingredient getRepairIngredient() {
+    return this.repairIngredient.get();
+  }
+
+  public float getSpeed() {
+    return this.speed;
+  }
+
+  public int getUses() {
+    return this.uses;
+  }
+
+}
+</code>
+          </div>
+        </div>
+        <p>
+          コードはほとんどnet.minecraft.world.item.Tiersのコピーです。
+          ただ、コンストラクタ以降のメソッド群はTierをimprementしているので「右クリック > ソースアクション > Override/imprement Methods」で一気に追加できます。
+        </p>
+        <h3 class="subsec">補足</h3>
+        <p>「ティアのレベル」は、ティアの順番(強さ)を数値で表したものです。</p>
+        <p>「エンチャント値」は、大きければエンチャントが多くつきやすくなるという謎の定数です。</p>
+        <p>「修復素材」には、タグを指定することもできます。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="java">// 木材タグ
+() -> Ingredient.of(ItemTags.PLANKS)
+
+// ちなみにカスタムアイテムはこう
+() -> Ingredient.of(ItemRegister.TEST_ITEM.get())</code>
+          </div>
+        </div>
+        <h3 class="subsec">バニラの値</h3>
+        <div>
+          <table style="width: 100%;">
+            <tr><th></th><th>レベル</th><th>耐久</th><th>速度</th><th>ダメ</th><th>エンチャ</th></tr>
+            <tr><th>木</th><td>0</td><td>59</td><td>2.0</td><td>0.0</td><td>15</td></tr>
+            <tr><th>石</th><td>1</td><td>131</td><td>4.0</td><td>1.0</td><td>5</td></tr>
+            <tr><th>鉄</th><td>2</td><td>250</td><td>6.0</td><td>2.0</td><td>14</td></tr>
+            <tr><th>金</th><td>3</td><td>1561</td><td>8.0</td><td>3.0</td><td>10</td></tr>
+            <tr><th>ダイヤ</th><td>0</td><td>32</td><td>12.0</td><td>0.0</td><td>22</td></tr>
+            <tr><th>ネザ</th><td>4</td><td>2031</td><td>9.0</td><td>4.0</td><td>15</td></tr>
+          </table>
+        </div>
+        <h3 class="subsec">ティアの種類を増やす</h3>
+        <p>ティアの種類を増やすときは以下のように増やすことができます。途中がすべてカンマで、最後だけセミコロン。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="java">TEST(...),
+TEST2(...);</code>
+          </div>
+        </div>
+        <h2 class="sec">カスタムティアのツルハシ</h2>
+        <p>あとは「com.(作者名).(ModのID).registers.ItemRegister」クラスで以下のように登録します。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="java">public static final RegistryObject&lt;Item> TEST_ITEM4 = ITEMS.register(
+  "test_item4", () -> new PickaxeItem(CustomTiers.TEST, 1, -2.8F, new Item.Properties())
+);</code>
+          </div>
+        </div>
+        <div class="center" style="margin-top: 100px;">
+          <a href="MCJE01_blocks_20.html" class="next_article"><div>←　前回</div></a>
+          <a href="MCJE01_dimensions_20.html" class="next_article"><div>次回　→</div></a>
+        </div>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft JE(Java版)】Mod制作日記「簡単なブロックを追加する」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft JE(Java版)】Mod制作日記「簡単なブロックを追加する」 - ますえくNOTE" />
+    <meta property="og:description" content="v1.16のModで簡易的なブロックを追加します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft JE(Java版) > Mod制作日記 > 簡単なブロックを追加する</div>
+        <h1 class="title" id="top">Mod制作日記 - 簡単なブロックを追加する</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <p>ModIdやメインクラスのjavaファイル名などの各自で異なる部分はいちいち説明しないのでご注意を。</p>
+        <h2 class="sec">ブロックのクラス</h2>
+        <p>
+          左のPackage Explorerから「src/main/java > com.masec.newmod」を右クリック、「New > Package」を押します。<br>
+          Name:の「com.masec.newmod」の右に「.block」を書き足して「Finish」
+        </p>
+        <div class="center"><img src="img/MCJE01/block16_01.png" class="default_setting" alt="「New Java Package」ウィンドウからパッケージを簡単に作成できます。"></div>
+        <p>
+          作った「com.masec.new_mod.block」を右クリックして「New > Class」を押します。<br>
+          クラス名はアイテム名と揃えます。今回は<span class="inline">TestIngotBlock</span>にしました。
+        </p>
+        <div class="center"><img src="img/MCJE01/block16_02.png" class="default_setting" alt="「New Java Class」ウィンドウから新しいクラスを作成します。"></div>
+        <h3 class="subsec">クラスのコード</h3>
+        <p>作られたファイルを編集して、一旦ここまで作ります。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">TestIngotBlock.java</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:switch_tab no-select"><div class="selected">例</div><div>各自で変えるところ</div></div>
+          <div class="rich_code:content">
+            <code class="java">package com.masec.newmod.block;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+
+public class TestIngotBlock extends Block {
+
+  public TestIngotBlock() {
+    super(Properties.of(Material.METAL));
+  }
+
+}</code>
+            <code class="java">package com.masec.newmod.block;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+
+public class TestIngotBlock extends Block {
+
+  public TestIngotBlock() {
+    super(Properties.of(Material.METAL));
+  }
+
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers"></div>
+            <div class="rich_code:markers">package com.~#M(83ffd9)masec.newmodM#~.block;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+
+public class ~#M(83ffd9)TestIngotBlockM#~ extends Block {
+
+  public ~#M(83ffd9)TestIngotBlockM#~() {
+    super(Properties.of(Material.~#M(ffc8f1)METALM#~));
+  }
+
+}</div>
+          </div>
+        </div>
+        <p>
+          桃色でマーカーしたところはブロックの素材を指定する部分です。以下から選んでください。<br>
+          よくわからない項目は変数名を適当に訳しています。
+        </p>
+        <div style="height: 60vh; overflow: auto;">
+          <table style="width: 100%; margin: 0;" class="style2 sticky">
+            <tr><th><div>変数</div></th><th><div>概要</div></th></tr>
+            <tr><td>AIR</td><td>空気</td></tr>
+            <tr><td>STRUCTURAL_AIR</td><td>構造的な空気</td></tr>
+            <tr><td>PORTAL</td><td>ポータル</td></tr>
+            <tr><td>CLOTH_DECORATION</td><td>布のデコレーション</td></tr>
+            <tr><td>PLANT</td><td>植物</td></tr>
+            <tr><td>WATER_PLANT</td><td>水棲植物</td></tr>
+            <tr><td>REPLACEABLE_PLANT</td><td>置き換えられる植物</td></tr>
+            <tr><td>REPLACEABLE_FIREPROOF_PLANT</td><td>置き換えられる防火植物</td></tr>
+            <tr><td>REPLACEABLE_WATER_PLANT</td><td>置き換えられる水棲植物</td></tr>
+            <tr><td>WATER</td><td>水</td></tr>
+            <tr><td>BUBBLE_COLUMN</td><td>気泡</td></tr>
+            <tr><td>LAVA</td><td>マグマ</td></tr>
+            <tr><td>TOP_SNOW</td><td>雪</td></tr>
+            <tr><td>FIRE</td><td>炎</td></tr>
+            <tr><td>DECORATION</td><td>装飾</td></tr>
+            <tr><td>WEB</td><td>クモの巣</td></tr>
+            <tr><td>BUILDABLE_GLASS</td><td>建築可能なガラス</td></tr>
+            <tr><td>CLAY</td><td>粘土</td></tr>
+            <tr><td>DIRT</td><td>土</td></tr>
+            <tr><td>GRASS</td><td>草ブロック</td></tr>
+            <tr><td>ICE_SOLID</td><td>氷塊</td></tr>
+            <tr><td>SAND</td><td>砂</td></tr>
+            <tr><td>SPONGE</td><td>スポンジ</td></tr>
+            <tr><td>SHULKER_SHELL</td><td>シュルカーの殻</td></tr>
+            <tr><td>WOOD</td><td>木</td></tr>
+            <tr><td>NETHER_WOOD</td><td>ネザーの木</td></tr>
+            <tr><td>BAMBOO_SAPLING</td><td>タケノコ</td></tr>
+            <tr><td>BAMBOO</td><td>竹</td></tr>
+            <tr><td>WOOL</td><td>ウール</td></tr>
+            <tr><td>EXPLOSIVE</td><td>爆発物</td></tr>
+            <tr><td>LEAVES</td><td>葉</td></tr>
+            <tr><td>GLASS</td><td>ガラス</td></tr>
+            <tr><td>ICE</td><td>氷</td></tr>
+            <tr><td>CACTUS</td><td>サボテン</td></tr>
+            <tr><td>STONE</td><td>石</td></tr>
+            <tr><td>METAL</td><td>金属</td></tr>
+            <tr><td>SNOW</td><td>雪ブロック</td></tr>
+            <tr><td>HEAVY_METAL</td><td>重い金属</td></tr>
+            <tr><td>BARRIER</td><td>バリアブロック</td></tr>
+            <tr><td>PISTON</td><td>ピストン</td></tr>
+            <tr><td>CORAL</td><td>サンゴ</td></tr>
+            <tr><td>VEGETABLE</td><td>野菜</td></tr>
+            <tr><td>EGG</td><td>(カメの)卵</td></tr>
+            <tr><td>CAKE</td><td>ケーキ</td></tr>
+          </table>
+        </div>
+        <h3 class="subsec">ブロックの性質</h3>
+        <p>
+          以下のように<span class="inline">super()</span>の閉じカッコの前で改行して、一行に一つずつブロックの性質を書き加えていきます。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">TestIngotBlock.java</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="java">package com.masec.newmod.block;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraftforge.common.ToolType;
+
+public class TestIngotBlock extends Block {
+
+  public TestIngotBlock() {
+    super(Properties.of(Material.METAL)
+        .strength(5.0f, 5.0f)
+        .harvestTool(ToolType.PICKAXE)
+        .harvestLevel(3)
+        .sound(SoundType.METAL));
+  }
+
+}
+</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">package com.masec.newmod.block;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraftforge.common.ToolType;
+
+public class TestIngotBlock extends Block {
+
+  public TestIngotBlock() {
+    super(Properties.of(Material.METAL)
+        ~#M(83ffd9).strength(5.0f, 5.0f)M#~
+        ~#M(83ffd9).harvestTool(ToolType.PICKAXE)M#~
+        ~#M(83ffd9).harvestLevel(3)M#~
+        ~#M(83ffd9).sound(SoundType.METAL)M#~);
+  }
+
+}
+</div>
+          </div>
+        </div>
+        <h4>.strength(float, float)</h4>
+        <div class="section"><p>採掘にかかる秒数、爆発耐性を指定します。</p></div>
+        <h4>.harvestTool(ToolType)</h4>
+        <div class="section">
+          <p>
+            採掘の適性ツールを指定します。
+            <span class="inline">ToolType.AXE</span>、
+            <span class="inline">ToolType.HOE</span>、
+            <span class="inline">ToolType.PICKAXE</span>、
+            <span class="inline">ToolType.SHOVEL</span>
+            から選びます。
+          </p>
+        </div>
+        <h4>.harvestLevel(Int)</h4>
+        <div class="section"><p>アイテムドロップの適性ツールを指定します。0が木、1が石、2が鉄、3がダイヤ、4がネザライトです。</p></div>
+        <h4>.sound(SoundType)</h4>
+        <div class="section"><p>破壊などのサウンドを指定します。以下から選んでください。</p></div>
+        <details><summary>詳細</summary>
+          <table style="width: 100%;">
+            <tr><th>変数</th><th>概要</th></tr>
+            <tr><td>WOOD</td><td>木</td></tr>
+            <tr><td>GRAVEL</td><td>砂利</td></tr>
+            <tr><td>GRASS</td><td>草</td></tr>
+            <tr><td>LILY_PAD</td><td>ハスの葉</td></tr>
+            <tr><td>STONE</td><td>石</td></tr>
+            <tr><td>METAL</td><td>金属</td></tr>
+            <tr><td>GLASS</td><td>ガラス</td></tr>
+            <tr><td>WOOL</td><td>羊毛</td></tr>
+            <tr><td>SAND</td><td>砂</td></tr>
+            <tr><td>SNOW</td><td>雪</td></tr>
+            <tr><td>LADDER</td><td>ハシゴ</td></tr>
+            <tr><td>ANVIL</td><td>金床</td></tr>
+            <tr><td>SLIME_BLOCK</td><td>スライムブロック</td></tr>
+            <tr><td>HONEY_BLOCK</td><td>ハチミツブロック</td></tr>
+            <tr><td>WET_GRASS</td><td>水棲植物</td></tr>
+            <tr><td>CORAL_BLOCK</td><td>サンゴ</td></tr>
+            <tr><td>BAMBOO</td><td>竹</td></tr>
+            <tr><td>BAMBOO_SAPLING</td><td>タケノコ</td></tr>
+            <tr><td>SCAFFOLDING</td><td>足場ブロック</td></tr>
+            <tr><td>SWEET_BERRY_BUSH</td><td>スイートベリーの茂み</td></tr>
+            <tr><td>CROP</td><td>作物</td></tr>
+            <tr><td>HARD_CROP</td><td>固い作物(ビートルート)</td></tr>
+            <tr><td>VINE</td><td>ツタ</td></tr>
+            <tr><td>NETHER_WART</td><td>ネザーウォート</td></tr>
+            <tr><td>LANTERN</td><td>ランタン</td></tr>
+            <tr><td>STEM</td><td>ネザーの木</td></tr>
+            <tr><td>NYLIUM</td><td>ナイリウム</td></tr>
+            <tr><td>FUNGUS</td><td>ネザーのキノコ</td></tr>
+            <tr><td>ROOTS</td><td>ネザーの草</td></tr>
+            <tr><td>SHROOMLIGHT</td><td>シュルームライト</td></tr>
+            <tr><td>WEEPING_VINES</td><td>歪んだツタ</td></tr>
+            <tr><td>TWISTING_VINES</td><td>深紅のツタ</td></tr>
+            <tr><td>SOUL_SAND</td><td>ソウルサンド</td></tr>
+            <tr><td>SOUL_SOIL</td><td>ソウルソイル</td></tr>
+            <tr><td>BASALT</td><td>玄武岩</td></tr>
+            <tr><td>WART_BLOCK</td><td>ウォートブロック</td></tr>
+            <tr><td>NETHERRACK</td><td>ネザーラック</td></tr>
+            <tr><td>NETHER_BRICKS</td><td>ネザーレンガ</td></tr>
+            <tr><td>NETHER_SPROUTS</td><td>ネザースプラウト</td></tr>
+            <tr><td>NETHER_ORE</td><td>ネザーの鉱石(クォーツ)</td></tr>
+            <tr><td>BONE_BLOCK</td><td>骨ブロック</td></tr>
+            <tr><td>NETHERITE_BLOCK</td><td>ネザライトブロック</td></tr>
+            <tr><td>ANCIENT_DEBRIS</td><td>古代のがれき</td></tr>
+            <tr><td>LODESTONE</td><td>ロードストーン</td></tr>
+            <tr><td>CHAIN</td><td>チェーン</td></tr>
+            <tr><td>NETHER_GOLD_ORE</td><td>ネザー金鉱石</td></tr>
+            <tr><td>GILDED_BLACKSTONE</td><td>金入りブラックストーン</td></tr>
+          </table>
+        </details>
+        <h4>その他のコンポーネント</h4>
+        <details><summary>詳細</summary>
+          <h4>.noCollission()</h4>
+          <div class="section"><p>当たり判定をなくす</p></div>
+          <h4>.noOcclusion()</h4>
+          <div class="section"><p>オクルージョンを無効にする</p></div>
+          <h4>.friction(float)</h4>
+          <div class="section"><p>摩擦を指定する</p></div>
+          <h4>.speedFactor(float)</h4>
+          <div class="section"><p>上を歩いた時の速度を指定する</p></div>
+          <h4>.jumpFactor(float)</h4>
+          <div class="section"><p>上に乗ったときのジャンプ力を指定する</p></div>
+          <h4>.lightLevel(int)</h4>
+          <div class="section"><p>光源レベルを指定する</p></div>
+          <h4>.instabreak()</h4>
+          <div class="section"><p>草花のように一瞬で壊せるようにする</p></div>
+          <h4>.randomTicks()</h4>
+          <div class="section"><p>ランダムティックの影響を受けるようにする</p></div>
+          <h4>.dynamicShape()</h4>
+          <div class="section"><p></p></div>
+          <h4>.noDrops()</h4>
+          <div class="section"><p>壊しても何もドロップしないようにする</p></div>
+        </details>
+        <h2 class="subsec">ブロックを登録</h2>
+        <p>
+          アイテムのパッケージを追加したときと同様に、
+          「com.masec.newmod.init」を右クリックしてクラスを新規作成します。クラス名は<span class="inline">BlockInit</span>です。
+        </p>
+        <h3 class="subsec">クラスのコード</h3>
+        <p>これもまた、作られたファイルを編集してこうなります。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">BlockInit.java</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:switch_tab no-select"><div class="selected">例</div><div>各自で変える部分</div></div>
+          <div class="rich_code:content">
+            <code class="java">package com.masec.newmod.init;
+
+import com.masec.newmod.NewMod;
+import com.masec.newmod.block.TestIngotBlock;
+
+import net.minecraft.block.Block;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+
+public class BlockInit {
+  public static final DeferredRegister&lt;Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, NewMod.MOD_ID);
+  public static final RegistryObject&lt;Block> TEST_INGOT_BLOCK</span> =BLOCKS.register("<span style="background: #ffc8f1;">test_ingot_block</span>", () -> new <span style="background: #83ffd9;">TestIngotBlock());
+}</code>
+            <code class="java">package com.masec.newmod.init;
+
+import com.masec.newmod.NewMod;
+import com.masec.newmod.block.TestIngotBlock;
+
+import net.minecraft.block.Block;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+
+public class BlockInit {
+  public static final DeferredRegister&lt;Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, NewMod.MOD_ID);
+  public static final RegistryObject&lt;Block> TEST_INGOT_BLOCK</span> =BLOCKS.register("<span style="background: #ffc8f1;">test_ingot_block</span>", () -> new <span style="background: #83ffd9;">TestIngotBlock());
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers"></div>
+            <div class="rich_code:markers">package com.~#M(83ffd9)masec.newmodM#~.init;
+
+import com.~#M(83ffd9)masec.newmod.NewModM#~;
+import com.~#M(83ffd9)masec.newmod.block.TestIngotBlockM#~;
+
+import net.minecraft.block.Block;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+
+public class BlockInit {
+  public static final DeferredRegister&lt;Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ~#M(83ffd9)NewModM#~.MOD_ID);
+  public static final RegistryObject&lt;Block> ~#M(ffc8f1)TEST_INGOT_BLOCKM#~ =BLOCKS.register("~#M(ffc8f1)test_ingot_blockM#~", () -> new ~#M(83ffd9)TestIngotBlockM#~());
+}</div>
+          </div>
+        </div>
+        <p>
+          桃色でマーカーしたところはこのファイルで初めて定義しています。雰囲気を合わせて自分のものに置き換えてください(大文字とか)
+          <span class="inline">"test_ingot_block"</span>のほうはコマンドなどで使われる、アイテムのidとなります。
+        </p>
+        <h2 class="sec">ブロックのアイテム</h2>
+        <p>
+          アイテムとしてのブロックを追加しないと、/setblockだけできて/giveできないということになります。バニラだとネザーポータルとかそうですね。
+        </p>
+        <p>ItemInit.javaを開いて以下の行を書き加えます。各自で異なる部分に注意してください。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">ItemInit.java</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="java">package com.masec.newmod.init;
+
+import com.masec.newmod.NewMod;
+import com.masec.newmod.item.TestIngot;
+
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.Item.Properties;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+
+public class ItemInit {
+  public static final DeferredRegister&lt;Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, NewMod.MOD_ID);
+  public static final RegistryObject&lt;Item> TEST_INGOT = ITEMS.register("test_ingot", () -> new TestIngot());
+  public static final RegistryObject&lt;Item> TEST_INGOT_BLOCK = ITEMS.register("test_ingot_block",
+      () -> new BlockItem(BlockInit.TEST_INGOT_BLOCK.get(),new Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS)));
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">package com.masec.newmod.init;
+
+import com.masec.newmod.NewMod;
+import com.masec.newmod.item.TestIngot;
+
+~#M(83ffd9)import net.minecraft.item.BlockItem;M#~
+import net.minecraft.item.Item;
+~#M(83ffd9)import net.minecraft.item.ItemGroup;M#~
+~#M(83ffd9)import net.minecraft.item.Item.Properties;M#~
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+
+public class ItemInit {
+  public static final DeferredRegister&lt;Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, NewMod.MOD_ID);
+  public static final RegistryObject&lt;Item> TEST_INGOT = ITEMS.register("test_ingot", () -> new TestIngot());
+  ~#M(83ffd9)public static final RegistryObject&lt;Item> TEST_INGOT_BLOCK = ITEMS.register("test_ingot_block",M#~
+      ~#M(83ffd9)() -> new BlockItem(BlockInit.TEST_INGOT_BLOCK.get(),new Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS)));M#~
+}</div>
+          </div>
+        </div>
+        <h2 class="sec">イベントバス</h2>
+        <p>
+          アイテムの時のように、メインクラスのファイルに少し書き加えます。<br>
+          各自で名前が違うと思いますが「NewMod.java」を開きます。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">NewMod.java</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="java">package com.masec.newmod;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.masec.newmod.init.BlockInit;
+import com.masec.newmod.init.ItemInit;
+
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+// The value here should match an entry in the META-INF/mods.toml file
+@Mod(NewMod.MOD_ID)
+public class NewMod {
+  // Directly reference a log4j logger.
+  public static final Logger LOGGER = LogManager.getLogger();
+  
+  public static final String MOD_ID = "new_mod";
+
+  public NewMod() {
+    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    bus.addListener(this::setup);
+    
+    ItemInit.ITEMS.register(bus);
+    BlockInit.BLOCKS.register(bus);
+
+    // Register ourselves for server and other game events we are interested in
+    MinecraftForge.EVENT_BUS.register(this);
+  }
+
+  private void setup(final FMLCommonSetupEvent event) {
+    // some preinit code
+
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">package com.masec.newmod;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+~#M(83ffd9)import com.masec.newmod.init.BlockInit;M#~
+import com.masec.newmod.init.ItemInit;
+
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+// The value here should match an entry in the META-INF/mods.toml file
+@Mod(NewMod.MOD_ID)
+public class NewMod {
+  // Directly reference a log4j logger.
+  public static final Logger LOGGER = LogManager.getLogger();
+  
+  public static final String MOD_ID = "new_mod";
+
+  public NewMod() {
+    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    bus.addListener(this::setup);
+    
+    ItemInit.ITEMS.register(bus);
+    ~#M(83ffd9)BlockInit.BLOCKS.register(bus);M#~
+
+    // Register ourselves for server and other game events we are interested in
+    MinecraftForge.EVENT_BUS.register(this);
+  }
+
+  private void setup(final FMLCommonSetupEvent event) {
+    // some preinit code
+
+  }
+}</div>
+          </div>
+        </div>
+        <p>これを書き加えて終わりです。上のほうは各自で書き換える部分がありますね。</p>
+        <h2 class="sec">ルートテーブル</h2>
+        <p>
+          Package Explorerから「src/main/resources」を右クリックして「data.new_mod.loot_table.blocks」というパッケージを作ります。<br>
+        </p>
+        <div class="center"><img src="img/MCJE01/block16_04.png" class="default_setting" alt="「New Java Package」ウィンドウからパッケージを作成します。"></div>
+        <p>その中に「test_ingot_block.json」を作ります。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "new_mod:test_ingot_block"
+        }
+      ]
+    }
+  ]
+}</code>
+          </div>
+        </div>
+        <h2 class="sec">リソース</h2>
+        <p>
+          Package Explorerから「src/main/resources」を右クリックしてパッケージを作ります。名前は「assets.new_mod.blockstates」のようにします。<br>
+          同様に、models.blockも追加します。
+        </p>
+        <div class="center"><img src="img/MCJE01/block16_03.png" class="default_setting" alt="エクスプローラで「src/main/resources」を確認したときに「assets.new_mod.blockstates」と「assets.new_mod.models.block」があるはずです。"></div>
+        <h3 class="subsec">モデル/テクスチャ</h3>
+        <p>「assets.new_mod.blockstates」に「test_ingot_block.json」を作ります。ファイル名はブロックのIDです。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "variants": {
+    "": { "model": "new_mod:block/test_ingot_block" }
+  }
+}</code>
+          </div>
+        </div>
+        <p>「assets.new_mod.models.block」にも「test_ingot_block.json」を作ります。ファイル名はブロックのIDです。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "new_mod:blocks/test_ingot_block"
+  }
+}</code>
+          </div>
+        </div>
+        <p>
+          ブロックのアイテム用に「assets.new_mod.models.item」にも「test_ingot_block.json」を作ります。ファイル名はブロックのIDです。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "parent": "new_mod:block/test_ingot_block"
+}</code>
+          </div>
+        </div>
+        <p>
+          Eclipseからちょっと出て、はじめに作ったフォルダの「src/main/resources/assets/newmod/textures」に
+          「blocks」フォルダを作り、テクスチャを入れます。テクスチャの名前は「test_ingot_block.png」のようにします。<br>
+          最後はEclipseに戻り、「src/main/resources」を右クリックして「Refresh」します。
+        </p>
+        <h2 class="sec">マイクラを起動して確認</h2>
+        <p>このように、きれいなブロックが追加できました。</p>
+        <div class="center"><img src="img/MCJE01/block16_05.png" class="default_setting" alt="ダイヤモンドより濃い青のグラデーションがかかったカスタムブロック。"></div>
+        <h2 class="sec">参考サイト</h2>
+        <ul>
+          <li><a href="https://www.umagame.info/entry/modding116_part6">【マインクラフト Modding】1.16での自作Modの作り方 #6 ブロックの追加 - うまげーむさん</a></li>
+        </ul>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

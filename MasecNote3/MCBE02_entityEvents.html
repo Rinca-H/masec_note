@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「エンティティイベント」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「エンティティイベント」 - ますえくNOTE" />
+    <meta property="og:description" content="アドオンの要素である「エンティティイベント」について詳しく説明します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > エンティティイベント</div>
+        <h1 class="title" id="top">アドオン詳細解説 - エンティティイベント</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">機能</h2>
+        <p>
+          エンティティにタイムラインベースの詳細な処理を実装することができます。
+        </p>
+        <p>
+          <b>エンティティイベント</b>とは、ビヘイビアの<b>アニメーション</b>と<b>アニメーションコントローラ</b>の総称です。
+          このサイトでは、アニメーションコントローラのことを「アニコン」と呼びます。
+        </p>
+        <h2 class="sec">ファイルの場所</h2>
+        <p>
+          ビヘイビアパックのainmationsフォルダ、またはanimaton_controllersフォルダにファイルを置きます。
+        </p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              ビヘイビア<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┣ <b>animations</b><br>
+              　 ┃ ┗ <b>〇〇.json</b><br>
+              　 ┗ <b>animation_controllers</b><br>
+              　 　 ┗ <b>〇〇.json</b>
+            </p>
+          </div>
+        </div>
+        <h2 class="sec">アニコンの基本事項</h2>
+        <p>
+          各「<ruby><rb>state</rb><rp>(</rp><rt>ステート</rt><rp>)</rp></ruby>」へ "入ったとき" と "出たとき" でそれぞれイベントを指定することができます。
+          また、イベント以外に「<ruby><rb>transition</rb><rp>(</rp><rt>トランジション</rt><rp>)</rp></ruby>」という条件式が設定でき、
+          他のstateへ遷移するときにその条件を参照して異なるstateを行き先に指定できます。
+        </p>
+        <h3 class="subsec">基本構造</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.18.10",
+  "animation_controllers": {
+    "controller.animation.ex": { // このAniConのID
+      "states": {
+        "default": { // 1つのstate
+          "on_entry": [
+            // このstateに"入った"ときのイベント
+          ],
+          "transitions": [
+            // transition
+          ],
+          "on_exit": [
+            // このstateから"出ていく"ときのイベント
+          ]
+        }
+      }
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.18.10",
+  "animation_controllers": {
+    "~#M(83ffd9)controller.animation.exM#~": { // このAniConのID
+      "states": {
+        ~#B(f00)"default": { // 1つのstate
+          "on_entry": [
+            // このstateに"入った"ときのイベント
+          ],
+          "transitions": [
+            // transition
+          ],
+          "on_exit": [
+            // このstateから"出ていく"ときのイベント
+          ]
+        }B#~
+      }
+    }
+  }
+}</div>
+          </div>
+        </div>
+        <h2 class="sec">アニコンのしくみ</h2>
+        <p>① 処理をはじめるとき、一番上に書かれたstateのon_entryが動作します(要検証)。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"states": {
+  "default": { // stateその1
+    "on_entry": [
+      // このstateに"入った"ときのイベント
+    ],
+    "transitions": [
+      // transition
+    ],
+    "on_exit": [
+      // このstateから"出ていく"ときのイベント
+    ]
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">"states": {
+  ~#B(f00)"default": { // stateその1
+    ~#B(00f)"on_entry": [
+      // このstateに"入った"ときのイベント
+    ],B#~
+    "transitions": [
+      // transition
+    ],
+    "on_exit": [
+      // このstateから"出ていく"ときのイベント
+    ]
+  }B#~
+}</div>
+          </div>
+        </div>
+        <p>② 次にtransitionを処理していきます。上から順に処理するため、transitionの条件は厳しい順に上から並べる必要があります。</p>
+        <p>どの条件も満たさない場合は、また上から条件を比較して繰り返します。その間、次の処理へ移りません。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"states": {
+  "default": {
+    "on_entry": [
+      // このstateに"入った"ときのイベント
+    ],
+    "transitions": [
+      { "state1": "(条件)" }, // 条件が厳しい
+      { "state2": "(条件)" },
+      { "state3": "(条件)" }  // 条件が易しい
+    ],
+    "on_exit": [
+      // このstateから"出ていく"ときのイベント
+    ]
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">"states": {
+  ~#B(f00)"default": {
+    "on_entry": [
+      // このstateに"入った"ときのイベント
+    ],
+    ~#B(00f)"transitions": [
+      { "state1": "(条件)" }, // 条件が厳しい
+      { "state2": "(条件)" },
+      { "state3": "(条件)" }  // 条件が易しい
+    ],B#~
+    "on_exit": [
+      // このstateから"出ていく"ときのイベント
+    ]
+  }B#~
+}</div>
+          </div>
+        </div>
+        <p>③ 次の行き先となるstateが決まったら最後に<span class="inline">on_exit</span>が動作します。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"states": {
+  "default": {
+    "on_entry": [
+      // このstateに"入った"ときのイベント
+    ],
+    "transitions": [
+      // transition
+    ],
+    "on_exit": [
+      // このstateから"出ていく"ときのイベント
+    ]
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">"states": {
+  ~#B(f00)"default": {
+    "on_entry": [
+      // このstateに"入った"ときのイベント
+    ],
+    "transitions": [
+      // transition
+    ],
+    ~#B(00f)"on_exit": [
+      // このstateから"出ていく"ときのイベント
+    ]B#~
+  }B#~
+}</div>
+          </div>
+        </div>
+        <p>④ 行った先のstateでまたon_entryから処理が始まり、処理の順番に関しては以降同じように繰り返します。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"states": {
+  "default": { // 1つ目のstate
+    "on_entry": [
+      // このstateに"入った"ときのイベント
+    ],
+    "transitions": [
+      { "next_state": "(条件)" } // 行き先
+    ],
+    "on_exit": [
+      // このstateから"出ていく"ときのイベント
+    ]
+  },
+  "next_state": { // 次のstate
+    "on_entry": [
+      // このstateに"入った"ときのイベント
+    ],
+    "transitions": [
+      // transition
+    ],
+    "on_exit": [
+      // このstateから"出ていく"ときのイベント
+    ]
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">"states": {
+  ~#B(f00)"default": { // 1つ目のstate
+    "on_entry": [
+      // このstateに"入った"ときのイベント
+    ],
+    "transitions": [
+      { "next_state": "(条件)" } // 行き先
+    ],
+    "on_exit": [
+      // このstateから"出ていく"ときのイベント
+    ]
+  },B#~
+  ~#B(f00)"next_state": { // 次のstate
+    ~#B(00f)"on_entry": [
+      // このstateに"入った"ときのイベント
+    ],B#~
+    "transitions": [
+      // transition
+    ],
+    "on_exit": [
+      // このstateから"出ていく"ときのイベント
+    ]
+  }B#~
+}</div>
+          </div>
+        </div>
+        <h2 class="sec">アニコンの詳細な書き方</h2>
+        <h3 class="subsec">イベント</h3>
+        <p>
+          <span class="inline">"on_entry"</span>や<span class="inline">"on_exit"</span>で発生させられるイベントは
+          具体的に、(紐づけたエンティティの)イベント、コマンドの実行、Molangの変数の初期化です。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"on_entry": [
+  "@s (イベント名)",         // イベント; @s以外は存在しません
+  "/say hello",             // コマンドの実行; スラッシュ必須
+  "v.my_variable = 1.0;"    // Molangの変数の初期化; セミコロン必須
+]</code>
+          </div>
+        </div>
+        <h3 class="subsec">transitions</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"transitions": [
+  { "(この条件で進むステートの名前)": "(Molang式で書かれた条件)" }
+]</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">"transitions": [
+  ~#B(f00){ "(この条件で進むステートの名前)": "(Molang式で書かれた条件)" }B#~
+]</div>
+          </div>
+        </div>
+        <p>複数指定する場合は赤枠部分を増やします。</p>
+        <h3 class="subsec">1つのファイルで複数のアニコンを書ける</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.18.10",
+  "animation_controllers": {
+    "controller.animation.ex1": { // AniCon1
+      "states": {
+        // state
+      }
+    },
+    "controller.animation.ex2": { // AniCon2
+      "states": {
+        // state
+      }
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.18.10",
+  "animation_controllers": {
+    ~#B(00f)"controller.animation.ex1": { // AniCon1
+      "states": {
+        // state
+      }
+    },B#~
+    ~#B(00f)"controller.animation.ex2": { // AniCon2
+      "states": {
+        // state
+      }
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <h2 class="sec">アニメーションの基本事項</h2>
+        <p>
+          タイムラインに沿って指定したイベントを実行します。
+          実行できるイベントはAniConと同じで、(紐づけたエンティティの)イベント、コマンドの実行、Molangの変数の初期化です。
+        </p>
+        <h3 class="subsec">基本構造</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.test_events": { // このAnimのID
+      "timeline": {
+        // タイムライン
+      }
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.8.0",
+  "animations": {
+    "~#M(83ffd9)animation.test_eventsM#~": { // このAnimのID
+      ~#B(f00)"timeline": {
+        // タイムライン
+      }B#~
+    }
+  }
+}</div>
+          </div>
+        </div>
+        <h2 class="sec">アニメーションの詳細な書き方</h2>
+        <h3 class="subsec">タイムライン</h3>
+        <p>プロパティ名に時間、値にイベントを書きます。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"timeline": {
+  "0.0": "@s event",
+  "1.0": [ // 複数のイベント
+    "v.var1 = 1.0;",
+    "v.var2 = 2.0;"
+  ],
+  "2.0": "/say hello"
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">~#B(f00)"timeline": {
+  "0.0": "@s event",
+  "1.0": [ // 複数のイベント
+    "v.var1 = 1.0;",
+    "v.var2 = 2.0;"
+  ],
+  "2.0": "/say hello"
+}B#~</div>
+          </div>
+        </div>
+        <h3 class="subsec">アニメーションの長さ</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.test_events": {
+      "timeline": {
+        // タイムライン
+      },
+      "animation_length": 5.0
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.8.0",
+  "animations": {
+    ~#B(f00)"animation.test_events": {
+      "timeline": {
+        // タイムライン
+      },
+      ~#M(83ffd9)"animation_length": 5.0M#~
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <h3 class="subsec">1つのファイルで複数のアニメーションを書ける</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.ex1": { // Anim1
+      "timeline": {
+        // タイムライン
+      }
+    },
+    "animation.ex2": { // Anim2
+      "timeline": {
+        // タイムライン
+      }
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.8.0",
+  "animations": {
+    ~#B(f00)"animation.ex1": { // Anim1
+      "timeline": {
+        // タイムライン
+      }
+    },B#~
+    ~#B(f00)"animation.ex2": { // Anim2
+      "timeline": {
+        // タイムライン
+      }
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

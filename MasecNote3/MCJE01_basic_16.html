@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft JE(Java版)】Mod制作日記「カラのMODの作り方」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft JE(Java版)】Mod制作日記「カラのMODの作り方」 - ますえくNOTE" />
+    <meta property="og:description" content="v1.16でModを作る準備をします。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft JE(Java版) > Mod制作日記 > カラのMODの作り方</div>
+        <h1 class="title" id="top">Mod制作日記 - カラのMODの作り方</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p>具体的な作成環境とかをぶっ飛ばしてとりあえずほぼ自分用に書きます、、、</p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">環境</h2>
+        <p>一応わたしがどんな環境で作っているかサラッと書きます。</p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              マイクラのバージョン：<b>v1.16.5</b><br>
+              Javaいじるツール(IDE)：Eclipse(日本語化？なし)<br>
+              JDKのバージョン：17.0.1<br>
+              JREのバージョン：17.0.1
+            </p>
+          </div>
+        </div>
+        <h2 class="sec">Forgeのセットアップ</h2>
+        <h3 class="subsec">mdkの展開</h3>
+        <p>MOD作る用のフォルダ(<b>ここでは名前をnew_modとする</b>)を適当に決めて、Forgeのmdkをその中に展開します。</p>
+        <p>new_modの中身はこんな感じになると思います。</p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              new_mod<br>
+              　 ┣ gradle<br>
+              　 ┣ src<br>
+              　 ┣ .gitattributes<br>
+              　 ┣ .gitignore<br>
+              　 ┣ build.gradle<br>
+              　 ┣ changelog.txt<br>
+              　 ┣ CREDITS.txt<br>
+              　 ┣ gradle.properties<br>
+              　 ┣ gradlew<br>
+              　 ┣ gradlew<br>
+              　 ┣ LICENSE.txt<br>
+              　 ┗ README.txt
+            </p>
+          </div>
+        </div>
+        <h3 class="subsec">バッチファイルの作成/実行</h3>
+        <p>new_modの中にテキストファイルを新規作成して、以下のコマンドをコピペします。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code>gradlew genEclipseRuns --refresh-dependencies&&gradlew eclipse</code>
+          </div>
+        </div>
+        <p>
+          そしたらそのテキストファイルの拡張子を「.bat」にします。<br>
+          ファイル名はなんでもいいらしいですが「setup.bat」で習ったのでそうしておくのがいいと思います。<br>
+          あと、これはEclipseを使う場合にしか通用しないのでそこらへん注意してください。
+        </p>
+        <p>
+          作った.batファイルはダブルクリックで実行します。けっこう時間かかります。かからなかったら何かミスしてます。<br>
+          コマンドプロンプトの画面で緑字の「BUILD SUCCESSFUL」が表示されれば成功です。成功しても失敗しても処理が終われば勝手にウィンドウが閉じます。
+        </p>
+        <h2 class="sec">Eclipseの作業</h2>
+        <h3 class="subsec">Gradleプロジェクトのインポート</h3>
+        <p>
+          ワークスペースは適当に決めてEclipseを開きます。<br>
+          左上の「File > Import」を押して、「Gradle」の「Existing Gradle Object」を選択して「Next」
+        </p>
+        <div class="center"><img src="img/MCJE01/basic16_01.png" class="default_setting" alt="importメニューを開いたら「Gradle」と書いてある折りたたみを展開して「Existing Gradle Object」をクリックで選択します。"></div>
+        <p>
+          もう一回「Next」を押したら右上の「Browse」を押して、new_modフォルダを選択します。指定したら「Finish」
+        </p>
+        <h3 class="subsec">マイクラを起動</h3>
+        <p>
+          試しにマイクラを起動してみます。<br>
+          Eclipseの下のウィンドウの「Gradle Tasks」タブを押して、「new_mod」の中の「forgegradle runs」の中の「runClient」をダブルクリック。
+        </p>
+        <p>確認が終わったらゲームは閉じてください。</p>
+        <div class="center"><img src="img/MCJE01/basic16_02.png" class="default_setting" alt="「Gradle Tasks」タブ内で「forgegradle runs」のアリ畳を展開すると「runClient」があるはずです。"></div>
+        <h2 class="sec">メインクラス</h2>
+        <h3 class="subsec">名前とかを変える</h3>
+        <p>
+          Forgeにもとから入っているExampleModをベースに作ります。<br>
+          左のPackage Explorerから「new_mod > src/main/java」の中にある「com.example.exmaplemod」を右クリック。
+          真ん中より少し上にある「Refactor」から「Rename」をクリック。<br>
+          「example」と「examplemod」の部分を変えて「Finish」を押します。今回は「com.masec.newmod」にします。
+        </p>
+        <p>
+          同じ手順でその中にある「ExampleMod.java」も名前を変えます。今回は「NewMod.java」にしました。
+        </p>
+        <h3 class="subsec">メインクラスのコード</h3>
+        <p>
+          「NewMod.java」をダブルクリックで開くとファイルが開きます。<br>
+          そのコードでいらないところとかをバッサバッサ消していったりちょっと編集したりするとこうなります。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">NewMod.java</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:switch_tab no-select"><div class="selected">例</div><div>各自で変える部分</div></div>
+          <div class="rich_code:content">
+            <code class="java">package com.masec.newmod;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+// The value here should match an entry in the META-INF/mods.toml file
+@Mod(NewMod.MOD_ID)
+public class NewMod {
+  // Directly reference a log4j logger.
+  public static final Logger LOGGER = LogManager.getLogger();
+  
+  public static final String MOD_ID = "new_mod";
+
+  public NewMod() {
+    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    bus.addListener(this::setup);
+
+    // Register ourselves for server and other game events we are interested in
+    MinecraftForge.EVENT_BUS.register(this);
+  }
+
+  private void setup(final FMLCommonSetupEvent event) {
+    // some preinit code
+
+  }
+}
+</code>
+            <code class="java">package com.masec.newmod;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+// The value here should match an entry in the META-INF/mods.toml file
+@Mod(NewMod.MOD_ID)
+public class NewMod {
+  // Directly reference a log4j logger.
+  public static final Logger LOGGER = LogManager.getLogger();
+  
+  public static final String MOD_ID = "new_mod";
+
+  public NewMod() {
+    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    bus.addListener(this::setup);
+
+    // Register ourselves for server and other game events we are interested in
+    MinecraftForge.EVENT_BUS.register(this);
+  }
+
+  private void setup(final FMLCommonSetupEvent event) {
+    // some preinit code
+
+  }
+}
+</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">package com.masec.newmod;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+// The value here should match an entry in the META-INF/mods.toml file
+@Mod(NewMod.MOD_ID)
+public class NewMod {
+  // Directly reference a log4j logger.
+  public static final Logger LOGGER = LogManager.getLogger();
+  
+  public static final String MOD_ID = "new_mod";
+
+  public NewMod() {
+    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    bus.addListener(this::setup);
+
+    // Register ourselves for server and other game events we are interested in
+    MinecraftForge.EVENT_BUS.register(this);
+  }
+
+  private void setup(final FMLCommonSetupEvent event) {
+    // some preinit code
+
+  }
+}
+</div>
+            <div class="rich_code:markers">package com.~#M(83ffd9)masec.newmodM#~;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+// The value here should match an entry in the META-INF/mods.toml file
+@Mod(~#M(83ffd9)NewModM#~.MOD_ID)
+~#B(f00)public class ~#M(83ffd9)NewModM#~ {
+  // Directly reference a log4j logger.
+  public static final Logger LOGGER = LogManager.getLogger();
+  
+  public static final String MOD_ID = ~#M(83ffd9)"new_mod"M#~;
+
+  ~#B(00f)public ~#M(83ffd9)NewModM#~() {
+    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    bus.addListener(this::setup);
+
+    // Register ourselves for server and other game events we are interested in
+    MinecraftForge.EVENT_BUS.register(this);
+  }B#~
+
+  ~#B(00f)private void setup(final FMLCommonSetupEvent event) {
+    // some preinit code
+
+  }B#~
+}B#~
+</div>
+          </div>
+        </div>
+        <details><summary>消す前保管用(何故ここに置く)</summary>
+          <div class="rich_code">
+            <div class="rich_code:tab is_dark">
+              <div class="rich_code:title">NewMod.java</div>
+              <div class="rich_code:buttons">
+                <button class="rich_code:disp_all no-select">全て表示</button>
+                <button class="rich_code:copy no-select">コピー</button>
+              </div>
+            </div>
+            <div class="rich_code:content">
+              <code class="java">package com.masec.newmod;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.stream.Collectors;
+
+// The value here should match an entry in the META-INF/mods.toml file
+@Mod("examplemod")
+public class NewMod
+{
+    // Directly reference a log4j logger.
+    private static final Logger LOGGER = LogManager.getLogger();
+
+    public NewMod() {
+        // Register the setup method for modloading
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        // Register the enqueueIMC method for modloading
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
+        // Register the processIMC method for modloading
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+        // Register the doClientStuff method for modloading
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+
+        // Register ourselves for server and other game events we are interested in
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    private void setup(final FMLCommonSetupEvent event)
+    {
+        // some preinit code
+        LOGGER.info("HELLO FROM PREINIT");
+        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+    }
+
+    private void doClientStuff(final FMLClientSetupEvent event) {
+        // do something that can only be done on the client
+        LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().options);
+    }
+
+    private void enqueueIMC(final InterModEnqueueEvent event)
+    {
+        // some example code to dispatch IMC to another mod
+        InterModComms.sendTo("examplemod", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
+    }
+
+    private void processIMC(final InterModProcessEvent event)
+    {
+        // some example code to receive and process InterModComms from other mods
+        LOGGER.info("Got IMC {}", event.getIMCStream().
+                map(m->m.getMessageSupplier().get()).
+                collect(Collectors.toList()));
+    }
+    // You can use SubscribeEvent and let the Event Bus discover methods to call
+    @SubscribeEvent
+    public void onServerStarting(FMLServerStartingEvent event) {
+        // do something when the server starts
+        LOGGER.info("HELLO from server starting");
+    }
+
+    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
+    // Event bus for receiving Registry Events)
+    @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
+    public static class RegistryEvents {
+        @SubscribeEvent
+        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
+            // register a new block here
+            LOGGER.info("HELLO from Register Block");
+        }
+    }
+}
+</code>
+            </div>
+          </div>
+        </details>
+        <p>
+          <span class="inline">NewMod</span>のところはこのjavaファイルの名前と揃えてください。<br>
+          真ん中の<span class="inline">"new_mod"</span>はModIdとなります。他のMODとカブらないようなオリジナルのIDを決めてください。<br>
+          このお手本は世に出す気はないし、他のMODと遊ぶつもりもないのでお手本は<span class="inline">new_mod</span>としています。<br>
+          以降ModIdとして<span class="inline">new_mod</span>が使われていたら<u>各自で置き換えてください</u>。
+        </p>
+        <h3 class="subsec">概要欄をカスタマイズ</h3>
+        <p>
+          「src/main/resources」の中の「META-INF」の中の「mod.toml」を右クリックし、「Open With > Text Editor」を選択して開きます。<br>
+          これまたいらないところとかを消して編集したものがこちら。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:switch_tab no-select"><div class="selected">例</div><div>各自で変える部分</div></div>
+          <div class="rich_code:content">
+            <code class="toml">modLoader="javafml"
+loaderVersion="[36,)"
+license="All rights reserved"
+
+[[mods]]
+modId="new_mod"
+version="1.0"
+displayName="New Mod"
+logoFile="examplemod.png"
+credits="Credit Here"
+authors="Masec"
+description='''
+I made a Mod for the first time :)
+'''</code>
+            <code class="toml">modLoader="javafml"
+loaderVersion="[36,)"
+license="All rights reserved"
+
+[[mods]]
+modId="new_mod"
+version="1.0"
+displayName="New Mod"
+logoFile="examplemod.png"
+credits="Credit Here"
+authors="Masec"
+description='''
+I made a Mod for the first time :)
+'''</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">modLoader="javafml"
+loaderVersion="[36,)"
+license="All rights reserved"
+
+[[mods]]
+modId="new_mod"
+version="1.0"
+displayName="New Mod"
+logoFile="examplemod.png"
+credits="Credit Here"
+authors="Masec"
+description='''
+I made a Mod for the first time :)
+'''</div>
+            <div class="rich_code:markers">modLoader="javafml"
+loaderVersion="[36,)"
+license="All rights reserved"
+
+[[mods]]
+modId=~#M(83ffd9)"new_mod"M#~
+version=~#M(83ffd9)"1.0"M#~
+displayName=~#M(83ffd9)"New Mod"M#~
+logoFile="examplemod.png"
+credits=~#M(83ffd9)"Credit Here"M#~
+authors=~#M(83ffd9)"Masec"M#~
+description='''
+~#M(83ffd9)I made a Mod for the first time :)M#~
+'''</div>
+          </div>
+        </div>
+        <details><summary>消す前保管用2(期待？にお応え)</summary>
+          <div class="rich_code">
+            <div class="rich_code:tab is_dark">
+              <div class="rich_code:title"></div>
+              <div class="rich_code:buttons">
+                <button class="rich_code:disp_all no-select">全て表示</button>
+                <button class="rich_code:copy no-select">コピー</button>
+              </div>
+            </div>
+            <div class="rich_code:content">
+              <code class="toml"># This is an example mods.toml file. It contains the data relating to the loading mods.
+# There are several mandatory fields (#mandatory), and many more that are optional (#optional).
+# The overall format is standard TOML format, v0.5.0.
+# Note that there are a couple of TOML lists in this file.
+# Find more information on toml format here:  https://github.com/toml-lang/toml
+# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
+modLoader="javafml" #mandatory
+# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
+loaderVersion="[36,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+# The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
+# Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
+license="All rights reserved"
+# A URL to refer people to when problems occur with this mod
+#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+# A list of mods - how many allowed here is determined by the individual mod loader
+[[mods]] #mandatory
+# The modid of the mod
+modId="examplemod" #mandatory
+# The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
+# ${file.jarVersion} will substitute the value of the Implementation-Version as read from the mod's JAR file metadata
+# see the associated build.gradle script for how to populate this completely automatically during a build
+version="${file.jarVersion}" #mandatory
+ # A display name for the mod
+displayName="Example Mod" #mandatory
+# A URL to query for updates for this mod. See the JSON update specification https://mcforge.readthedocs.io/en/latest/gettingstarted/autoupdate/
+#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
+# A URL for the "homepage" for this mod, displayed in the mod UI
+#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
+# A file name (in the root of the mod JAR) containing a logo for display
+logoFile="examplemod.png" #optional
+# A text field displayed in the mod UI
+credits="Thanks for this example mod goes to Java" #optional
+# A text field displayed in the mod UI
+authors="Love, Cheese and small house plants" #optional
+# The description text for the mod (multi line!) (#mandatory)
+description='''
+This is a long form description of the mod. You can write whatever you want here
+
+Have some lorem ipsum.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed sagittis luctus odio eu tempus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque volutpat ligula eget lacus auctor sagittis. In hac habitasse platea dictumst. Nunc gravida elit vitae sem vehicula efficitur. Donec mattis ipsum et arcu lobortis, eleifend sagittis sem rutrum. Cras pharetra quam eget posuere fermentum. Sed id tincidunt justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+'''
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.examplemod]] #optional
+    # the modid of the dependency
+    modId="forge" #mandatory
+    # Does this dependency have to exist - if not, ordering below must be specified
+    mandatory=true #mandatory
+    # The version range of the dependency
+    versionRange="[36,)" #mandatory
+    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    ordering="NONE"
+    # Side this dependency is applied on - BOTH, CLIENT or SERVER
+    side="BOTH"
+# Here's another dependency
+[[dependencies.examplemod]]
+    modId="minecraft"
+    mandatory=true
+# This version range declares a minimum of the current minecraft version up to but not including the next major version
+    versionRange="[1.16.5,1.17)"
+    ordering="NONE"
+    side="BOTH"
+</code>
+            </div>
+          </div>
+        </details>
+        <p>
+          マーカーしたところを各自で編集してください。上からModId、MODのバージョン、MODの名前、クレジット、作者名、説明文です。
+          説明文は改行できます。
+        </p>
+        <h2 class="subsec">マイクラを起動して確認</h2>
+        <p>
+          <a href="#sec02sec02">先ほど</a>と同様にしてマイクラを起動します。テストプレイは毎度同じ方法で起動します。<br>
+          タイトル画面の「Mod」から自分のMODが確認できれば成功です！
+        </p>
+        <h2 class="sec">参考サイト</h2>
+        <ul>
+          <li><a href="https://www.umagame.info/entry/modding116_part1">【マインクラフト Modding】1.16での自作Modの作り方 #1 必要なものの準備 - うまげーむさん</a></li>
+          <li><a href="https://www.umagame.info/entry/modding116_part2">【マインクラフト Modding】1.16での自作Modの作り方 #2 環境構築 - うまげーむさん</a></li>
+          <li><a href="https://www.umagame.info/entry/modding116_part3">【マインクラフト Modding】1.16での自作Modの作り方 #3 Modの設定 - うまげーむさん</a></li>
+          <li><a href="https://www.umagame.info/entry/2020/01/23/215022/">【マインクラフト Modding】1.15対応 自作MODの作り方 #2 準備 - うまげーむさん</a></li>
+          <li><a href="https://qiita.com/kawamune/items/ba0d18ade13d98d817d9">Eclipse+Forgeでマイクラのmod開発～デバッグ環境構築まで - Qiita</a></li>
+        </ul>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

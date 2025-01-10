@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「交易テーブル」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「交易テーブル」 - ますえくNOTE" />
+    <meta property="og:description" content="アドオンの要素である「交易テーブル」について詳しく説明します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > 交易テーブル</div>
+        <h1 class="title" id="top">アドオン詳細解説 - 交易テーブル</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">機能</h2>
+        <p>村人や行商人、またはオリジナルのモブで交易をするモブに対して交易内容を定義します。</p>
+        <h2 class="sec">ファイルの場所</h2>
+        <p>ビヘイビアのtradingフォルダにファイルを置きます。そのフォルダの中にさらにフォルダを作っても指定すれば使えます。</p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              ビヘイビア<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┗ <b>trading</b><br>
+              　 　 ┗<b>〇〇.json</b>
+            </p>
+          </div>
+        </div>
+        <h2 class="sec">基本の構造</h2>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "groups": [
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [ { "item": "minecraft:apple", "quantity": 1 } ],
+              "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+              "trader_exp": 2,
+              "max_uses": 16,
+              "reward_exp": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "tiers": [
+    ~#B(f00){
+      "total_exp_required": 0,
+      "groups": [
+        ~#B(00f){
+          "num_to_select": 1,
+          "trades": [
+            ~#B(0c0){
+              "wants": [ { "item": "minecraft:apple", "quantity": 1 } ],
+              "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+              "trader_exp": 2,
+              "max_uses": 16,
+              "reward_exp": true
+            }B#~
+          ]
+        }B#~
+      ]
+    }B#~
+  ]
+}</div>
+          </div>
+        </div>
+        <h2 class="sec">交易内容</h2>
+        <p>基本の構造の、緑の枠で囲まれた部分が交易の内容です。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "wants": [ { "item": "minecraft:apple", "quantity": 1 } ],
+  "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+  "trader_exp": 2,
+  "max_uses": 16,
+  "reward_exp": true
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">~#B(0c0){
+  "wants": [ { "item": "minecraft:apple", "quantity": 1 } ],
+  "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+  "trader_exp": 2,
+  "max_uses": 16,
+  "reward_exp": true
+}B#~</div>
+          </div>
+        </div>
+        <h3 class="subsec">wantsとgives</h3>
+        <div class="section">
+          <p>
+            <span class="inline">wants</span>が売るアイテム、<span class="inline">gives</span>が買うアイテム。<br>
+            <span class="inline">item</span>にアイテムのIDを、<span class="inline">quantity</span>に数を指定します。
+          </p>
+        </div>
+        <details><summary>上級設定</summary>
+          <h4>アイテムの複数指定</h4>
+          <p>以下のようにして交易に使うアイテムを複数指定できます。(<span class="inline">wants</span>も<span class="inline">gives</span>も同様)</p>
+          <div class="rich_code">
+            <div class="rich_code:tab is_dark">
+              <div class="rich_code:title"></div>
+              <div class="rich_code:buttons">
+                <button class="rich_code:disp_all no-select">全て表示</button>
+                <button class="rich_code:copy no-select">コピー</button>
+              </div>
+            </div>
+            <div class="rich_code:content">
+              <code class="json">{
+  "wants": [
+    { "item": "minecraft:apple", "quantity": 1 },
+    { "item": "minecraft:coal", "quantity": 1 }
+  ],
+  "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+  "trader_exp": 2,
+  "max_uses": 16,
+  "reward_exp": true
+}</code>
+            </div>
+            <div class="rich_code:marker_container">
+              <div class="rich_code:markers">~#B(0c0){
+  "wants": [
+    { "item": "minecraft:apple", "quantity": 1 },
+    { "item": "minecraft:coal", "quantity": 1 }
+  ],
+  "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+  "trader_exp": 2,
+  "max_uses": 16,
+  "reward_exp": true
+}B#~</div>
+            </div>
+          </div>
+          <h4>アイテム数のランダム化</h4>
+          <p>以下の例だと、村人によって交易するのにリンゴが最低で1個だったり、最大で5個必要だったりします。(wantsもgivesも同様)</p>
+          <div class="rich_code">
+            <div class="rich_code:tab is_dark">
+              <div class="rich_code:title"></div>
+              <div class="rich_code:buttons">
+                <button class="rich_code:disp_all no-select">全て表示</button>
+                <button class="rich_code:copy no-select">コピー</button>
+              </div>
+            </div>
+            <div class="rich_code:content">
+              <code class="json">{
+  "wants": [
+    {
+      "item": "minecraft:apple",
+      "quantity": { "min": 1, "max": 5 }
+    }
+  ],
+  "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+  "trader_exp": 2,
+  "max_uses": 16,
+  "reward_exp": true
+}</code>
+            </div>
+            <div class="rich_code:marker_container">
+              <div class="rich_code:markers">~#B(0c0){
+  "wants": [
+    {
+      "item": "minecraft:apple",
+      "quantity": { "min": 1, "max": 5 }
+    }
+  ],
+  "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+  "trader_exp": 2,
+  "max_uses": 16,
+  "reward_exp": true
+}B#~</div>
+            </div>
+          </div></code>
+          <h4>値段の変動</h4>
+          <p>村人を治療したときや村人に害を与えたときなどの値上げや値下げの変動量の割合を指定できます。</p>
+          <div class="rich_code">
+            <div class="rich_code:tab is_dark">
+              <div class="rich_code:title"></div>
+              <div class="rich_code:buttons">
+                <button class="rich_code:disp_all no-select">全て表示</button>
+                <button class="rich_code:copy no-select">コピー</button>
+              </div>
+            </div>
+            <div class="rich_code:content">
+              <code class="json">{
+  "wants": [
+    {
+      "item": "minecraft:apple",
+      "quantity": 1,
+      "price_multiplier": 0.5
+    }
+  ],
+  "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+  "trader_exp": 2,
+  "max_uses": 16,
+  "reward_exp": true
+}</code>
+            </div>
+            <div class="rich_code:marker_container">
+              <div class="rich_code:markers">~#B(0c0){
+  "wants": [
+    {
+      "item": "minecraft:apple",
+      "quantity": 1,
+      "price_multiplier": 0.5
+    }
+  ],
+  "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+  "trader_exp": 2,
+  "max_uses": 16,
+  "reward_exp": true
+}B#~</div>
+            </div>
+          </div>
+          <h4>ファンクション</h4>
+          <p><a href="lootTables.html#sec03">ルートテーブルのファンクション</a>のように、アイテムの指定をより高度にできます。</p>
+          <div class="rich_code">
+            <div class="rich_code:tab is_dark">
+              <div class="rich_code:title"></div>
+              <div class="rich_code:buttons">
+                <button class="rich_code:disp_all no-select">全て表示</button>
+                <button class="rich_code:copy no-select">コピー</button>
+              </div>
+            </div>
+            <div class="rich_code:content">
+              <code class="json">{
+  "wants": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+  "gives": [
+    {
+      "item": "minecraft:apple",
+      "quantity": 1,
+      "functions": [
+        {
+          "function": "enchant_with_levels",
+          "treasure": true,
+          "levels": { "min": 15, "max": 25 }
+        }
+      ]
+    }
+  ],
+  "trader_exp": 2,
+  "max_uses": 16,
+  "reward_exp": true
+}</code>
+            </div>
+            <div class="rich_code:marker_container">
+              <div class="rich_code:markers">~#B(0c0){
+  "wants": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+  "gives": [
+    {
+      "item": "minecraft:apple",
+      "quantity": 1,
+      ~#B(f80)"functions": [
+        {
+          "function": "enchant_with_levels",
+          "treasure": true,
+          "levels": { "min": 15, "max": 25 }
+        }
+      ]B#~
+    }
+  ],
+  "trader_exp": 2,
+  "max_uses": 16,
+  "reward_exp": true
+}B#~</div>
+            </div>
+          </div>
+          <p>ルートテーブルとは異なるので、使えないファンクションがいくつかあります。</p>
+          <div class="info">
+            <p>全く使えないファンクション：</p>
+            <ul>
+              <li><span class="inline">setcount</span></li>
+              <li><span class="inline">furnace_melt</span></li>
+              <li><span class="inline">looting_enchant</span></li>
+              <li><span class="inline">trader_material_type</span></li>
+            </ul>
+            <p><span class="inline">wants</span>に使えないファンクション：</p>
+            <ul>
+              <li><span class="inline">set_name</span></li>
+              <li><span class="inline">set_lore</span></li>
+              <li><span class="inline">set_damage</span></li>
+              <li><span class="inline">set_block_cnotents</span></li>
+              <li><span class="inline">random_dye</span></li>
+              <li><span class="inline">full_container</span></li>
+            </ul>
+          </div>
+        </details>
+        <h3 class="subsec">trader_exp</h3>
+        <div class="section"><p>交易経験値の量。</p></div>
+        <h3 class="subsec">max_uses</h3>
+        <div class="section"><p>何回交易したら売り切れるか。</p></div>
+        <h3 class="subsec">reward_exp</h3>
+        <div class="section"><p>交易時に普通の(エンチャントに使う)経験値をドロップするかどうか。</p></div>
+        <h2 class="sec">交易内容の分岐</h2>
+        <p>基本の構造の、緑の枠で囲まれた部分を増やすと、交易内容を村人によってランダムに分岐できます。</p>
+        <p>以下の例だと、村人によってリンゴだけを交換してくれたり、石炭だけを交換してくれたりするようになります。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "groups": [
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [ { "item": "minecraft:apple", "quantity": 1 } ],
+              "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+              "trader_exp": 2,
+              "max_uses": 16,
+              "reward_exp": true
+            },
+            {
+              "wants": [ { "item": "minecraft:coal", "quantity": 1 } ],
+              "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+              "trader_exp": 2,
+              "max_uses": 16,
+              "reward_exp": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "tiers": [
+    ~#B(f00){
+      "total_exp_required": 0,
+      "groups": [
+        ~#B(00f){
+          "num_to_select": 1,
+          "trades": [
+            ~#B(0c0){
+              "wants": [ { "item": "minecraft:apple", "quantity": 1 } ],
+              "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+              "trader_exp": 2,
+              "max_uses": 16,
+              "reward_exp": true
+            },B#~
+            ~#B(0c0){
+              "wants": [ { "item": "minecraft:coal", "quantity": 1 } ],
+              "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+              "trader_exp": 2,
+              "max_uses": 16,
+              "reward_exp": true
+            }B#~
+          ]
+        }B#~
+      ]
+    }B#~
+  ]
+}</div>
+          </div>
+        </div>
+        <p>確率は指定できません。「A, A, A, B」のようにメニューを指定して原始的に確率を変えるしかありません(この場合はAが3/4=75%、Bが1/4=25%)。</p>
+        <h3 class="subsec">num_to_select</h3>
+        <div class="section">
+          <p>ランダムに選ばれるとき、いくつ選ばれるか。</p>
+          <p>
+            たとえば、分岐としてAからFのアイテムを指定したうえでこの値を2にしたなら、BとDだけ、またはAとFだけ、または......と交換する村人になる。
+          </p>
+        </div>
+        <h2 class="sec">交易内容の選択肢を増やす</h2>
+        <p>基本の構造の、青の枠で囲まれた部分を増やすと、交易内容の選択肢を増やします。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "groups": [
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [ { "item": "minecraft:apple", "quantity": 1 } ],
+              "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+              "trader_exp": 2,
+              "max_uses": 16,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [ { "item": "minecraft:coal", "quantity": 1 } ],
+              "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+              "trader_exp": 2,
+              "max_uses": 16,
+              "reward_exp": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "tiers": [
+    ~#B(f00){
+      "total_exp_required": 0,
+      "groups": [
+        ~#B(00f){
+          "num_to_select": 1,
+          "trades": [
+            ~#B(0c0){
+              "wants": [ { "item": "minecraft:apple", "quantity": 1 } ],
+              "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+              "trader_exp": 2,
+              "max_uses": 16,
+              "reward_exp": true
+            }B#~
+          ]
+        },B#~
+        ~#B(00f){
+          "num_to_select": 1,
+          "trades": [
+            ~#B(0c0){
+              "wants": [ { "item": "minecraft:coal", "quantity": 1 } ],
+              "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+              "trader_exp": 2,
+              "max_uses": 16,
+              "reward_exp": true
+            }B#~
+          ]
+        }B#~
+      ]
+    }B#~
+  ]
+}</div>
+          </div>
+        </div>
+        <h2 class="sec">交易レベル</h2>
+        <p>交易レベルで後に開放される交易メニューを指定します。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "groups": [
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [ { "item": "minecraft:apple", "quantity": 1 } ],
+              "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+              "trader_exp": 2,
+              "max_uses": 16,
+              "reward_exp": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 10,
+      "groups": [
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [ { "item": "minecraft:coal", "quantity": 1 } ],
+              "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+              "trader_exp": 2,
+              "max_uses": 16,
+              "reward_exp": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "tiers": [
+    ~#B(f00){
+      "total_exp_required": ~#M(83ffd9)0M#~,
+      "groups": [
+        ~#B(00f){
+          "num_to_select": 1,
+          "trades": [
+            ~#B(0c0){
+              "wants": [ { "item": "minecraft:apple", "quantity": 1 } ],
+              "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+              "trader_exp": 2,
+              "max_uses": 16,
+              "reward_exp": true
+            }B#~
+          ]
+        }B#~
+      ]
+    },B#~
+    ~#B(f00){
+      "total_exp_required": ~#M(83ffd9)10M#~,
+      "groups": [
+        ~#B(00f){
+          "num_to_select": 1,
+          "trades": [
+            ~#B(0c0){
+              "wants": [ { "item": "minecraft:coal", "quantity": 1 } ],
+              "gives": [ { "item": "minecraft:emerald", "quantity": 1 } ],
+              "trader_exp": 2,
+              "max_uses": 16,
+              "reward_exp": true
+            }B#~
+          ]
+        }B#~
+      ]
+    }B#~
+  ]
+}</div>
+          </div>
+        </div>
+        <h3 class="subsec">total_exp_required</h3>
+        <div class="section"><p>開放に必要な交易レベル。</p></div>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

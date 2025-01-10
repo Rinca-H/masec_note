@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「ボリューム」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「ボリューム」 - ますえくNOTE" />
+    <meta property="og:description" content="アドオンの要素である「ボリューム」について詳しく説明します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > ボリューム</div>
+        <h1 class="title" id="top">アドオン詳細解説 - ボリューム</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">機能</h2>
+        <p>「ボリューム」というものを定義します。</p>
+        <p>
+          ボリュームとは何かというと、<b>ワールド内の指定したある空間</b>(直方体)のことで、
+          大きさやエンティティの侵入/退出時のイベントを設定して定義します。
+        </p>
+        <h2 class="sec">ファイルの場所</h2>
+        <div class="center">
+          <div class="box1">
+            <p>
+              (ワールドデータ)<br>
+              　 ┣ behavior_packs<br>
+              　 ┣ db<br>
+              　 ┣ resource_packs<br>
+              　 ┣ level.dat<br>
+              　 ┣ level.dat_old<br>
+              　 ┣ levelname.txt<br>
+              　 ┣ world_icon.jpeg<br>
+              　 ┗ <b>volumes</b><br>
+              　 　 ┗ <b>〇〇.json</b>
+            </p>
+          </div>
+        </div>
+        <h2 class="sec">基本構造</h2>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.17.0",
+  "minecraft:volume": {
+    "description": {
+      "identifier": "ex:my_volume"
+    },
+    "components": {
+      // コンポーネント
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <h2 class="sec">コンポーネント</h2>
+        <h3 class="subsec">minecraft:bounds</h3>
+        <p>
+          ボリュームの大きさを決めます。直方体の(x,y,z)が最も小さい点(<span class="inline">"min"</span>)と
+          最も大きい点(<span class="inline">"max"</span>)を指定します。
+        </p>
+        <p><span class="inline">"dimension"</span>ではディメンションを指定します。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:bounds": {
+  "dimension": "overworld",
+  "min": [ -50, -64, -50 ],
+  "max": [ 50, 320, 50 ],
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:fog</h3>
+        <p>このボリュームの中にいるプレイヤーに見せるfogを指定します。</p>
+        <p>
+          <span class="inline">"fog_identifier"</span>にはfogIDを、
+          <span class="inline">"priority"</span>には優先順位を指定します(小さいほうが高い)。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:fog": {
+  "fog_identifier": "minecraft:fog_savanna",
+  "priority": 1
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:on_actor_enter</h3>
+        <p>このボリュームにエンティティが入った瞬間に起こるイベントを指定します。</p>
+        <p>
+          <span class="inline">"condition"</span>ではMolangを用いた追加の条件、
+          <span class="inline">"event"</span>では発生させるイベントの名前、
+          <span class="inline">"target"</span>ではそのエンティティ基準のターゲットを指定します。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:on_actor_enter":{
+  "on_enter": [{
+    "condition": "query.modified_move_speed >= 1.0",
+    "event": "reduce_fog_amount",
+    "target": "self"
+  }]
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:on_actor_leave</h3>
+        <p>このボリュームからエンティティが出た瞬間に起こるイベントを指定します。</p>
+        <p>各プロパティの説明は<span class="inline">"minecraft:on_actor_enter"</span>コンポーネントと同様です。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:on_actor_leave":{
+  "on_leave": [{
+    "condition": "query.modified_move_speed &lt;= 0.9",
+    "event": "restart_fog",
+    "target": "self"
+  }]
+}</code>
+          </div>
+        </div>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

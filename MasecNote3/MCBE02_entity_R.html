@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「エンティティ(リソース)」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「エンティティ(リソース)」 - ますえくNOTE" />
+    <meta property="og:description" content="リソースパックの要素である「エンティティ」について詳しく説明します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > エンティティ(リソース)</div>
+        <h1 class="title" id="top">アドオン詳細解説 - エンティティ(リソース)</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">エンティティのリソースの仕組み</h2>
+        <p>
+          エンティティはビヘイビアもリソースもどちらも複雑です。
+          リソースパックでは、テクスチャを貼り付けるだけでなく、
+          アニメーションやジオメトリ、その他細かい要素、任意でパーティクルとサウンドを紐づける必要があります。
+        </p>
+        <div class="center"><img src="img/MCBE02_entity_R_01.png" class="default_setting"></div>
+        <p>
+          「entity_client」がメインとなって、エンティティとそれらの紐づける要素すべての中継となります。
+        </p>
+        <h3 class="subsec">略語</h3>
+        <p>
+          この記事では以下のような略語を使います。
+        </p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              アニコン：アニメーションコントローラの略<br>
+              レンコン：レンダーコントローラの略
+            </p>
+          </div>
+        </div>
+        <h2 class="sec">entity_client</h2>
+        <h3 class="subsec">ファイルの場所</h3>
+        <div class="center">
+          <div class="box1">
+            <p>
+              リソース<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┗ <b>entity</b><br>
+              　 　 ┗ <b>〇〇.entity.json</b>
+            </p>
+          </div>
+        </div>
+        <p>
+          ファイル名は他のファイルとの区別のため「<b>〇〇.entity.json</b>」にするのを強くおすすめします。
+          別に「〇〇.json」でも動作はします。
+        </p>
+        <h3 class="subsec">基本構造</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ex:my_entity",
+      "materials": {
+        // マテリアル
+      },
+      "textures": {
+        // テクスチャ
+      },
+      "geometry": {
+        // ジオメトリ
+      },
+      "spawn_egg": {
+        // スポーンエッグのテクスチャ
+      },
+      "scripts": {
+        "animate": [
+          // Animキー
+        ]
+      },
+      "animations": {
+        // アニメーション, アニコン
+      },
+      "render_controllers": [
+        // レンコン
+      ]
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">詳細な構造</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ex:my_entity",
+      "min_engine_version": "1.18.0",
+      "materials": {
+        // マテリアル
+      },
+      "textures": {
+        // テクスチャ
+      },
+      "geometry": {
+        // ジオメトリ
+      },
+      "queryable_geometry": "Str",
+      "spawn_egg": {
+        // スポーンエッグのテクスチャ
+      },
+      "particle_effects": {
+        // パーティクル
+      },
+      "particle_emitters": {
+        // パーティクル・エミッター
+      },
+      "sound_effects": {
+        // サウンド
+      },
+      "scripts": {
+        "variables": {
+          // Molang変数に関する設定
+        },
+        "initialize": "Molng-n",
+        "pre_animation": "Molang-n",
+        "scale": "Molang",
+        "scaleX": "Molang",
+        "scaleY": "Molang",
+        "scaleZ": "Molang",
+        "parent_setup": "Molang",
+        "animate": [
+          // Animキー
+        ],
+        "should_update_bones_and_effects_offscreen": "Molang",
+        "should_update_effects_offscreen": "Molang"
+      },
+      "animations": {
+        // アニメーション, アニコン
+      },
+      "render_controllers": [ 
+        // レンコン
+      ],
+      "enable_attachables": "Bool",
+      "hide_armor": "Bool",
+      "item": "Str"
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ex:my_entity",
+      "min_engine_version": "1.18.0",
+      "materials": {
+        // マテリアル
+      },
+      "textures": {
+        // テクスチャ
+      },
+      "geometry": {
+        // ジオメトリ
+      },
+      "queryable_geometry": "Str",
+      "spawn_egg": {
+        // スポーンエッグのテクスチャ
+      },
+      "particle_effects": {
+        // パーティクル
+      },
+      "particle_emitters": {
+        // パーティクル・エミッター
+      },
+      "sound_effects": {
+        // サウンド
+      },
+      ~#B(f00)"scripts": {
+        "variables": {
+          // Molang変数に関する設定
+        },
+        "initialize": "Molng-n",
+        "pre_animation": "Molang-n",
+        "scale": "Molang",
+        "scaleX": "Molang",
+        "scaleY": "Molang",
+        "scaleZ": "Molang",
+        "parent_setup": "Molang",
+        "animate": [
+          // Animキー
+        ],
+        "should_update_bones_and_effects_offscreen": "Molang",
+        "should_update_effects_offscreen": "Molang"
+      },B#~
+      "animations": {
+        // アニメーション, アニコン
+      },
+      "render_controllers": [ 
+        // レンコン
+      ],
+      "enable_attachables": "Bool",
+      "hide_armor": "Bool",
+      "item": "Str"
+    }
+  }
+}</div>
+          </div>
+        </div>
+        <h3 class="subsec">テクスチャ・ジオメトリ・マテリアルの紐づけ</h3>
+        <p>後に説明する「複雑なエンティティ」ではない場合、以下のように紐づけが簡単になります。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"materials": {
+  "default": "(マテリアルID)"
+},
+"textures": {
+  "default": "(テクスチャのファイルパス)"
+},
+"geometry": {
+  "default": "(ジオメトリID)"
+}</code>
+          </div>
+        </div>
+        <p>また、これも後に詳しい説明をしますが、レンコンの指定も簡単になります。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"render_controllers": [
+  "(レンコンID)"
+]</code>
+          </div>
+        </div>
+        <p>
+          複雑なエンティティとは、複数の状態をもったエンティティのことです。たとえば、村人は様々な職業という形で「状態」をもっています。
+          村人のように「状態」でテクスチャ、ジオメトリ、マテリアルが変わるエンティティを作る場合には紐づけが難しくなります。
+        </p>
+        <p>
+          2つの状態A、Bをもつエンティティにリソースを紐づける例で説明します。<br>
+          まず、entity_clientでテクスチャなどを紐づける用意をします。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"materials": {
+  // "state1", "state2"の部分は自由
+
+  "state1": "(マテリアルID)",
+  "state2": "(マテリアルID)"
+},
+"textures": {
+  // すべて連動するわけではないので、
+  // 状態によって変わらなければそのまま"default"1つだけでOK
+
+  "default": "(テクスチャのファイルパス)"
+}
+// テクスチャ、ジオメトリ、マテリアルで書き方は変わらない</code>
+          </div>
+        </div>
+        <p>
+          そして、レンコン側で状態に応じた条件分岐を作ってこれらのキー(上記の
+          <span class="inline">"state1"</span>, <span class="inline">"state2"</span>, <span class="inline">"default"</span>の部分)
+          を指定して、状態でテクスチャなどが切り替わるようにします。
+        </p>
+        <p>レンコンの作りかた/編集のしかたはレンコンの章で説明します。</p>
+        <h3 class="subsec">スポーンエッグのテクスチャ</h3>
+        <p>色を二つ指定するか、アイテムのTerrainID(とインデックス)を指定してテクスチャを決めます。</p>
+        <p>
+          色を二つ指定する場合は、
+          <span class="inline">"base_color"</span>に下地の色、
+          <span class="inline">"overlay_color"</span>に模様の色を16進カラーコードで指定します。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"spawn_egg": {
+  "base_color": "#ffffff",
+  "overlay_color": "#0000ff"
+}</code>
+          </div>
+        </div>
+        <p>
+          テクスチャを指定する場合は、
+          <span class="inline">"texture"</span>にTerrainIDを、必要なら
+          <span class="inline">"texture_index"</span>の項目を追加してインデックスを整数で指定します。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"spawn_egg": {
+  "texture": "my_entity_spawn_egg"
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">アニメーションの紐づけ</h3>
+        <p>
+          先に大まかな説明をすると、アニメーションはentity_clientと直接紐づけて常時そのアニメーションを実行するか、
+          アニコンをはさんでentity_clientと紐づけて、条件に応じてアニメーションの実行するタイミングをコントロールするといった形になります。
+        </p>
+        <p>
+          まず、紐づけるアニメーションまたはアニコンをentity_clientの
+          <span class="inline">"animations"</span>
+          で列挙しておきます。この際、自由にアニメーションキー名を決めます。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"animations": {
+  "(Animキー)": "(AnimID/AniConID)",
+  "(Animキー)": "(AnimID/AniConID)",
+  "(Animキー)": "(AnimID/AniConID)"
+  // ...
+}</code>
+          </div>
+        </div>
+        <p>
+          これらのうち、常に実行する/処理するもののアニメーションキーを
+          <span class="inline">"scripts"</span>の
+          <span class="inline">"animate"</span>に列挙します。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"scripts": {
+  "animate": [
+    "(Animキー)",
+    "(Animキー)",
+    "(Animキー)"
+    // ...
+  ]
+}</code>
+          </div>
+        </div>
+        <p>
+          アニコンを挟む場合は、そのアニコン内で
+          <span class="inline">"scripts"</span>の
+          <span class="inline">"animate"</span>のような場所があって、そこにアニメーションキーを書きます。
+        </p>
+        <h3 class="subsec">レンコンの紐づけ</h3>
+        <p>
+          <span class="inline">"render_controllers"</span>プロパティにレンコンのIDを列挙します。
+          高度なことをしない限り、指定するのは1つになるはずです。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"render_controllers": [
+  "(レンコンID)",
+  "(レンコンID)"
+  // ...
+]</code>
+          </div>
+        </div>
+        <p>
+          また、Molang式で条件を添えることができます。
+          この場合、レンコンはテクスチャやジオメトリなど、直接見た目に関わるものをコントロールしているという役割上、
+          条件を満たさないとエンティティが透明になります。<br>
+          意図的でないならば、複数紐づけていずれか一つの条件が満たされるようにしましょう。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"render_controllers": [
+  { "(レンコンID)": "(条件(Molang))" },
+  { "(レンコンID)": "(条件(Molang))" }
+  // ...
+]</code>
+          </div>
+        </div>
+        <h3 class="subsec">パーティクルとサウンド</h3>
+        <p>
+          アニメーションと同じ要領でパーティクルとサウンドもアニコンを使うことによって、条件に応じてそれらを発生させることができます。
+          entity_clientではこのような準備をします。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"particle_effects": {
+  "(パーティクルキー)": "(パーティクルID)"
+  // ...
+},
+"sound_effects": {
+  "(サウンドキー)": "(サウンドID)"
+  // ...
+},</code>
+          </div>
+        </div>
+        <p>
+          パーティクルキー、サウンドキーはアニメーションキーと同じで、名前を自由に決めます。
+        </p>
+        <h3 class="subsec">variable変数の定義</h3>
+        <p>
+          <span class="inline">"scripts"</span>内の
+          <span class="inline">"pre_animation"</span>でMolangのvariable変数を定義することができます。
+          ここで定義した変数はアニメーションやアニコンなど様々な場所で使うことができます。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"scripts": {
+  "pre_animation": [
+    "v.foo = math.sin(q.life_time);"
+  ]
+},</code>
+          </div>
+        </div>
+        <p>
+          また、
+          <span class="inline">"initialize"</span>プロパティでそれら変数の初期値を設定できます。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"initialize": [
+  "v.foo = 0.0;"
+]</code>
+          </div>
+        </div>
+        <p>
+          <span class="adv">上級</span> さらに、
+          <span class="inline">"variables"</span>プロパティでvariable変数をパブリックに設定して、矢印演算子を用いて読み取れるようにします。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"variables": {
+  "variable.foo": "public"
+}</code>
+          </div>
+        </div>
+        <p>
+          プロパティ名は設定したい変数、値は
+          <span class="inline">"public"</span>しかありません。
+        </p>
+        <h3 class="subsec">Attachableに関する設定</h3>
+        <p>
+          <span class="inline">"enable_attachables"</span>の項目を
+          <span class="inline">true</span>に設定すると、Attachableを有効にできます。<br>
+          防具を身に着けるモブなのに防具が表示されないという場合はこの項目の設定を忘れている可能性が高いです。
+        </p>
+        <h2 class="sec">アニコン</h2>
+        <h3 class="subsec">ファイルの場所</h3>
+        <div class="center">
+          <div class="box1">
+            <p>
+              リソース<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┗ <b>animation_controllers</b><br>
+              　 　 ┗ <b>〇〇.animation_controllers.json</b>
+            </p>
+          </div>
+        </div>
+        <p>
+          ファイル名は他のファイルとの区別のため「<b>〇〇.animation_controllers.json</b>」(バニラ準拠)にするのをおすすめします。
+          別に「〇〇.json」でも動作はします。
+        </p>
+        <h3 class="subsec">基本構造</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.my_entity.main": {
+      "initial_state": "(state名)",
+      "states": {
+        "(state名)": {
+          "animations":[
+            "(Animキー)",
+        
+            // または
+            { "(Animキー)": "(条件(Molang式))" }
+          
+            // ...
+          ],
+          "transitions": [
+            { "(state名)": "(条件(Molang式))" }
+            // ...
+          ]
+        }
+      }
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    ~#B(f00)"~#M(83ffd9)controller.animation.my_entity.mainM#~": {
+      "initial_state": "(state名)",
+      "states": {
+        ~#B(00f)"(state名)": {
+          "animations":[
+            "(Animキー)",
+        
+            // または
+            { "(Animキー)": "(条件(Molang式))" }
+          
+            // ...
+          ],
+          "transitions": [
+            { "(state名)": "(条件(Molang式))" }
+            // ...
+          ]
+        }B#~
+      }
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <h3 class="subsec">詳細な構造</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.my_entity.main": {
+      "initial_state": "(state名)",
+      "states": {
+        "(state名)": {
+          "animations":[
+            "(Animキー)",
+          
+            // または
+            { "(Animキー)": "(条件(Molang))" }
+        
+            // ...
+          ],
+          "transitions": [
+            { "(state名)": "(条件(Molang))" }
+        
+            // ...
+          ],
+          "particle_effects": [
+            {
+              "effect": "(パーティクルキー)",
+              "locator": "(Str)",
+              "pre_effect_script": "(Molang)",
+              "bind_to_actor": "(Bool)"
+            }
+            // ...
+          ],
+          "sound_effects": [
+            { "effect": "(サウンドキー)" }
+            // ...
+          ]
+        }
+      }
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    ~#B(f00)"~#M(83ffd9)controller.animation.my_entity.mainM#~": {
+      "initial_state": "(state名)",
+      "states": {
+        ~#B(00f)"(state名)": {
+          "animations":[
+            "(Animキー)",
+          
+            // または
+            { "(Animキー)": "(条件(Molang))" }
+        
+            // ...
+          ],
+          "transitions": [
+            { "(state名)": "(条件(Molang))" }
+        
+            // ...
+          ],
+          "particle_effects": [
+            {
+              "effect": "(パーティクルキー)",
+              "locator": "(Str)",
+              "pre_effect_script": "(Molang)",
+              "bind_to_actor": "(Bool)"
+            }
+            // ...
+          ],
+          "sound_effects": [
+            { "effect": "(サウンドキー)" }
+            // ...
+          ]
+        }B#~
+      }
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <h3 class="subsec">アニコンのしくみ</h3>
+        <p>
+          アニコンは複数のstateの移動と、そのための条件(transition)をもとにアニメーションをコントロールします。
+        </p>
+        <p>
+          たとえば「stand」「walk」という2つのstateがあって、初めは「stand」だとします。
+          「stand」のtransitionに「歩いているか」という条件を設定して、その条件を満たしたら「walk」に移るようにして、
+          「walk」では歩くアニメーションが紐づいているアニメーションキーを指定すれば、歩き始めたときに歩くアニメーションがスタートするようになります。
+        </p>
+        <p>
+          「walk」にもtransitionに「立ち止まっているか(=歩いていないか))」の条件を設定して、その条件を満たしたら「stand」に移るようにするのを忘れてはいけません。
+          でないと立ち止まってもstateが「walk」のまま「stand」に移らず、歩くアニメーションが立ち止まっても再生されたままになってしまいます。
+        </p>
+        <h3 class="subsec">具体的な書き方</h3>
+        <p>
+          まず基本構造のマーカー部分がIDになります。「controller.animation.〇〇」という形でないといけません。
+          上記の例では〇〇の部分が「(エンティティ名).(どんなアニコンか)」のようにさらにドット( . )で区切っています。
+        </p>
+        <p>
+          IDをプロパティ名とするオブジェクトの中にはまず、初めのstateをどれにするか指定する
+          <span class="inline">"initial_state"</span>と、stateをまとめる
+          <span class="inline">"states"</span>オブジェクトを書きます。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.my_entity.main": {
+      "initial_state": "(state名)",
+      "states": {
+        
+      }
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    ~#B(f00)"controller.animation.my_entity.main": {
+      ~#M(83ffd9)"initial_state": "(state名)"M#~,
+      ~#M(83ffd9)"states"M#~: {
+        
+      }
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <p>
+          <span class="inline">"states"</span>オブジェクトの中にstateを列挙していきます。
+          stateは名前を自由に決め、その名前をプロパティ名とするオブジェクトになります。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.my_entity.main": {
+      "initial_state": "(state名)",
+      "states": {
+        "(state名)": {
+          
+        }
+      }
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    ~#B(f00)"controller.animation.my_entity.main": {
+      "initial_state": "(state名)",
+      "states": {
+        ~#B(00f)~#M(83ffd9)"(state名)"M#~: {
+          
+        }B#~
+      }
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <p>
+          各stateの中身には
+          <span class="inline">"animations"</span>、
+          <span class="inline">"transition"</span>をプロパティ名とする配列を置きます。
+        </p>
+        <p>
+          <span class="inline">"animations"</span>にはこのstateに入ったときに再生されるアニメーションキーを列挙し、
+          <span class="inline">"transition"</span>には次はどのstateに移動するかを決める条件を以下のように列挙します。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.my_entity.main": {
+      "initial_state": "(state名)",
+      "states": {
+        "(state名)": {
+          "animate": [
+            "(Animキー)",
+            "(Animキー)"
+            // ...
+          ],
+          "transitions": [
+            { "(state名)": "(条件(Molang))" },
+            { "(state名)": "(条件(Molang))" }
+            // ...
+          ]
+        }
+      }
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    ~#B(f00)"controller.animation.my_entity.main": {
+      "initial_state": "(state名)",
+      "states": {
+        ~#B(00f)"(state名)": {
+          "animate": [
+            "(Animキー)",
+            "(Animキー)"
+            // ...
+          ],
+          "transitions": [
+            { "(state名)": "(条件(Molang))" },
+            { "(state名)": "(条件(Molang))" }
+            // ...
+          ]
+        }B#~
+      }
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <h3 class="subsec">パーティクルとサウンド</h3>
+        <p>
+          <span class="inline">"animations"</span>、
+          <span class="inline">"transition"</span>と並べて、そのstateに入ったときに発生させるパーティクルとサウンドを以下のように指定します。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"particle_effects": [
+  {
+    "effect": "(パーティクルキー)",
+    "pre_effect_script": "(Molang)"
+  }
+  // ...
+],
+"sound_effects": [
+  { "effect": "(サウンドキー)" }
+  // ...
+]</code>
+          </div>
+        </div>
+        <p>
+          <span class="inline">"pre_effect_script"</span>ではそのパーティクル内で使うためのvariable変数を定義できます。
+        </p>
+        <h2 class="sec">レンコン</h2>
+        <h3 class="subsec">ファイルの場所</h3>
+        <div class="center">
+          <div class="box1">
+            <p>
+              リソース<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┗ <b>render_controllers</b><br>
+              　 　 ┗ <b>〇〇.render_controllers.json</b>
+            </p>
+          </div>
+        </div>
+        <p>
+          ファイル名は他のファイルとの区別のため「<b>〇〇.render_controllers.json</b>」(バニラ準拠)にするのをおすすめします。
+          別に「〇〇.json」でも動作はします。
+        </p>
+        <h3 class="subsec">基本構造</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.my_entity": {
+      "arrays": {
+        "geometries": {
+          "Array.XXX": [ "Geometry.XXX", "Geometry.XXX" /* ... */ ]
+        },
+        "materials": {
+          "Array.XXX": [ "Material.XXX", "Material.XXX" /* ... */ ]
+        },
+        "textures": {
+          "Array.XXX": [ "Texture.XXX", "Texture.XXX" /* ... */ ]
+        }
+      },
+      "geometry": "Geometry.XXX",
+      "materials": [
+        { "(ボーン名)": "Material.XXX" }
+        // ...
+      ],
+      "textures": [ "Texture.XXX", "Texture.XXX" /* ... */ ]
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">詳細な構造</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.Str": {
+      "rebuild_animation_matrices": "Bool",
+      "arrays": {
+        "geometries": {
+          "Array.XXX": [ "Geometry.XXX", "Geometry.XXX" /* ... */ ]
+        },
+        "materials": {
+          "Array.XXX": [ "Material.XXX", "Material.XXX" /* ... */ ]
+        },
+        "textures": {
+          "Array.XXX": [ "Texture.XXX", "Texture.XXX" /* ... */ ]
+        }
+      },
+      "geometry": "Geometry.XXX",
+      "part_visibility": [
+        { "(ボーン名)": "Molang" }
+        // ...
+      ],
+      "materials": [
+        { "(ボーン名)": "Material.XXX" }
+        // ...
+      ],
+      "textures": [ "Texture.XXX", "Texture.XXX" /* ... */ ],
+      "color": {
+        "r": "(Molang)",
+        "g": "(Molang)",
+        "b": "(Molang)",
+        "a": "(Molang)"
+      },
+      "overlay_color": {
+        "r": "(Molang)",
+        "g": "(Molang)",
+        "b": "(Molang)",
+        "a": "(Molang)"
+      },
+      "on_fire_color": {
+        "r": "(Molang)",
+        "g": "(Molang)",
+        "b": "(Molang)",
+        "a": "(Molang)"
+      },
+      "is_hurt_color": {
+        "r": "(Molang)",
+        "g": "(Molang)",
+        "b": "(Molang)",
+        "a": "(Molang)"
+      },
+      "uv_anim": {
+        "offset": [ "(Molang)", "(Molang)" ],
+        "scale": [ "(Molang)", "(Molang)" ]
+      },
+      "light_color_multiplier": "(Molang)",
+      "ignore_lighting": "(Bool)",
+      "filter_lighting": "(Bool)"
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">具体的な説明</h3>
+        <p>
+          <span class="inline">"arrays"</span>でアレイを定義します。
+          複数のジオメトリ、マテリアル、テクスチャを紐づける場合でなければ定義する必要はありません。
+        </p>
+        <p>
+          ジオメトリのアレイは
+          <span class="inline">"geometries"</span>で、マテリアルは
+          <span class="inline">"materials"</span>で、テクスチャは
+          <span class="inline">"textures"</span>で定義します。
+        </p>
+        <p>
+          たとえば、entity_clientで以下のように紐づけていたとします。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"textures": {
+  "state1": "(テクスチャのファイルパス1)",
+  "state2": "(テクスチャのファイルパス2)"
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">"textures": {
+  "~#M(83ffd9)state1M#~": "(テクスチャのファイルパス1)",
+  "~#M(83ffd9)state2M#~": "(テクスチャのファイルパス2)"
+}</div>
+          </div>
+        </div>
+        <p>これでアレイを定義すると、</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"textures": {
+  "Array.texture": [ "Texture.state1", "Texture.state2" ]
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">"textures": {
+  "Array.texture": [ "Texture.~#M(83ffd9)state1M#~", "Texture.~#M(83ffd9)state2M#~" ]
+}</div>
+          </div>
+        </div>
+        <p>
+          左の
+          <span class="inline">"Array.XX"</span>のXXの部分は自由に決められます。
+          並べる順番も自由です。
+        </p>
+        <p>
+          ジオメトリやマテリアルも
+          <span class="inline">Texure</span>の部分を
+          <span class="inline">Geometry</span>や
+          <span class="inline">Material</span>に変えるだけであとは同様です。
+        </p>
+        <p>
+          次に、ジオメトリやテクスチャなど、どれを適用するかを決める部分です。
+          直接指定する場合は直接指定するだけですが、状態などによって条件分岐する場合は、アレイから値をMolangで選ぶ必要があります。
+        </p>
+        <p>
+          アレイの値は1番目から
+          <span class="inline">Array.XX[0]</span>、
+          <span class="inline">Array.XX[1]</span>、
+          <span class="inline">Array.XX[2]</span>......のように指定します。
+          <span class="inline">[ ]</span>の中をMolangで記述することによって条件分岐を実現します。
+        </p>
+        <p>
+          先ほどのテクスチャの例で
+          <span class="inline">minecraft:variant</span>コンポーネントの値によってテクスチャが変わるとすると、
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"textures": [
+  "Array.texture[q.variant]"
+]</code>
+          </div>
+        </div>
+        <p>
+          のように指定します。このMolang式ができるだけ簡単になるようにアレイの値の順番を決めましょう。
+        </p>
+        <p>
+          以下、簡単に例を示します。entity_clientは以下のようになっているとします。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"materials": {
+  "material1": "(マテリアルID1)",
+  "material2": "(マテリアルID2)"
+},
+"textures": {
+  "texture1": "(テクスチャのファイルパス1)",
+  "texture2": "(テクスチャのファイルパス2)"
+},
+"geometry": {
+  "geo1": "(ジオメトリID1)",
+  "geo2": "(ジオメトリID2)"
+}</code>
+          </div>
+        </div>
+        <h4>直接指定</h4>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"geometry": "Geometry.geo1",
+"materials": [
+  { "*": "Material.material1" }
+],
+"textures": [ "Texture.texture1" ]</code>
+          </div>
+        </div>
+        <h4>ジオメトリを切り替わるようにする</h4>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"arrays": {
+  "geometries": {
+    "Array.geos": [ "Geometry.geo1", "Geometry.geo2" ]
+  }
+},
+"geometry": "Array.geos[(Molang式)]"</code>
+          </div>
+        </div>
+        <h4>ボーンごとに異なるマテリアルを適用する</h4>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"materials": [
+  { "(ボーン名1)": "Material.material1" },
+  { "(ボーン名2)": "Material.material2" }
+]</code>
+          </div>
+        </div>
+        <p>
+          ボーン名を指定するときに、まとめて指定する書き方があります。たとえば、
+          <span class="inline">"bone_head"</span>と
+          <span class="inline">"bone_body"</span>は後半だけが違うので、
+          <span class="inline">"bone_*"</span>というようにまとめて指定できます。
+        </p>
+        <h4>複数のテクスチャを適用する</h4>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"textures": [
+  "Texture.texture1",
+  "Texture.texture2"
+]</code>
+          </div>
+        </div>
+        <p>
+          同時にテクスチャを適用するので、当然重なります。
+          実用するシチュエーションとして、たとえば「顔が変わるエンティティ」を実装する場合は、
+          顔とそれ以外のテクスチャは別々にして、顔のテクスチャの指定にだけアレイを使うといったような感じです。
+        </p>
+        <h3 class="subsec">ボーンの表示/非表示をコントロールする</h3>
+        <p>
+          <span class="inline">"part_visibility"</span>でボーン名とMolang式を指定します。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"part_visibility": [
+  { "(ボーン名)": "Molang" }
+  // ...
+]</code>
+          </div>
+        </div>
+        <h3 class="subsec">テクスチャに関する様々な色を変更する</h3>
+        <p>
+          <span class="inline">"overlay_color"</span>でオーバーレイする色、
+          <span class="inline">"on_fire_color"</span>で燃えているときにオーバーレイする色、
+          <span class="inline">"is_hurt_color"</span>でダメージを受けた瞬間にオーバーレイする色を決められます。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"overlay_color": {
+  "r": "(Molang)",
+  "g": "(Molang)",
+  "b": "(Molang)",
+  "a": "(Molang)"
+},
+"on_fire_color": {
+  "r": "(Molang)",
+  "g": "(Molang)",
+  "b": "(Molang)",
+  "a": "(Molang)"
+},
+"is_hurt_color": {
+  "r": "(Molang)",
+  "g": "(Molang)",
+  "b": "(Molang)",
+  "a": "(Molang)"
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">テクスチャをアニメーションさせる</h3>
+        <p>
+          <span class="inline">"uv_anim"</span>で値を設定することで、テクスチャをアニメーションさせることができます。
+          方式として、"テクスチャのどこを切り取るか"の長方形を動かしてアニメーションする方式になるので、
+          ブロックのようにパラパラ漫画式でアニメーションさせたい場合は工夫が必要です。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"uv_anim": {
+  "offset": [ "(Molang)", "(Molang)" ],
+  "scale": [ "(Molang)", "(Molang)" ]
+}</code>
+          </div>
+        </div>
+        <p>
+          <span class="inline">"offset"</span>でuvを指定し、
+          <span class="inline">"scale"</span>はそのuvのスケールを指定します。
+        </p>
+        <h3 class="subsec">特殊発光</h3>
+        <p>
+          <span class="inline">"ignore_lighting"</span>を
+          <span class="inline">true</span>にすることで、周囲の明暗を無視する、
+          つまり暗さを無視して光っているようになります。
+        </p>
+        <p>
+          このプロパティが書いてあるレンコンで紐づけたテクスチャに適用されるので、
+          目だけ光らせたい場合は、このレンコンでは目だけのテクスチャを指定する必要があります。
+        </p>
+        <h2 class="sec"><ruby><rb>Attachable</rb><rp>(</rp><rt>アタッチャブル</rt><rp>)</rp></ruby></h2>
+        <p>
+          Attachableとは、防具や手に持っているアイテムなど、エンティティ本体とは別となるモデルではあるが、アニメーションが本体に追従するような部品のことです。
+          そして、ホットバーや左手スロット、または防具スロットのインベントリのアイテムと連動する必要があります。
+        </p>
+        <p>
+          一言で正しくするのは難しいです。基本的に<b>「防具」と「手に持っているアイテム」のモデルであると思っても大丈夫</b>です。
+        </p>
+        <h3 class="subsec">ファイルの場所</h3>
+        <div class="center">
+          <div class="box1">
+            <p>
+              リソース<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┗ <b>attachables</b><br>
+              　 　 ┗ <b>〇〇.json</b>
+            </p>
+          </div>
+        </div>
+        <h3 class="subsec">具体的な説明</h3>
+        <p>
+          JSONの書き方はほとんどentity_clientと同じです。
+          ただし、IDは対応させるアイテムのIDと一致させてください。
+        </p>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「アイテム(リソース)」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「アイテム(リソース)」 - ますえくNOTE" />
+    <meta property="og:description" content="リソースパックのの要素である「アイテム」について詳しく説明します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > アイテム(リソース)</div>
+        <h1 class="title" id="top">アドオン詳細解説 - アイテム(リソース)</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">テクスチャの変更</h2>
+        <p>
+          texturesフォルダのitemsフォルダの中に変えたいアイテムのテクスチャを入れます。
+          ファイル名はテンプレートを参照してください。
+        </p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              リソース<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┗ textures<br>
+              　 　 ┗ <b>items</b><br>
+              　 　 　 ┗ <b>〇〇.png</b>
+            </p>
+          </div>
+        </div>
+        <h2 class="sec">アイテムのテクスチャの変更</h2>
+        <p>item_texture.jsonでテクスチャにIDをつけ、items.jsonまたはビヘイビアのアイテムのJSONでアイテム本体を紐づけします。</p>
+        <h2 class="sec">item_texture.jsonの基本</h2>
+        <h3 class="subsec">ファイルの場所</h3>
+        <div class="center">
+          <div class="box1">
+            <p>
+              リソース<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┗ <b>textures</b><br>
+              　 　 ┗ <b>terrain_texture.json</b>
+            </p>
+          </div>
+        </div>
+        <h3 class="subsec">基本の構造</h3>
+        <p><span class="inline">"resource_pack_name"</span>の値はコピペしたらそのままにしておいてください。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "resource_pack_name": "vanilla",
+  "texture_data": {
+    "apple": { "textures": "textures/items/apple" }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "resource_pack_name": "vanilla",
+  "texture_data": {
+    ~#B(f00)"apple": { "textures": "textures/items/apple" }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <p>
+          上の例で <span class="inline">"apple"</span>となっているところは自分で決めるテクスチャのIDです。
+          このIDのことをこのサイトでは「<b>TerrainID</b>」と呼んでいます。
+        </p>
+        <p>
+          <span class="inline">"textues"</span>の値はテクスチャのファイルパス(拡張子なし)です。
+        </p>
+        <h3 class="subsec">紐づけするアイテムを増やす</h3>
+        <p>赤枠で囲まれた部分を以下のように増やします。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "resource_pack_name": "vanilla",
+  "texture_data": {
+    "apple": { "textures": "textures/items/apple" },
+    "diamond": { "textures": "textures/items/diamond" }
+  }
+}</code>
+          </div>
+        </div>
+        <p>カンマ( , )忘れに注意。</p>
+        <h3 class="subsec">複数のテクスチャ指定</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "resource_pack_name": "vanilla",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    "bucket": {
+      "textures": [
+        "textures/items/bucket_empty",
+        "textures/items/bucket_milk",
+        "textures/items/bucket_water",
+        "textures/items/bucket_lava",
+        "textures/items/bucket_cod",
+        "textures/items/bucket_salmon",
+        "textures/items/bucket_tropical",
+        "textures/items/bucket_pufferfish",
+        "textures/items/bucket_powder_snow",
+        "textures/items/bucket_axolotl"
+      ]
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <p><u>もともとデータ値をもっているアイテムならば</u>、上から順に<b>データ値0, 1, 2, ...のテクスチャ</b>になります。</p>
+        <p>また、別のところで何番目か選択できる場合はこのように書いて選択肢を持たせます。</p>
+        <h2 class="sec">できないこと</h2>
+        <ul style="line-height: 2em;">
+          <li>テクスチャのアニメーション</li>
+          <li>半透明テクスチャ</li>
+        </ul>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

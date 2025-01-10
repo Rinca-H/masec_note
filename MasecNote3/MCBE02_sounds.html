@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「サウンド」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「サウンド」 - ますえくNOTE" />
+    <meta property="og:description" content="アドオンの要素である「サウンド」について詳しく説明します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > サウンド</div>
+        <h1 class="title" id="top">アドオン詳細解説 - サウンド</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">機能</h2>
+        <p>
+          サウンドに関するファイルは2種類あり、
+          用意されている音源のデータをマイクラのサウンドエフェクト(効果音)として定義するものと、
+          それらのサウンドをどんな時に鳴らすのか、サウンドイベントとして紐づけたりするものがあります。
+        </p>
+        <h2 class="sec">ファイルの場所</h2>
+        <div class="center">
+          <div class="box1">
+            <p>
+              リソース<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┣ <b>sounds.json</b><br>
+              　 ┗ sounds<br>
+              　 　 ┣ <b>sound_definitions.json</b><br>
+              　 　 ┗ <b>music_definitions.json</b>
+            </p>
+          </div>
+        </div>
+        <h2 class="sec">sound_definitions.json</h2>
+        <p>.ogg(または.fsb)ファイル音源をサウンドとして定義するファイルです。</p>
+        <h3 class="subsec">基本構造</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    // SEの定義
+  }
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">定義部分</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    // 音源が1つの場合
+    "(サウンドID)": {
+      "category": "(カテゴリ)",
+      "sounds": [ "(音源のファイルパス)" ]
+    },
+    
+    // 音源が複数の場合
+    "(サウンドID)": {
+      "category": "(カテゴリ)",
+      "sounds": [
+        "(音源のファイルパス1)",
+        "(音源のファイルパス2)",
+        "(音源のファイルパス3)"
+      ]
+    },
+    
+    // 音源ごとに詳細設定する例
+    "(サウンドID)": {
+      "category": "(カテゴリ)",
+      "sounds": [
+        "(音源のファイルパス1)",
+        {
+          "name": "(音源のファイルパス)",
+          // 詳細設定
+        },
+        "(音源のファイルパス3)"
+      ]
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    // 音源が1つの場合
+    ~#B(f00)"(サウンドID)": {
+      "category": "(カテゴリ)",
+      "sounds": [ "(音源のファイルパス)" ]
+    },B#~
+    
+    // 音源が複数の場合
+    ~#B(f00)"(サウンドID)": {
+      "category": "(カテゴリ)",
+      "sounds": [
+        "(音源のファイルパス1)",
+        "(音源のファイルパス2)",
+        "(音源のファイルパス3)"
+      ]
+    },B#~
+    
+    // 音源ごとに詳細設定する例
+    ~#B(f00)"(サウンドID)": {
+      "category": "(カテゴリ)",
+      "sounds": [
+        "(音源のファイルパス1)",
+        ~#B(00f){
+          "name": "(音源のファイルパス)",
+          // 詳細設定
+        },B#~
+        "(音源のファイルパス3)"
+      ]
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <p>ファイルパスは拡張子なしです。カテゴリは以下から選んで指定します。</p>
+        <table style="width: 100%;">
+          <tr><th>値</th><th>備考</th></tr>
+          <tr><td><span class="inline">"block"</span></td><td>(ブロック)</td></tr>
+          <tr><td><span class="inline">"bottle"</span></td><td>(瓶)</td></tr>
+          <tr><td><span class="inline">"bucket"</span></td><td>(バケツ)</td></tr>
+          <tr><td><span class="inline">"hostile"</span></td><td>(敵対)</td></tr>
+          <tr><td><span class="inline">"music"</span></td><td>(BGM)</td></tr>
+          <tr><td><span class="inline">"neutral"</span></td><td>(非敵対)</td></tr>
+          <tr><td><span class="inline">"player"</span></td><td>(プレイヤー)</td></tr>
+          <tr><td><span class="inline">"record"</span></td><td>(レコード)</td></tr>
+          <tr><td><span class="inline">"ui"</span></td><td>音源・プレイヤー間の距離を無視する(音量が一定)</td></tr>
+          <tr><td><span class="inline">"wather"</span></td><td>(天気)</td></tr>
+        </table>
+        <p>
+          <span class="inline">"category"</span>と並べて
+          <span class="inline">"min_distance"</span>と<span class="inline">"max_distance"</span>が指定できます。
+          それぞれ「音量が下がり始める距離」と「サウンドが聞こえなくなる距離」の値(小数)です。
+        </p>
+        <h3 class="subsec">詳細設定</h3>
+        <h4>name [Str]</h4>
+        <div class="section"><p>音源のファイルパス。拡張子なし。</p></div>
+        <h4>weight [Int]</h4>
+        <div class="section">
+          <p>
+            この音源が選ばれる確率の比。1つのサウンドに複数の音源を指定する場合に使う。<br>
+            30と70だったら30%と70%、1と2と2だったら20%と40%と40%。
+          </p>
+        </div>
+        <h4>stream [Bool]</h4>
+        <div class="section"><p>同時に再生される数を制限するかどうか。 <span class="inline">true</span>にすれば軽量化になる。</p></div>
+        <h4>volume [Float]</h4>
+        <div class="section"><p>サウンドの音量。0.0～1.0で指定。</p></div>
+        <h4>load_on_low_memory [Bool]</h4>
+        <div class="section">
+          <p>
+            パフォーマンスの低下中でも強制的にサウンドをロードするかどうか。
+            軽量化するならこの項目は書かない。
+          </p>
+        </div>
+        <h4>pitch [Float]</h4>
+        <div class="section"><p>サウンドのピッチ。</p></div>
+        <h4>is3D [Bool]</h4>
+        <div class="section">
+          <p>このサウンドを立体音響にしたくないとき、このプロパティを書いて値を<span class="inline">false</span>にする。</p>
+        </div>
+        <h4>interruptible [Bool]</h4>
+        <div class="section"><p>デフォルトは<span class="inline">true</span>。</p></div>
+        <h2 class="sec">sounds.json</h2>
+        <p>このファイルは、定義したSEをサウンドイベントに紐づける役割を担います。</p>
+        <p>しかし、カスタムできるのはエンティティの部分のみなので、それ以外については説明しません。</p>
+        <h3 class="subsec">基本構造</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "entity_sounds": {
+    "entities": {
+      // エンティティのサウンド
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">詳細な構造</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "block_sounds": {
+    // ブロックのサウンド
+  },
+  "entity_sounds": {
+    "defaults": {
+      // デフォルト
+    },
+    "entities": {
+      // エンティティのサウンド
+    }
+  },
+  "individual_event_sounds": {
+    // 個々のイベントに関するサウンド
+  },
+  "interactive_sounds": {
+    // interactive sounds
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  ~#B(f00)"block_sounds": {
+    // ブロックのサウンド
+  },B#~
+  ~#B(f00)"entity_sounds": {
+    "defaults": {
+      // デフォルト
+    },
+    "entities": {
+      // エンティティのサウンド
+    }
+  },B#~
+  ~#B(f00)"individual_event_sounds": {
+    // 個々のイベントに関するサウンド
+  },B#~
+  ~#B(f00)"interactive_sounds": {
+    // interactive sounds
+  }B#~
+}</div>
+          </div>
+        </div>
+        <h3 class="subsec">具体的な書き方</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "entity_sounds": {
+    "entities": {
+      "ex:my_entity": {
+        "events": {
+          "ambient": "mob.skeleton.say",
+          "hurt": {
+            "sound": "mob.skeleton.hurt",
+            "volume": 0.7
+          },
+          "death": "mob.skeleton.death",
+          "step": {
+            "sound": "mob.skeleton.step",
+            "volume": 1,
+            "pitch": 1
+          }
+          // その他サウンドイベント
+        },
+        "volume": 1,
+        "pitch": [ 0.8, 1.2 ]
+      }
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "entity_sounds": {
+    "entities": {
+      ~#B(f00)"ex:my_entity": {
+        "events": {
+          "ambient": "mob.skeleton.say",
+          "hurt": {
+            "sound": "mob.skeleton.hurt",
+            "volume": 0.7
+          },
+          "death": "mob.skeleton.death",
+          "step": {
+            "sound": "mob.skeleton.step",
+            "volume": 1,
+            "pitch": 1
+          }
+          // その他サウンドイベント
+        },
+        "volume": 1,
+        "pitch": [ 0.8, 1.2 ]
+      }B#~
+    }
+  }
+}</div>
+          </div>
+        </div>
+        <p>
+          エンティティのIDが名前のプロパティを<span class="inline">"entities"</span>内に作り、
+          その中の<span class="inline">"events"</span>内でサウンドイベントとサウンドを紐づけます。
+        </p>
+        <p>
+          サウンドイベントの中でもだいたいどのモブにもあって、最低限と言えるものが以下です。
+        </p>
+        <table style="width: 100%;">
+          <tr><th>サウンドイベント</th><th>概要</th></tr>
+          <tr><td><span class="inline">"ambient"</span></td><td>鳴き声などの、待機時の音</td></tr>
+          <tr><td><span class="inline">"hurt"</span></td><td>ダメージを受けたときの音または声</td></tr>
+          <tr><td><span class="inline">"death"</span></td><td>デスしたときの音または声</td></tr>
+          <tr><td><span class="inline">"step"</span></td><td>足音</td></tr>
+        </table>
+        <p>
+          サウンドイベントは以下のように指定します。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"events": {
+  // シンプルに指定
+  "ambient": "(サウンドID)",
+
+  // 詳細に指定
+  "hurt": {
+    "sound": "(サウンドID)",
+    "volume": 1.0
+    "pitch": [ 0.5, 1.0 ] // 範囲指定の例
+  }
+
+  // ...その他サウンドイベント
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">"events": {
+  // シンプルに指定
+  "ambient": "(サウンドID)",
+
+  // 詳細に指定
+  ~#B(00f)"hurt": {
+    "sound": "(サウンドID)",
+    "volume": 1.0
+    "pitch": [ 0.5, 1.0 ] // 範囲指定の例
+  }B#~
+
+  // ...その他サウンドイベント
+}</div>
+          </div>
+        </div>
+        <p>
+          詳細に設定する場合、<span class="inline">"pitch"</span>でピッチ、<span class="inline">"volume"</span>で音量を小数で指定できます。また、それらは<span class="inline">[ 0.5, 1.0 ]</span>のように範囲指定することでその間のランダムなピッチ/音量になります。
+        </p>
+        <p>
+          ピッチと音量は、<span class="inline">"events"</span>オブジェクトと並列させてすべてのサウンドイベントに対して設定することができます。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"ex:my_entity": {
+  "events": {
+    // サウンドイベント
+  },
+  "volume": 1.0,
+  "pitch": [ 0.8, 1.2 ]
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">~#B(f00)"ex:my_entity": {
+  "events": {
+    // サウンドイベント
+  },
+  "volume": 1.0,
+  "pitch": [ 0.8, 1.2 ]
+}B#~</div>
+          </div>
+        </div>
+        <h2 class="sec">music_definition.json</h2>
+        <p>カスタマイズできません。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "(MusicID)": {
+    "event_name": "(サウンドID)",
+    "max_delay": 20,
+    "min_delay": 10
+  }
+}</code>
+          </div>
+        </div>
+        <h4>max_delay, min_delay</h4>
+        <div class="section">
+          <p>
+            <span class="inline">"max_delay"</span>は最大遅延、<span class="inline">"min_delay"</span>は最小遅延。
+          </p>
+        </div>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

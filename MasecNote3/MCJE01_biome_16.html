@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft JE(Java版)】Mod制作日記「バイオームを追加する」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft JE(Java版)】Mod制作日記「バイオームを追加する」 - ますえくNOTE" />
+    <meta property="og:description" content="v1.16のModでバイオームを追加します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft JE(Java版) > Mod制作日記 > バイオームを追加する</div>
+        <h1 class="title" id="top">Mod制作日記 - バイオームを追加する</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <p>
+          ModIdやメインクラスのjavaファイル名などの各自で異なる部分はいちいち説明しないのでご注意を。<br>
+          メインのクラスは<span class="inline">com.masec.newmod</span>の<span class="inline">NewMod</span>とし、ModIDは<span class="inline">new_mod</span>とします。
+        </p>
+        <h2 class="sec">サーフェイスビルダーのクラス</h2>
+        <p>
+          新しいパッケージ「com.masec.newmod.world.biome」を作成し、中に<span class="inline">ModConfiguredSurfaceBuilders</span>クラスを新しく作ります。
+        </p>
+        <h3 class="subsec">クラスのコード</h3>
+        <p>作られたファイルを編集して、こうなります。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">ModConfiguredSurfaceBuilders.java</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:switch_tab no-select"><div class="selected">例</div><div>各自で変える部分</div></div>
+          <div class="rich_code:content">
+            <code class="java">package com.masec.newmod.world.biome;
+
+import net.minecraft.block.Blocks;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.ISurfaceBuilderConfig;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+import com.masec.newmod.NewMod;
+
+public class ModConfiguredSurfaceBuilders {
+    public static ConfiguredSurfaceBuilder&lt;?> TEST_SURFACE = register("test_surface",
+            SurfaceBuilder.DEFAULT.configured(new SurfaceBuilderConfig(
+                    Blocks.DIAMOND_ORE.defaultBlockState(),
+                    Blocks.GLASS.defaultBlockState(),
+                    Blocks.BEDROCK.defaultBlockState()
+            )));
+
+    private static &lt;SC extends ISurfaceBuilderConfig>ConfiguredSurfaceBuilder&lt;SC> register(String name,
+                                                                                           ConfiguredSurfaceBuilder&lt;SC> csb) {
+        return WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_SURFACE_BUILDER,
+                new ResourceLocation(NewMod.MOD_ID, name), csb);
+    }
+}</code>
+            <code class="java">package com.masec.newmod.world.biome;
+
+import net.minecraft.block.Blocks;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.ISurfaceBuilderConfig;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+import com.masec.newmod.NewMod;
+
+public class ModConfiguredSurfaceBuilders {
+    public static ConfiguredSurfaceBuilder&lt;?> TEST_SURFACE = register("test_surface",
+            SurfaceBuilder.DEFAULT.configured(new SurfaceBuilderConfig(
+                    Blocks.DIAMOND_ORE.defaultBlockState(),
+                    Blocks.GLASS.defaultBlockState(),
+                    Blocks.BEDROCK.defaultBlockState()
+            )));
+
+    private static &lt;SC extends ISurfaceBuilderConfig>ConfiguredSurfaceBuilder&lt;SC> register(String name,
+                                                                                           ConfiguredSurfaceBuilder&lt;SC> csb) {
+        return WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_SURFACE_BUILDER,
+                new ResourceLocation(NewMod.MOD_ID, name), csb);
+    }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers"></div>
+            <div class="rich_code:markers">package com.~#M(83ffd9)masec.newmodM#~.world.biome;
+
+import net.minecraft.block.Blocks;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.ISurfaceBuilderConfig;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+import com.~#M(83ffd9)masec.newmod.NewModM#~;
+
+public class ModConfiguredSurfaceBuilders {
+    public static ConfiguredSurfaceBuilder&lt;?> ~#M(ffc8f1)TEST_SURFACEM#~ = register("~#M(ffc8f1)test_surfaceM#~",
+            SurfaceBuilder.~#M(ffd883)DEFAULTM#~.configured(new SurfaceBuilderConfig(
+                    ~#M(bedbfc)Blocks.DIAMOND_ORE.defaultBlockState()M#~,
+                    ~#M(bedbfc)Blocks.GLASS.defaultBlockState()M#~,
+                    ~#M(bedbfc)Blocks.BEDROCK.defaultBlockState()M#~
+            )));
+
+    private static &lt;SC extends ISurfaceBuilderConfig>ConfiguredSurfaceBuilder&lt;SC> register(String name,
+                                                                                           ConfiguredSurfaceBuilder&lt;SC> csb) {
+        return WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_SURFACE_BUILDER,
+                new ResourceLocation(~#M(83ffd9)NewMod#M~.MOD_ID, name), csb);
+    }
+}</div>
+          </div>
+        </div>
+        <p>
+          桃色でマーカーしたところは定義なので、空気を読んで大文字とかを真似して自由に決めてください。<br>
+          橙色でマーカーしたところはたぶん、表面の起伏を指定するものだと思います。表から選んでください。<br>
+          青色でマーカーしたところは平原でいうところの上から草ブロック、土ブロック、海岸などの砂ブロックとなる部分のブロックを指定します。
+        </p>
+        <table style="width: 100%;">
+          <tr><th>変数</th><th>概要</th></tr>
+          <tr><td>DEFAULT</td><td>デフォルト</td></tr>
+          <tr><td>MOUNTAIN</td><td>山</td></tr>
+          <tr><td>SHATTERED_SAVANNA</td><td>こまごまとしたサバンナ</td></tr>
+          <tr><td>GRAVELLY_MOUNTAIN</td><td>砂利の山岳</td></tr>
+          <tr><td>GIANT_TREE_TAIGA</td><td>大きな木のタイガ</td></tr>
+          <tr><td>SWAMP</td><td>湿地</td></tr>
+          <tr><td>BADLANDS</td><td>メサ</td></tr>
+          <tr><td>WOODED_BADLANDS</td><td>メサの森</td></tr>
+          <tr><td>ERODED_BADLANDS</td><td>侵食されたメサ</td></tr>
+          <tr><td>FROZEN_OCEAN</td><td>凍った海</td></tr>
+          <tr><td>NETHER</td><td>ネザー</td></tr>
+          <tr><td>NETHER_FOREST</td><td>ネザーの森</td></tr>
+          <tr><td>SOUL_SAND_VALLEY</td><td>ソウルサンドの谷</td></tr>
+          <tr><td>BASALT_DELTAS</td><td>玄武岩デルタ</td></tr>
+          <tr><td>NOPE</td><td>なし</td></tr>
+        </table>
+        <h2 class="sec">バイオーム本体のクラス</h2>
+        <p>パッケージ「com.masec.newmod.world.biome」の中に<span class="inline">TestBiome</span>クラスを新しく作ります。名前は各自で決めます。</p>
+        <h3 class="subsec">クラスのコード</h3>
+        <p>作られたファイルを編集して、こうなります。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">TestBiome.java</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:switch_tab no-select"><div class="selected">例</div><div>各自で変える部分</div></div>
+          <div class="rich_code:content">
+            <code class="java">package com.masec.newmod.world.biome;
+
+import net.minecraft.client.audio.BackgroundMusicTracks;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.world.biome.*;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.Features;
+import net.minecraft.world.gen.feature.structure.StructureFeatures;
+import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import com.masec.newmod.NewMod;
+
+import java.util.function.Supplier;
+
+public class TestBiome {
+  public static final DeferredRegister&lt;Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES,
+      NewMod.MOD_ID);
+
+  public static final RegistryObject&lt;Biome> TEST_BIOME = BIOMES.register("test_biome",
+      () -> makeTestBiome(() -> ModConfiguredSurfaceBuilders.TEST_SURFACE, 0.125f, 0.05f));
+
+  private static Biome makeTestBiome(final Supplier&lt;ConfiguredSurfaceBuilder&lt;?>> surfaceBuilder, float depth,
+      float scale) {
+    MobSpawnInfo.Builder mobspawninfo$builder = new MobSpawnInfo.Builder();
+    DefaultBiomeFeatures.farmAnimals(mobspawninfo$builder);
+    DefaultBiomeFeatures.ambientSpawns(mobspawninfo$builder);
+    mobspawninfo$builder.addSpawn(EntityClassification.MONSTER,
+        new MobSpawnInfo.Spawners(EntityType.BLAZE, 100, 7, 10));
+    mobspawninfo$builder.addSpawn(EntityClassification.MONSTER,
+        new MobSpawnInfo.Spawners(EntityType.ZOMBIFIED_PIGLIN, 50, 4, 4));
+    
+    BiomeGenerationSettings.Builder biomegenerationsettings$builder = (new BiomeGenerationSettings.Builder())
+        .surfaceBuilder(surfaceBuilder);
+    DefaultBiomeFeatures.addDefaultCarvers(biomegenerationsettings$builder);
+    DefaultBiomeFeatures.addDefaultLakes(biomegenerationsettings$builder);
+    DefaultBiomeFeatures.addDefaultMonsterRoom(biomegenerationsettings$builder);
+    DefaultBiomeFeatures.addDefaultUndergroundVariety(biomegenerationsettings$builder);
+    DefaultBiomeFeatures.addDefaultOres(biomegenerationsettings$builder);
+    DefaultBiomeFeatures.addDefaultSprings(biomegenerationsettings$builder);
+    DefaultBiomeFeatures.addSurfaceFreezing(biomegenerationsettings$builder);
+    biomegenerationsettings$builder.addStructureStart(StructureFeatures.MINESHAFT);
+    biomegenerationsettings$builder.addStructureStart(StructureFeatures.RUINED_PORTAL_SWAMP);
+    biomegenerationsettings$builder.addStructureStart(StructureFeatures.BURIED_TREASURE);
+    biomegenerationsettings$builder.addFeature(GenerationStage.Decoration.LAKES, Features.LAKE_LAVA);
+
+    return (new Biome.Builder())
+        .precipitation(Biome.RainType.NONE)
+        .biomeCategory(Biome.Category.DESERT)
+        .depth(depth)
+        .scale(scale)
+        .temperature(1.5F)
+        .downfall(0.9F)
+        .specialEffects((new BiomeAmbience.Builder())
+            .waterColor(34952)
+            .waterFogColor(34952)
+            .fogColor(3355460)
+            .foliageColorOverride(34952)
+            .grassColorOverride(34952)
+            .ambientParticle(new ParticleEffectAmbience(ParticleTypes.WARPED_SPORE, 0.03f))
+            .skyColor(3355460)
+            .ambientLoopSound(SoundEvents.AMBIENT_CRIMSON_FOREST_LOOP)
+            .ambientMoodSound(new MoodSoundAmbience(SoundEvents.AMBIENT_WARPED_FOREST_MOOD, 6000, 8, 2.0D))
+            .ambientAdditionsSound(new SoundAdditionsAmbience(SoundEvents.AMBIENT_NETHER_WASTES_ADDITIONS, 0.0111D))
+            .backgroundMusic(BackgroundMusicTracks.createGameMusic(SoundEvents.MUSIC_BIOME_CRIMSON_FOREST))
+            .build())
+        .mobSpawnSettings(mobspawninfo$builder.build())
+        .generationSettings(biomegenerationsettings$builder.build())
+        .build();
+  }
+
+  public static void register(IEventBus eventBus) {
+    BIOMES.register(eventBus);
+  }
+}</code>
+            <code class="java">package com.masec.newmod.world.biome;
+
+import net.minecraft.client.audio.BackgroundMusicTracks;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.world.biome.*;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.Features;
+import net.minecraft.world.gen.feature.structure.StructureFeatures;
+import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import com.masec.newmod.NewMod;
+
+import java.util.function.Supplier;
+
+public class TestBiome {
+  public static final DeferredRegister&lt;Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES,
+      NewMod.MOD_ID);
+
+  public static final RegistryObject&lt;Biome> TEST_BIOME = BIOMES.register("test_biome",
+      () -> makeTestBiome(() -> ModConfiguredSurfaceBuilders.TEST_SURFACE, 0.125f, 0.05f));
+
+  private static Biome makeTestBiome(final Supplier&lt;ConfiguredSurfaceBuilder&lt;?>> surfaceBuilder, float depth,
+      float scale) {
+    MobSpawnInfo.Builder mobspawninfo$builder = new MobSpawnInfo.Builder();
+    DefaultBiomeFeatures.farmAnimals(mobspawninfo$builder);
+    DefaultBiomeFeatures.ambientSpawns(mobspawninfo$builder);
+    mobspawninfo$builder.addSpawn(EntityClassification.MONSTER,
+        new MobSpawnInfo.Spawners(EntityType.BLAZE, 100, 7, 10));
+    mobspawninfo$builder.addSpawn(EntityClassification.MONSTER,
+        new MobSpawnInfo.Spawners(EntityType.ZOMBIFIED_PIGLIN, 50, 4, 4));
+    
+    BiomeGenerationSettings.Builder biomegenerationsettings$builder = (new BiomeGenerationSettings.Builder())
+        .surfaceBuilder(surfaceBuilder);
+    DefaultBiomeFeatures.addDefaultCarvers(biomegenerationsettings$builder);
+    DefaultBiomeFeatures.addDefaultLakes(biomegenerationsettings$builder);
+    DefaultBiomeFeatures.addDefaultMonsterRoom(biomegenerationsettings$builder);
+    DefaultBiomeFeatures.addDefaultUndergroundVariety(biomegenerationsettings$builder);
+    DefaultBiomeFeatures.addDefaultOres(biomegenerationsettings$builder);
+    DefaultBiomeFeatures.addDefaultSprings(biomegenerationsettings$builder);
+    DefaultBiomeFeatures.addSurfaceFreezing(biomegenerationsettings$builder);
+    biomegenerationsettings$builder.addStructureStart(StructureFeatures.MINESHAFT);
+    biomegenerationsettings$builder.addStructureStart(StructureFeatures.RUINED_PORTAL_SWAMP);
+    biomegenerationsettings$builder.addStructureStart(StructureFeatures.BURIED_TREASURE);
+    biomegenerationsettings$builder.addFeature(GenerationStage.Decoration.LAKES, Features.LAKE_LAVA);
+
+    return (new Biome.Builder())
+        .precipitation(Biome.RainType.NONE)
+        .biomeCategory(Biome.Category.DESERT)
+        .depth(depth)
+        .scale(scale)
+        .temperature(1.5F)
+        .downfall(0.9F)
+        .specialEffects((new BiomeAmbience.Builder())
+            .waterColor(34952)
+            .waterFogColor(34952)
+            .fogColor(3355460)
+            .foliageColorOverride(34952)
+            .grassColorOverride(34952)
+            .ambientParticle(new ParticleEffectAmbience(ParticleTypes.WARPED_SPORE, 0.03f))
+            .skyColor(3355460)
+            .ambientLoopSound(SoundEvents.AMBIENT_CRIMSON_FOREST_LOOP)
+            .ambientMoodSound(new MoodSoundAmbience(SoundEvents.AMBIENT_WARPED_FOREST_MOOD, 6000, 8, 2.0D))
+            .ambientAdditionsSound(new SoundAdditionsAmbience(SoundEvents.AMBIENT_NETHER_WASTES_ADDITIONS, 0.0111D))
+            .backgroundMusic(BackgroundMusicTracks.createGameMusic(SoundEvents.MUSIC_BIOME_CRIMSON_FOREST))
+            .build())
+        .mobSpawnSettings(mobspawninfo$builder.build())
+        .generationSettings(biomegenerationsettings$builder.build())
+        .build();
+  }
+
+  public static void register(IEventBus eventBus) {
+    BIOMES.register(eventBus);
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers"></div>
+            <div class="rich_code:markers">package com.~#M(83ffd9)masec.newmodM#~.world.biome;
+
+import net.minecraft.client.audio.BackgroundMusicTracks;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.world.biome.*;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.Features;
+import net.minecraft.world.gen.feature.structure.StructureFeatures;
+import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import com.~#M(83ffd9)masec.newmod.NewModM#~;
+
+import java.util.function.Supplier;
+
+public class ~#M(83ffd9)TestBiomeM#~ {
+  public static final DeferredRegister&lt;Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES,
+      ~#M(83ffd9)NewModM#~.MOD_ID);
+
+  public static final RegistryObject&lt;Biome> ~#M(83ffd9)TEST_BIOMEM#~ = BIOMES.register("~#M(83ffd9)test_biomeM#~",
+      () -> make~#M(83ffd9)TestBiomeM#~(() -> ModConfiguredSurfaceBuilders.~#M(ffc8f1)TEST_SURFACEM#~, 0.125f, 0.05f));
+
+  private static Biome make~#M(83ffd9)TestBiomeM#~(final Supplier&lt;ConfiguredSurfaceBuilder&lt;?>> surfaceBuilder, float depth,
+      float scale) {
+    // 略
+  }
+
+  public static void register(IEventBus eventBus) {
+    BIOMES.register(eventBus);
+  }
+}</div>
+          </div>
+        </div>
+        <p>桃色でマーカーしたところはさきほど作ったサーフェイスビルダーです。</p>
+        <p>バイオームの性質の指定について説明します。</p>
+        <h3 class="subsec">地形</h3>
+        <p>26行目右側にある小数二つは、depth、scaleといって地形をつかさどる数値です。</p>
+        <h3 class="subsec">フィーチャーの指定</h3>
+        <p>
+          その下の<span class="inline">makeTestBiome</span>関数の中にある<span class="inline">DefaultBiomeFeatures.〇〇(□□$builder);</span>はフィーチャーを指定しています。
+          以下では<span class="inline">DefaultBiomeFeatures</span>を「DBF」と略します。
+        </p>
+        <h4>DBF.farmAnimals(mobspawninfo$builder);</h4>
+        <div class="section"><p>動物がスポーンするようにします。</p></div>
+        <h4>DBF.commonSpawns(mobspawninfo$builder);</h4>
+        <div class="section"><p>地下にコウモリとモンスターがスポーンするようにします。</p></div>
+        <h4>DBF.addDefaultCarvers(biomegenerationsettings$builder);</h4>
+        <div class="section"><p>洞窟と渓谷を生成します。</p></div>
+        <h4>DBF.addDefaultLakes(biomegenerationsettings$builder);</h4>
+        <div class="section"><p>マグマと水の池を生成します。</p></div>
+        <h4>DBF.addDefaultMonsterRoom(biomegenerationsettings$builder);</h4>
+        <div class="section"><p>スポナー部屋を生成します。</p></div>
+        <h4>DBF.addDefaultUndergroundVariety(biomegenerationsettings$builder);</h4>
+        <div class="section"><p>土や砂利、花崗岩などが地下に生成されるようにします。</p></div>
+        <h4>DBF.addDefaultOres(biomegenerationsettings$builder);</h4>
+        <div class="section"><p>バニラの鉱石を通常の分布で生成します。</p></div>
+        <h4>DBF.addDefaultSprings(biomegenerationsettings$builder);</h4>
+        <div class="section"><p>マグマと水の池を生成します。</p></div>
+        <h4>DBF.addSurfaceFreezing(biomegenerationsettings$builder);</h4>
+        <div class="section"><p></p></div>
+        <h3 class="subsec">表面にスポーンするモブの指定</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="java">mobspawninfo$builder.addSpawn(EntityClassification.MONSTER,
+  new MobSpawnInfo.Spawners(EntityType.BLAZE, 100, 7, 10));</code>
+          </div>
+        </div>
+        <p>
+          エンティティ、他のモブとの出現率の比、最小数、最大数を指定します。<br>
+          複数指定する場合はこの一文全体を増やします。
+        </p>
+        <h3 class="subsec">ストラクチャの生成</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="java">biomegenerationsettings$builder.addStructureStart(StructureFeatures.MINESHAFT);</code>
+          </div>
+        </div>
+        <p>生成するストラクチャを指定します。以下から選んでください。複数指定する場合はこの一文全体を増やします。</p>
+        <div style="height: 60vh; overflow: auto;">
+          <table style="width: 100%; margin: 0;" class="style2 sticky">
+            <tr><th><div>変数</div></th><th><div>概要</div></th></tr>
+            <tr><td>MINESHAFT</td><td>廃坑</td></tr>
+            <tr><td>MINESHAFT_MESA</td><td>廃坑(メサ)</td></tr>
+            <tr><td>WOODLAND_MANSION</td><td>森の館</td></tr>
+            <tr><td>JUNGLE_TEMPLE</td><td>ジャングルの寺院</td></tr>
+            <tr><td>DESERT_PYRAMID</td><td>ピラミッド</td></tr>
+            <tr><td>IGLOO</td><td>イグルー</td></tr>
+            <tr><td>SHIPWRECK</td><td>沈没船</td></tr>
+            <tr><td>SHIPWRECH_BEACHED</td><td>打ち上げられた難破船</td></tr>
+            <tr><td>SWAMP_HUT</td><td>魔女の家</td></tr>
+            <tr><td>STRONGHOLD</td><td>エンドポータルの遺跡</td></tr>
+            <tr><td>OCEAN_MONUMENT</td><td>海底神殿</td></tr>
+            <tr><td>OCEAN_RUIN_COLD</td><td>海底遺跡(冷たい海)</td></tr>
+            <tr><td>OCEAN_RUIN_WARM</td><td>海底遺跡(暖かい海)</td></tr>
+            <tr><td>NETHER_BRIDGE</td><td>ネザー要塞</td></tr>
+            <tr><td>NETHER_FOSSIL</td><td>ネザーの化石</td></tr>
+            <tr><td>END_CITY</td><td>エンドシティ</td></tr>
+            <tr><td>BURIED_TREASURE</td><td>埋められた宝</td></tr>
+            <tr><td>BASTION_REMNANT</td><td>ピグリンの砦</td></tr>
+            <tr><td>PILLAGER_OUTPOST</td><td>ピレジャーのやぐら</td></tr>
+            <tr><td>VILLAGE_PLAINS</td><td>平原の村</td></tr>
+            <tr><td>VILLAGE_DESERT</td><td>砂漠の村</td></tr>
+            <tr><td>VILLAGE_SAVANNA</td><td>サバンナの村</td></tr>
+            <tr><td>VILLAGE_SNOWY</td><td>雪原の村</td></tr>
+            <tr><td>VILLAGE_TAIGA</td><td>タイガの村</td></tr>
+            <tr><td>RUINED_PORTAL_STANDARD</td><td>壊れたネザーゲート(通常)</td></tr>
+            <tr><td>RUINED_PORTAL_DESERT</td><td>壊れたネザーゲート(砂漠)</td></tr>
+            <tr><td>RUINED_PORTAL_JUNGLE</td><td>壊れたネザーゲート(ジャングル)</td></tr>
+            <tr><td>RUINED_PORTAL_SWAMP</td><td>壊れたネザーゲート(湿地)</td></tr>
+            <tr><td>RUINED_PORTAL_MOUNTAIN</td><td>壊れたネザーゲート(山岳)</td></tr>
+            <tr><td>RUINED_PORTAL_OCEAN</td><td>壊れたネザーゲート(海)</td></tr>
+            <tr><td>RUINED_PORTAL_NETHER</td><td>壊れたネザーゲート(ネザー)</td></tr>
+          </table>
+        </div>
+        <h3 class="subsec">空間の性質</h3>
+        <p>下半分にある<span class="inline">return</span>以降のかたまりがそうです。</p>
+        <h4>.precipitation(RainType)</h4>
+        <div class="section"><p>降水について指定します。<span class="inline">NONE</span>(なし)か<span class="inline">RAIN</span>(雨)か<span class="inline">SNOW</span>(雪)です。</p></div>
+        <h4>.biomeCategory(Category)</h4>
+        <p>バイオームのカテゴリを指定します。</p>
+        <details><summary>以下から選べます</summary>
+          <table style="width: 100%;">
+            <tr><th>変数</th><th>概要</th></tr>
+            <tr><td>NONE</td><td>なし</td></tr>
+            <tr><td>TAIGA</td><td>タイガ</td></tr>
+            <tr><td>EXTREME_HILLS</td><td>山岳</td></tr>
+            <tr><td>JUNGLE</td><td>ジャングル</td></tr>
+            <tr><td>MESA</td><td>メサ</td></tr>
+            <tr><td>PLAINS</td><td>平原</td></tr>
+            <tr><td>SAVANNA</td><td>サバンナ</td></tr>
+            <tr><td>ICY</td><td>雪原</td></tr>
+            <tr><td>THEEND</td><td>エンド</td></tr>
+            <tr><td>BEACH</td><td>ビーチ</td></tr>
+            <tr><td>FOREST</td><td>森</td></tr>
+            <tr><td>OCEAN</td><td>海</td></tr>
+            <tr><td>DESERT</td><td>砂漠</td></tr>
+            <tr><td>RIVER</td><td>川</td></tr>
+            <tr><td>SWAMP</td><td>湿地</td></tr>
+            <tr><td>MUSHROOM</td><td>きのこ島</td></tr>
+            <tr><td>NETHER</td><td>ネザー</td></tr>
+          </table>
+        </details>
+        <h4>.temperature(float)</h4>
+        <div class="section">
+          <p>
+            気温を指定します。高いとスポンジの水が蒸発したり、低いと水が凍ったりします。<br>
+            平原は0.8, 砂漠とネザーは2.0, 雪原は0.0です。
+          </p>
+        </div>
+        <h4>.downfall(float)</h4>
+        <div class="section"><p>平原は0.4, 砂漠は0.0, 雪原は0.5です。</p></div>
+        <h3 class="subsec">空間の性質(特殊)</h3>
+        <p>
+          <span class="inline">.specialEffects(BiomeAmbience)</span>の<span class="inline">BiomeAmbience</span>に指定する値についてです。<br>
+          「色を整数で指定する」 → 赤、緑、青をそれぞれ0~255の値で示し、(赤)×65535+(緑)×255+(青)の値で指定します。わからなかったら<a href="https://www.mathsisfun.com/hexadecimal-decimal-colors.html">このサイト</a>で取得してください。
+        </p>
+        <h4>.waterColor(int)</h4>
+        <div class="section"><p>水の色を整数で指定します。</p></div>
+        <h4>.waterFogColor(int)</h4>
+        <div class="section"><p>水中にいるときの霧の色を整数で指定します。</p></div>
+        <h4>.fogColor(int)</h4>
+        <div class="section"><p>霧の色を整数で指定します。</p></div>
+        <h4>.foliageColorOverride(int)</h4>
+        <div class="section"><p>草や一部の葉っぱブロック、ツタなど植物の色を整数で指定します。</p></div>
+        <h4>.grassColorOverride(int)</h4>
+        <div class="section"><p>草ブロックの色を整数で指定します。</p></div>
+        <h4>.ambientParticle(new ParticleEffectAmbience(ParticleTypes, float))</h4>
+        <div class="section"><p>バイオーム全体にパーティクルを出現させられます。パーティクル、出現率(量)を指定します。</p></div>
+        <details><summary>パーティクルは以下から選べます</summary>
+          <p>わからないやつは適当に書いてます</p>
+          <table style="width: 100%;">
+            <tr><th>変数</th><th>概要</th></tr>
+            <tr><td>AMBIENT_ENTITY_EFFECT</td><td>ポーションのモヤモヤ</td></tr>
+            <tr><td>ANGRY_VILLAGER</td><td>村人が怒ったときのやつ</td></tr>
+            <tr><td>BARRIER</td><td>バリアブロック</td></tr>
+            <tr><td>BLOCK</td><td>ブロックの破片</td></tr>
+            <tr><td>BUBBLE</td><td>「泡」</td></tr>
+            <tr><td>CLOUD</td><td>残留ポーション</td></tr>
+            <tr><td>CRIT</td><td>クリティカル攻撃</td></tr>
+            <tr><td>DAMAGE_INDICATOR</td><td>ダメージを与えたときの黒いハート</td></tr>
+            <tr><td>DRAGON_BREATH</td><td>ドラゴンブレス</td></tr>
+            <tr><td>DRIPPING_LAVA</td><td>ブロックの下から滲むマグマのしずく</td></tr>
+            <tr><td>FALLING_LAVA</td><td>滴り落ちているマグマのしずく</td></tr>
+            <tr><td>LANDING_LAVA</td><td>着地したマグマのしずく</td></tr>
+            <tr><td>DRIPPING_WATER</td><td>ブロックの下から滲む水滴</td></tr>
+            <tr><td>FALLING_WATER</td><td>滴り落ちている水滴</td></tr>
+            <tr><td>DUST</td><td>レッドストーンなど</td></tr>
+            <tr><td>EFFECT</td><td>ポーションのモヤモヤ</td></tr>
+            <tr><td>ELDER_GUARDIAN</td><td>エルダーガーディアン</td></tr>
+            <tr><td>ENCHANTED_HIT</td><td>エンチャント特効攻撃</td></tr>
+            <tr><td>ENCHANT</td><td>エンチャント台</td></tr>
+            <tr><td>END_ROD</td><td>エンドロッド</td></tr>
+            <tr><td>ENTITY_EFFECT</td><td>ポーションのモヤモヤ</td></tr>
+            <tr><td>EXPLOSION_EMITTER</td><td>爆発</td></tr>
+            <tr><td>EXPLOSION</td><td>爆発</td></tr>
+            <tr><td>FALLING_DUST</td><td>重力ブロックが浮いてる時のやつ</td></tr>
+            <tr><td>FIREWORK</td><td>花火</td></tr>
+            <tr><td>FISHING</td><td>釣り</td></tr>
+            <tr><td>FLAME</td><td>松明の炎</td></tr>
+            <tr><td>SOUL_FIRE_FLAME</td><td>青い松明の炎</td></tr>
+            <tr><td>SOUL</td><td>ソウルスピードの魂</td></tr>
+            <tr><td>FLASH</td><td>花火のフラッシュ</td></tr>
+            <tr><td>HAPPY_VILLAGER</td><td>村人が喜んでる時のやつ</td></tr>
+            <tr><td>COMPOSTER</td><td>コンポスター</td></tr>
+            <tr><td>HEART</td><td>繁殖のハート</td></tr>
+            <tr><td>INSTANT_EFFECT</td><td>？</td></tr>
+            <tr><td>ITEM</td><td>アイテムの破片</td></tr>
+            <tr><td>ITEM_SLIME</td><td>スライムのしずく</td></tr>
+            <tr><td>ITEM_SNOWBALL</td><td>雪玉の破片</td></tr>
+            <tr><td>LARGE_SMOKE</td><td>ブレイズの煙</td></tr>
+            <tr><td>LAVA</td><td>マグマからたまに飛び出るやつ</td></tr>
+            <tr><td>MYCELIUM</td><td>菌糸ブロックの表面に出るちっちゃいやつ</td></tr>
+            <tr><td>NOTE</td><td>音符</td></tr>
+            <tr><td>POOF</td><td>モブが倒されたときの煙</td></tr>
+            <tr><td>PORTAL</td><td>ポータル</td></tr>
+            <tr><td>RAIN</td><td>雨</td></tr>
+            <tr><td>SMOKE</td><td>松明の煙</td></tr>
+            <tr><td>SNEEZE</td><td>パンダのくしゃみ</td></tr>
+            <tr><td>SPIT</td><td>ラマのつば</td></tr>
+            <tr><td>SQUID_INK</td><td>イカのインク</td></tr>
+            <tr><td>SWEEP_ATTACK</td><td>剣のスイープ攻撃</td></tr>
+            <tr><td>TOTEM_OF_UNDYING</td><td>不死のトーテム</td></tr>
+            <tr><td>UNDERWATER</td><td>水中に漂うちっちゃいやつ</td></tr>
+            <tr><td>SPLASH</td><td>スプラッシュポーション</td></tr>
+            <tr><td>WITCH</td><td>ウィッチの紫のパーティクル</td></tr>
+            <tr><td>BUBBLE_POP</td><td>泡？</td></tr>
+            <tr><td>CURRENT_DOWN</td><td>下降水流</td></tr>
+            <tr><td>BUBBLE_COLUMN_UP</td><td>上昇水流</td></tr>
+            <tr><td>NAUTILUS</td><td>コンジット？</td></tr>
+            <tr><td>DOLPHIN</td><td>イルカ</td></tr>
+            <tr><td>CAMPFIRE_COSY_SMOKE</td><td>キャンプファイヤの煙</td></tr>
+            <tr><td>CAMPFIRE_SIGNAL_SMOKE</td><td>キャンプファイヤの煙(長い)</td></tr>
+            <tr><td>DRIPPING_HONEY</td><td>滲み出るハチミツのしずく</td></tr>
+            <tr><td>FALLING_HONEY</td><td>滴り落ちているハチミツのしずく</td></tr>
+            <tr><td>LANDING_HONEY</td><td>着地したハチミツのしずく</td></tr>
+            <tr><td>FALLING_NECTAR</td><td>ハチから滴り落ちている花粉</td></tr>
+            <tr><td>ASH</td><td>ソウルサンドの谷に漂う灰</td></tr>
+            <tr><td>CRIMSON_SPORE</td><td>深紅の森の胞子</td></tr>
+            <tr><td>WARPED_SPORE</td><td>歪んだ森の胞子</td></tr>
+            <tr><td>DRIPPING_OBSIDIAN_TEAR</td><td>滲み出る黒曜石の涙</td></tr>
+            <tr><td>FALLING_OBSIDIAN_TEAR</td><td>滴り落ちている黒曜石の涙</td></tr>
+            <tr><td>LANDING_OBSIDIAN_TEAR</td><td>着地した黒曜石の涙</td></tr>
+            <tr><td>REVERSE_PORTAL</td><td>ポータル？</td></tr>
+            <tr><td>WHITE_ASH</td><td>玄武岩デルタに漂う灰</td></tr>
+          </table>
+        </details>
+        <h4>.skyColor(int)</h4>
+        <div class="section"><p>空の色を整数で指定します。</p></div>
+        <h4>.ambientLoopSound(SoundEvents)</h4>
+        <div class="section"><p>ループさせる環境音を指定します。</p></div>
+        <h4>.ambientMoodSound(new MoodSoundAmbience(SoundEvents, int, int, double))</h4>
+        <div class="section"><p>ムード環境音を指定します。</p></div>
+        <h4>.ambientAdditionsSound(new SoundAdditionsAmbience(SoundEvents, double))</h4>
+        <div class="section"><p>追加の環境音を指定します。</p></div>
+        <details><summary>環境音は以下から選べます</summary>
+          <p>わからないやつは適当に書いてます、サウンドなら何でも指定できますが、量が量なのでいくつか代表させました。</p>
+          <table style="width: 100%;">
+            <tr><th>変数</th><th>概要</th></tr>
+            <tr><td>AMBIENT_CAVE</td><td>空同音</td></tr>
+            <tr><td>AMBIENT_BASALT_DELTAS_ADDITIONS</td><td>玄武岩デルタの環境音(追加)</td></tr>
+            <tr><td>AMBIENT_BASALT_DELTAS_LOOP</td><td>玄武岩デルタの環境音(ループ)</td></tr>
+            <tr><td>AMBIENT_BASALT_DELTAS_MOOD</td><td>玄武岩デルタの環境音(ムード)</td></tr>
+            <tr><td>AMBIENT_CRIMSON_FOREST_ADDITIONS</td><td>深紅の森の環境音(追加)</td></tr>
+            <tr><td>AMBIENT_CRIMSON_FOREST_LOOP</td><td>深紅の森の環境音(ループ)</td></tr>
+            <tr><td>AMBIENT_CRIMSON_FOREST_MOOD</td><td>深紅の森の環境音(ムード)</td></tr>
+            <tr><td>AMBIENT_NETHER_WASTES_ADDITIONS</td><td>通常ネザーの環境音(追加)</td></tr>
+            <tr><td>AMBIENT_NETHER_WASTES_LOOP</td><td>通常ネザーの環境音(ループ)</td></tr>
+            <tr><td>AMBIENT_NETHER_WASTES_MOOD</td><td>通常ネザーの環境音(ムード)</td></tr>
+            <tr><td>AMBIENT_SOUL_SAND_VALLEY_ADDITIONS</td><td>ソウルサンドの谷の環境音(追加)</td></tr>
+            <tr><td>AMBIENT_SOUL_SAND_VALLEY_LOOP</td><td>ソウルサンドの谷の環境音(ループ)</td></tr>
+            <tr><td>AMBIENT_SOUL_SAND_VALLEY_MOOD</td><td>ソウルサンドの谷の環境音(ムード)</td></tr>
+            <tr><td>AMBIENT_WARPED_FOREST_ADDITIONS</td><td>歪んだ森の環境音(追加)</td></tr>
+            <tr><td>AMBIENT_WARPED_FOREST_LOOP</td><td>歪んだ森の環境音(ループ)</td></tr>
+            <tr><td>AMBIENT_WARPED_FOREST_MOOD</td><td>歪んだ森の環境音(ムード)</td></tr>
+            <tr><td>AMBIENT_UNDERWATER_LOOP</td><td>水中の環境音(ループ)</td></tr>
+            <tr><td>AMBIENT_UNDERWATER_LOOP_ADDITIONS</td><td>水中の環境音(追加)</td></tr>
+            <tr><td>AMBIENT_UNDERWATER_LOOP_ADDITIONS_RARE</td><td>水中の環境音(追加,レア)</td></tr>
+            <tr><td>AMBIENT_UNDERWATER_LOOP_ADDITIONS_ULTRA_RARE</td><td>水中の環境音(追加,激レア)</td></tr>
+            <tr><td>CONDUIT_AMBIENT</td><td>コンジット</td></tr>
+            <tr><td>CONDUIT_AMBIENT_SHORT</td><td>コンジット(短い)</td></tr>
+            <tr><td>FIRE_AMBIENT</td><td>炎</td></tr>
+            <tr><td>LAVA_AMBIENT</td><td>マグマ</td></tr>
+            <tr><td>PORTAL_AMBIENT</td><td>ポータル</td></tr>
+            <tr><td>RESPAWN_ANCHOR_AMBIENT</td><td>リスポーンアンカー</td></tr>
+            <tr><td>WATER_AMBIENT</td><td>水</td></tr>
+          </table>
+        </details>
+        <h4>.backgroundMusic(BackgroundMusicTracks.createGameMusic(SoundEvents))</h4>
+        <div class="section"><p>BGMを指定します。</p></div>
+        <details><summary>BGMは以下から選べます</summary>
+          <p>わからないやつは適当に書いてます、サウンドなら何でも指定できますが、音楽に限りました。</p>
+          <table style="width: 100%;">
+            <tr><th>変数</th><th>概要</th></tr>
+            <tr><td>MUSIC_CREATIVE</td><td>クリエイティブ</td></tr>
+            <tr><td>MUSIC_CREDITS</td><td>クレジット</td></tr>
+            <tr><td>MUSIC_DISC_11</td><td>レコード「11」</td></tr>
+            <tr><td>MUSIC_DISC_13</td><td>レコード「13」</td></tr>
+            <tr><td>MUSIC_DISC_BLOCKS</td><td>レコード「Blocks」</td></tr>
+            <tr><td>MUSIC_DISC_CAT</td><td>レコード「Cat」</td></tr>
+            <tr><td>MUSIC_DISC_CHIRP</td><td>レコード「Chirp」</td></tr>
+            <tr><td>MUSIC_DISC_FAR</td><td>レコード「Far」</td></tr>
+            <tr><td>MUSIC_DISC_MALL</td><td>レコード「Mall」</td></tr>
+            <tr><td>MUSIC_DISC_MELLOHI</td><td>レコード「Mellohi」</td></tr>
+            <tr><td>MUSIC_DISC_PIGSTEP</td><td>レコード「Pigstep」</td></tr>
+            <tr><td>MUSIC_DISC_STAL</td><td>レコード「stal」</td></tr>
+            <tr><td>MUSIC_DISC_STRAD</td><td>レコード「strad」</td></tr>
+            <tr><td>MUSIC_DISC_WAIT</td><td>レコード「wait」</td></tr>
+            <tr><td>MUSIC_DISC_WARD</td><td>レコード「ward」</td></tr>
+            <tr><td>MUSIC_DRAGON</td><td>エンダードラゴン戦</td></tr>
+            <tr><td>MUSIC_END</td><td>エンド</td></tr>
+            <tr><td>MUSIC_GAME</td><td>サバイバル</td></tr>
+            <tr><td>MUSIC_MENU</td><td>メインメニュー</td></tr>
+            <tr><td>MUSIC_BIOME_BASALT_DELTAS</td><td>玄武岩デルタ</td></tr>
+            <tr><td>MUSIC_BIOME_NETHER_WASTES</td><td>通常ネザー</td></tr>
+            <tr><td>MUSIC_BIOME_SOUL_SAND_VALLEY</td><td>ソウルサンドの谷</td></tr>
+            <tr><td>MUSIC_BIOME_CRIMSON_FOREST</td><td>深紅の森</td></tr>
+            <tr><td>MUSIC_BIOME_WARPED_FOREST</td><td>歪んだ森</td></tr>
+            <tr><td>MUSIC_UNDER_WATER</td><td>水中</td></tr>
+          </table>
+        </details>
+        <h2 class="sec">バイオームを生成</h2>
+        <p>
+          新しいパッケージ「com.masec.newmod.world.gen」を作成し、中に<span class="inline">TestBiomeGeneration</span>クラスを新しく作ります。名前は各自で決めます。
+        </p>
+        <h3 class="subsec">クラスのコード</h3>
+        <p>作られたファイルを編集して、こうなります。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">TestBiomeGeneration.java</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:switch_tab no-select"><div class="selected">例</div><div>各自で変える部分</div></div>
+          <div class="rich_code:content">
+            <code class="java">package com.masec.firstmod.world.gen;
+
+import net.minecraft.util.RegistryKey;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.registries.ForgeRegistries;
+import com.masec.newmod.world.biome.TestBiome;
+
+import java.util.Objects;
+
+import static net.minecraftforge.common.BiomeDictionary.Type.*;
+
+public class TestBiomeGeneration {
+    public static void generateBiomes() {
+        addBiome(TestBiome.TEST_BIOME.get(), BiomeManager.BiomeType.WARM, 100, PLAINS, OVERWORLD);
+    }
+
+    private static void addBiome(Biome biome, BiomeManager.BiomeType type, int weight, BiomeDictionary.Type... types) {
+        RegistryKey&lt;Biome> key = RegistryKey.create(ForgeRegistries.Keys.BIOMES,
+                Objects.requireNonNull(ForgeRegistries.BIOMES.getKey(biome)));
+
+        BiomeDictionary.addTypes(key, types);
+        BiomeManager.addBiome(type, new BiomeManager.BiomeEntry(key, weight));
+    }
+}</code>
+            <code class="java">package com.masec.firstmod.world.gen;
+
+import net.minecraft.util.RegistryKey;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.registries.ForgeRegistries;
+import com.masec.newmod.world.biome.TestBiome;
+
+import java.util.Objects;
+
+import static net.minecraftforge.common.BiomeDictionary.Type.*;
+
+public class TestBiomeGeneration {
+    public static void generateBiomes() {
+        addBiome(TestBiome.TEST_BIOME.get(), BiomeManager.BiomeType.WARM, 100, PLAINS, OVERWORLD);
+    }
+
+    private static void addBiome(Biome biome, BiomeManager.BiomeType type, int weight, BiomeDictionary.Type... types) {
+        RegistryKey&lt;Biome> key = RegistryKey.create(ForgeRegistries.Keys.BIOMES,
+                Objects.requireNonNull(ForgeRegistries.BIOMES.getKey(biome)));
+
+        BiomeDictionary.addTypes(key, types);
+        BiomeManager.addBiome(type, new BiomeManager.BiomeEntry(key, weight));
+    }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers"></div>
+            <div class="rich_code:markers">package com.~#M(83ffd9)masec.firstmodM#~.world.gen;
+
+import net.minecraft.util.RegistryKey;
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.registries.ForgeRegistries;
+import com.~#M(83ffd9)masec.newmodM#~.world.biome.~#M(83ffd9)TestBiomeM#~;
+
+import java.util.Objects;
+
+import static net.minecraftforge.common.BiomeDictionary.Type.*;
+
+public class ~#M(83ffd9)TestBiomeGenerationM#~ {
+    public static void generateBiomes() {
+        addBiome(~#M(83ffd9)TestBiomeM#~.TEST_BIOME.get(), BiomeManager.BiomeType.~#M(ffc8f1)WARMM#~, ~#M(ffc8f1)100M#~, ~#M(ffc8f1)PLAINSM#~, ~#M(ffc8f1)OVERWORLDM#~);
+    }
+
+    private static void addBiome(Biome biome, BiomeManager.BiomeType type, int weight, BiomeDictionary.Type... types) {
+        RegistryKey&lt;Biome> key = RegistryKey.create(ForgeRegistries.Keys.BIOMES,
+                Objects.requireNonNull(ForgeRegistries.BIOMES.getKey(biome)));
+
+        BiomeDictionary.addTypes(key, types);
+        BiomeManager.addBiome(type, new BiomeManager.BiomeEntry(key, weight));
+    }
+}</div>
+          </div>
+        </div>
+        <p>
+          桃色でマーカーしたところは、バイオームの気候、生成率の比、残りは全てバイオームのタイプを指定しています。<br>
+          気候は
+          <span class="inline">DESERT</span>(あつい)、
+          <span class="inline">DESERT_LEGACY</span>(あったか～い)、
+          <span class="inline">WARM</span>(ふつう)、
+          <span class="inline">COOL</span>(つめた～い)、
+          <span class="inline">ICY</span>(さむい)から選びます。<br>
+          バイオームのタイプは以下から選びます
+        </p>
+        <table style="width: 100%;">
+          <tr><th>バイオームのタイプ(一般)</th><th>概要</th></tr>
+          <tr><td>MESA</td><td>メサ</td></tr>
+          <tr><td>FOREST</td><td>森</td></tr>
+          <tr><td>PLAINS</td><td>平原</td></tr>
+          <tr><td>MOUNTAIN</td><td>山岳</td></tr>
+          <tr><td>HILLS</td><td>丘</td></tr>
+          <tr><td>SWAMP</td><td>湿地</td></tr>
+          <tr><td>SANDY</td><td>砂漠</td></tr>
+          <tr><td>SNOWY</td><td>雪原</td></tr>
+          <tr><td>WASTELAND</td><td>荒野</td></tr>
+          <tr><td>BEACH</td><td>ビーチ</td></tr>
+          <tr><td>VOID</td><td>奈落</td></tr>
+          <tr><th>バイオームのタイプ(ディメンション)</th><th>概要</th></tr>
+          <tr><td>OVERWORLD</td><td>地上</td></tr>
+          <tr><td>NETHER</td><td>ネザー</td></tr>
+          <tr><td>END</td><td>エンド</td></tr>
+        </table>
+        <h2 class="sec">イベントバス</h2>
+        <p>メインクラスのファイルに少し書き加えます。各自で名前が違うと思いますが「NewMod.java」を開きます。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">NewMod.java</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="java">package com.masec.newmod;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.masec.newmod.init.BlockInit;
+import com.masec.newmod.init.ItemInit;
+import com.masec.newmod.world.biome.TestBiome;
+import com.masec.newmod.world.gen.TestBiomeGeneration;
+
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+// The value here should match an entry in the META-INF/mods.toml file
+@Mod(NewMod.MOD_ID)
+public class NewMod {
+  // Directly reference a log4j logger.
+  public static final Logger LOGGER = LogManager.getLogger();
+  
+  public static final String MOD_ID = "new_mod";
+
+  public NewMod() {
+    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    bus.addListener(this::setup);
+    
+    ItemInit.ITEMS.register(bus);
+    BlockInit.BLOCKS.register(bus);
+    TestBiome.register(bus);
+
+    // Register ourselves for server and other game events we are interested in
+    MinecraftForge.EVENT_BUS.register(this);
+  }
+
+  private void setup(final FMLCommonSetupEvent event) {
+    // some preinit code
+
+    TestBiomeGeneration.generateBiomes();
+
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">package com.masec.newmod;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.masec.newmod.init.BlockInit;
+import com.masec.newmod.init.ItemInit;
+~#M(83ffd9)import com.masec.newmod.world.biome.TestBiome;M#~
+~#M(83ffd9)import com.masec.newmod.world.gen.TestBiomeGeneration;M#~
+
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+// The value here should match an entry in the META-INF/mods.toml file
+@Mod(NewMod.MOD_ID)
+public class NewMod {
+  // Directly reference a log4j logger.
+  public static final Logger LOGGER = LogManager.getLogger();
+  
+  public static final String MOD_ID = "new_mod";
+
+  public NewMod() {
+    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    bus.addListener(this::setup);
+    
+    ItemInit.ITEMS.register(bus);
+    BlockInit.BLOCKS.register(bus);
+    ~#M(83ffd9)TestBiome.register(bus);M#~
+
+    // Register ourselves for server and other game events we are interested in
+    MinecraftForge.EVENT_BUS.register(this);
+  }
+
+  private void setup(final FMLCommonSetupEvent event) {
+    // some preinit code
+
+    ~#M(83ffd9)TestBiomeGeneration.generateBiomes();M#~
+
+  }
+}</div>
+          </div>
+        </div>
+        <p>
+          これを書き加えて終わりです。上のほうは各自で書き換える部分がありますね。<br>
+          ちなみに、カスタムディメンションだけに生成したい場合は下の<span class="inline">generation</span>のやつは消します。
+        </p>
+        <h2 class="sec">マイクラを起動して確認</h2>
+        <p>コマンドを使って探します。この時点で追加できてることが分かりますね。</p>
+        <div class="center"><img src="img/MCJE01/biome16_01.png" class="default_setting" alt="/locatebiome コマンドの補完であなたが追加したバイオームのIDが表示されるはずです。"></div>
+        <p>このように異様なバイオームが追加できました。</p>
+        <div class="center"><img src="img/MCJE01/biome16_02.png" class="default_setting" alt="表層がダイヤモンド鉱石の、一目でカスタムバイオームだとわかる景色が広がっています。F3でデバッグ画面を開けば、たしかにバイオームのIDが追加したものになっているでしょう。"></div>
+        <h2 class="sec">参考サイト</h2>
+        <ul>
+          <li><a href="https://www.youtube.com/watch?v=59woNUse6-Q&t=147s">Forge 1.17.1 Modding Tutorial | CUSTOM BIOMES | Forge Modding 1.17.1 #31 - YouTube</a></li>
+        </ul>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

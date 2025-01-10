@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】「パーティクルだけでHPバーをつくる」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】「パーティクルだけでHPバーをつくる」 - ますえくNOTE" />
+    <meta property="og:description" content="パーティクルでHPバーを作る方法について解説します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > パーティクルだけでHPバーをつくる</div>
+        <h1 class="title" id="top">パーティクルだけでHPバーをつくる</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <div class="center"><img src="img/MCBE03_article230101_01.png" class="default_setting"></div>
+        <p><b>※ アドオン中級者以上向け</b></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <p>アニメーションコントローラやエンティティのクライアントjsonと紐付けするのは各自でやってください。</p>
+        <p>つけたいエンティティのjsonを編集して紐付けるので、すべてのエンティティにつけたい場合は手動ですべてのエンティティのjsonを編集する必要があります。</p>
+        <p>コマンドでこのパーティクルを出そうとすると何も出ません。追加できているかどうかはパーティクル単体では確かめることはできません。</p>
+        <h2 class="sec">パーティクルのJSON</h2>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "ex:hp_bar",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/hp_bar"
+      }
+    },
+    "components": {
+      "minecraft:emitter_local_space": {
+        "position": true,
+        "rotation": true
+      },
+      "minecraft:particle_motion_parametric": {
+        "relative_position": [ 0.0, "v.particle_height", 0.0 ]
+      },
+      "minecraft:emitter_rate_steady": {
+        "spawn_rate": "Math.random(15, 25)",
+        "max_particles": 50
+      },
+      "minecraft:emitter_lifetime_expression": {
+        "activation_expression": 1,
+        "expiration_expression": 0
+      },
+      "minecraft:emitter_shape_custom": {
+        "offset": [ 0, 0.1, 0 ],
+        "direction": [ 1.0, 0.0, 0.0 ]
+      },
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.5
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [ 0.5 , 0.05 ], // 拡大率 [ 横, 縦 ]
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 64,
+          "texture_height": 64,
+          "uv": [ // (※1)
+            "(1.0 - q.health / q.max_health) *32",
+            "(q.health == 0) ? 36 : 30"
+          ],
+          "uv_size": [ 32, 4 ]
+        }
+      },
+      "minecraft:particle_appearance_tinting": { // (※2)
+        "color": [ 
+          "math.min(2- 2*q.health/q.max_health, 1)",
+          "math.min(2*q.health/q.max_health, 1)",
+          0.0,
+          1.0
+        ]
+      }
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <p>(※1) HPを検知してテクスチャに反映させている部分。</p>
+        <p>(※2) 白黒のテクスチャに色をつけるために必要なコンポーネント。後からこうして色をつけるためにテクスチャは白黒になっています。</p>
+        <h2 class="sec">色の遷移方式の変更</h2>
+        <p>上記のJSONの状態では、HP最大からゼロにかけて<b>緑 → 黄 → 橙となってじわじわと赤になっていく</b>遷移方式です。</p>
+        <p>そこで、ある値を境にパッと黄、赤へと変わる遷移方式にする場合のコードを紹介します。</p>
+        <p>上記の(※2)が指すコンポーネント内の<span class="inline">"color"</span>要素を次のように変更します。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"color": [
+  "(q.health / q.max_health &lt; 0.25) ? 1.0 : 0.0",
+  "(q.health / q.max_health &lt; 0.125) ? 0.0 : 1.0",
+  0.0,
+  1.0
+]</code>
+          </div>
+        </div>
+        <p>
+          この場合、<b>HPが全体の0.25(=1/4)より小さくなった場合に黄色く、HPが全体の0.125(=1/8)より小さくなった場合に赤くなる</b>ようになっています。
+          その二つの値についてはお好みで変更するといいでしょう。
+        </p>
+        <h2 class="sec">エンティティとの紐づけかた</h2>
+        <h3 class="subsec">client_entity定義ファイル</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      // 省略
+      "particle_effects": {
+        "hp_bar": "ex:hp_bar" // パーティクルのID
+      },
+      "scripts": {
+        // 省略
+        "animate": [ "hp_bar" ]
+      },
+      "animations": {
+        "hp_bar": "controller.animation.〇〇.hp_bar" // アニコンのID
+      }
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      // 省略
+      "particle_effects": {
+        "~#M(fce)hp_barM#~": "ex:hp_bar" // パーティクルのID
+      },
+      "scripts": {
+        // 省略
+        "animate": [ "~#M(a1ffa9)hp_barM#~" ]
+      },
+      "animations": {
+        "~#M(a1ffa9)hp_barM#~": "controller.animation.〇〇.hp_bar" // アニコンのID
+      }
+    }
+  }
+}</div>
+          </div>
+        </div>
+        <ol>
+          <li><span class="inline">"particle_effects"</span>に項目を足す</li>
+          <li><span class="inline">"animate"</span>に今回追加するアニコンを動かすためのキーを追加する</li>
+          <li><span class="inline">"animations"</span>にアニコンを足す</li>
+        </ol>
+        <p><span class="inline">"format_version"</span>が<span class="inline">"1.8.0"</span>のやつは書きたくないです</p>
+        <h3 class="subsec">アニコン</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.18.10",
+  "animation_controllers": {
+    "controller.animation.〇〇.hp_bar": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "particle_effects": [
+            {
+              "effect": "hp_bar",
+              "pre_effect_script": "v.particle_height = 2.25;" // エンティティの高さ = 2.25
+            }
+          ]
+        }
+      }
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.18.10",
+  "animation_controllers": {
+    "controller.animation.〇〇.hp_bar": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "particle_effects": [
+            {
+              "effect": "~#M(fce)hp_barM#~",
+              "pre_effect_script": "v.particle_height = 2.25;" // エンティティの高さ = 2.25
+            }
+          ]
+        }
+      }
+    }
+  }
+}</div>
+          </div>
+        </div>
+        <p>子どもの状態があるときは「2.25」とあるところを<b>「(q.is_baby)? 1.25 : 2.25」</b>という風にします。</p>
+        <h2 class="sec">テクスチャ</h2>
+        <div class="center"><img src="https://rinca-h.github.io/minecraft/other/img/hp_bar.png" class="default_setting"></div>
+        <p>※テクスチャ本体を長押しや右クリックするとダウンロードできると思います</p>
+        <p>※ぼやけて見えますが、ダウンロードしたものはぼやけません(そのまま使えます)</p>
+        <p>
+          <b>意味があって白黒にしてあります</b>。色を塗ると色が混ざります。
+          色を変えたい場合は上記のパーティクル定義jsonにある色を司る部分にて指定してください。
+        </p>
+        <h2 class="sec">(※ 1)の簡単な解説</h2>
+        <p>
+          <span class="inline">"minecraft:particle_appearance_billboard"</span>の<span class="inline">"uv"</span>ではテクスチャの切り取る部分(の基準)を指定し、<span class="inline">"uv_size"</span>でその切り取る大きさを指定しますが、
+          今回は元のテクスチャテクスチャファイルの横が64なのに対して<b>半分の32しか切り取っていません</b>。
+        </p>
+        <p>
+          下の図で赤い枠線がその「切り取る部分」です。<b>HPに応じて切り取る部分を横に動かしていけば</b>たしかにHPが減っていくように映すことができますね。
+          "逆紙芝居"といったところでしょうか。
+        </p>
+        <p>考えたひとは頭いいと思いました。</p>
+        <div class="center"><img src="https://rinca-h.github.io/minecraft/other/img/hp_bar_explanation.png" class="default_setting"></div>
+        <h2 class="sec">最後に</h2>
+        <p>もっと自分なりにカスタマイズしたい場合は研究しましょう。 カスタマイズするとしたら色の部分でしょうか？　色についてはRGBとMolangができないとキビシイかもしれません。</p>
+        <p>ちなみに、<b>枠をつけたい場合はバーと重ならないように枠だけのパーティクルを同時に同じ場所へ表示させる</b>とできます。</p>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

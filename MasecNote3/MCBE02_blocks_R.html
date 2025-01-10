@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「ブロック(リソース)」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「ブロック(リソース)」 - ますえくNOTE" />
+    <meta property="og:description" content="リソースパックの要素である「ブロック」について詳しく説明します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > ブロック(リソース)</div>
+        <h1 class="title" id="top">アドオン詳細解説 - ブロック(リソース)</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p>アドオンのブロックについて説明します。</p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">テクスチャの変更</h2>
+        <p>texturesフォルダのblocksフォルダの中に変えたいブロックのテクスチャを入れます。ファイル名はテンプレートを参照してください。</p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              リソース<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┗ <b>textures</b><br>
+              　 　 ┗<b>blocks</b><br>
+              　 　 　 ┗<b>〇〇.png</b>
+            </p>
+          </div>
+        </div>
+        <h2 class="sec">ブロックのテクスチャの仕組み</h2>
+        <p>terrain_texture.jsonでテクスチャにIDをつけ、blocks.jsonでそのIDとブロック本体を紐づけします。</p>
+        <div class="center"><img src="img/MCBE02_blocks_R_01.png" class="default_setting"></div>
+        <h2 class="sec">terrain_texture.jsonの基本</h2>
+        <h3 class="subsec">ファイルの場所</h3>
+        <p>textureフォルダの中に置きます。</p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              リソース<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┗ <b>textures</b><br>
+              　 　 ┗<b>terrain_texture.json</b>
+            </p>
+          </div>
+        </div>
+        <h3 class="subsec">基本の構造</h3>
+        <p>上の4行の値はコピペしたらそのままにしておいてください。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">terrain_texture.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "num_mip_levels": 4,
+  "padding": 8,
+  "resource_pack_name": "vanilla",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    "diamond_ore": { "textures": "textures/blocks/diamond_ore" }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "num_mip_levels": 4,
+  "padding": 8,
+  "resource_pack_name": "vanilla",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    ~#B(f00)"diamond_ore": { "textures": "textures/blocks/diamond_ore" }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <p>
+          上の例で<span class="inline">diamond_ore</span>となっているところは自分で決めるテクスチャのIDです。
+          アルファベット、アンダーバー( _ )、数字(1文字目以外)のみが使えます。<br>
+          このIDのことをこのサイトでは「<b>TerrainID</b>」と呼ぶことがあります。
+        </p>
+        <p><span class="inline">textures</span>の値はテクスチャのファイルパス(拡張子なし)です。</p>
+        <h3 class="subsec">紐づけするブロックを増やす</h3>
+        <p>赤枠で囲まれた部分を増やします。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">terrain_texture.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "num_mip_levels": 4,
+  "padding": 8,
+  "resource_pack_name": "vanilla",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    "diamond_ore": { "textures": "textures/blocks/diamond_ore" },
+    "gold_ore": { "textures": "textures/blocks/gold_ore" }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "num_mip_levels": 4,
+  "padding": 8,
+  "resource_pack_name": "vanilla",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    ~#B(f00)"diamond_ore": { "textures": "textures/blocks/diamond_ore" },B#~
+    ~#B(f00)"gold_ore": { "textures": "textures/blocks/gold_ore" }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <p>カンマ( , )忘れに注意。</p>
+        <h2 class="sec">blocks.jsonの基本</h2>
+        <h3 class="subsec">ファイルの場所</h3>
+        <p>manifest.jsonと同じ層に置きます。</p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              リソース<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┗ <b>blocks.json</b>
+            </p>
+          </div>
+        </div>
+        <h3 class="subsec">基本の構造</h3>
+        <p><span class="inline">format_version</span>の値はコピペしたらそのままにしておいてください。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">blocks.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": [ 1, 1, 0 ],
+  "diamond_ore": {
+    "textures": "diamond_ore", "sound": "stone"
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": [ 1, 1, 0 ],
+  ~#B(f00)"~#M(83ffd9)diamond_oreM#~": {
+    "textures": "diamond_ore", "sound": "stone"
+  }B#~
+}</div>
+          </div>
+        </div>
+        <p>
+          マーカー部分は、紐づけるブロックのID(<span class="inline">minecraft:</span>は省略)、
+          <span class="inline">textures</span>の値にはテクスチャのID(TerrainID)を指定します。
+        </p>
+        <h3 class="subsec">紐づけするブロックを増やす</h3>
+        <p>赤枠で囲まれた部分を増やします。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">blocks.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": [ 1, 1, 0 ],
+  "diamond_ore": {
+    "textures": "diamond_ore", "sound": "stone"
+  },
+  "gold_ore": {
+    "textures": "gold_ore", "sound": "stone"
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": [ 1, 1, 0 ],
+  ~#B(f00)"diamond_ore": {
+    "textures": "diamond_ore", "sound": "stone"
+  },B#~
+  ~#B(f00)"gold_ore": {
+    "textures": "gold_ore", "sound": "stone"
+  }B#~
+}</div>
+          </div>
+        </div>
+        <p>カンマ忘れに注意。</p>
+        <h2 class="sec">カスタムブロックにテクスチャを貼る</h2>
+        <p>blocks.jsonでカスタムブロックのIDを指定します。</p>
+        <h2 class="sec">サウンドを指定する</h2>
+        <p>blocks.jsonの<span class="inline">sound</span>の値で指定できます。</p>
+        <details><summary>サウンド一覧</summary>
+          <table style="width: 100%; margin-top: 16px;">
+            <tr><th>値</th><th>概要</th></tr>
+            <tr><td>wood</td><td>木材</td></tr>
+            <tr><td>stone</td><td>石</td></tr>
+            <tr><td>metal</td><td>金属ブロック</td></tr>
+            <tr><td>glass</td><td>ガラス</td></tr>
+            <tr><td>grass</td><td>草ブロック</td></tr>
+            <tr><td>gravel</td><td>砂利</td></tr>
+            <tr><td>sand</td><td>砂</td></tr>
+            <tr><td>scaffolding</td><td>足場ブロック</td></tr>
+            <tr><td>amethyst_cluster</td><td>アメジストの欠片</td></tr>
+            <tr><td>amethyst_block</td><td>アメジストブロック</td></tr>
+            <tr><td>large_amethyst_bud</td><td>大きなアメジストの芽</td></tr>
+            <tr><td>big_dripleaf</td><td>大きなドリップリーフ</td></tr>
+            <tr><td>frog_spawn</td><td>カエルの卵</td></tr>
+            <tr><td>itemframe</td><td>額縁</td></tr>
+            <tr><td>anvil</td><td>金床</td></tr>
+            <tr><td>packed_mud</td><td>乾燥した泥ブロック</td></tr>
+            <tr><td>fungus</td><td>キノコ(ネザー)</td></tr>
+            <tr><td>stem</td><td>キノコの茎(ネザー)</td></tr>
+            <tr><td>tuff</td><td>凝灰岩</td></tr>
+            <tr><td>cave_vines</td><td>グロウベリーのツタ</td></tr>
+            <tr><td>basalt</td><td>玄武岩</td></tr>
+            <tr><td>moss_carpet</td><td>苔のカーペット</td></tr>
+            <tr><td>moss_block</td><td>苔ブロック</td></tr>
+            <tr><td>ancient_debris</td><td>古代のがれき</td></tr>
+            <tr><td>powder_snow</td><td>粉雪</td></tr>
+            <tr><td>comparator</td><td>コンパレータ</td></tr>
+            <tr><td>coral</td><td>サンゴブロック</td></tr>
+            <tr><td>shroomlight</td><td>シュルームライト</td></tr>
+            <tr><td>pointed_dripstone</td><td>鍾乳石</td></tr>
+            <tr><td>dripstone_block</td><td>鍾乳石ブロック</td></tr>
+            <tr><td>sweet_berry_bush</td><td>スイートベリーの茂み</td></tr>
+            <tr><td>sculk</td><td>スカルク</td></tr>
+            <tr><td>sculk_catalyst</td><td>スカルクカタリスト</td></tr>
+            <tr><td>sculk_shrieker</td><td>スカルクシュリーカー</td></tr>
+            <tr><td>sculk_sensor</td><td>スカルクセンサー</td></tr>
+            <tr><td>sculk_vein</td><td>スカルクのツタ</td></tr>
+            <tr><td>slime</td><td>スライムブロック</td></tr>
+            <tr><td>soul_sand</td><td>ソウルサンド</td></tr>
+            <tr><td>soul_soil</td><td>ソウルソイル</td></tr>
+            <tr><td>bamboo</td><td>竹</td></tr>
+            <tr><td>bamboo_sapling</td><td>たけのこ</td></tr>
+            <tr><td>small_amethyst_bud</td><td>小さなアメジストの芽</td></tr>
+            <tr><td>chain</td><td>チェーン</td></tr>
+            <tr><td>vines</td><td>ツタ</td></tr>
+            <tr><td>azalea</td><td>ツツジ</td></tr>
+            <tr><td>azalea_leaves</td><td>ツツジの葉</td></tr>
+            <tr><td>deepslate</td><td>ディープスレート</td></tr>
+            <tr><td>deepslate_bricks</td><td>ディープスレートレンガ</td></tr>
+            <tr><td>copper</td><td>銅ブロック</td></tr>
+            <tr><td>muddy_mangrove_roots</td><td>泥に使ったマングローブの根</td></tr>
+            <tr><td>mud</td><td>泥ブロック</td></tr>
+            <tr><td>mud_bricks</td><td>泥レンガ</td></tr>
+            <tr><td>nylium</td><td>ナイリウム</td></tr>
+            <tr><td>roots</td><td>根(ネザー)</td></tr>
+            <tr><td>dirt_with_roots</td><td>根が張った土</td></tr>
+            <tr><td>nether_wart</td><td>ネザーウォート</td></tr>
+            <tr><td>nether_gold_ore</td><td>ネザー金鉱石</td></tr>
+            <tr><td>nether_sprouts</td><td>ネザースプラウト</td></tr>
+            <tr><td>netherrack</td><td>ネザーラック</td></tr>
+            <tr><td>nether_brick</td><td>ネザーレンガ</td></tr>
+            <tr><td>netherite</td><td>ネザライトブロック</td></tr>
+            <tr><td>ladder</td><td>ハシゴ</td></tr>
+            <tr><td>honey_block</td><td>ハチミツブロック</td></tr>
+            <tr><td>medium_amethyst_bud</td><td>普通のアメジストの芽</td></tr>
+            <tr><td>hanging_roots</td><td>ぶら下がる根</td></tr>
+            <tr><td>froglight</td><td>フロッグライト</td></tr>
+            <tr><td>calcite</td><td>方解石</td></tr>
+            <tr><td>spore_blossom</td><td>胞子の花</td></tr>
+            <tr><td>bone_block</td><td>骨ブロック</td></tr>
+            <tr><td>mangrove_roots</td><td>マングローブの根</td></tr>
+            <tr><td>snow</td><td>雪</td></tr>
+            <tr><td>cloth</td><td>羊毛</td></tr>
+            <tr><td>lantern</td><td>ランタン</td></tr>
+            <tr><td>candle</td><td>ロウソク</td></tr>
+            <tr><td>lodestone</td><td>ロードストーン</td></tr>
+          </table>
+        </details>
+        <h2 class="sec">面ごとに違うテクスチャ</h2>
+        <p>blocks.jsonの<span class="inline">textures</span>を以下のように書くことで、面ごとに違うテクスチャを貼ることができます。</p>
+        <h3 class="subsec">6面指定パターン</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "textures": {
+    "down": "crafting_table_bottom", // 下
+    "east": "crafting_table_side",   // 東
+    "north": "crafting_table_front", // 北
+    "south": "crafting_table_front", // 南
+    "up": "crafting_table_top",      // 上
+    "west": "crafting_table_side"    // 西
+  },
+  "sound": "wood"
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">上下・側面指定パターン</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "textures": {
+    "down": "log_top",  // 下
+    "side": "log_side", // 側面
+    "up": "log_top"     // 上
+  },
+  "sound": "wood"
+}</code>
+          </div>
+        </div>
+        <h2 class="sec">アニメーションするテクスチャ</h2>
+        <p>texturesフォルダのflipbook_textures.jsonを作成・編集します。</p>
+        <h3 class="subsec">ファイルの場所</h3>
+        <div class="center">
+          <div class="box1">
+            <p>
+              リソース<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┗ <b>textures</b><br>
+              　 　 ┗ <b>flipbook_textures.json</b>
+            </p>
+          </div>
+        </div>
+        <h3 class="subsec">基本の構造</h3>
+        <p>赤枠の部分を増やして他のブロックについて設定します。その際はカンマ忘れに注意。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">flipbook_textures.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">[
+  {
+    "flipbook_texture": "textures/blocks/water_still_grey",
+    "atlas_tile": "still_water_grey",
+    "ticks_per_frame": 2
+  }
+]</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">[
+  ~#B(f00){
+    "flipbook_texture": "textures/blocks/water_still_grey",
+    "atlas_tile": "still_water_grey",
+    "ticks_per_frame": 2
+  }B#~
+]</div>
+          </div>
+        </div>
+        <p>
+          <span class="inline">flipbook_texture</span>にテクスチャのファイルパス(拡張子なし)、
+          <span class="inline">atlas_tile</span>にテクスチャのID(TerrainID)を指定します。
+        </p>
+        <p>
+          <span class="inline">ticks_per_frame</span>で1コマ表示する長さ(tick)を指定できます。数が小さいほど速くなります。
+        </p>
+        <h3 class="subsec">その他のプロパティ</h3>
+        <p>必要なときだけ追加するプロパティです。</p>
+        <h4>atlas_index (int)</h4>
+        <div class="section"><p>TerrainIDに含まれるテクスチャのインデックス。</p></div>
+        <h4>atlas_tile_variant (int)</h4>
+        <p></p>
+        <h4>frames (int-n)</h4>
+        <div class="section"><p>コマ番号を直接指定してコマの順番を決めます。</p></div>
+        <h4>replicate (int)</h4>
+        <div class="section"><p>ピクセルの大きさ。</p></div>
+        <h4>blend_frames (bool)</h4>
+        <div class="section">
+          <p>
+            <span class="inline">false</span>にするとパッと次のコマへ遷移するように、
+            <span class="inline">true</span>にするとスムーズにフェードしながら遷移するようになります。
+          </p>
+        </div>
+        <h3 class="subsec">テクスチャ</h3>
+        <p>
+          アニメーションのコマを1つずつ縦に並べたものを作ります。
+          　1コマひとコマは必ず正方形なので、コマのサイズはテクスチャの横幅で決まります。
+        </p>
+        <h2 class="sec">インベントリ内のテクスチャを別で指定</h2>
+        <p>
+          blocks.jsonの<span class="inline">carried_textures</span>プロパティを指定ことによって、
+          置いた状態のテクスチャと、手に持った(インベントリにある)状態でテクスチャを別にできます。
+        </p>
+        <p>指定の方法は<span class="inline">textures</span>プロパティと同じでTerrainIDを指定し、面別指定も同様にできます。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "carried_textures": "bamboo_carried",
+  "textures": "bamboo_sapling",
+  "sound": "bamboo_sapling"
+}</code>
+          </div>
+        </div>
+        <h2 class="sec">テクスチャの向きをランダムにする</h2>
+        <p>
+          blocks.jsonで<span class="inline">isotropic</span>プロパティを<span class="inline">true</span>にすると、
+          ブロックを置いた座標によってテクスチャがランダムに回転(0°, 90°, 180°, 270°)します。面別指定できます。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "isotropic": true,
+  "sound": "gravel",
+  "textures": "clay"
+}</code>
+          </div>
+        </div>
+        <h2 class="sec">ランダムなテクスチャ</h2>
+        <p>
+          terrain_texture.jsonの<span class="inline">textures</span>を<span class="inline">variations</span>で指定すると、
+          ブロックを置いた座標によってテクスチャがランダムになります。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "textures": {
+    "variations": [
+      { "path": "textures/blocks/bookshelf0" },
+      { "path": "textures/blocks/bookshelf1" },
+      { "path": "textures/blocks/bookshelf2" },
+      { "path": "textures/blocks/bookshelf3" }
+    ]
+  }
+}</code>
+          </div>
+        </div>
+        <h2 class="sec">その他</h2>
+        <h3 class="subsec">複数のテクスチャを指定</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "textures": [
+    "textures/blocks/anvil_top_damaged_0",
+    "textures/blocks/anvil_top_damaged_1",
+    "textures/blocks/anvil_top_damaged_2",
+    "textures/blocks/anvil_base"
+  ]
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">brightness_gamma(blocks.json)</h3>
+        <p>小数で指定。テクスチャの明るさ(ガンマ)を変えられる。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "brightness_gamma": 0.80,
+  "sound": "nether_brick",
+  "textures": "nether_brick"
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">overlay_color(terrain_texture.json)</h3>
+        <p>カラーコードで指定。テクスチャに単色をオーバーレイできます。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "textures": {
+    "overlay_color": "#79c05a",
+    "path": "textures/blocks/grass_side"
+  }
+}</code>
+          </div>
+        </div>
+        <h2 class="sec">できないこと</h2>
+        <ul>
+          <li>バニラのブロックのジオメトリ変更(blockshapeについては解説しません)</li>
+          <li>特殊発光テクスチャ</li>
+          <li>ブロックステートとテクスチャの紐づけ(データ値でブロックステートが決まるなら可)</li>
+          <li>テクスチャのバリエーションとしてのデータ値を追加</li>
+        </ul>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

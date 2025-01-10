@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「スポーンルールの作り方」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「スポーンルールの作り方」 - ますえくNOTE" />
+    <meta property="og:description" content="アドオンの要素である「スポーンルール」について詳しく説明します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > スポーンルールの作り方</div>
+        <h1 class="title" id="top">アドオン詳細解説 - スポーンルールの作り方</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">機能</h2>
+        <p>モブの自然スポーンに関する条件を設定します。</p>
+        <h2 class="sec">ファイルの場所</h2>
+        <p>ビヘイビアのspawn_rulesフォルダにファイルを置きます。</p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              ビヘイビア<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┗ <b>spawn_rules</b><br>
+              　 　 ┗<b>〇〇.json</b>
+            </p>
+          </div>
+        </div>
+        <h2 class="sec">基本の構造</h2>
+        <p>赤枠の部分を増やして条件を増やします。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.8.0",
+  "minecraft:spawn_rules": {
+    "description": {
+      "identifier": "ex:my_entity",
+      "population_control": "monster"
+    },
+    "conditions": [
+      {
+        // コンポーネント
+      }
+    ]
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.8.0",
+  "minecraft:spawn_rules": {
+    "description": {
+      "identifier": "ex:my_entity",
+      "population_control": "monster"
+    },
+    "conditions": [
+      ~#B(f00){
+        // コンポーネント
+      }B#~
+    ]
+  }
+}</div>
+          </div>
+        </div>
+        <h3 class="subsec">identifier</h3>
+        <p>スポーンルールを設定したいエンティティのID。</p>
+        <h3 class="subsec">population_control</h3>
+        <p>
+          スポーン数の方式。<span class="inline">"animal"</span>(動物)、<span class="inline">"underwater_animal"</span>(水棲生物)、
+          <span class="inline">"monster"</span>(モンスター)、<span class="inline">"ambient"</span>(環境動物)から選ぶ。
+        </p>
+        <h2 class="sec">コンポーネント</h2>
+        <h3 class="subsec">minecraft:weight</h3>
+        <p>基本の構造の赤枠部分を増やしたときの、その条件が比較対象として選ばれる確率比。</p>
+        <p>
+          たとえば条件1、2、3を設定していて、weightがそれぞれ1、4、5ならば、それぞれの条件が適用される確率は10%、40%、50%。
+          1、1、2なら25%、25%、50%。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:weight": { "default": 100 }</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:density_limit</h3>
+        <p>
+          スポーン数の上限。<span class="inline">surface</span>は地上、<span class="inline">underground</span>は地下。
+          設定しない場合は省略すればいい。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:density_limit": {
+  "underground": 5,
+  "surface": 5
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:spawns_on_block_filter</h3>
+        <p>ここで指定したブロックの上にスポーンするようになる。複数指定可。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:spawns_on_block_filter": [ "minecraft:grass" ]</code>
+          </div>
+        </div>
+        <p>ここでネザーレンガ、プリズマリンブロック、石レンガなどを指定すれば、擬似的にネザー要塞、海底神殿、ダンジョンにスポーンさせることができるが、<u>プレイヤーが置いたブロックの上にもスポーンする</u>ので厳密には不可能。</p>
+        <h3 class="subsec">minecraft:spawns_on_block_prevented_filter</h3>
+        <p>ここで指定したブロックの上にはスポーン<u>しない</u>ようになる。複数指定可。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:spawns_on_block_prevented_filter": [
+  "minecraft:nether_wart_block",
+  "minecraft:shroomlight"
+]</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:spawns_above_block_filter</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:spawns_above_block_filter": {
+  "blocks": "minecraft:stone",
+  "distance": 10
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:herd</h3>
+        <p>スポーンするときに複数体同時にスポーンする。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:herd": {
+  "min_size": 4,
+  "max_size": 6,
+  "event": "minecraft:entity_born",
+  "event_skip_count": 2
+}</code>
+          </div>
+        </div>
+        <h4>event</h4>
+        <p>スポーンしたときに発生させるイベント。</p>
+        <h4>複数のパターンとして書くことができる</h4>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:herd": [
+  { "min_size": 2, "max_size": 6, "event": "event1" },
+  { "min_size": 2, "max_size": 6, "event": "event2" }
+]</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:permute_type</h3>
+        <p>
+          確率で別のモブがスポーンするようにする。<br>
+          以下の例では95%でゾンビがスポーンし、5%で村人ゾンビ(別エンティティ)がスポーンする。
+        </p>
+        <p><span class="inline">weight</span>の単位は%ではないので注意。以下の例で19、1としても比が同じなので確率は変わらない。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:permute_type": [
+  { "weight": 95 },
+  {
+    "weight": 5,
+    "entity_type": "minecraft:zombie_villager_v2"
+  }
+]</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:brightness_filter</h3>
+        <p>明るさの条件。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:brightness_filter": {
+  "min": 0,
+  "max": 7,
+  "adjust_for_weather": true
+}</code>
+          </div>
+        </div>
+        <h4>adjust_for_weather</h4>
+        <p>天気によって変わる明るさに影響されるかどうか。</p>
+        <h3 class="subsec">minecraft:height_filter</h3>
+        <p>高度(y座標)の条件。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:height_filter": { "min": -63, "max": 63 }</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:spawns_on_surface</h3>
+        <p>地表(日光が当たる場所)すべてにスポーンするようになる。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:spawns_on_surface": {}</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:spawns_underground</h3>
+        <p>地下(日光が当たらない場所)すべてにスポーンするようになる。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:spawns_underground": {}</code>
+          </div>
+        </div>
+        <p>ネザーにスポーンさせる場合、このコンポーネントが必須(天井はすべて岩盤や地形で埋められているから)。</p>
+        <h3 class="subsec">minecraft:spawns_underwater</h3>
+        <p>水中すべてにスポーンするようになる。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:spawns_underwater": {}</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:disallow_spawns_in_bubble</h3>
+        <p>水中のマグマブロック、ソウルサンドによる気泡の中にスポーンしないようになる。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:disallow_spawns_in_bubble": {}</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:spawns_lava</h3>
+        <p>マグマの表面(水面ならぬマグマ面)にスポーンする。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:spawns_lava": {}</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:biome_filter</h3>
+        <p>バイオームの条件。エンティティフィルターと同じ記法でany_ofやall_ofも使える。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:biome_filter": {
+  "test": "has_biome_tag",
+  "value": "plains"
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:difficulty_filter</h3>
+        <p>
+          難易度の条件。値は<span class="inline">"peaceful"</span>(ピースフル)、<span class="inline">"easy"</span>(イージー)、
+          <span class="inline">"normal"</span>(ノーマル)、<span class="inline">"hard"</span>(ハード)。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:difficulty_filter": {
+  "min": "easy",
+  "max": "hard"
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:distance_filter</h3>
+        <p>プレイヤーからの距離の条件。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:distance_filter": { "min": 12, "max": 32 }</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:is_experimental</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:is_experimental": {}</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:world_age_filter</h3>
+        <p>ワールド内の経過時間の条件。数日過ごさないとスポーンしないなど。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:world_age_filter": { "min": 6000 }</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:delay_filter</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:delay_filter": {
+  "min": 600,
+  "max": 660,
+  "identifier": "minecraft:pillager_patrol_easy",
+  "spawn_chance": 20
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:mob_event_filter</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:mob_event_filter": {
+  "event": "minecraft:pillager_patrols_event"
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:is_persistent</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:is_persistent": {}</code>
+          </div>
+        </div>
+        <h3 class="subsec">minecraft:player_in_village_filter</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:player_in_village_filter": {
+  "distance": 48,
+  "village_border_tolerance": 32
+}</code>
+          </div>
+        </div>
+        <h2 class="sec">具体例</h2>
+        <h3 class="subsec">動物</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.8.0",
+  "minecraft:spawn_rules": {
+    "description": {
+      "identifier": "ex:ground_animal",
+      "population_control": "animal"
+    },
+    "conditions": [
+      {
+        "minecraft:weight": { "default": 8 },
+        "minecraft:biome_filter": { "test": "has_biome_tag", "value": "animal" },
+        "minecraft:brightness_filter": {
+          "min": 7,
+          "max": 15,
+          "adjust_for_weather": false
+        },
+        "minecraft:herd": { "min_size": 2, "max_size": 3 },
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_on_block_filter": "minecraft:grass"
+      }
+    ]
+  }
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">モンスター</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.8.0",
+  "minecraft:spawn_rules": {
+    "description": {
+      "identifier": "ex:ground_monster",
+      "population_control": "monster"
+    },
+    "conditions": [
+      {
+        "minecraft:weight": { "default": 100 },
+        "minecraft:biome_filter": { "test": "has_biome_tag", "value": "monster" },
+        "minecraft:brightness_filter": {
+          "min": 0,
+          "max": 7,
+          "adjust_for_weather": true
+        },
+        "minecraft:density_limit": { "surface": 5 },
+        "minecraft:difficulty_filter": { "min": "easy", "max": "hard" },
+        "minecraft:spawns_on_surface": {},
+        "minecraft:spawns_underground": {}
+      }
+    ]
+  }
+}</code>
+          </div>
+        </div>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

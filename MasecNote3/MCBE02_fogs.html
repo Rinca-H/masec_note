@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「フォグ」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「フォグ」 - ますえくNOTE" />
+    <meta property="og:description" content="アドオンの要素である「フォグ」について詳しく説明します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > フォグ</div>
+        <h1 class="title" id="top">アドオン詳細解説 - フォグ</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">機能</h2>
+        <p>バイオームごとに水やフォグ(遠くに見える霧)の色が変わりますが、その色を指定するのが今回説明するファイルです。</p>
+        <p>草や木の葉の色を変えるのはまた別です。</p>
+        <h2 class="sec">ファイルの場所</h2>
+        <div class="center">
+          <div class="box1">
+            <p>
+              リソース<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┣ <b>biomes_client.json</b><br>
+              　 ┗ <b>fogs</b><br>
+              　 　 ┗<b>〇〇.json</b>
+            </p>
+          </div>
+        </div>
+        <h2 class="sec">biomes_client.json</h2>
+        <p>
+          このファイルはバイオームと水の色、どのフォグを適用するかを紐づけます。
+        </p>
+        <h3 class="subsec">基本構造</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "biomes": {
+    // バイオーム情報
+  }
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">具体的な書き方</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "biomes": {
+    "(バイオームID)": {
+      "fog_identifier": "minecraft:fog_default",
+      "fog_ids_to_merge": [ "minecraft:fog_default" ],
+      "inherit_from_prior_fog": false,
+      "remove_all_prior_fog": false,
+      "water_surface_color": "#44AFF5",
+      "water_surface_transparency": 0.650
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "biomes": {
+    ~#B(f00)"(バイオームID)": {
+      "fog_identifier": "minecraft:fog_default",
+      "fog_ids_to_merge": [ "minecraft:fog_default" ],
+      "inherit_from_prior_fog": false,
+      "remove_all_prior_fog": false,
+      "water_surface_color": "#44AFF5",
+      "water_surface_transparency": 0.650
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <h4>fog_identifier [Str]</h4>
+        <div class="section"><p>適用したいフォグのID。</p></div>
+        <h4>fog_ids_to_merge [Str-n]</h4>
+        <div class="section"><p>　</p></div>
+        <h4>inherit_from_prior_fog [Bool]</h4>
+        <div class="section"><p>　</p></div>
+        <h4>remove_all_prior_fog [Bool]</h4>
+        <div class="section"><p>　</p></div>
+        <h4>water_surface_color [Str]</h4>
+        <div class="section"><p>水面の色。</p></div>
+        <h4>water_surface_transparency [Float]</h4>
+        <div class="section"><p>水の透明度。</p></div>
+        <h3 class="subsec">複数のバイオームについて書く</h3>
+        <p>以下のように赤枠部分を増やします。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "biomes": {
+    "(バイオームID1)": {
+      // 内容
+    },
+    "(バイオームID2)": {
+      // 内容
+    }
+    
+    // + その他のバイオーム
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "biomes": {
+    ~#B(f00)"(バイオームID1)": {
+      // 内容
+    },B#~
+    ~#B(f00)"(バイオームID2)": {
+      // 内容
+    }B#~
+    
+    // + その他のバイオーム
+  }
+}</div>
+          </div>
+        </div>
+        <h2 class="sec">フォグ</h2>
+        <p>フォグとは、水中や遠くに見える霧のことです。</p>
+        <h3 class="subsec">基本構造</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "ex:my_fog"
+    },
+    "distance": {
+      "air": {
+        // 遠方の景色にかかるフォグの設定
+      },
+      "water": {
+        // 水中のフォグの設定
+      },
+      "weather": {
+        // 雨天や雷雨のフォグの設定
+      },
+      "lava": {
+        // マグマ中のフォグの設定
+      },
+      "lava_resistance": {
+        // マグマ中(+火炎耐性ポーション)のフォグの設定
+      },
+      "powder_snow": {
+        // 粉雪の中のフォグの設定
+      }
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.16.100",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "ex:my_fog"
+    },
+    ~#B(f00)"distance": {
+      ~#B(00f)"air": {
+        // 遠方の景色にかかるフォグの設定
+      },B#~
+      ~#B(00f)"water": {
+        // 水中のフォグの設定
+      },B#~
+      ~#B(00f)"weather": {
+        // 雨天や雷雨のフォグの設定
+      },B#~
+      ~#B(00f)"lava": {
+        // マグマ中のフォグの設定
+      },B#~
+      ~#B(00f)"lava_resistance": {
+        // マグマ中(+火炎耐性ポーション)のフォグの設定
+      },B#~
+      ~#B(00f)"powder_snow": {
+        // 粉雪の中のフォグの設定
+      }B#~
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <p>
+          <span class="inline">"air"</span>(遠方の景色にかかるフォグの設定)以外の項目は省略できます。
+        </p>
+        <h3 class="subsec">詳細な構造</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "ex:my_fog"
+    },
+    "distance": {
+      "air": {
+        // 遠方の景色にかかるフォグの設定
+      },
+      "water": {
+        // 水中のフォグの設定
+      },
+      "weather": {
+        // 雨天や雷雨のフォグの設定
+      },
+      "lava": {
+        // マグマ中のフォグの設定
+      },
+      "lava_resistance": {
+        // マグマ中(+火炎耐性ポーション)のフォグの設定
+      },
+      "powder_snow": {
+        // 粉雪の中のフォグの設定
+      }
+    },
+    "volumetric": {
+      "density": {
+        "air": {
+          // 遠方の景色にかかるフォグの設定
+        }
+        // 他に"water", "lava", "lava_resistance"が設定可
+      },
+      "media_coefficients": {
+        "air": {
+          // 遠方の景色にかかるフォグの設定
+        }
+        // 他に"water", "cloud"が設定可
+      }
+    }
+  }
+}
+</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.16.100",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "ex:my_fog"
+    },
+    ~#B(f00)"distance": {
+      ~#B(00f)"air": {
+        // 遠方の景色にかかるフォグの設定
+      },B#~
+      ~#B(00f)"water": {
+        // 水中のフォグの設定
+      },B#~
+      ~#B(00f)"weather": {
+        // 雨天や雷雨のフォグの設定
+      },B#~
+      ~#B(00f)"lava": {
+        // マグマ中のフォグの設定
+      },B#~
+      ~#B(00f)"lava_resistance": {
+        // マグマ中(+火炎耐性ポーション)のフォグの設定
+      },B#~
+      ~#B(00f)"powder_snow": {
+        // 粉雪の中のフォグの設定
+      }B#~
+    },B#~
+    ~#B(f00)"volumetric": {
+      ~#B(00f)"density": {
+        ~#B(0c0)"air": {
+          // 遠方の景色にかかるフォグの設定
+        }B#~
+        // 他に"water", "lava", "lava_resistance"が設定可
+      },B#~
+      ~#B(00f)"media_coefficients": {
+        ~#B(0c0)"air": {
+          // 遠方の景色にかかるフォグの設定
+        }B#~
+        // 他に"water", "cloud"が設定可
+      }B#~
+    }B#~
+  }
+}
+</div>
+          </div>
+        </div>
+        <h3 class="subsec">具体的な書き方</h3>
+        <h4>fog_start [Float]</h4>
+        <div class="section">
+          <p>
+            フォグが見え始めるプレイヤーからの距離。この値は
+            <span class="inline">"fog_end"</span>の値と等しいかそれより小さい必要がある。
+          </p>
+        </div>
+        <h4>fog_end [Float]</h4>
+        <div class="section">
+          <p>
+            フォグが完全に透明でなくなるプレイヤーからの距離。この値は
+            <span class="inline">"fog_start"</span>の値と等しいかそれより大きい必要がある。
+          </p>
+        </div>
+        <h4>fog_color [String]</h4>
+        <div class="section">
+          <p>フォグの色。16進カラーコードで指定する。</p>
+        </div>
+        <h4>render_distance_type [String]</h4>
+        <div class="section">
+          <p>
+            描画距離の設定に影響するかどうか。
+            <span class="inline">"render"</span>だと影響し、
+            <span class="inline">"fixed"</span>だと影響しない。
+          </p>
+        </div>
+        <h4>trasition_fog [Obj]</h4>
+        <div class="section">
+          <p>水中のフォグに限り、色などが変化します。その変化のためにいくつか設定します。</p>
+          <h4>init_fog [Obj]</h4>
+          <div class="section">
+            <p>
+              変化する前のフォグの情報。
+              <span class="inline">"trasition_fog"</span>より上のプロパティを使って色などを指定する。
+            </p>
+          </div>
+          <h4>min_percent [Float]</h4>
+          <div class="section">
+            <p>
+              変化開始時のフォグが混ざっている割合。
+            </p>
+          </div>
+          <h4>mid_seconds [Int] / mid_percent [Float]</h4>
+          <div class="section">
+            <p>
+              <span class="inline">"mid_seconds"</span>で指定した秒数が経過した時点でフォグが
+              <span class="inline">"mid_percent"</span>で指定した割合だけ混ざっているようにする。
+            </p>
+          </div>
+          <h4>max_seconds [Int]</h4>
+          <div class="section">
+            <p>変化にかかる合計時間。</p>
+          </div>
+        </div>
+        <h3 class="subsec">詳細な構造の説明</h3>
+        <h4>max_density [Float(0.0~1.0)]</h4>
+        <div class="section">
+          <p>不透明度の最大値。</p>
+          <p style="opacity: 0.5;">(原文): The maximum amount of opaqueness that the ground fog will take on.</p>
+        </div>
+        <h4>max_density_height [Float(0.0~320.0)]</h4>
+        <div class="section">
+          <p>フォグが最大の密度になる高さ(ブロック数)</p>
+          <p style="opacity: 0.5;">(原文): The height in blocks that the ground fog will become it's maximum density.</p>
+        </div>
+        <h4>zero_density_height [Float(0.0~320.0)]</h4>
+        <div class="section">
+          <p>
+            フォグが完全に透明で見え始める高さ(ブロック数)。この値は
+            <span class="inline">"max_density_height"</span>よりも少なくとも1大きい必要がある。
+          </p>
+          <p style="opacity: 0.5;">(原文): The height in blocks that the ground fog will be completely transparent and begin to appear. This value needs to be at least 1 higher than 'max_density_height'.</p>
+        </div>
+        <h4>uniform [Bool]</h4>
+        <div class="section">
+          <p>
+            <span class="inline">true</span>にすると、すべての高さでフォグの密度が揃う。
+          </p>
+          <p style="opacity: 0.5;">(原文): When set to true, the density will be uniform across all heights.</p>
+        </div>
+        <h4>scattering [String]</h4>
+        <div class="section">
+          <p style="opacity: 0.5;">(原文): Proportion of light that is scattered per block.</p>
+        </div>
+        <h4>absorption [String]</h4>
+        <div class="section">
+          <p style="opacity: 0.5;">(原文): Proportion of light that is absorbed (lost) per block.</p>
+        </div>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

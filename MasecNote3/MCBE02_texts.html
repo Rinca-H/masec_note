@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「テキスト」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「テキスト」 - ますえくNOTE" />
+    <meta property="og:description" content="アドオンの要素である「テキスト」について詳しく説明します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > テキスト</div>
+        <h1 class="title" id="top">アドオン詳細解説 - テキスト</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">機能</h2>
+        <p>
+          ゲーム内にある「テキスト」はリソースパックのtextフォルダにある.langファイルをもとにして、設定で決められた言語に翻訳されて表示されています。
+          全てのテキストにはIDが割り当てられており、.langファイルでそのIDと実際に表示する文字列を紐づけます。
+        </p>
+        <p>たとえば「item.apple.name」というIDに「リンゴ」という文字列が紐づけられることによって、該当アイテムを持った時に「リンゴ」と表示されるようになります。</p>
+        <div class="center"><img src="img/MCBE02_texts_01.png" class="default_setting"></div>
+        <h2 class="sec">ファイルの場所</h2>
+        <div class="center">
+          <div class="box1">
+            <p>
+              リソース<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.json<br>
+              　 ┗ <b>texts</b><br>
+              　 　 ┗ <b>〇〇.lang</b>
+            </p>
+          </div>
+        </div>
+        <h2 class="sec">構文</h2>
+        <h3 class="subsec">定義</h3>
+        <p>左にIDを、右に表示する文字列を書いて<span class="inline">=</span>で結びます。<span class="inline">=</span>の前後に半角スペースは不要です。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="lang">example.text=テキスト</code>
+          </div>
+        </div>
+        <h3 class="subsec">コメントアウト</h3>
+        <p>コメントアウトはファンクションと同様に <span class="inline">#</span>です。複数行のコメントアウトはありません。定義文の右に書く場合はTabスペースをおく必要があります。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="lang"># コメントアウト
+example.definition.text=定義文&#009;# (#の左にはTabスペース)</code>
+          </div>
+        </div>
+        <h3 class="subsec">常用</h3>
+        <p>マーカー部分がそのブロックやアイテムなどのフルIDです。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="lang"># カスタムブロック
+tile.~#M(83ffd9)myaddon:custom_blockM#~.name=カスタムブロック
+
+# カスタムアイテム
+item.~#M(83ffd9)myaddon:custom_itemM#~.name=カスタムアイテム
+
+# カスタムエンティティ
+entity.~#M(83ffd9)myaddon:custom_entityM#~.name=カスタムエンティティ
+
+# カスタムエンティティのスポーンエッグ
+item.spawn_egg.entity.~#M(83ffd9)myaddon:custom_entityM#~.name=カスタムエンティティのスポーンエッグ
+</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers"># カスタムブロック
+tile.~#M(83ffd9)myaddon:custom_blockM#~.name=カスタムブロック
+
+# カスタムアイテム
+item.~#M(83ffd9)myaddon:custom_itemM#~.name=カスタムアイテム
+
+# カスタムエンティティ
+entity.~#M(83ffd9)myaddon:custom_entityM#~.name=カスタムエンティティ
+
+# カスタムエンティティのスポーンエッグ
+item.spawn_egg.entity.~#M(83ffd9)myaddon:custom_entityM#~.name=カスタムエンティティのスポーンエッグ
+</div>
+          </div>
+        </div>
+        <h2 class="sec">ファイルと言語の対応</h2>
+        <table style="width: 100%;">
+          <tr><th>.lang ファイル</th><th>地域</th><th>.lang ファイル</th><th>地域</th></tr>
+          <tr><td>bg_BG</td><td>ブルガリア</td><td>ja_JP</td><td>日本</td></tr>
+          <tr><td>cs_CZ</td><td>チェコ</td><td>ko_KR</td><td>韓国</td></tr>
+          <tr><td>da_DK</td><td>デンマーク</td><td>nb_NO</td><td>ノルウェー</td></tr>
+          <tr><td>de_DE</td><td>ドイツ</td><td>nl_NL</td><td>オランダ</td></tr>
+          <tr><td>el_GR</td><td>ギリシャ</td><td>pl_PL</td><td>ポーランド</td></tr>
+          <tr><td>en_GB</td><td>イギリス</td><td>pt_BR</td><td>ブラジル</td></tr>
+          <tr><td>en_US</td><td>アメリカ</td><td>pt_PT</td><td>ポルトガル</td></tr>
+          <tr><td>es_ES</td><td>スペイン</td><td>ru_RU</td><td>ロシア</td></tr>
+          <tr><td>es_MX</td><td>メキシコ</td><td>sk_SK</td><td>スロバキア</td></tr>
+          <tr><td>fi_FI</td><td>フィンランド</td><td>sv_SE</td><td>スウェーデン</td></tr>
+          <tr><td>fr_CA</td><td>カナダ</td><td>tr_TR</td><td>トルコ</td></tr>
+          <tr><td>fr_FR</td><td>フランス</td><td>uk_UA</td><td>ウクライナ</td></tr>
+          <tr><td>hu_HU</td><td>ハンガリー</td><td>zh_CN</td><td>中国</td></tr>
+          <tr><td>id_ID</td><td>インドネシア</td><td>zh_TW</td><td>台湾</td></tr>
+          <tr><td>it_IT</td><td>イタリア</td><td></td><td></td></tr>
+        </table>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

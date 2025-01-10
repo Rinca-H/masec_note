@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft JE(Java版)】Mod制作日記「アイテム」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft JE(Java版)】Mod制作日記「アイテム」 - ますえくNOTE" />
+    <meta property="og:description" content="v1.20のModでより様々なアイテムを追加します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft JE(Java版) > Mod制作日記 > アイテム</div>
+        <h1 class="title" id="top">Mod制作日記 - アイテム</h1>
+        <div class="days">アップロード:2024/12/05　最終更新:2024/12/05</div>
+        <div style="padding: 8px 0;"></div>
+        <p><a href="MCJE01_creativeTabs_20.html">前回</a>の続き。</p>
+        <p>追加するだけだったアイテムをカスタムする方法についてやっていきます。</p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">カスタムアイテム Lv.1</h2>
+        <p>「ItemRegister」クラスへ以下のように追加をします。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">ItemRegister.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="java">package com.masuec.my_mod.registers;
+
+import com.masuec.my_mod.MyMod;
+
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+
+public class ItemRegister {
+  public static final DeferredRegister&lt;Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MyMod.MODID);
+
+  // 前回のアイテム
+  public static final RegistryObject&lt;Item> TEST_ITEM = ITEMS.register(
+    "test_item",
+    () -> new Item(new Item.Properties())
+  );
+
+  // 今回追加するアイテム
+  public static final RegistryObject&lt;Item> TEST_ITEM2 = ITEMS.register(
+    "test_item2",
+    () -> new Item(
+      new Item.Properties()
+        // .durability(1000) // 耐久値
+        .fireResistant()     // 火炎耐性
+        .food(               // 食べ物
+          (new FoodProperties.Builder())
+            .alwaysEat()         // いつでも食べられる
+            .nutrition(20)       // 満腹度
+            .saturationMod(0.5F) // 腹持ち係数
+            // ポーション効果
+            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 400, 1), 0.5F)
+            .build()             // (食べ物の設定終わり)
+        )
+        .rarity(Rarity.EPIC) // レアリティ
+        .stacksTo(16)        // 最大スタック数
+    )
+  );
+
+  public static void register(IEventBus evBus) {
+    ITEMS.register(evBus);
+  }
+}
+</code>
+          </div>
+        </div>
+        <p><span class="inline">new Item.Properties()</span>の後ろに必要なメソッドをつなげていくと、アイテムの性質の設定を追加できます。</p>
+        <h3 class="subsec">耐久値</h3>
+        <p>
+          今回コメントアウトしているのは、他の性質と競合してしまうからです(おそらく最大スタック数)。
+          競合している状態だとゲームが起動しません。
+        </p>
+        <h3 class="subsec">満腹度と腹持ち係数</h3>
+        <p>満腹度が空腹ゲージの回復量。アイコン一つ分が2。</p>
+        <p>腹持ち係数は隠し満腹度を決める数。隠し満腹度 = 満腹度×腹持ち係数。</p>
+        <h3 class="subsec">食べ物のポーションエフェクト</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="java">.effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 400, 1), 0.5F)</code>
+          </div>
+        </div>
+        <ul>
+          <li><span class="inline">MobEffects.REGENERATION</span>：再生ポーション</li>
+          <li><span class="inline">400</span>：ポーションの効果時間(tick)</li>
+          <li><span class="inline">1</span>：ポーションの強度(0 ~ 127)</li>
+          <li><span class="inline">0.5F</span>：食べたときにポーションがかかる確率(0.0 ~ 1.0)</li>
+        </ul>
+        <p>ポーションの種類は、<span class="inline">MobEffects.</span>と入力すると補完で出てきますが、バニラのコードを見て選ぶこともできます。</p>
+        <p>VSCode内で<span class="inline">MobEffects</span>を「右クリック > 定義へ移動」でバニラのコードを確認できます。</p>
+        <details><summary>一覧</summary>
+          <table style="width: 100%; margin-top: 16px;">
+            <tr><th>値</th><th>概要</th></tr>
+            <tr><td><span class="inline">MOVEMENT_SPEED</span></td><td>移動速度上昇</td></tr>
+            <tr><td><span class="inline">MOVEMENT_SLOWDOWN</span></td><td>移動速度低下</td></tr>
+            <tr><td><span class="inline">DIG_SPEED</span></td><td>採掘速度上昇</td></tr>
+            <tr><td><span class="inline">DIG_SLOWDOWN</span></td><td>採掘速度低下</td></tr>
+            <tr><td><span class="inline">DAMAGE_BOOST</span></td><td>攻撃力上昇</td></tr>
+            <tr><td><span class="inline">HEAL</span></td><td>即時回復</td></tr>
+            <tr><td><span class="inline">HARM</span></td><td>ダメージ</td></tr>
+            <tr><td><span class="inline">JUMP</span></td><td>跳躍力上昇</td></tr>
+            <tr><td><span class="inline">CONFUSION</span></td><td>吐き気</td></tr>
+            <tr><td><span class="inline">REGENERATION</span></td><td>再生</td></tr>
+            <tr><td><span class="inline">DAMAGE_RESISTANCE</span></td><td>耐性</td></tr>
+            <tr><td><span class="inline">FIRE_RESISTANCE</span></td><td>火炎耐性</td></tr>
+            <tr><td><span class="inline">WATER_BREATHING</span></td><td>水中呼吸</td></tr>
+            <tr><td><span class="inline">INVISIBILITY</span></td><td>透明化</td></tr>
+            <tr><td><span class="inline">BLINDNESS</span></td><td>盲目</td></tr>
+            <tr><td><span class="inline">NIGHT_VISION</span></td><td>暗視</td></tr>
+            <tr><td><span class="inline">HUNGER</span></td><td>空腹</td></tr>
+            <tr><td><span class="inline">WEAKNESS</span></td><td>弱体化</td></tr>
+            <tr><td><span class="inline">POISON</span></td><td>毒</td></tr>
+            <tr><td><span class="inline">WITHER</span></td><td>ウィザー</td></tr>
+            <tr><td><span class="inline">HEALTH_BOOST</span></td><td>体力増強</td></tr>
+            <tr><td><span class="inline">ABSORPTION</span></td><td>衝撃吸収</td></tr>
+            <tr><td><span class="inline">SATURATION</span></td><td>飽和</td></tr>
+            <tr><td><span class="inline">GLOWING</span></td><td>発光</td></tr>
+            <tr><td><span class="inline">LEVITATION</span></td><td>浮遊</td></tr>
+            <tr><td><span class="inline">LUCK</span></td><td>幸運</td></tr>
+            <tr><td><span class="inline">UNLUCK</span></td><td>不運</td></tr>
+            <tr><td><span class="inline">SLOW_FALLING</span></td><td>低速落下</td></tr>
+            <tr><td><span class="inline">CONDUIT_POWER</span></td><td>コンジットパワー</td></tr>
+            <tr><td><span class="inline">DOLPHINS_GRACE</span></td><td>イルカの好意</td></tr>
+            <tr><td><span class="inline">BAD_OMEN</span></td><td>不吉な予感</td></tr>
+          </table>
+        </details>
+        <h3 class="subsec">レアリティ</h3>
+        <p>アイテムの表示名の文字の色です。エンチャントされたアイテムは水色、ネザースターは黄色、管理者用アイテムはマゼンタ──といったようなやつです。</p>
+        <details><summary>一覧</summary>
+          <table style="width: 100%; margin-top: 16px;">
+            <tr><th>値</th><th>概要</th></tr>
+            <tr><td>COMMON</td><td>普通(白)</td></tr>
+            <tr><td>UNCOMMON</td><td>アンコモン(黄色)</td></tr>
+            <tr><td>RARE</td><td>レア(水色)</td></tr>
+            <tr><td>EPIC</td><td>超レア(マゼンタ)</td></tr>
+          </table>
+        </details>
+        <h2 class="sec">カスタムアイテム Lv.2</h2>
+        <p>
+          もっとアイテムを独自にカスタマイズする方法やろうと思ったんですけど、武器やツールは後回しにするので、それ以外となると割とネタがないんですよね......
+        </p>
+        <p>
+          とりあえず「com.(作者名).(ModのID).items.CustomItem」クラスを作ります。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">CustomItem.java</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="java">package com.masuec.my_mod.items;
+
+import java.util.List;
+
+import javax.annotation.Nullable;
+
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+
+public class CustomItem extends Item {
+
+  public CustomItem() {
+    super(new Item.Properties().durability(1000));
+  }
+
+  public void appendHoverText(ItemStack pStack, @Nullable Level pLv, List&lt;Component> pTooltip, TooltipFlag pFlag) {
+    pTooltip.add(Component.translatable("item3_tooltip").withStyle(ChatFormatting.GOLD));
+  }
+
+}
+</code>
+          </div>
+        </div>
+        <p>
+          さて、この<span class="inline">appendHoverText</span>メソッドはバニラのレコードを参考にしています。
+          これはインベントリ内でマウスカーソルを合わせたときに出てくる説明文を追加します。
+        </p>
+        <h3 class="subsec">バニラのコードの参考</h3>
+        <p>
+          VSCode内のエクスプローラの下にある「JAVA PROJECTS」を展開して、「Referenced Libraries > forge1.20.1-47.3.0_mapped_parchment_2023.09.03-1.20.1-recomp.jar > net.minecraft.world.item > Items」を開きます。
+        </p>
+        <p>そこでCtrl + Fで「record」と検索すると、</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="java">new RecordItem(1, SoundEvents.MUSIC_DISC_13, (new Item.Properties()).stacksTo(1).rarity(Rarity.RARE), 178)</code>
+          </div>
+        </div>
+        <p>のように<span class="inline">RecordItem</span>が検索できます。</p>
+        <p>あとはこの<span class="inline">RecordItem</span>を「右クリック > 定義へ移動」とすると、先ほど新規作成したクラスと似た構造のコードにたどり着くと思います。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="java">/**
+ * Allows items to add custom lines of information to the mouseover description.
+ */
+public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List&lt;Component> pTooltip, TooltipFlag pFlag) {
+  pTooltip.add(this.getDisplayName().withStyle(ChatFormatting.GRAY));
+}
+
+public MutableComponent getDisplayName() {
+  return Component.translatable(this.getDescriptionId() + ".desc");
+}</code>
+          </div>
+        </div>
+        <p>元のコード(上記)の<span class="inline">appendHoverText</span>にはすぐ下の<span class="inline">getDisplayName</span>メソッドが使われているので、その戻り値で置き換えて使っているというわけですね。</p>
+        <h3 class="subsec">Component.translatable</h3>
+        <p>このメソッドの引数の文字列はlangファイルのキーです。</p>
+        <h3 class="subsec">ChatFormatting</h3>
+        <p>文字の色およびテキスト装飾です。</p>
+        <details><summary>一覧</summary>
+          <table style="width: 100%; margin-top: 16px;">
+            <tr><th>値</th><th>概要</th></tr>
+            <tr><td><span class="inline">BLACK</span></td><td>黒<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><span style="color: #000;">abc</span></div></td></tr>
+            <tr><td><span class="inline">DARK_BLUE</span></td><td>暗い青<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><span style="color: #00a;">abc</span></div></td></tr>
+            <tr><td><span class="inline">DARK_GREEN</span></td><td>暗い緑<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><span style="color: #0a0;">abc</span></div></td></tr>
+            <tr><td><span class="inline">DARK_AQUA</span></td><td>暗い水色<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><span style="color: #0aa;">abc</span></div></td></tr>
+            <tr><td><span class="inline">DARK_RED</span></td><td>暗い赤<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><span style="color: #a00;">abc</span></div></td></tr>
+            <tr><td><span class="inline">DARK_PURPLE</span></td><td>暗い紫<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><span style="color: #a0a;">abc</span></div></td></tr>
+            <tr><td><span class="inline">GOLD</span></td><td>金色<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><span style="color: #fa0;">abc</span></div></td></tr>
+            <tr><td><span class="inline">GRAY</span></td><td>灰色<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><span style="color: #aaa;">abc</span></div></td></tr>
+            <tr><td><span class="inline">DARK_GRAY</span></td><td>暗い灰色<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><span style="color: #555;">abc</span></div></td></tr>
+            <tr><td><span class="inline">BLUE</span></td><td>青<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><span style="color: #55f;">abc</span></div></td></tr>
+            <tr><td><span class="inline">GREEN</span></td><td>緑<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><span style="color: #5f5;">abc</span></div></td></tr>
+            <tr><td><span class="inline">AQUA</span></td><td>水色<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><span style="color: #5ff;">abc</span></div></td></tr>
+            <tr><td><span class="inline">RED</span></td><td>赤<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><span style="color: #f55;">abc</span></div></td></tr>
+            <tr><td><span class="inline">LIGHT_PURPLE</span></td><td>マゼンタ<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><span style="color: #f5f;">abc</span></div></td></tr>
+            <tr><td><span class="inline">YELLOW</span></td><td>黄色<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><span style="color: #ff5;">abc</span></div></td></tr>
+            <tr><td><span class="inline">WHITE</span></td><td>白<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><span style="color: #fff;">abc</span></div></td></tr>
+            <tr><td><span class="inline">OBFUSCATED</span></td><td>難読化</td></tr>
+            <tr><td><span class="inline">BOLD</span></td><td>太字<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><b style="color: #fff;">abc</b></div></td></tr>
+            <tr><td><span class="inline">STRIKETHROUGH</span></td><td>取り消し線<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><s style="color: #fff;">abc</s></div></td></tr>
+            <tr><td><span class="inline">UNDERLINE</span></td><td>下線<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><u style="color: #fff;">abc</u></div></td></tr>
+            <tr><td><span class="inline">ITALIC</span></td><td>斜体<div class="cmd" style="display: inline-block; margin: 0 16px; padding: 4px 8px;"><i style="color: #fff;">abc</i></div></td></tr>
+            <tr><td><span class="inline">RESET</span></td><td>リセット</td></tr>
+          </table>
+        </details>
+        <h3 class="subsec">登録</h3>
+        <p>このアイテムも登録する必要があります。「ItemRegister」クラスに戻りましょう。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">ItemRegister.java</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="java">package com.masuec.my_mod.registers;
+
+import com.masuec.my_mod.MyMod;
+import com.masuec.my_mod.items.CustomItem;
+
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+
+public class ItemRegister {
+  public static final DeferredRegister&lt;Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MyMod.MODID);
+
+  public static final RegistryObject&lt;Item> TEST_ITEM = ITEMS.register(
+    "test_item",
+    () -> new Item(new Item.Properties())
+  );
+
+  public static final RegistryObject&lt;Item> TEST_ITEM2 = ITEMS.register(
+    "test_item2",
+    () -> new Item(
+      new Item.Properties()
+        .fireResistant()
+        .food(
+          (new FoodProperties.Builder())
+            .alwaysEat()
+            .nutrition(20)
+            .saturationMod(0.5F)
+            .effect(() -> new MobEffectInstance(MobEffects.REGENERATION, 400, 1), 0.5F)
+            .build()
+        )
+        .rarity(Rarity.EPIC)
+        .stacksTo(16)
+    )
+  );
+
+  // 3つめ
+  public static final RegistryObject&lt;Item> TEST_ITEM3 = ITEMS.register("test_item3", () -> new CustomItem());
+
+  public static void register(IEventBus evBus) {
+    ITEMS.register(evBus);
+  }
+}</code>
+          </div>
+        </div>
+        <div class="center" style="margin-top: 100px;">
+          <a href="MCJE01_creativeTabs_20.html" class="next_article"><div>←　前回</div></a>
+          <a href="MCJE01_blocks_20.html" class="next_article"><div>次回　→</div></a>
+        </div>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft JE(Java版)】Mod制作日記「準備」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft JE(Java版)】Mod制作日記「準備」 - ますえくNOTE" />
+    <meta property="og:description" content="v1.20でModを作る準備をします。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft JE(Java版) > Mod制作日記 > 準備</div>
+        <h1 class="title" id="top">Mod制作日記 - 準備</h1>
+        <div class="days">アップロード:2024/12/05　最終更新:2024/12/05</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">環境</h2>
+        <div class="center">
+          <div class="box1">
+            <p>
+              Minecraftのバージョン: <b>v1.20.1</b><br>
+              Forgeのバージョン: 47.3.0<br>
+              JDKのバージョン: 17?<br>
+              IDE: Visual Studio Code
+            </p>
+          </div>
+        </div>
+        <p>以降、Visual Studio Code のことをVSCodeと呼びます。</p>
+        <h2 class="sec">制作の準備</h2>
+        <h3 class="subsec">Mdkのダウンロード</h3>
+        <p>Forgeの公式サイトからダウンロードします：</p>
+        <a href="https://files.minecraftforge.net/net/minecraftforge/forge/index_1.20.1.html" target="_blank" class="link_card">
+          <div class="img_field no-select"><img src="https://files.minecraftforge.net/static/images/embed_logo.png"></div>
+          <div class="text_field">
+            <h3>Minecraft Forge downloads</h3>
+            <p>
+              Downloads for Minecraft Forge for Minecraft 1.20.1<br>
+              Recommended: 47.3.0 <br>
+              Latest: 47.3.12
+            </p>
+          </div>
+        </a>
+        <p>Latest(最新)ではなく、Recommended(推奨)のMdkをダウンロードします。</p>
+        <p>Mdkのところをクリックすると広告が出るんですが、数秒待って右上の「SKIP」をクリックすると先に進めます。</p>
+        <h3 class="subsec">Mdkの展開</h3>
+        <p>整理の意味も込めて、Mod作成に使う作業ディレクトリを決めます。今回は「my_mod」フォルダにしています。</p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              (作業フォルダ)<br>
+              　┣ gradle<br>
+              　┣ src<br>
+              　┣ .gitattributes<br>
+              　┣ .gitignore<br>
+              　┣ build.gradle<br>
+              　┣ changelog.txt<br>
+              　┣ CREDITS.txt<br>
+              　┣ gradle.properties<br>
+              　┣ gradlew<br>
+              　┣ gradlew.bat<br>
+              　┣ LICENSE.txt<br>
+              　┣ README.txt<br>
+              　┗ settings.gradle
+            </p>
+          </div>
+        </div>
+        <h3 class="subsec">不要なファイルの削除</h3>
+        <p>以下のファイルは消します。このテンプレートに対するもので、これから作るModには関係ないからです。</p>
+        <div class="center">
+          <div class="box1">
+            <ul>
+              <li>changelog.txt</li>
+              <li>CREDITS.txt</li>
+              <li>LICENSE.txt</li>
+              <li>README.txt</li>
+            </ul>
+          </div>
+        </div>
+        <h3 class="subsec">VSCodeの準備</h3>
+        <p>
+          作業フォルダをVSCodeのワークスペースにした後、「Extension Pack fo Java」という拡張機能をインストールしました。
+          Javaの開発、なんなら今回のMod制作に必要なものもすべて入っています。
+        </p>
+        <a href="https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack" target="_blank" class="link_card">
+          <div class="img_field no-select"><img src="https://vscjava.gallerycdn.vsassets.io/extensions/vscjava/vscode-java-pack/0.29.2024091906/1726729234947/Microsoft.VisualStudio.Services.Icons.Default"></div>
+          <div class="text_field">
+            <h3>Extension Pack for Java - Visual Studio Marketplace</h3>
+            <p>Extension for Visual Studio Code - Popular extensions for Java development that provides Java IntelliSense, debugging, testing, Maven/Gradle support, project management and more</p>
+          </div>
+        </a>
+        <p>インストールした後はVSCodeを再起動します。</p>
+        <h3 class="subsec">パーチメントの適用</h3>
+        <p>以下のサイトの手順に従ってパーチメントを適用します。</p>
+        <a href="https://parchmentmc.org/docs/getting-started" target="_blank" class="link_card">
+          <div class="img_field no-select"><img src="https://parchmentmc.org/assets/img/logo.png"></div>
+          <div class="text_field">
+            <h3>Getting Started</h3>
+            <p>## Choose a version Parchment mappings are provided in [three flavors][exports-info], but most users will only really need to use the _release_ exports. The latest version of the release export for a particular Minecraft version can be found in the version badges, which are present in the README of each...</p>
+          </div>
+        </a>
+        <p>①「(作業フォルダ)/settings.gradle」ファイルで<span class="inline">repositories</span>フィールドを見つけて、以下の行を追加します。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">settings.gradle</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code>pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven {
+            name = 'MinecraftForge'
+            url = 'https://maven.minecraftforge.net/'
+        }
+        maven { url = 'https://maven.parchmentmc.org' } // この行
+    }
+}
+
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '0.7.0'
+}</code>
+          </div>
+        </div>
+        <p>② 次は「(作業フォルダ)/build.gradle」ファイルで<span class="inline">plugins</span>フィールドを見つけて、以下の行を追加します。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">build.gradle</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code>plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+' // この行
+}
+</code>
+          </div>
+        </div>
+        <p>
+          ③ 同じファイルで、今度は<span class="inline">minecraft</span>フィールドの以下の項目を見つけて、編集します。
+          <span class="inline">mappings channel</span>を<span class="inline">'parchment'</span>に、
+          <span class="inline">version</span>を<span class="inline">'2023.09.03-1.20.1'</span>にします。
+        </p>
+        <p><span class="inline">version</span>の数値は、上記サイトの「Choose a version」の章にある、バージョンの表をもとにしています。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">build.gradle</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="">minecraft {
+  mappings channel: 'parchment', version: '2023.09.03-1.20.1'
+}</code>
+          </div>
+        </div>
+        <p>
+          これらの値を変更したら、VSCodeで「表示 > コマンドパレット > Java: Reload Projects」でプロジェクトをリロードしておきます。
+        </p>
+        <div class="center has_margin"><img src="img/MCJE01/basic_20_01.png" class="default_setting"></div>
+        <h3 class="subsec">バッチファイルの作成・実行</h3>
+        <p>作業フォルダに以下のコマンドが中身のバッチファイルを作成します。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code>gradlew genVSCodeRuns</code>
+          </div>
+        </div>
+        <p>
+          VSCodeからファイルを新規作成すると楽。
+          ファイルの名前は自由なので、「setup.bat」とかにしました。
+        </p>
+        <p>できたバッチファイルをエクスプローラからダブルクリックで実行して、長くて10分ぐらいでセットアップが完了します。</p>
+        <h3 class="subsec">マイクラを起動</h3>
+        <p>VSCodeで「実行とデバッグ」を開いて、上のほうにある選択肢が「runClient」になっていることを確認してから三角のボタンを押します。</p>
+        <div class="center"><img src="img/MCJE01/basic_20_02.png" class="default_setting"></div>
+        <p>起動できたらセットアップは成功！　確認だけなので起動した後は一旦閉じます。</p>
+        <details><summary>豆知識</summary>
+          <h4>セーブデータ</h4>
+          <p>
+            デバッグ用のマイクラのセーブデータは「(作業フォルダ)/run」の中にあります。
+            「run/resourcepacks」にリソースパック、「run/mods」に他のModを追加することができる──といったように、マイクラのセーブデータそのままです。
+          </p>
+          <h4>ゲーム内設定</h4>
+          <p>
+            これはMod制作に限らず、マイクラJE全体に関する豆知識なのですが「(作業フォルダ)/run/options.txt」にゲーム内の設定が保存されています。
+            普段プレイしているマイクラのセーブデータからコピーして上書きすれば、一瞬で普段のプレイと同じ設定にできるというわけです。
+          </p>
+        </details>
+        <p>
+          ここでまたプロジェクトをリロードしたほうがいいかもしれないです。
+          VSCodeのエクスプローラの下に「JAVA PROJECTS」があってほしいのに、このとき表示されてませんでした......。
+        </p>
+        <div class="center has_margin"><img src="img/MCJE01/basic_20_03.png" class="default_setting"></div>
+        <p>
+          いちおう以下の通知がでてきたら消してください。
+          Enable(有効)にすると色々うるさくなって、Disable(無効)にするとそれはそれで何か困りそうなので、無視しておきます(設定で変えられるけど)。
+        </p>
+        <div class="center has_margin"><img src="img/MCJE01/basic_20_04.png" class="default_setting"></div>
+        <div class="center">
+          <div class="box1">
+            <p>
+              Null annotation types have been detected in the project. Do you wish to enable null analysis for this project?<br>
+              <i style="color: #0006;">(プロジェクト内でNullアノテーションの使用が検知されました。Null解析を有効にしますか？)</i>
+            </p>
+          </div>
+        </div>
+        <h2 class="sec">Modの基礎部分</h2>
+        <p>これから作るModの根幹となるファイルを「(作業フォルダ)/src/main/java/com/example/examplemod/ExampleMod.java」を編集して作ります。</p>
+        <h3 class="subsec">パッケージ名の編集</h3>
+        <p>
+          VSCodeの左のエクスプローラからフォルダの名前を変更します。「java/com/example/examplemod」の「example」と「examplemod」をクリックで選択してF2で変更します。
+          名前を変えるときは何でもF2。
+        </p>
+        <p>「java/com/(作者名)/(ModのID)」がよくある形式ということで、今回は「java/com/masuec/my_mod」にしています。</p>
+        <div class="center"><img src="img/MCJE01/basic_20_05.png" class="default_setting"></div>
+        <p>
+          リファクタリングは、他の関係あるところを自動で書き換えてくれます。必ず「OK」！
+        </p>
+        <h3 class="subsec">メインクラスの編集</h3>
+        <p>
+          「ExampleMod.java」もF2で名前を変更します。「MyMod.java」にしておきました。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">MyMod.java</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="java">package com.masuec.my_mod;
+
+import org.slf4j.Logger;
+
+import com.mojang.logging.LogUtils;
+
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+@Mod(MyMod.MODID)
+public class MyMod {
+  public static final String MODID = "my_mod"; // ModのID
+  private static final Logger LOGGER = LogUtils.getLogger();
+
+  public MyMod() {
+    IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+    modEventBus.addListener(this::commonSetup);
+
+    MinecraftForge.EVENT_BUS.register(this);
+
+    ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+  }
+
+  private void commonSetup(final FMLCommonSetupEvent event) {
+
+  }
+
+  @SubscribeEvent
+  public void onServerStarting(ServerStartingEvent event) {
+    
+  }
+
+  @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+  public static class ClientModEvents {
+    @SubscribeEvent
+    public static void onClientSetup(FMLClientSetupEvent event) {
+      
+    }
+  }
+}
+</code>
+          </div>
+        </div>
+        <details><summary>編集前</summary>
+          <div class="rich_code">
+            <div class="rich_code:tab is_dark">
+              <div class="rich_code:title">MyMod.java</div>
+              <div class="rich_code:buttons">
+                <button class="rich_code:disp_all no-select">全て表示</button>
+                <button class="rich_code:copy no-select">コピー</button>
+              </div>
+            </div>
+            <div class="rich_code:content">
+              <code class="java">package com.masuec.my_mod;
+
+import com.mojang.logging.LogUtils;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+import org.slf4j.Logger;
+
+// The value here should match an entry in the META-INF/mods.toml file
+@Mod(MyMod.MODID)
+public class MyMod
+{
+    // Define mod id in a common place for everything to reference
+    public static final String MODID = "examplemod";
+    // Directly reference a slf4j logger
+    private static final Logger LOGGER = LogUtils.getLogger();
+    // Create a Deferred Register to hold Blocks which will all be registered under the "examplemod" namespace
+    public static final DeferredRegister&lt;Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
+    // Create a Deferred Register to hold Items which will all be registered under the "examplemod" namespace
+    public static final DeferredRegister&lt;Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+    // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "examplemod" namespace
+    public static final DeferredRegister&lt;CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+
+    // Creates a new Block with the id "examplemod:example_block", combining the namespace and path
+    public static final RegistryObject&lt;Block> EXAMPLE_BLOCK = BLOCKS.register("example_block", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
+    // Creates a new BlockItem with the id "examplemod:example_block", combining the namespace and path
+    public static final RegistryObject&lt;Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
+
+    // Creates a new food item with the id "examplemod:example_id", nutrition 1 and saturation 2
+    public static final RegistryObject&lt;Item> EXAMPLE_ITEM = ITEMS.register("example_item", () -> new Item(new Item.Properties().food(new FoodProperties.Builder()
+            .alwaysEat().nutrition(1).saturationMod(2f).build())));
+
+    // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
+    public static final RegistryObject&lt;CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
+            .withTabsBefore(CreativeModeTabs.COMBAT)
+            .icon(() -> EXAMPLE_ITEM.get().getDefaultInstance())
+            .displayItems((parameters, output) -> {
+                output.accept(EXAMPLE_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+            }).build());
+
+    public MyMod()
+    {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        // Register the commonSetup method for modloading
+        modEventBus.addListener(this::commonSetup);
+
+        // Register the Deferred Register to the mod event bus so blocks get registered
+        BLOCKS.register(modEventBus);
+        // Register the Deferred Register to the mod event bus so items get registered
+        ITEMS.register(modEventBus);
+        // Register the Deferred Register to the mod event bus so tabs get registered
+        CREATIVE_MODE_TABS.register(modEventBus);
+
+        // Register ourselves for server and other game events we are interested in
+        MinecraftForge.EVENT_BUS.register(this);
+
+        // Register the item to a creative tab
+        modEventBus.addListener(this::addCreative);
+
+        // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    }
+
+    private void commonSetup(final FMLCommonSetupEvent event)
+    {
+        // Some common setup code
+        LOGGER.info("HELLO FROM COMMON SETUP");
+
+        if (Config.logDirtBlock)
+            LOGGER.info("DIRT BLOCK >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.DIRT));
+
+        LOGGER.info(Config.magicNumberIntroduction + Config.magicNumber);
+
+        Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
+    }
+
+    // Add the example block item to the building blocks tab
+    private void addCreative(BuildCreativeModeTabContentsEvent event)
+    {
+        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
+            event.accept(EXAMPLE_BLOCK_ITEM);
+    }
+
+    // You can use SubscribeEvent and let the Event Bus discover methods to call
+    @SubscribeEvent
+    public void onServerStarting(ServerStartingEvent event)
+    {
+        // Do something when the server starts
+        LOGGER.info("HELLO from server starting");
+    }
+
+    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
+    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ClientModEvents
+    {
+        @SubscribeEvent
+        public static void onClientSetup(FMLClientSetupEvent event)
+        {
+            // Some client setup code
+            LOGGER.info("HELLO FROM CLIENT SETUP");
+            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+        }
+    }
+}
+</code>
+            </div>
+          </div>
+        </details>
+        <h3 class="subsec">TOMLファイルの編集</h3>
+        <p>
+          「(作業フォルダ)/src/main/resources/META-INF/mods.toml」の内容も編集します。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">mods.toml</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:switch_tab no-select"><div class="selected">例</div><div>説明付き</div></div>
+          <div class="rich_code:content">
+            <code class="toml">modLoader="javafml"
+loaderVersion="[47,)"
+license="All rights reserved"
+
+[[mods]]
+modId="my_mod"
+version="1.0"
+displayName="My Mod"
+authors="Masuec"
+description='''
+My test Mod
+日本語でもOK
+'''</code>
+            <code class="toml">modLoader="javafml"
+loaderVersion="[47,)"
+license="All rights reserved"
+
+[[mods]]
+modId="(ModのID)"
+version="1.0"
+displayName="(表示するMod名)"
+authors="(作者名)"
+description='''
+(Modの説明文)
+(改行できる)
+'''</code>
+          </div>
+        </div>
+        <details><summary>編集前</summary>
+          <div class="rich_code">
+            <div class="rich_code:tab is_dark">
+              <div class="rich_code:title">mods.toml</div>
+              <div class="rich_code:buttons">
+                <button class="rich_code:disp_all no-select">全て表示</button>
+                <button class="rich_code:copy no-select">コピー</button>
+              </div>
+            </div>
+            <div class="rich_code:content">
+              <code class="toml"># This is an example mods.toml file. It contains the data relating to the loading mods.
+# There are several mandatory fields (#mandatory), and many more that are optional (#optional).
+# The overall format is standard TOML format, v0.5.0.
+# Note that there are a couple of TOML lists in this file.
+# Find more information on toml format here:  https://github.com/toml-lang/toml
+# The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
+modLoader="javafml" #mandatory
+# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
+loaderVersion="${loader_version_range}" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+# The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
+# Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
+license="${mod_license}"
+# A URL to refer people to when problems occur with this mod
+#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+# A list of mods - how many allowed here is determined by the individual mod loader
+[[mods]] #mandatory
+# The modid of the mod
+modId="${mod_id}" #mandatory
+# The version number of the mod
+version="${mod_version}" #mandatory
+# A display name for the mod
+displayName="${mod_name}" #mandatory
+# A URL to query for updates for this mod. See the JSON update specification https://docs.minecraftforge.net/en/latest/misc/updatechecker/
+#updateJSONURL="https://change.me.example.invalid/updates.json" #optional
+# A URL for the "homepage" for this mod, displayed in the mod UI
+#displayURL="https://change.me.to.your.mods.homepage.example.invalid/" #optional
+# A file name (in the root of the mod JAR) containing a logo for display
+#logoFile="examplemod.png" #optional
+# A text field displayed in the mod UI
+#credits="" #optional
+# A text field displayed in the mod UI
+authors="${mod_authors}" #optional
+# Display Test controls the display for your mod in the server connection screen
+# MATCH_VERSION means that your mod will cause a red X if the versions on client and server differ. This is the default behaviour and should be what you choose if you have server and client elements to your mod.
+# IGNORE_SERVER_VERSION means that your mod will not cause a red X if it's present on the server but not on the client. This is what you should use if you're a server only mod.
+# IGNORE_ALL_VERSION means that your mod will not cause a red X if it's present on the client or the server. This is a special case and should only be used if your mod has no server component.
+# NONE means that no display test is set on your mod. You need to do this yourself, see IExtensionPoint.DisplayTest for more information. You can define any scheme you wish with this value.
+# IMPORTANT NOTE: this is NOT an instruction as to which environments (CLIENT or DEDICATED SERVER) your mod loads on. Your mod should load (and maybe do nothing!) whereever it finds itself.
+#displayTest="MATCH_VERSION" # MATCH_VERSION is the default if nothing is specified (#optional)
+
+# The description text for the mod (multi line!) (#mandatory)
+description='''${mod_description}'''
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.${mod_id}]] #optional
+    # the modid of the dependency
+    modId="forge" #mandatory
+    # Does this dependency have to exist - if not, ordering below must be specified
+    mandatory=true #mandatory
+    # The version range of the dependency
+    versionRange="${forge_version_range}" #mandatory
+    # An ordering relationship for the dependency - BEFORE or AFTER required if the dependency is not mandatory
+    # BEFORE - This mod is loaded BEFORE the dependency
+    # AFTER - This mod is loaded AFTER the dependency
+    ordering="NONE"
+    # Side this dependency is applied on - BOTH, CLIENT, or SERVER
+    side="BOTH"
+# Here's another dependency
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    mandatory=true
+    # This version range declares a minimum of the current minecraft version up to but not including the next major version
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+# Features are specific properties of the game environment, that you may want to declare you require. This example declares
+# that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
+# stop your mod loading on the server for example.
+#[features.${mod_id}]
+#openGLVersion="[3.2,)"</code>
+            </div>
+          </div>
+        </details>
+        <h3 class="subsec">フォルダの事前用意</h3>
+        <p>「java/com/(作者名)/(ModのID)/resources」の中にフォルダを作っておきます。</p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              resources<br>
+              　┣ assets<br>
+              　┃ 　┗ (ModのID)<br>
+              　┗ data<br>
+              　　 　┗ (ModのID)
+            </p>
+          </div>
+        </div>
+        <p>「assets」はこのMod用のリソースパック、「data」はこのMod用のデータパックになっていて、中身もバニラのものとほとんど同じ作りになります。</p>
+        <p>つまり、これらの中身で分からないところがあれば、Modとか関係なしにリソースパックとかデータパックとかの作り方を調べたほうがいいということ！</p>
+        <h3 class="subsec">マイクラを起動して確認</h3>
+        <p>一度試したときと同様に、VSCodeで「実行とデバッグ」から起動してみます。</p>
+        <h2 class="sec">参考</h2>
+        <ul>
+          <li><a href="https://qiita.com/tester09/items/176973b74ccd2aae6a2a">MinecraftのModを作る② - Qiita</a></li>
+          <li><a href="https://www.youtube.com/watch?v=55qUIf3GMss&list=PLKGarocXCE1H9Y21-pxjt5Pt8bW14twa-&index=2&t=3s">Forge Modding Tutorial - Minecraft 1.20: Workspace Setup | #1</a> (YouTube)</li>
+        </ul>
+        <div class="center" style="margin-top: 100px;">
+          <a href="MCJE01_itemsAndBlocks_20.html" class="next_article"><div>次回　→</div></a>
+        </div>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

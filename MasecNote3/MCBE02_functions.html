@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「ファンクション」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「ファンクション」 - ますえくNOTE" />
+    <meta property="og:description" content="アドオンの要素である「ファンクション」について詳しく説明します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > ファンクション</div>
+        <h1 class="title" id="top">アドオン詳細解説 - ファンクション</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">使い方</h2>
+        <p>複数のコマンドをまとめて実行したり、何度も使う長いコマンドを簡略化したりするのに使います。</p>
+        <h2 class="sec">ファイルの場所</h2>
+        <p>ビヘイビアのfunctionsフォルダにファイルを置きます。その中にさらにフォルダを作れますが、コマンドが変わります。</p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              ビヘイビア<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┗ <b>functions</b><br>
+              　 　 ┗<b>〇〇.mcfunction</b>
+            </p>
+          </div>
+        </div>
+        <p>functionsフォルダ内のsystemフォルダにtest.mcfunctionを作った場合、コマンドは</p>
+        <div class="cmd">/function <span class="sB">system/test</span></div>
+        <p>になります。</p>
+        <h2 class="sec">書き方</h2>
+        <p>非常にシンプルな書き方です。<u>スラッシュ</u>(<span class="inline">/</span>)<u>なしで</u>コマンドを書き連ねます。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="mcfunction">give @a diamond_sword
+give @a cooked_beef 64
+gamemode s @a
+time set day</code>
+          </div>
+        </div>
+        <h2 class="sec">コメントアウト</h2>
+        <p>ハッシュ(<span class="inline">#</span>)を前に置くと、それ以降は改行されるまでコメントアウトとして無視されます。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="mcfunction"># ダイヤ剣を渡す
+give @a diamond_sword
+
+# ステーキを64個渡す (実行しない)
+# give @a cooked_beef 64
+
+# 全員のゲームモードをサバイバルにする
+gamemode s @a
+
+# 時刻を昼にする
+time set day</code>
+          </div>
+        </div>
+        <h2 class="sec">常時実行</h2>
+        <p>functionsフォルダ内にファイル「tick.json」を作成することによって、指定したファンクションを常時実行させることができます。</p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              ビヘイビア<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┗ <b>functions</b><br>
+              　 　 ┗<b>tick.json</b>
+            </p>
+          </div>
+        </div>
+        <p>JSONの中身は以下のようになります。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "values": [
+    "my_function1",
+    "my_function2",
+    "my_function3"
+  ]
+}</code>
+          </div>
+        </div>
+        <p>この例では三つのファンクション「my_function1」「my_function2」「my_function3」が常時実行されます。</p>
+        <h2 class="sec">具体例</h2>
+        <h3 class="subsec">ゲームルールをまとめてカスタム</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="mcfunction">gamerule commandblockoutput false
+gamerule sendcommandfeedback false
+gamerule showcoordinates true
+gamerule tntexplodes false
+gamerule domobloot false
+gamerule dotiledrops false
+gamerule dodaylightcycle false
+gamerule keepinventory true
+gamerule domobspawning false
+gamerule mobgriefing false
+gamerule doentitydrops false
+gamerule doweathercycle false
+time set noon
+title @p actionbar §aCustomed successfully</code>
+          </div>
+        </div>
+        <p></p>
+        <h3 class="subsec">鉱石以外掘りぬき</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="mcfunction">fill ~-1 ~1 ~-1 ~11 -63 ~11 redstone_block 0 replace lava
+fill ~ ~1 ~ ~11 -63 ~11 air 0 replace seagrass
+fill ~ ~1 ~ ~11 -63 ~11 air 0 replace sea_pickle
+fill ~ ~1 ~ ~11 -63 ~11 air 0 replace coral
+fill ~ ~1 ~ ~11 -63 ~11 air 0 replace coral_fan
+fill ~ ~1 ~ ~11 -63 ~11 air 0 replace coral_fan_dead
+fill ~ ~1 ~ ~11 -63 ~11 air 0 replace coral_fan_hang
+fill ~ ~1 ~ ~11 -63 ~11 air 0 replace coral_fan_hang2
+fill ~ ~1 ~ ~11 -63 ~11 air 0 replace coral_fan_hang3
+fill ~ ~1 ~ ~11 -63 ~11 air 0 replace kelp
+fill ~ ~1 ~ ~11 -63 ~11 air 0 replace bubble_column
+fill ~-1 ~1 ~-1 ~11 -63 ~11 redstone_block 0 replace water
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace water
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace coral_block
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace ice
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace packed_ice
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace blue_ice
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace leaves
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace leaves2
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace log
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace log2
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace gravel
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace sand
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace sandstone
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace lava
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace stone 1
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace stone 3
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace stone 5
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace grass
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace dirt
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace stone 0
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace flowing_water
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace flowing_lava
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace podzol
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace clay
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace hardened_clay
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace redstone_block
+
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace deepslate
+fill ~ ~1 ~ ~10 -63 ~10 air 0 replace tuff
+title @p actionbar §l§aquarried successfully</code>
+          </div>
+        </div>
+        <p></p>
+        <h3 class="subsec">インベントリ使えない縛り</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="mcfunction">replaceitem entity @p slot.inventory 0 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 1 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 2 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 3 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 4 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 5 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 6 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 7 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 8 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 9 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 10 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 11 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 12 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 13 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 14 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 15 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 16 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 17 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 18 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 19 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 20 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 21 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 22 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 23 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 24 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 25 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }
+replaceitem entity @p slot.inventory 26 barrier 1 0 { "item_lock": { "mode": "lock_in_slot" }, "keep_on_death": {} }</code>
+          </div>
+        </div>
+        <p></p>
+        <h2 class="sec">できないこと</h2>
+        <ul>
+          <li>条件付きチェーン</li>
+          <li>ワールド読み込み時または/reloadコマンド実行時に一度だけ実行(JEのデータパックにはあるload.jsonがない)</li>
+          <li>遅延 (→ スコアボードなどで工夫はできる)</li>
+          <li>1つのファイルで1万行以上のコマンド</li>
+        </ul>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

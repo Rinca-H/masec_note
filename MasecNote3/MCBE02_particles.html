@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「パーティクル」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「パーティクル」 - ますえくNOTE" />
+    <meta property="og:description" content="アドオンの要素である「パーティクル」について詳しく説明します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > パーティクル</div>
+        <h1 class="title" id="top">アドオン詳細解説 - パーティクル</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">パーティクルとは</h2>
+        <p>言葉で説明するのは難しいのですが、以下の画像のような粒子エフェクトをパーティクルと呼びます。</p>
+        <div class="center"><img src="img/MCBE02_particles_01.png" class="default_setting"></div>
+        <h2 class="sec">ファイルの場所</h2>
+        <p>リソースパックのparticlesフォルダにファイルを置きます。</p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              リソース<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┗ <b>particles</b><br>
+              　 　 ┗<b>〇〇.json</b>
+            </p>
+          </div>
+        </div>
+        <h2 class="sec">パーティクルの仕組み</h2>
+        <p>パーティクルをカスタムするうえで、そもそもパーティクルはどのようにして現れるか知っておきましょう。この記事ではこの説明が前提になっています。</p>
+        <p>ブロックを壊したりコマンドで発生させた「パーティクル」は「<b>エミッター</b>」と呼ばれる<u>目に見えない"領域"(点とは限らない)からスポーン</u>します。</p>
+        <p>イメージとして、手持ち花火の先端に点の形をしたエミッターがあって、火花のパーティクルがそこからスポーンする感じです。</p>
+        <p>もう一つの例として、鍋でお湯を沸かすときに、水面に面の形をしたエミッターがあって、その面からまんべんなく泡のパーティクルがスポーンするといった感じです。</p>
+        <h2 class="sec">基本の構造</h2>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "ex:my_particle",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/particles"
+      }
+    },
+    "components": {
+    
+      // コンポーネント
+    
+      "minecraft:particle_appearance_billboard": {
+        "size": [ 1, 1 ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 128,
+          "texture_height": 128,
+          "uv": [ 0, 0 ],
+          "uv_size": [ 8, 8 ]
+        }
+      }
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "ex:my_particle",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/particles"
+      }
+    },
+    ~#B(f00)"components": {
+    
+      // コンポーネント
+    
+      "minecraft:particle_appearance_billboard": {
+        "size": [ 1, 1 ],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 128,
+          "texture_height": 128,
+          "uv": [ 0, 0 ],
+          "uv_size": [ 8, 8 ]
+        }
+      }
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <h2 class="sec">コンポーネントの選び方</h2>
+        <p>
+          カスタムブロックやカスタムアイテムは、必要なコンポーネントを好きなように"皿にとっていく"ことができますが、
+          パーティクルは<u>必ず選ばないといけないコンポーネントがいくつかあり</u>、さらにそれはあるカテゴリから選択する方式になっています。
+        </p>
+        <p>ようは"主食"を必ず選ばないといけなくて、パンかごはんを選べるみたいなイメージです。</p>
+        <p>実際に最低限必要なコンポーネントは、</p>
+        <ul>
+          <li>エミッター・レート系から1つ</li>
+          <li>エミッター・ライフタイム系から1つ</li>
+          <li>エミッター・形状系から1つ</li>
+          <li>パーティクル・ライフタイム系から1つ</li>
+          <li><span class="inline">minecraft:particle_appearance_billboard</span>コンポーネント</li>
+        </ul>
+        <p>です。</p>
+        <h3 class="subsec">エミッター・レート系</h3>
+        <p>この系列では、エミッターからどれくらいのペースでパーティクルがスポーンするかを指定します。方法によって複数のコンポーネントがあります。</p>
+        <table style="width: 100%;">
+          <tr><th>コンポーネント名</th><th>簡単な説明</th></tr>
+          <tr><td>minecraft:emitter_rate_instant</td><td>1回限り</td></tr>
+          <tr><td>minecraft:emitter_rate_steady</td><td>エミッターのライフタイムがある限り</td></tr>
+        </table>
+        <p>※ minecraft:emitter_rate_manualを使うのは非推奨</p>
+        <h3 class="subsec">エミッター・ライフタイム系</h3>
+        <p>ライフタイムとは"寿命"のことです。エミッターの寿命を決めるコンポーネントが方法によって複数あります。</p>
+        <table style="width: 100%;">
+          <tr><th>コンポーネント名</th><th>簡単な説明</th></tr>
+          <tr><td>minecraft:emitter_lifetime_expression</td><td>MolangによりON/OFFできる</td></tr>
+          <tr><td>minecraft:emitter_lifetime_looping</td><td>ループする</td></tr>
+          <tr><td>minecraft:emitter_lifetime_once</td><td>1回限り</td></tr>
+        </table>
+        <h3 class="subsec">エミッター・形状系</h3>
+        <p>エミッターの形状を決めます。</p>
+        <table style="width: 100%;">
+          <tr><th>コンポーネント名</th><th>簡単な説明</th></tr>
+          <tr><td>minecraft:emitter_shape_disc</td><td>円盤</td></tr>
+          <tr><td>minecraft:emitter_shape_box</td><td>直方体</td></tr>
+          <tr><td>minecraft:emitter_shape_custom</td><td>特殊(有向パーティクル用)</td></tr>
+          <tr><td>minecraft:emitter_shape_entity_aabb</td><td>エンティティのコリジョンボックス</td></tr>
+          <tr><td>minecraft:emitter_shape_point</td><td>点</td></tr>
+          <tr><td>minecraft:emitter_shape_sphere</td><td>球</td></tr>
+        </table>
+        <h3 class="subsec">パーティクル・ライフタイム系</h3>
+        <p>パーティクルの寿命を決めます。方法によって複数のコンポーネントがあります。</p>
+        <table style="width: 100%;">
+          <tr><th>コンポーネント名</th><th>簡単な説明</th></tr>
+          <tr><td>minecraft:particle_expire_if_in_blocks</td><td>指定したブロックに埋まると消える</td></tr>
+          <tr><td>minecraft:particle_expire_if_not_in_blocks</td><td>指定したブロックから出ると消える</td></tr>
+          <tr><td>minecraft:particle_lifetime_expression</td><td>MolangでON/OFFできる</td></tr>
+          <tr><td>minecraft:particle_kill_plane</td><td>パーティクルが消える平面を指定する</td>
+        </table>
+        <h2 class="sec">ツールで作る</h2>
+        <p>コンポーネントの選び方が複雑だったりするので、どうしてもパーティクルを作るのは難しいです。そこで、それを少し簡単にするために「<ruby><rb>Snowstorm</rb><rp>(</rp><rt>スノーストーム</rt><rp>)</rp></ruby>」というツールがあります。</p>
+        <p>　→ <a href="https://snowstorm.app/">Snowstorm</a></p>
+        <p>使い方についてはまたいつか書きます。</p>
+        <h2 class="sec">詳細な構造</h2>
+        <p>イベントやカーブを定義してより複雑なパーティクルを作ることができます。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "ex:my_particle",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/particles"
+      }
+    },
+
+    "curves": {
+      // カーブ
+    },
+
+    "components": {
+      // コンポーネント
+    },
+    
+    "events": {
+      // イベント
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "ex:my_particle",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/particles"
+      }
+    },
+
+    ~#B(f00)"curves": {
+      // カーブ
+    },B#~
+
+    ~#B(f00)"components": {
+      // コンポーネント
+    },B#~
+    
+    ~#B(f00)"events": {
+      // イベント
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <h2 class="sec">イベントの定義</h2>
+        <h3 class="subsec">基本の書式</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"events": {
+  "(イベント名)": {
+    // イベントファンクション
+  }
+}</code>
+          </div>
+        </div>
+        <p>1つのイベントに直接定義できるイベントファンクションは1つまでです。</p>
+        <h3 class="subsec">イベントファンクション</h3>
+        <table style="width: 100%;">
+          <tr><th>名前</th><th>簡単な説明</th></tr>
+          <tr><td><span class="inline">"particle_effect"</span></td><td>パーティクルを発生させます。</td></tr>
+          <tr><td><span class="inline">"sound_effect"</span></td><td>効果音を発生させます。</td></tr>
+          <tr><td><span class="inline">"expression"</span></td><td>Molang式を処理します。</td></tr>
+          <tr><td><span class="inline">"log"</span></td><td>コンテンツログを出力します。</td></tr>
+          <tr><td><span class="inline">"sequence"</span></td><td>複数のイベントファンクションを動作させます。</td></tr>
+          <tr><td><span class="inline">"randomize"</span></td><td>指定したものの中からランダムにイベントファンクションを動作させます。</td></tr>
+        </table>
+        <h3 class="subsec">例(別のパーティクルをランダムに発生させる)</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"ex_event": {
+  "randomize": [
+    {
+      "weight": 25,
+      "particle_effect": {
+        "effect": "ex:my_particle2",
+        "type": "emitter"
+      }
+    },
+    {
+      "weight": 75,
+      "sequence": [
+        {
+          "particle_effect": {
+            "effect": "ex:my_particle2",
+            "type": "emitter"
+          }
+        },
+        {
+          "particle_effect": {
+            "effect": "ex:my_particle3",
+            "type": "emitter"
+          }
+        }
+      ]
+    }
+  ]
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">"ex_event": {
+  "randomize": [
+    ~#B(f00){
+      "weight": 25,
+      "particle_effect": {
+        "effect": "ex:my_particle2",
+        "type": "emitter"
+      }
+    },B#~
+    ~#B(f00){
+      "weight": 75,
+      "sequence": [
+        ~#B(00f){
+          "particle_effect": {
+            "effect": "ex:my_particle2",
+            "type": "emitter"
+          }
+        },B#~
+        ~#B(00f){
+          "particle_effect": {
+            "effect": "ex:my_particle3",
+            "type": "emitter"
+          }
+        }B#~
+      ]
+    }B#~
+  ]
+}</div>
+          </div>
+        </div>
+        <h2 class="sec">カーブ</h2>
+        <p>
+          パーティクルをデザインするにあたって、大きさや色合いの変化は重要です。 多くの場合「だんだん変化する」ときは「線形」的な変化をします。 
+          細かいこだわりがなければそれで十分ですが、カーブという機能を使って「初めは"変化"を遅く、終わりへ向かうにつれて"変化"を速くしていく」 というような複雑な「変化」を実装することができます。
+        </p>
+        <div class="center"><img src="img/MCBE02_particles_02.png" class="default_setting"></div>
+        <h3 class="subsec">JSONの構造</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"curves": {
+  "molangvar": {
+    "type": "linear",
+    "nodes": [ 0.0, 1.0, -1.0, 2.0 ],
+    "input": 1.0,
+    "horizontal_range": 3.0
+  }
+}</code>
+          </div>
+        </div>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

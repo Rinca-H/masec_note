@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「アイテム(ビヘイビア)」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「アイテム(ビヘイビア)」 - ますえくNOTE" />
+    <meta property="og:description" content="ビヘイビアパックの要素である「アイテム」について詳しく説明します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > アイテム(ビヘイビア)</div>
+        <h1 class="title" id="top">アドオン詳細解説 - アイテム(ビヘイビア)</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p>アドオンのアイテムについて説明します。</p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">基本的な流れ</h2>
+        <p>アイテム本体に加えてテクスチャも追加するので、<b>ビヘイビアとリソース両方が必要</b>になります。</p>
+        <p>全体の作業はこうなります：</p>
+        <div class="center">
+          <div class="box1">
+            <ol>
+              <li>アイテムのテクスチャを追加する</li>
+              <li>item_texture.jsonを編集or新規作成する</li>
+              <li>itemsフォルダに新しくJSONを新規作成する</li>
+              <li>.langファイルを編集・新規作成する</li>
+            </ol>
+          </div>
+        </div>
+        <p><a href="#">リソースに関する詳細はこちら</a></p>
+        <h2 class="sec">アイテムを定義するJSON</h2>
+        <p>これはアイテムが定義できるための最小限の内容です。ゼロから作る場合はこれをコピペするといいでしょう。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test:my_item",
+      "category": "Items"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "my_item" // TerrainID
+      }
+      // コンポーネント
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">主な構成</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test:my_item",
+      "category": "Items"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "my_item"
+      }
+      // コンポーネント
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test:my_item",
+      "category": "Items"
+    },
+    ~#B(f00)"components": {
+      "minecraft:icon": {
+        "texture": "my_item"
+      }
+      // コンポーネント
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <p>大きく関わってくるのがこの赤い枠で囲った部分で、もっと言えばその中の<span class="inline">{ }</span>内にコンポーネントを書き足していきます。</p>
+        <p><span class="inline">minecraft:icon</span>もコンポーネントですが、テクスチャを指定するために必須なので書いておきました。</p>
+        <h3 class="subsec">発展的な構成</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test:my_item",
+      "category": "Items"
+    },
+    "components": {
+      "minecraft:icon": {
+        "texture": "my_item"
+      }
+      // コンポーネント
+    },
+    "events": {
+      // イベント
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test:my_item",
+      "category": "Items"
+    },
+    ~#B(f00)"components": {
+      "minecraft:icon": {
+        "texture": "my_item"
+      }
+      // コンポーネント
+    },B#~
+    ~#B(f00)"events": {
+      // イベント
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <p>イベントを用いてより複雑な仕様をもったアイテムを作ることができます。</p>
+        <h2 class="sec">イベント</h2>
+        <p>イベントをトリガーする(呼び出す)ことができる特定のコンポーネントによって呼び出され、 指定したイベントファンクションを動作させます。</p>
+        <div class="center">
+          <div class="box1">
+            <div style="padding: 16px; text-align: center;">
+              イベントトリガー系コンポーネント<br>
+              <div style="margin: 16px 0; display: inline-block;">　　　　↓　呼び出す</div><br>
+              イベント
+            </div>
+          </div>
+        </div>
+        <h2 class="sec">具体例</h2>
+        <h3 class="subsec">シンプルなアイテム</h3>
+        <p>JSONがシンプルになるように性質を選んできています。</p>
+        <p><span style="color: #ccc;">しかし、もともと簡単なコンポーネントが少ないのでスカスカです</span></p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:simple_item"
+    },
+    "components": {
+      "minecraft:fuel": {
+        "duration": 80
+      },
+      "minecraft:icon": {
+        "texture": "simple_item"
+      },
+      "minecraft:max_stack_size": 16
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <p>このお手本アイテムは以下のような性質を持ちます：</p>
+        <div class="center">
+          <div class="box1">
+            <ul style="padding-left: 1.5em;">
+              <li>かまどでの燃焼時間が80秒(アイテム8個分、石炭と同じ)</li>
+              <li>TerrainIDは<span class="inline">simple_item</span>である</li>
+              <li>16個までしかスタックできない</li>
+            </ul>
+          </div>
+        </div>
+        <h3 class="subsec">「使う」ことができるアイテム</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ex:use_item",
+      "category": "Equipment"
+    },
+    "components": {
+      "minecraft:can_destroy_in_creative": false,
+      "minecraft:cooldown": {
+        "category": "use_item",
+        "duration": 5
+      },
+      "minecraft:display_name": {},
+      "minecraft:foil": true,
+      "minecraft:icon": { "texture": "use_item" },
+      "minecraft:max_stack_size": 64,
+      "minecraft:on_use": {
+        "on_use": {
+          "condition": "(1.0)",
+          "event": "use",
+          "target": "self"
+        }
+      },
+      "minecraft:use_duration": 3600
+    },
+    "events": {
+      "use": {
+        "run_command": {
+          "command": [ "playsound mob.evocation_illager.cast_spell @a" ],
+          "target": "holder"
+        }
+      }
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">剣</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ex:alt_netherite_sword",
+      "category": "Equipment"
+    },
+    "components": {
+      "minecraft:can_destroy_in_creative": false,
+      "minecraft:creative_category": { "parent": "itemGroup.name.sword" },
+      "minecraft:damage": 8,
+      "minecraft:display_name": {},
+      "minecraft:durability": { "max_durability": 2031 },
+      "minecraft:enchantable": {
+        "slot": "sword",
+        "value": 15
+      },
+      "minecraft:hand_equipped": true,
+      "minecraft:icon": { "texture": "netherite_sword" },
+      "minecraft:max_stack_size": 1,
+      "minecraft:repairable": {
+        "repair_items": [
+          { "items": [ "minecraft:netherite_ingot" ], "repair_amount": 507 },
+          { "items": [ "ex:alt_netherite_sword" ], "repair_amount": "(c.other->q.remaining_durability)+0.05*(c.other->q.max_durability)" }
+        ]
+      },
+      "minecraft:weapon": {
+        "on_hurt_entity": { "condition": "(1.0)", "event": "attack", "target": "self" }
+      }
+    },
+
+    "events": {
+      "attack": {
+        "damage": { "amount": 1, "target": "self", "type": "durability" }
+      }
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">ツルハシ</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ex:my_pick",
+      "category": "Equipment"
+    },
+    "components": {
+      "minecraft:creative_category": { "parent": "itemGroup.name.pickaxe" },
+      "minecraft:damage": 6,
+      "minecraft:display_name": {},
+      "minecraft:digger": {
+        "use_efficiency": true,
+        "on_dig": { "event": "other_hit", "target": "self" },
+        "destroy_speeds": [
+          {
+            "block": { "tags": "q.any_tag('stone', 'metal')" },
+            "speed": 8
+          },
+          { "block": "minecraft:coal_ore", "speed": 8 },
+          { "block": "minecraft:iron_ore", "speed": 8 },
+          { "block": "minecraft:lapis_ore", "speed": 8 },
+          { "block": "minecraft:lit_redstone_ore", "speed": 8 },
+          { "block": "minecraft:gold_ore", "speed": 8 },
+          { "block": "minecraft:diamond_ore", "speed": 8 },
+          { "block": "minecraft:emerald_ore", "speed": 8 },
+          { "block": "minecraft:quartz_ore", "speed": 8 }
+          // ... 
+        ]
+      },
+      "minecraft:durability": { "max_durability": 1000 },
+      "minecraft:enchantable": { "slot": "pickaxe", "value": 10 },
+      "minecraft:hand_equipped": true,
+      "minecraft:icon": { "texture": "my_pickaxe" },
+      "minecraft:max_stack_size": 1,
+      "minecraft:mining_speed": 3,
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [ "ex:my_pickaxe" ],
+            "repair_amount": 20
+          }
+        ]
+      },
+      "minecraft:stacked_by_data": true,
+      "minecraft:weapon": {
+        "on_hurt_entity": { "event": "other_dam", "target": "self" },
+        "on_hit_block": { "event": "break_block", "target": "self" }
+      }
+    },
+    
+    "events": {
+      "other_hit": {
+        "damage": { "type": "durability", "amount": 3 }
+      },
+      "break_block": {
+        "damage": { "type": "durability", "amount": 1 }
+      }
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">防具</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ex:alt_netherite_chestplate",
+      "category": "Equipment"
+    },
+    "components": {
+      "minecraft:armor": { "protection": 11 },
+      "minecraft:creative_category": { "parent": "itemGroup.name.chestplate" },
+      "minecraft:display_name": {},
+      "minecraft:durability": { "max_durability": 550, "damage_chance": { "min": 60, "max": 100 } },
+      "minecraft:enchantable": { "slot": "armor_torso", "value": 15 },
+      "minecraft:icon": { "texture": "netherite_chestplate" },
+      "minecraft:max_stack_size": 1,
+      "minecraft:repairable": {
+        "repair_items": [
+          { "items": [ "minecraft:netherite" ], "repair_amount": "math.floor(q.max_durability*0.25)" },
+          { "items": [ "ex:alt_netherite_chestplate" ], "repair_amount": "(c.other->q.remaining_durability)+0.05*(c.other->q.max_durability)" }
+        ]
+      },
+      "minecraft:stacked_by_data": true,
+      "minecraft:wearable": { "slot": "slot.armor.chest" }
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">食べ物</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.12.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ex:my_food"
+    },
+    "components": {
+      "minecraft:food": {
+        "nutrition": 10,
+        "saturation_modifier": "normal",
+        "can_always_eat": false
+      },
+      "minecraft:use_duration": 32
+    }
+  }
+}</code>
+          </div>
+        </div>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

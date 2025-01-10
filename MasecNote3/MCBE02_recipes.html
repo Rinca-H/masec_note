@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「レシピ」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「レシピ」 - ますえくNOTE" />
+    <meta property="og:description" content="アドオンの要素である「レシピ」について詳しく説明します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > レシピ</div>
+        <h1 class="title" id="top">アドオン詳細解説 - レシピ</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">機能</h2>
+        <p>作業台によるクラフトや、かまどの精錬などのレシピを変更したり追加したりできます。</p>
+        <h2 class="sec">クラフトタグ</h2>
+        <p>
+          アイテムを"焼く"作業台(かまど)は4種類(かまど、溶鉱炉、燻製器、キャンプファイヤー)で、どれも同じJSONで作成します。<br>
+          そこで、どの作業台でクラフトするかを決めるのが<b>クラフトタグ</b>です。
+        </p>
+        <p>
+          たとえば、溶鉱炉<u>だけ</u>に対応しているレシピを作るには、tagsの項目で<span class="inline">"blast_furnace"</span>だけを指定します。
+        </p>
+        <p>
+          また、自分で追加した作業台のみでクラフトできるようにするには、そこで決めたクラフトタグのみを指定するということになります。
+        </p>
+        <h3 class="subsec">バニラのクラフトタグ</h3>
+        <table style="width: 100%;">
+          <tr><th>クラフトタグ</th><th>備考</th></tr>
+          <tr><td>crafting_table</td><td>作業台</td></tr>
+          <tr><td>furnace</td><td>かまど</td></tr>
+          <tr><td>blast_furnace</td><td>溶鉱炉</td></tr>
+          <tr><td>smoker</td><td>燻製器</td></tr>
+          <tr><td>campfire</td><td>キャンプファイヤー</td></tr>
+          <tr><td>soul_campfire</td><td>ソウルキャンプファイヤー</td></tr>
+          <tr><td>stonecutter</td><td>ストーンカッター</td></tr>
+          <tr><td>cartography_table</td><td>製図台</td></tr>
+          <tr><td>brewing_stand</td><td>醸造台</td></tr>
+          <tr><td>material_reducer</td><td>物質還元器(教育版)</td></tr>
+        </table>
+        <p>手元クラフトのクラフトタグはないので、手元クラフトと作業台のクラフトは区別できません。</p>
+        <h2 class="sec">作業台の定形レシピ</h2>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "minecraft:enchanting_table"
+    },
+    "tags": [ "crafting_table" ],
+    "pattern": [
+      " b ",
+      "dod",
+      "ooo"
+    ],
+    "key": {
+      "b": { "item": "minecraft:book" },
+      "o": { "item": "minecraft:obsidian" },
+      "d": { "item": "minecraft:diamond" }
+    },
+    "result": { "item": "minecraft:enchanting_table" }
+  }
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">tags</h3>
+        <p>ここでクラフトタグを指定します。3x3マスのクラフトは作業台とカスタム作業台しかないので必然的に</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "tags": [ "crafting_table" ]
+}</code>
+          </div>
+        </div>
+        <p>または</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "tags": [ "crafting_table", "my_table", ... ]
+}</code>
+          </div>
+        </div>
+        <p>のようになると思います。</p>
+        <h3 class="subsec">pattern</h3>
+        <p>ここでレシピの"形"を指定します。後に定義する、キーと呼ばれる1文字でアイテムの配置を表現します。空白は半角スペースです。</p>
+        <details><summary>patternの例</summary>
+          <h4>3x3クラフト(ツルハシ)</h4>
+          <div class="rich_code">
+            <div class="rich_code:tab is_dark">
+              <div class="rich_code:title"></div>
+              <div class="rich_code:buttons">
+                <button class="rich_code:disp_all no-select">全て表示</button>
+                <button class="rich_code:copy no-select">コピー</button>
+              </div>
+            </div>
+            <div class="rich_code:content">
+              <code class="json">{
+  "pattern": [
+    "mmm",
+    " s ",
+    " s "
+  ]
+}</code>
+            </div>
+          </div>
+          <h4>2x3クラフト(ヘルメット)</h4>
+          <p>すべて空白の行を省略して書くことによって、3x3の上2行でも下2行でもクラフトできるようになります。</p>
+          <div class="rich_code">
+            <div class="rich_code:tab is_dark">
+              <div class="rich_code:title"></div>
+              <div class="rich_code:buttons">
+                <button class="rich_code:disp_all no-select">全て表示</button>
+                <button class="rich_code:copy no-select">コピー</button>
+              </div>
+            </div>
+            <div class="rich_code:content">
+              <code class="json">{
+  "pattern": [
+    "mmm",
+    "m m"
+  ]
+}</code>
+            </div>
+          </div>
+          <h4>2x2クラフト(作業台)</h4>
+          <p>すべて空白の列も省略すると、3x3のどの四隅を使ってもクラフトできるようになり、手元クラフトが可能になります。</p>
+          <div class="rich_code">
+            <div class="rich_code:tab is_dark">
+              <div class="rich_code:title"></div>
+              <div class="rich_code:buttons">
+                <button class="rich_code:disp_all no-select">全て表示</button>
+                <button class="rich_code:copy no-select">コピー</button>
+              </div>
+            </div>
+            <div class="rich_code:content">
+              <code class="json">{
+  "pattern": [
+    "pp",
+    "pp"
+  ]
+}</code>
+            </div>
+          </div>
+          <h4>3x1クラフト(剣)</h4>
+          <div class="rich_code">
+            <div class="rich_code:tab is_dark">
+              <div class="rich_code:title"></div>
+              <div class="rich_code:buttons">
+                <button class="rich_code:disp_all no-select">全て表示</button>
+                <button class="rich_code:copy no-select">コピー</button>
+              </div>
+            </div>
+            <div class="rich_code:content">
+              <code class="json">{
+  "pattern": [
+    "m",
+    "m",
+    "s"
+  ]
+}</code>
+            </div>
+          </div>
+        </details>
+        <h3 class="subsec">key</h3>
+        <p>上記の例のように素材のアイテムに対応する文字を指定します。</p>
+        <details><summary>上級設定</summary>
+          <h4>データ値指定</h4>
+          <div class="rich_code">
+            <div class="rich_code:tab is_dark">
+              <div class="rich_code:title"></div>
+              <div class="rich_code:buttons">
+                <button class="rich_code:disp_all no-select">全て表示</button>
+                <button class="rich_code:copy no-select">コピー</button>
+              </div>
+            </div>
+            <div class="rich_code:content">
+              <code class="json">{ "item": "minecraft:planks", "data": 2 }</code>
+            </div>
+          </div>
+          <h4>スポーンエッグの中身を指定</h4>
+          <div class="rich_code">
+            <div class="rich_code:tab is_dark">
+              <div class="rich_code:title"></div>
+              <div class="rich_code:buttons">
+                <button class="rich_code:disp_all no-select">全て表示</button>
+                <button class="rich_code:copy no-select">コピー</button>
+              </div>
+            </div>
+            <div class="rich_code:content">
+              <code class="json">{
+  "item": "minecraft:spawn_egg",
+  "data": "q.get_actor_info_id('minecraft:chicken')"
+}</code>
+            </div>
+          </div>
+        </details>
+        <h3 class="subsec">result</h3>
+        <p>
+          <span class="inline">"key"</span>でアイテムを指定したように、完成品のアイテムを指定します。個数は以下のように指定します。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{ "item": "minecraft:planks", "count": 4 }</code>
+          </div>
+        </div>
+        <p>keyを指定したときと同様の書き方でデータ値を指定できます。</p>
+        <details><summary>材料の一部を返却する</summary>
+          <p>ケーキをクラフトするときに牛乳を使いますが、バケツがカラになって返却されます。 そのようなクラフトは二つ目以降の完成品を指定することで実現できます。</p>
+          <div class="rich_code">
+            <div class="rich_code:tab is_dark">
+              <div class="rich_code:title"></div>
+              <div class="rich_code:buttons">
+                <button class="rich_code:disp_all no-select">全て表示</button>
+                <button class="rich_code:copy no-select">コピー</button>
+              </div>
+            </div>
+            <div class="rich_code:content">
+              <code class="json">{
+  "result": [
+    { "item": "minecraft:cake" },
+    { "item": "minecraft:bucket", "count": 3, "data": 0 }
+  ]
+}</code>
+            </div>
+          </div>
+        </details>
+        <h2 class="sec">作業台の不定形レシピ</h2>
+        <p>基本的には定形レシピと書き方は変わりません。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.12",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "minecraft:book"
+    },
+    "tags": [ "crafting_table" ],
+    "ingredients": [
+      { "item": "minecraft:paper" },
+      { "item": "minecraft:paper" },
+      { "item": "minecraft:paper" },
+      { "item": "minecraft:leather" }
+    ],
+    "result": { "item": "minecraft:book", "count": 1 }
+  }
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">ingredients</h3>
+        <p>定形レシピとは唯一異なる、素材の指定です。上記のように9個までのアイテムを並べて指定します。</p>
+        <p>データ値は定形レシピと同様に指定できます。</p>
+        <div class="warn">
+          <p>材料の返却に対応していません。</p>
+        </div>
+        <h2 class="sec">ストーンカッター・製図台のレシピ</h2>
+        <p>
+          作業台の<u>不定形レシピと同様</u>です。しかし、材料の上限が違います。
+          ストーンカッターは<u>1つ</u>、製図台は<u>2つ</u>だけしか材料を指定できません。
+        </p>
+        <h2 class="sec">かまどのレシピ</h2>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.12",
+  "minecraft:recipe_furnace": {
+    "description": {
+      "identifier": "minecraft:furnace_copper_ore"
+    },
+    "tags": [ "furnace", "blast_furnace" ],
+    "input": "minecraft:copper_ore",
+    "output": "minecraft:copper_ingot"
+  }
+}</code>
+          </div>
+        </div>
+        <p><span class="inline">"input"</span>に焼くものを、<span class="inline">"output"</span>に完成品を指定します。データ値を指定する場合は以下のようにします。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "input": { "item": "minecraft:planks", "data": 2 }
+}</code>
+          </div>
+        </div>
+        <div class="warn"><p>経験値の量、焼くのにかかる時間は指定できません。</p></div>
+        <h2 class="sec">醸造台のレシピ</h2>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.12",
+  "minecraft:recipe_brewing_mix": {
+    "description": {
+      "identifier": "minecraft:brew_awkward_blaze_powder"
+    },
+    "tags": [ "brewing_stand" ],
+    "input": "minecraft:potion_type:awkward",
+    "reagent": "minecraft:blaze_powder",
+    "output": "minecraft:potion_type:strength"
+  }
+}</code>
+          </div>
+        </div>
+        <p><span class="inline">"input"</span>は先に下に置くもの、<span class="inline">"reagent"</span>は上に置くもの、<span class="inline">"output"</span>は完成品を指定します。</p>
+        <h3 class="subsec">ポーションの指定方法</h3>
+        <p>ポーションは特殊なIDが用意されていて、<span class="inline">"minecraft:potion_type:〇〇"</span>というように指定します。</p>
+        <p>「〇〇」には以下のようなポーションのタイプIDが入ります。</p>
+        <details><summary>ポーションタイプ</summary>
+          <table style="width: 100%; margin-top: 16px;">
+            <tr><th>ポーションタイプID</th><th>概要</th></tr>
+            <tr><td>water</td><td>水</td></tr>
+            <tr><td>awkward</td><td>奇妙なポーション</td></tr>
+            <tr><td>mundane</td><td>ありふれたポーション</td></tr>
+            <tr><td>thick</td><td>濃厚なポーション</td></tr>
+            <tr><td>healing</td><td>回復</td></tr>
+            <tr><td>regeneration</td><td>再生</td></tr>
+            <tr><td>swiftness</td><td>スピード</td></tr>
+            <tr><td>strength</td><td>力</td></tr>
+            <tr><td>harming</td><td>ダメージ</td></tr>
+            <tr><td>poison</td><td>毒</td></tr>
+            <tr><td>slowness</td><td>鈍足</td></tr>
+            <tr><td>weakness</td><td>弱化</td></tr>
+            <tr><td>water_breathing</td><td>水中呼吸</td></tr>
+            <tr><td>fire_resistance</td><td>火炎耐性</td></tr>
+            <tr><td>nightvision</td><td>暗視</td></tr>
+            <tr><td>invisibility</td><td>透明化</td></tr>
+            <tr><td>leaping</td><td>跳躍</td></tr>
+            <tr><td>slow_falling</td><td>低速落下</td></tr>
+            <tr><td>turtle_master</td><td>タートルマスター</td></tr>
+            <tr><td>wither</td><td>ウィザー</td></tr>
+          </table>
+          <p>
+            これらのポーションタイプIDの頭に<span class="inline">long_</span>をつけると効果時間が長いバージョン、<span class="inline">strong_</span>をつけると効果が強いバージョンを指定できます。
+          </p>
+          <p>
+            たとえば、効果時間が長いバージョンの再生のポーションは<span class="inline">minecraft:potion_type:long_regeneration</span>になります。
+          </p>
+        </details>
+        <div class="warn">
+          <p>
+            ポーションタイプはカスタムできず、ここから選ぶことしかできないので、
+            バニラのポーションですら効果時間や強さを自由にカスタムできません。
+          </p>
+        </div>
+        <div class="caution">
+          <ul>
+            <li>
+              上に置く材料にデータ値を指定すると、データ値関係なしに醸造がスタートします。
+              上に置いた材料のデータ値がレシピ一致していたならば醸造が「成功」して、異なると「失敗」します。
+              「成功」すると、作成したレシピ通りに完成しますが、「失敗」すると上に置いた<u>材料と燃料を消費だけして何も完成しません</u>。
+            </li>
+            <li>下に置く材料にスタックできるアイテムを指定した場合、スタックされた状態で醸造すると<u>全て消費します</u>。</li>
+          </ul>
+        </div>
+        <h2 class="sec">物質還元器のレシピ</h2>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.14",
+  "minecraft:recipe_material_reduction": {
+    "description": {
+      "identifier": "minecraft:grass"
+    },
+    "tags": "material_reducer",
+    "input": "minecraft:grass",
+    "output": [
+      { "count": 15, "item": "minecraft:element_6" },
+      { "count": 64, "item": "minecraft:element_8" },
+      { "count": 6, "item": "minecraft:element_8" },
+      { "count": 8, "item": "minecraft:element_7" },
+      { "count": 7, "item": "minecraft:element_15" }
+    ]
+  }
+}</code>
+          </div>
+        </div>
+        <p>
+          作業台の<u>不定形レシピと同様</u>です。しかし、材料と完成品の上限が違います。
+          材料は<u>1つ</u>のみ、完成品は最大<u>9つ</u>まで指定できます。
+        </p>
+        <div class="warn"><p>完成品にブロックを指定することはできません。</p></div>
+        <h2 class="sec">バニラのレシピの消し方</h2>
+        <p>
+          バニラのレシピと同じIDで存在しないクラフトタグのみを指定すると消えます。
+          完成品の個数をゼロにしても消えますが、エラーが邪魔になる可能性があるので前者をオススメします。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.12",
+  // レシピの形式もカブせる
+  "minecraft:recipe_shaped": {
+    "description": {
+      // 消すレシピのIDと同じIDを指定
+      "identifier": "minecraft:enchanting_table"
+    },
+
+    // 存在しないクラフトタグを指定
+    "tags": [ "recipe_sakuzyo" ],
+
+    // 以下も適当に文字を減らすと容量削減になる
+    // (無 → 無のクラフトはエラーがうるさくなる可能性があるので避ける)
+    "pattern": [
+      "a"
+    ],
+    "key": {
+      "a": { "item": "minecraft:apple" }
+    },
+    "result": { "item": "minecraft:enchanting_table" }
+  }
+}</code>
+          </div>
+        </div>
+        <h2 class="sec">できないこと</h2>
+        <ul>
+          <li>鍛冶台のレシピの作成</li>
+          <li>エンチャントされたアイテムのクラフト</li>
+          <li>材料にツールを使って、クラフトするとそのツールの耐久が減る</li>
+          <li>NBTつきアイテムのクラフト(旗、色付き革防具e.t.c.)</li>
+          <li>名前つき、説明文つきのアイテムのクラフト</li>
+          <li>かまどレシピで「燃料」「出る経験値の個数」「焼く時間」の指定</li>
+        </ul>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

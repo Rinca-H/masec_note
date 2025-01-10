@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「ルートテーブル」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「ルートテーブル」 - ますえくNOTE" />
+    <meta property="og:description" content="アドオンの要素である「ルートテーブル」について詳しく説明します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > ルートテーブル</div>
+        <h1 class="title" id="top">アドオン詳細解説 - ルートテーブル</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p>いろんなところで活躍するルートテーブルですが、JSONが見づらいのでなかなか思い通りにいかないかもしれません。</p>
+        <p>今回はルートテーブルのJSONを見極めるコツを中心に作り方を解説していこうと思います。</p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">ルートテーブルとは</h2>
+        <p>モブを倒したり、ブロックを壊したりしたときに、<b>どんなアイテムを落とすか決める</b>ものです。</p>
+        <p>その派生で、チェストの中身や釣りのアイテム、敵モブの装備などにも流用されます。</p>
+        <h2 class="sec">ファイルの場所</h2>
+        <p>
+          基本的にルートテーブルを指定するときはファイルパスで指定するので<b>ビヘイビアパック</b>内のどこでもいいと思いますが、
+          オススメはこのloot_tablesフォルダです。
+        </p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              ビヘイビアパック<br>
+              ┣ manifest.json<br>
+              ┣ <b>loot_tables</b><br>
+              ┗ pack_icon.png
+            </p>
+          </div>
+        </div>
+        <p>自分で場所を指定できるので、<u>指定する場所に注意して</u>この中にさらにフォルダを作って分けることができます。</p>
+        <p>オススメのフォルダ構成はこんな感じです。もちろん作るのは必要な分だけでいいです。</p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              ビヘイビアパック<br>
+              ┣ manifest.json<br>
+              ┣ pack_icon.png<br>
+              ┗ loot_tables<br>
+              　 ┣ <b>blocks</b><br>
+              　 ┣ <b>chests</b><br>
+              　 ┣ <b>entities</b><br>
+              　 ┣ <b>equipment</b><br>
+              　 ┗ <b>gameplay</b>
+            </p>
+          </div>
+        </div>
+        <h2 class="sec">ルートテーブルのJSON(基礎)</h2>
+        <p>まず、一番シンプルに「<b>リンゴを必ず一つ落とす</b>」というルートテーブルです。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:apple",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}</code>
+          </div>
+        </div>
+        <p>もうこの時点でカッコが多くて見づらいんですよね。</p>
+        <h3 class="subsec">主な構成</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:apple",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "pools": [
+    ~#B(f00){
+      "rolls": 1,
+      "entries": [
+        ~#B(00f){
+          "type": "item",
+          "name": "minecraft:apple",
+          "weight": 1
+        }B#~
+      ]
+    }B#~
+  ]
+}</div>
+          </div>
+        </div>
+        <p>このように枠で囲うと一気に分かりやすくなると思います。<u>それぞれの枠をどのように増やすか</u>でいろいろ変わってきます。</p>
+        <h3 class="subsec">選択肢を増やす</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:apple",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:apple_golden",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "pools": [
+    ~#B(f00){
+      "rolls": 1,
+      "entries": [
+        ~#B(00f){
+          "type": "item",
+          "name": "minecraft:apple",
+          "weight": 1
+        },B#~
+        ~#B(00f){
+          "type": "item",
+          "name": "minecraft:apple_golden",
+          "weight": 1
+        }B#~
+      ]
+    }B#~
+  ]
+}</div>
+          </div>
+        </div>
+        <p>このように青い枠の部分を増やすと「<b>選択肢</b>」が増えます。</p>
+        <p>この例では「<b>リンゴか金リンゴどちらか一つを必ず落とす</b>」というルートテーブルになります。確率はどちらも50%です。</p>
+        <h3 class="subsec">確率を変える</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:apple",
+          "weight": 9
+        },
+        {
+          "type": "item",
+          "name": "minecraft:apple_golden",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "pools": [
+    ~#B(f00){
+      "rolls": 1,
+      "entries": [
+        ~#B(00f){
+          "type": "item",
+          "name": "minecraft:apple",
+          "weight": ~#M(83ffd9)9M#~
+        },B#~
+        ~#B(00f){
+          "type": "item",
+          "name": "minecraft:apple_golden",
+          "weight": 1
+        }B#~
+      ]
+    }B#~
+  ]
+}</div>
+          </div>
+        </div>
+        <p>
+          この<b>「<ruby><rb>weight</rb><rp>(</rp><rt>ウェイト</rt><rp>)</rp></ruby>」値を変えると確率が変わります</b>。これで<b>リンゴが90%、金リンゴが10%</b>になりました。
+          <b>くじ引きの箱に「リンゴ」と書かれた紙が何枚、「金リンゴ」と書かれた紙が何枚入っているか</b>みたいなイメージですね。
+        </p>
+        <p>
+          パーセントの計算は「<b>(確率を求めたいアイテムのweight)÷(赤い枠の中に登場するweightをぜんぶ足した値)×100</b>」です。4と1ならば80%と20%、3と2ならば60%と40%になります。
+        </p>
+        <p>
+          確率のイメージがどうしてもわからないという場合は、赤い枠の中に登場するweightをぜんぶ足して最初から100になるようにしてもいいかもしれません。(9：1を90：10にしても比は変わりませんよね)
+        </p>
+        <h3 class="subsec">ハズレをつくる</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "empty",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "minecraft:apple",
+          "weight": 9
+        },
+        {
+          "type": "item",
+          "name": "minecraft:apple_golden",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "pools": [
+    ~#B(f00){
+      "rolls": 1,
+      "entries": [
+        ~#B(00f){
+          "type": "empty",
+          "weight": 10
+        },B#~
+        ~#B(00f){
+          "type": "item",
+          "name": "minecraft:apple",
+          "weight": 9
+        },B#~
+        ~#B(00f){
+          "type": "item",
+          "name": "minecraft:apple_golden",
+          "weight": 1
+        }B#~
+      ]
+    }B#~
+  ]
+}</div>
+          </div>
+        </div>
+        <p>
+          このように<span class="inline">empty</span><b>タイプを指定してハズレを追加します</b>。ちなみにweightが上から10：9：1なので、確率は50%、45%、5%ということです。
+        </p>
+        <h3 class="subsec">抽選対象を増やす</h3>
+        <p>今度はこのように、赤い枠を増やしたらどうなるでしょうか？</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:apple",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:iron_ingot",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "pools": [
+    ~#B(f00){
+      "rolls": 1,
+      "entries": [
+        ~#B(00f){
+          "type": "item",
+          "name": "minecraft:apple",
+          "weight": 1
+        }B#~
+      ]
+    },B#~
+    ~#B(f00){
+      "rolls": 1,
+      "entries": [
+        ~#B(00f){
+          "type": "item",
+          "name": "minecraft:iron_ingot",
+          "weight": 1
+        }B#~
+      ]
+    }B#~
+  ]
+}</div>
+          </div>
+        </div>
+        <p>この場合は「<b>リンゴと鉄インゴットを必ず落とす</b>」というルートテーブルになります。</p>
+        <p>こんがらがってきたでしょうか？　次のように青枠部分を増やすと分かると思います。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:apple",
+          "weight": 9
+        },
+        {
+          "type": "item",
+          "name": "minecraft:apple_golden",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:iron_ingot",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "pools": [
+    ~#B(f00){
+      "rolls": 1,
+      "entries": [
+        ~#B(00f){
+          "type": "item",
+          "name": "minecraft:apple",
+          "weight": 9
+        },B#~
+        ~#B(00f){
+          "type": "item",
+          "name": "minecraft:apple_golden",
+          "weight": 1
+        }B#~
+      ]
+    },B#~
+    ~#B(f00){
+      "rolls": 1,
+      "entries": [
+        ~#B(00f){
+          "type": "item",
+          "name": "minecraft:iron_ingot",
+          "weight": 1
+        }B#~
+      ]
+    }B#~
+  ]
+}</div>
+          </div>
+        </div>
+        <p>この場合「<b>90%の確率でリンゴ、10%の確率で金リンゴをどちらか1つ落とし、さらに鉄を100%で落とす</b>」というものになります。</p>
+        <p>
+          <b>くじ引きの箱が二つあり、一つ目の箱には「リンゴ」と書かれた紙が9枚と「金リンゴ」と書かれた紙が1枚、
+          二つ目の箱には「鉄インゴット」と書かれた紙が1枚だけ入っている</b>という感じです。
+        </p>
+        <div class="center"><img src="img/MCBE02_lootTables_01.png" class="default_setting"></div>
+        <p>
+          しかし、今までのままだとアイテムは一つしか落としません。
+          個数なども含め、特殊な落としかたをどうやって指定するか見ていきましょう。
+        </p>
+        <h2 class="sec">ファンクション</h2>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:apple",
+          "weight": 1,
+          "functions": [
+            {
+              // ファンクションの中身
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "pools": [
+    ~#B(f00){
+      "rolls": 1,
+      "entries": [
+        ~#B(00f){
+          "type": "item",
+          "name": "minecraft:apple",
+          "weight": 1,
+          ~#B(0c0)"functions": [
+            {
+              // ファンクションの中身
+            }
+          ]B#~
+        }B#~
+      ]
+    }B#~
+  ]
+}</div>
+          </div>
+        </div>
+        <p>ここにファンクションというものを追加して特殊な方法でドロップするようにします。</p>
+        <h3 class="subsec">個数を指定</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:apple",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": { "min": 0, "max": 2 }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "pools": [
+    ~#B(f00){
+      "rolls": 1,
+      "entries": [
+        ~#B(00f){
+          "type": "item",
+          "name": "minecraft:apple",
+          "weight": 1,
+          ~#B(0c0)"functions": [
+            {
+              "function": "set_count",
+              "count": { "min": 0, "max": 2 }
+            }
+          ]B#~
+        }B#~
+      ]
+    }B#~
+  ]
+}</div>
+          </div>
+        </div>
+        <p>例えばこのようにすると「<b>リンゴが必ず0~2個ドロップする</b>」ようになります。</p>
+        <h2 class="sec">スキーマ的なやつ</h2>
+        <p>
+          ファンクションをすべて解説するわけにはいかないので、ここにおそらく全てのファンクションを載せました。
+        </p>
+        <p>JSON全体をコピーするよりはファンクションなど一部をコピーすることをお勧めします。</p>
+        <p>順番はファンクション名のアルファベット順になっていると思います。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "killed_by_player"
+        },
+        {
+          "condition": "random_chance_with_looting",
+          "chance": 0.025,
+          "looting_multiplier": 0.01
+        },
+        {
+          "condition": "random_difficulty_chance",
+          "default_chance": 0.5,
+          "peaceful": 0,
+          "hard": 0.6
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "empty",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/gameplay/fishing/fish",
+          "quarity": 1,
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "ItemID",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "enchant_book_for_trading",
+              "base_cost": 2,
+              "base_random_cost": 5,
+              "per_level_random_cost": 10,
+              "per_level_cost": 3
+            },
+            { // ランダムにエンチャントします
+              "function": "enchant_randomly",
+              "treasure": true
+            },
+            { // ランダムにエンチャントします(equipment用)
+              "function": "enchant_random_gear",
+              "chance": 0.25
+            },
+            { // レベルを指定してランダムにエンチャント
+              "function": "enchant_with_levels",
+              "treasure": true,
+              "levels": { "min": 15, "max": 20 }
+            },
+            { // 探検家の地図
+              "function": "exploration_map",
+              "destination": "buriedtreasure"
+              // 選べる値："buriedtreasure", "monument", "mansion"
+            },
+            { // 燃え死んだときにかまどレシピに基づいてアイテムを焼くか
+              "function": "furnace_smelt",
+              "conditions": [
+                {
+                  "condition": "entity_properties",
+                  "entity": "this",
+                  "properties": { "on_fire": true }
+                }
+              ]
+            },
+            { // ドロップ増加エンチャントで追加される個数
+              "function": "looting_enchant",
+              "count": { "min": 0, "max": 1 }
+            },
+            { // ランダムなデータ値
+              "function": "random_aux_value",
+              "values": { "min": 0, "max": 15 }
+            },
+            { // ブロックステートをランダムにします
+              "function": "random_block_state",
+              "block_state": "flower_type",
+              "values": { "min": 0, "max": 10 } 
+            },
+            { // ランダムに染色
+              "function": "random_dye"
+            },
+            { // スポーンエッグの中身
+              "function": "set_actor_id",
+              "id": "ID"
+            },
+            { // 旗の模様
+              "function": "set_banner_details",
+              "type": 1
+            },
+            { // ドロップする個数
+              "function": "set_count",
+              "count": { "min": 0, "max": 2 }
+            },
+            { // 耐久を減らす(0.0~1.0の割合)
+              "function": "set_damage",
+              "damage": { "min": 0.0, "max": 0.9 }
+            },
+            { // データ値を指定
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "minecraft:set_data_from_color_index"
+            },
+            { // 説明文を追加
+              "function": "set_lore",
+              "lore": [ "Lore1", "Lore2", "..." ]
+            },
+            { // 名前を指定
+              "function": "set_name",
+              "name": "Name"
+            },
+            { // 指定したエンチャント
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "soul_speed",
+                  "level": [ 1, 3 ]
+                }
+              ]
+            }
+            // ...
+          ]
+        }
+      ]
+    }
+  ]
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "pools": [
+    {
+      ~#B(f00)"conditions": [
+        {
+          "condition": "killed_by_player"
+        },
+        {
+          "condition": "random_chance_with_looting",
+          "chance": 0.025,
+          "looting_multiplier": 0.01
+        },
+        {
+          "condition": "random_difficulty_chance",
+          "default_chance": 0.5,
+          "peaceful": 0,
+          "hard": 0.6
+        }
+      ],B#~
+      "rolls": 1,
+      "entries": [
+        ~#B(00f){
+          "type": "empty",
+          "weight": 1
+        },B#~
+        ~#B(00f){
+          "type": "loot_table",
+          "name": "loot_tables/gameplay/fishing/fish",
+          "quarity": 1,
+          "weight": 1
+        },B#~
+        ~#B(00f){
+          "type": "item",
+          "name": "ItemID",
+          "weight": 1,
+          "functions": [
+            ~#B(0c0){
+              "function": "enchant_book_for_trading",
+              "base_cost": 2,
+              "base_random_cost": 5,
+              "per_level_random_cost": 10,
+              "per_level_cost": 3
+            },B#~
+            ~#B(0c0){ // ランダムにエンチャントします
+              "function": "enchant_randomly",
+              "treasure": true
+            },B#~
+            ~#B(0c0){ // ランダムにエンチャントします(equipment用)
+              "function": "enchant_random_gear",
+              "chance": 0.25
+            },B#~
+            ~#B(0c0){ // レベルを指定してランダムにエンチャント
+              "function": "enchant_with_levels",
+              "treasure": true,
+              "levels": { "min": 15, "max": 20 }
+            },B#~
+            ~#B(0c0){ // 探検家の地図
+              "function": "exploration_map",
+              "destination": "buriedtreasure"
+              // 選べる値："buriedtreasure", "monument", "mansion"
+            },B#~
+            ~#B(0c0){ // 燃え死んだときにかまどレシピに基づいてアイテムを焼くか
+              "function": "furnace_smelt",
+              "conditions": [
+                {
+                  "condition": "entity_properties",
+                  "entity": "this",
+                  "properties": { "on_fire": true }
+                }
+              ]
+            },B#~
+            ~#B(0c0){ // ドロップ増加エンチャントで追加される個数
+              "function": "looting_enchant",
+              "count": { "min": 0, "max": 1 }
+            },B#~
+            ~#B(0c0){ // ランダムなデータ値
+              "function": "random_aux_value",
+              "values": { "min": 0, "max": 15 }
+            },B#~
+            ~#B(0c0){ // ブロックステートをランダムにします
+              "function": "random_block_state",
+              "block_state": "flower_type",
+              "values": { "min": 0, "max": 10 } 
+            },B#~
+            ~#B(0c0){ // ランダムに染色
+              "function": "random_dye"
+            },B#~
+            ~#B(0c0){ // スポーンエッグの中身
+              "function": "set_actor_id",
+              "id": "ID"
+            },B#~
+            ~#B(0c0){ // 旗の模様
+              "function": "set_banner_details",
+              "type": 1
+            },B#~
+            ~#B(0c0){ // ドロップする個数
+              "function": "set_count",
+              "count": { "min": 0, "max": 2 }
+            },B#~
+            ~#B(0c0){ // 耐久を減らす(0.0~1.0の割合)
+              "function": "set_damage",
+              "damage": { "min": 0.0, "max": 0.9 }
+            },B#~
+            ~#B(0c0){ // データ値を指定
+              "function": "set_data",
+              "data": 0
+            },B#~
+            ~#B(0c0){
+              "function": "minecraft:set_data_from_color_index"
+            },B#~
+            ~#B(0c0){ // 説明文を追加
+              "function": "set_lore",
+              "lore": [ "Lore1", "Lore2", "..." ]
+            },B#~
+            ~#B(0c0){ // 名前を指定
+              "function": "set_name",
+              "name": "Name"
+            },B#~
+            ~#B(0c0){ // 指定したエンチャント
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "soul_speed",
+                  "level": [ 1, 3 ]
+                }
+              ]
+            }B#~
+            // ...
+          ]
+        }B#~
+      ]
+    }
+  ]
+}</div>
+          </div>
+        </div>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

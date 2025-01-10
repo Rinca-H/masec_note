@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「ブロック」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「ブロック」 - ますえくNOTE" />
+    <meta property="og:description" content="アドオンの要素である「ブロック」について詳しく解説します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > ブロック</div>
+        <h1 class="title" id="top">アドオン詳細解説 - ブロック</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">ファイル・フォルダの場所</h2>
+        <div class="center">
+          <div class="box1">
+            <p>
+              (ビヘイビア)<br>
+            　 ┣ manifest.json<br>
+            　 ┣ pack_icon.png<br>
+            　 ┗ <b>blocks</b><br>
+            　 　 ┗ <b>〇〇.json</b>
+            </p>
+          </div>
+        </div>
+        <h2 class="sec">作成の流れ</h2>
+        <p>
+          ブロック本体に加えてテクスチャも追加するので、<b>ビヘイビアとリソース両方が必要</b>になります。
+        </p>
+        <div class="box1">
+          <ol style="padding: 12px 16px;">
+            <li>blocksフォルダに新しくJSONを新規作成する</li>
+            <li>ブロックのテクスチャを追加する</li>
+            <li>terrain_texture.jsonを編集or新規作成する</li>
+            <li>blocks.jsonを編集or新規作成する<br>(+ ブロックのジオメトリを追加する)</li>
+            <li>.langファイルを編集or新規作成する</li>
+          </ol>
+        </div>
+        <h2 class="sec">ブロックを定義するJSON</h2>
+        <p>
+          これはブロックが定義できるための最小限の内容です。ゼロから作る場合はこれをコピペするといいでしょう。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">blocks/*.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:my_block"
+    },
+    "components": {
+      // コンポーネント
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <hr>
+        <h3 class="subsec">主な構成</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">blocks/*.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:my_block"
+    },
+    "components": {
+      // コンポーネント
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:my_block"
+    },
+    ~#B(f00)"components": {
+      // コンポーネント
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <p>
+          大きく関わってくるのがこの赤い枠で囲った部分で、もっと言えばその中の<span class="inline">{ }</span>内にコンポーネントを書き足していきます。
+        </p>
+        <hr>
+        <h3 class="sec">発展的な構成</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">blocks/*.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:my_block",
+      "properties": {
+        "test:my_property": [ 0, 1 ]
+        // ...
+      }
+    },
+    "permutations": [
+      {
+        "components": {
+          // コンポーネント
+        },
+        "condition": "q.block_property('test:my_property') == 1"
+      }
+      // ...
+    ],
+    "components": {
+      // コンポーネント
+    },
+    "events": {
+      // イベント
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:my_block",
+      "properties": {
+        "test:my_property": [ 0, 1 ]
+        // ...
+      }
+    },
+    ~#B(f00)"permutations": [
+      {
+        "components": {
+          // コンポーネント
+        },
+        "condition": "q.block_property('test:my_property') == 1"
+      }
+      // ...
+    ],B#~
+    ~#B(f00)"components": {
+      // コンポーネント
+    },B#~
+    ~#B(f00)"events": {
+      // イベント
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <p>プロパティ、パーミュテーション、イベントを用いてより複雑な仕様をもったブロックを作ることができます。</p>
+        <h2 class="sec">イベント</h2>
+        <p>イベントをトリガーする(呼び出す)ことができる特定のコンポーネントによって呼び出され、指定したイベントファンクションを動作させます。</p>
+        <div class="box1">
+          <p style="text-align: center;">
+            イベントトリガー系コンポーネント<br>
+            <span style="line-height: 2.5em;">　　　　↓　呼び出す</span><br>
+            イベント
+          </p>
+        </div>
+        <div style="padding: 8px;"></div>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:my_block"
+    },
+    "components": {
+      "minecraft:〇〇": { // イベントトリガー系コンポーネント
+        "event": "test" // 呼び出すイベントを指定
+      }
+    },
+    "events": {
+      "test": { // イベント名
+        // イベントファンクション
+      }
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:my_block"
+    },
+    ~#B(f00)"components": {
+      "minecraft:〇〇": { // イベントトリガー系コンポーネント
+        "event": "~#M(83ffd9)testM#~" // 呼び出すイベントを指定
+      }
+    },B#~
+    ~#B(f00)"events": {
+      "~#M(83ffd9)testM#~": { // イベント名
+        // イベントファンクション
+      }
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <h2 class="sec">プロパティ・パーミュテーション</h2>
+        <p>プロパティを定義して、ハーフブロックの上付き・下付きのようにブロック自体は同じでも<b>「状態」</b>が異なるものとして扱うことができます。</p>
+        <p>プロパティの値は、真偽値、整数値、文字列のみで、定義するときに長さを決定する必要があります。</p>
+        <p>パーミュテーションはプロパティなどの条件(condition)を元に、コンポーネントを上書きしたり追加したりするのに使います。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:my_block",
+      "properties": {
+        "test:my_property_bool": [ false, true ],
+        "test:my_property_int": [ 0, 1, 2, 3 ],
+        "test:my_property_string": [ "a", "b", "c" ]
+        // ...
+      }
+    },
+    "permutations": [
+      {
+        "components": {
+          // コンポーネント
+        },
+        "condition": "q.block_property('test:my_property') == 1"
+      }
+      // ...
+    ],
+    "components": {
+      // コンポーネント
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "test:my_block",
+      ~#B(f00)"properties": {
+        "test:my_property_bool": [ false, true ],
+        "test:my_property_int": [ 0, 1, 2, 3 ],
+        "test:my_property_string": [ "a", "b", "c" ]
+        // ...
+      }B#~
+    },
+    ~#B(f00)"permutations": [
+      {
+        "components": {
+          // コンポーネント
+        },
+        "condition": "q.block_property('test:my_property') == 1"
+      }
+      // ...
+    ],B#~
+    ~#B(f00)"components": {
+      // コンポーネント
+    }B#~
+  }
+}</div>
+          </div>
+        </div>
+        <p>「状態」は主にイベントを介して操作します。</p>
+        <ol>
+          <li><span class="inline">set_block_property</span>イベントファンクションを用いてプロパティを変更</li>
+          <li>パーミュテーションの<span class="inline">"conditon"</span>で現在のプロパティと比較</li>
+          <li>該当するパーミュテーションのコンポーネントで元のコンポーネントを上書きする</li>
+        </ol>
+        <h2 class="sec">具体例</h2>
+        <h3 class="subsec">シンプルなブロック</h3>
+        <p>JSONがシンプルになるように性質を選んできています。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">block01.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block01"
+    },
+    "components": {
+      "minecraft:block_light_emission": 1.0,
+      "minecraft:creative_category": {
+        "category": "construction"
+      },
+      "minecraft:destroy_time": 1.0,
+      "minecraft:explosion_resistance": 5.0,
+      "minecraft:loot": "loot_tables/blocks/block01.json",
+      "minecraft:map_color": "#64ec86"
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <p>このお手本ブロックは以下のような性質を持ちます：</p>
+        <div class="box1">
+          <ul style="padding: 12px 16px;">
+            <li>明るさレベル最大で光る</li>
+            <li>クリエイティブインベントリでは「建造物」カテゴリにある</li>
+            <li>壊すのにかかる時間は1.0秒</li>
+            <li>爆発耐性は5.0</li>
+            <li>ルートテーブルは「loot_tables/blocks/block01.json」を参照</li>
+            <li>地図での表示色は <span style="background: #64ec86; padding: 2px;">#64ec86</span></li>
+          </ul>
+        </div>
+        <h3 class="subsec">オリジナル作業台</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">block02.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block02"
+    },
+    "components": {
+      "minecraft:crafting_table": {
+        "grid_size": 3,
+        "crafting_tags": [ "my_craft" ],
+        "custom_description": "UIに表示する作業台の名前"
+      }
+      // +その他のコンポーネント
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <p>
+          クラフトのマスは3x3のみです。<span class="inline">"crafting_tags"</span>はレシピの"tags"と対応させて同じタグを持ったレシピのクラフトしかできないようにします。
+        </p>
+        <h3 class="subsec">特殊な形のブロック</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">block03.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block03"
+    },
+    "components": {
+      "minecraft:geometry": "geometry.geometry_block",
+      "minecraft:material_instances": {
+        "*": {
+          "material": "opaque",
+          "texture": "geometry_block" // TerrainID
+        }
+      }
+      // +その他のコンポーネント
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <p>
+          <span class="inline">minecraft:geometry</span>コンポーネントを使うときは<span class="inline">minecraft:material_instances</span>コンポーネントも必須です。
+        </p>
+        <h3 class="subsec">特別な場所にしか置けないブロック</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">simple_block.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:simple_block"
+    },
+    "components": {
+      "minecraft:placement_filter": {
+        "conditions": [
+          {
+            "allowed_faces": [ "up" ],
+            "block_filter": [ "minecraft:grass", "minecraft:dirt" ]
+          },
+          {
+            "allowed_faces": [ "up", "down" ],
+            "block_filter": [ "minecraft:stone" ]
+          }
+        ]
+      }
+      // +その他のコンポーネント
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <p>この場合、草ブロックと土の上面と石の上下面にだけ置けます。</p>
+        <h3 class="subsec">半透明のブロック</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">block04.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block04"
+    },
+    "components": {
+      "minecraft:material_instances": {
+        "*": {
+          "material": "blend",
+          "texture": "blend_block" // TerrainID
+        }
+      }
+      // +その他のコンポーネント
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <p></p>
+        <h3 class="subsec">アイテムを持って右クリorタップするとコマンドが実行されるブロック</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">block11.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block11"
+    },
+    "components": {
+      "minecraft:on_interact": {
+        "event": "ex:interact",
+        "target": "self",
+        "condition": "q.get_equipped_item_name('main_hand') == 'cobblestone'"
+      }
+      // +その他のコンポーネント
+    },
+
+    "events": {
+      "ex:interact": {
+        "run_command": "setblock ~ ~1 ~ cobblestone"
+      }
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <p>丸石を持って右クリック/タップしたときのみ丸石がブロックの上に/setblockされます。</p>
+        <h3 class="subsec">アイテム(2種類)を持って右クリorタップするとコマンドが実行されるブロック</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">block12.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block12"
+    },
+    "components": {
+      "minecraft:on_interact": {
+        "event": "ex:interact",
+        "target": "self",
+        "condition": "q.get_equipped_item_name('main_hand') == 'cobblestone' || q.get_equipped_item_name('main_hand') == 'dirt'"
+      }
+    },
+
+    "events": {
+      "ex:interact": {
+        "sequence": [
+          {
+            "condition": "q.get_equipped_item_name('main_hand') == 'cobblestone'",
+            "trigger": {
+              "condition": "(1.0)",
+              "event": "ex:setblock_cobblestone",
+              "target": "self"
+            }
+          },
+          {
+            "condition": "q.get_equipped_item_name('main_hand') == 'dirt'",
+            "trigger": {
+              "condition": "(1.0)",
+              "event": "ex:setblock_dirt",
+              "target": "self"
+            }
+          }
+        ]
+      },
+      "ex:setblock_cobblestone": {
+        "run_command": { "command": "setblock ~ ~1 ~ cobblestone" }
+      },
+      "ex:setblock_dirt": {
+        "run_command": { "command": "setblock ~ ~1 ~ dirt" }
+      }
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <p>このブロックに右クリック/タップをするとき、</p>
+        <ul>
+          <li>丸石をもってると丸石を上に/setblock</li>
+          <li>土を持っていると土を上に/setblock</li>
+        </ul>
+        <h3 class="subsec">原木のように向きが変わるブロック</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">block13.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block13",
+      "properties": {
+        "ex:rotation": [ 1, 2, 3 ]
+      }
+    },
+
+    "permutations": [
+      {
+        "components": { "minecraft:rotation": [ 0, 0, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 1"
+      },
+      {
+        "components": { "minecraft:rotation": [ 90, 0, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 2"
+      },
+      {
+        "components": { "minecraft:rotation": [ 0, 0, 90 ] },
+        "condition": "q.block_property('ex:rotation') == 3"
+      }
+    ],
+
+    "components": {
+      "minecraft:geometry": "geometry.block", // 普通のブロックの形のジオメトリ
+      "minecraft:material_instances": {
+        "*": { // 全面
+          "texture": "log_side",
+          "render_method": "alpha_test"
+        },
+        "up": { // 上面
+          "texture": "log_top",
+          "render_method": "alpha_test"
+        },
+        "down": "up" // 下面(上面と同じ指定)
+      },
+      "minecraft:on_player_placing": {
+        "event": "ex:on_placed"
+      }
+      // +その他のコンポーネント
+    },
+
+    "events": {
+      "ex:on_placed": { // 下,上で0, 北,南で1, 西,東で2
+        "set_block_property": { "ex:rotation": "math.floor(q.block_face/2)+1" }
+      }
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <p></p>
+        <h3 class="subsec">壁のみに張り付くタイプの向きが変わるブロック</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">block14.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block14",
+      "properties": {
+        "ex:rotation": [ 2, 3, 4, 5 ]
+      }
+    },
+
+    "permutations": [
+      {
+        "components": { "minecraft:rotation": [ 0, 0, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 2"
+      },
+      {
+        "components": { "minecraft:rotation": [ 0, 180, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 3"
+      },
+      {
+        "components": { "minecraft:rotation": [ 0, 90, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 4"
+      },
+      {
+        "components": { "minecraft:rotation": [ 0, -90, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 5"
+      }
+    ],
+
+    "components": {
+      "minecraft:on_player_placing": {
+        "event": "on_placed"
+      },
+      "minecraft:placement_filter": {
+        "conditions": [
+          { "allowed_faces": [ "side" ] }
+        ]
+      }
+      // +その他のコンポーネント
+    },
+
+    "events": {
+      "on_placed": {
+        "set_block_property": { "ex:rotation": "q.block_face" }
+      }
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <p>壁にしか置けないようになっています。トリップワイヤーフックなどがそうです。</p>
+        <h3 class="subsec">すべての側面に張り付くタイプの向きが変わるブロック</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">block15.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block15",
+      "properties": {
+        "ex:rotation": [ 0, 1, 2, 3, 4, 5 ]
+      }
+    },
+
+    "permutations": [
+      {
+        "components": { "minecraft:rotation": [ 180, 0, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 0"
+      },
+      {
+        "components": { "minecraft:rotation": [ 0, 0, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 1"
+      },
+      {
+        "components": { "minecraft:rotation": [ -90, 0, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 2"
+      },
+      {
+        "components": { "minecraft:rotation": [ 90, 0, 0 ] },
+        "condition": "q.block_property('ex:rotation') == 3"
+      },
+      {
+        "components": { "minecraft:rotation": [ 0, 0, 90 ] },
+        "condition": "q.block_property('ex:rotation') == 4"
+      },
+      {
+        "components": { "minecraft:rotation": [ 0, 0, -90 ] },
+        "condition": "q.block_property('ex:rotation') == 5"
+      }
+    ],
+
+    "components": {
+      "minecraft:on_player_placing": {
+        "event": "ex:on_placed"
+      }
+      // +その他のコンポーネント
+    },
+
+    "events": {
+      "ex:on_placed": {
+        "set_block_property": { "ex:rotation": "q.block_face" }
+      }
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <p>たとえばボタンなどがそうです。</p>
+        <h3 class="subsec">フェンス風隣の同じブロックとつながるブロック</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title">block16.json</div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.100",
+  "minecraft:block": {
+    "description": {
+      "identifier": "ex:block16",
+      "properties": {
+        "ex:direction": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ]
+      }
+    },
+
+    "permutations": [
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -2.0, 0.0, -2.0 ], "size": [ 4.0, 16.0, 4.0 ] },
+          "minecraft:pick_collision": { "origin": [ -2.0, 0.0, -2.0 ], "size": [ 4.0, 16.0, 4.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 0"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -2.0, 0.0, -8.0 ], "size": [ 4.0, 16.0, 10.0 ] },
+          "minecraft:pick_collision": { "origin": [ -2.0, 0.0, -8.0 ], "size": [ 4.0, 16.0, 10.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 1"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -8.0, 0.0, -2.0 ], "size": [ 10.0, 16.0, 4.0 ] },
+          "minecraft:pick_collision": { "origin": [ -8.0, 0.0, -2.0 ], "size": [ 10.0, 16.0, 4.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 2"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -8.0, 0.0, -8.0 ], "size": [ 10.0, 16.0, 10.0 ] },
+          "minecraft:pick_collision": { "origin": [ -8.0, 0.0, -8.0 ], "size": [ 10.0, 16.0, 10.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 3"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -2.0, 0.0, -2.0 ], "size": [ 4.0, 16.0, 10.0 ] },
+          "minecraft:pick_collision": { "origin": [ -2.0, 0.0, -2.0 ], "size": [ 4.0, 16.0, 10.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 4"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -2.0, 0.0, -8.0 ], "size": [ 4.0, 16.0, 16.0 ] },
+          "minecraft:pick_collision": { "origin": [ -2.0, 0.0, -8.0 ], "size": [ 4.0, 16.0, 16.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 5"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -8.0, 0.0, -2.0 ], "size": [ 10.0, 16.0, 10.0 ] },
+          "minecraft:pick_collision": { "origin": [ -8.0, 0.0, -2.0 ], "size": [ 10.0, 16.0, 10.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 6"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -8.0, 0.0, -8.0 ], "size": [ 10.0, 16.0, 16.0 ] },
+          "minecraft:pick_collision": { "origin": [ -8.0, 0.0, -8.0 ], "size": [ 10.0, 16.0, 16.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 7"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -2.0, 0.0, -2.0 ], "size": [ 10.0, 16.0, 4.0 ] },
+          "minecraft:pick_collision": { "origin": [ -2.0, 0.0, -2.0 ], "size": [ 10.0, 16.0, 4.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 8"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -2.0, 0.0, -8.0 ], "size": [ 10.0, 16.0, 10.0 ] },
+          "minecraft:pick_collision": { "origin": [ -2.0, 0.0, -8.0 ], "size": [ 10.0, 16.0, 10.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 9"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -8.0, 0.0, -2.0 ], "size": [ 16.0, 16.0, 4.0 ] },
+          "minecraft:pick_collision": { "origin": [ -8.0, 0.0, -2.0 ], "size": [ 16.0, 16.0, 4.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 10"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -8.0, 0.0, -8.0 ], "size": [ 16.0, 16.0, 10.0 ] },
+          "minecraft:pick_collision": { "origin": [ -8.0, 0.0, -8.0 ], "size": [ 16.0, 16.0, 10.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 11"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -2.0, 0.0, -2.0 ], "size": [ 10.0, 16.0, 10.0 ] },
+          "minecraft:pick_collision": { "origin": [ -2.0, 0.0, -2.0 ], "size": [ 10.0, 16.0, 10.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 12"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -2.0, 0.0, -8.0 ], "size": [ 10.0, 16.0, 16.0 ] },
+          "minecraft:pick_collision": { "origin": [ -2.0, 0.0, -8.0 ], "size": [ 10.0, 16.0, 16.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 13"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -8.0, 0.0, -2.0 ], "size": [ 16.0, 16.0, 10.0 ] },
+          "minecraft:pick_collision": { "origin": [ -8.0, 0.0, -2.0 ], "size": [ 16.0, 16.0, 10.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 14"
+      },
+      {
+        "components": {
+          "minecraft:entity_collision": { "origin": [ -8.0, 0.0, -8.0 ], "size": [ 16.0, 16.0, 16.0 ] },
+          "minecraft:pick_collision": { "origin": [ -8.0, 0.0, -8.0 ], "size": [ 16.0, 16.0, 16.0 ] }
+        },
+        "condition": "q.block_property('ex:direction') == 15"
+      }
+    ],
+
+    "components": {
+      "minecraft:geometry": "geometry.fence", // 全方向に伸びていてそれぞれの腕が別のボーン
+      "minecraft:material_instances": { // geometryを使う場合は必須
+        "*": {
+          "texture": "planks",
+          "render_method": "opaque"
+        }
+      },
+      "minecraft:part_visibility": { // ※ "q.block_property(ex:direction)"は0~15の整数
+        "rules": {
+          "north": "math.mod(q.block_property('ex:direction'), 2)",               // 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1
+          "east": "math.mod(math.floor(q.block_property('ex:direction')/2), 2)",  // 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1
+          "south": "math.mod(math.floor(q.block_property('ex:direction')/4), 2)", // 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1
+          "west": "q.block_property('ex:direction') > 7"                          // 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1
+        }
+      },
+      "minecraft:ticking": {
+        "looping": true,
+        "range": [ 0, 0 ],
+        "on_tick": { "event": "checking", "target": "self" }
+      }
+    },
+
+    "events": {
+      "checking": {
+        "set_block_property": { // 北 + 2×東 + 4×南 + 8×西  (それぞれの方角からつながってる(=1)かつながっていないか(=0)が返ってくる)
+          "ex:direction": "q.block_neighbor_has_any_tag(0,0,-1,'my_fence')+2*q.block_neighbor_has_any_tag(1,0,0,'my_fence')+4*q.block_neighbor_has_any_tag(0,0,1,'my_fence')+8*q.block_neighbor_has_any_tag(-1,0,0,'my_fence')"
+        }
+      }
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <p>バニラのブロックとつながるようにするためにはぜんぶ指定する必要があります。</p>
+        <p>当たり判定などはMolangが対応してないのでパーミュテーションで一つずつ指定するしかないです。</p>
+        <h2 class="sec">できないこと</h2>
+        <ul>
+          <li>バニラのブロックに変更を加える</li>
+        </ul>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「エンティティ(ビヘイビア)」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「エンティティ(ビヘイビア)」 - ますえくNOTE" />
+    <meta property="og:description" content="ビヘイビアパックの要素である「エンティティ」について詳しく説明します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > エンティティ(ビヘイビア)</div>
+        <h1 class="title" id="top">アドオン詳細解説 - エンティティ(ビヘイビア)</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">ファイル・フォルダの場所</h2>
+        <p>ビヘイビアパックの「entities」フォルダにファイルを置きます。</p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              ビヘイビア<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.json<br>
+              　 ┗ entities<br>
+              　 　 ┗ 〇〇.json
+            </p>
+          </div>
+        </div>
+        <h2 class="sec">作成の手順</h2>
+        <p>エンティティ本体に加えてテクスチャも追加するので、<b>ビヘイビアとリソース両方が必要</b>になります。</p>
+        <div class="center">
+          <div class="box1">
+            <ol>
+              <li>
+                entitiesフォルダに定義JSONを新規作成する<br>
+                (+ エンティティイベントを作成)
+              </li>
+              <li>テクスチャの追加</li>
+              <li>ジオメトリの追加</li>
+              <li>アニメーション(リソース)の追加</li>
+              <li>アニコン(リソース)の追加</li>
+              <li>レンコンの追加</li>
+              <li>entity_clientのJSONを作成</li>
+            </ol>
+          </div>
+        </div>
+        <details><summary>注</summary>
+          <p>
+            アニコン：アニメーションコントローラの略<br>
+            レンコン：レンダーコントローラの略
+          </p>
+        </details>
+        <h2 class="sec">エンティティを定義するJSON</h2>
+        <h3 class="subsec">基本構造</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.18.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "ex:my_entity",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      // コンポーネント
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">詳細な構造</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.18.0",
+  "minecraft:entty": {
+    "description": {
+      "identifier": "ex:my_entity",
+      "is_spawnable": true,
+      "is_summonabled": true,
+      "is_experimental": false,
+      "runtime_identifier": "ex:runtime_entity",
+      "properties":{
+        // アクタープロパティ
+      },
+      "aliases": {
+        // エイリアス
+      },
+      "scripts": {
+        "animate": [
+          // エンティティイベント名
+        ]
+      },
+      "animations": {
+        // エンティティイベント
+      }
+    },
+
+    "permutations": [
+      // パーミュテーション
+    ],
+
+    "component_groups": {
+      // コンポーネントグループ
+    },
+
+    "components": {
+      // コンポーネント
+    },
+
+    "events": {
+      // イベント
+    }
+  }
+}</code>
+          </div>
+        </div>
+        <p>各プロパティについて：</p>
+        <table style="width: 100%;">
+          <tr><th>プロパティ名</th><th>簡単な説明</th></tr>
+          <tr><td><span class="inline">"identifier"</span></td><td>このエンティティのID</td></tr>
+          <tr><td><span class="inline">"is_spawnable"</span></td><td>スポーンエッグをクリエイティブインベントリに追加するかどうか</td></tr>
+          <tr><td><span class="inline">"is_summonable"</span></td><td>コマンドで/summonできるかどうか</td></tr>
+          <tr><td><span class="inline">"is_experimental"</span></td><td>試験的かどうか(基本的に<span class="inline">false</span>でいい)</td></tr>
+          <tr><td><span class="inline">"runtime_identifier"</span></td><td>性質を継承するエンティティのID</td></tr>
+        </table>
+        <h2 class="sec">コンポーネント</h2>
+        <p>このエンティティの性質はコンポーネントによって決まります。一つひとつのコンポーネントは</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"minecraft:〇〇": {
+  // 0個以上のプロパティ
+}</code>
+          </div>
+        </div>
+        <p>という形をしています。</p>
+        <h2 class="sec">イベント</h2>
+        <h3 class="subsec">形態の変化とコンポーネントグループ</h3>
+        <p>
+          <span class="inline">"components"</span>に書かれた<b>コンポーネント</b>はそのエンティティの<u>デフォルトの性質</u>になります。
+          たとえば、ゾンビは子どもや大人など複数の形態を持ちますが、同じエンティティなので共通する性質(デフォルトの性質)があります。
+          そのような共通の性質は<span class="inline">"components"</span>に書きます。
+        </p>
+        <p>
+          一方、子ども/大人のように形態によって変わる性質がある場合は、その性質を切り替えられるようにする必要があります。
+          そこで、<span class="inline">"component_groups"</span>の<b>コンポーネントグループ</b>を利用します。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"component_groups": {
+  "group_a": {
+    // 形態Aのコンポーネント
+  },
+  "group_b": {
+    // 形態Bのコンポーネント
+  }
+}</code>
+          </div>
+        </div>
+        <p>
+          コンポーネントグループを切り替えるには<span class="inline">"events"</span>の<b>イベント</b>を利用します。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"events": {
+  "change_to_a": { // 形態Aに変化
+    "add": { "component_groups": [ "group_a" ] }, // グループ"group_a"を追加
+    "remove": { "component_groups": [ "group_b" ] } // グループ"group_b"を削除
+  },
+  "change_to_b": { // 形態Bに変化
+    "add": { "component_groups": [ "group_b" ] }, // グループ"group_b"を削除
+    "remove": { "component_groups": [ "group_a" ] } // グループ"group_a"を追加
+  }
+}</code>
+          </div>
+        </div>
+        <p>
+          イベントは特定のコンポーネントによって発生させることができます。
+        </p>
+        <h3 class="subsec">イベントファンクション</h3>
+        <p>
+          一つひとつのイベントでは<b>イベントファンクション</b>を用いて何を起こすかを指定します。
+          コンポーネントグループを追加したり削除したりする<span class="inline">"add"</span>、<span class="inline">"remove"</span>もイベントファンクションです。
+        </p>
+        <p>エンティティのイベントファンクションは以下の通りです：</p>
+        <table style="width: 100%;">
+          <tr><th>名前</th><th>簡単な説明</th></tr>
+          <tr><td><span class="inline">"add"</span></td><td>コンポーネントグループを追加する</td></tr>
+          <tr><td><span class="inline">"remove"</span></td><td>コンポーネントグループを削除する</td></tr>
+          <tr><td><span class="inline">"run_command"</span></td><td>コマンドを実行する</td></tr>
+          <tr><td><span class="inline">"set_actor_property"</span></td><td>アクタープロパティの値を変更する</td></tr>
+          <tr><td><span class="inline">"sequence"</span></td><td>複数のイベントファンクションを実行する</td></tr>
+          <tr><td><span class="inline">"randomize"</span></td><td>指定した中からランダムに実行</td></tr>
+          <tr><td><span class="inline">"trigger"</span></td><td>イベントを実行</td></tr>
+        </table>
+        <h2 class="sec">エンティティイベント</h2>
+        <p>
+          より複雑な挙動を実現するために<b>エンティティイベント</b>というものが利用できます。
+          詳しい説明は別記事に書いたのでここではエンティティ本体との紐づけかたを説明します。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"scripts": {
+  "animate": [
+    "ex1"
+  ]
+},
+"animations": {
+  "ex1": "(EntityEvのID)"
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">"scripts": {
+  "animate": [
+    "~#M(83ffd9)ex1M#~"
+  ]
+},
+"animations": {
+  "~#M(83ffd9)ex1M#~": "(EntityEvのID)"
+}</div>
+          </div>
+        </div>
+        <p>
+          <span class="inline">"animations"</span>で紐づけるエンティティイベントに、各自で名前をつけて(例では<span class="inline">"ex1"</span>)、IDと紐づけます。
+        </p>
+        <p>
+          次に、その名前を<span class="inline">"scripts"</span>の<span class="inline">"animate"</span>で指定します。
+          上記のように、単に指定するだけならそのエンティティから毎tick実行されます。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"scripts": {
+  "animate": [
+    { "ex1": "(Molang式)" }
+  ]
+},
+"animations": {
+  "ex1": "(エンティティイベントのID)"
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">"scripts": {
+  "animate": [
+    ~#M(83ffd9){ "ex1": "(Molang式)" }M#~
+  ]
+},
+"animations": {
+  "ex1": "(エンティティイベントのID)"
+}</div>
+          </div>
+        </div>
+        <p>また、このようにしてMolang式とともに指定すると、Molang式の条件を満たしたときだけ処理されるようになります。</p>
+        <h2 class="sec">アクタープロパティ</h2>
+        <p>
+          <b>アクタープロパティ</b>はエンティティが変数を持てるようにすることができます。
+          <span class="inline">"minecraft:variant"</span>コンポーネントとコンポーネントグループを用いてほとんど同じことができますが、
+          数値の種類が膨大なとき、数値以外の変数をもつとき、グループを用いるには小規模であるとき(HPのような簡単に変化する値を管理するなど)に役立ちます。
+        </p>
+        <h3 class="subsec">プロパティを定義する</h3>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"properties": {
+  "property:prop_bool": { "type": "bool", "default": false },
+  "property:prop_int": { "type": "int", "default": 0 },
+  "property:prop_string": { "type": "string", "default": "default" },
+}</code>
+          </div>
+        </div>
+        <p>そもそもプロパティの種類(type)は<span class="inline">"bool"</span>(真偽値)、<span class="inline">"int"</span>(整数値)、<span class="inline">"string"</span>(文字列)の3種類に限られます。</p>
+        <p>プロパティを定義するには、<span class="inline">"properties"</span>で</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"property:(プロパティ名)": { "type": "(プロパティのタイプ)" }</code>
+          </div>
+        </div>
+        <p>のようにして定義します。</p>
+        <p>また、定義するときにオプションとして以下のプロパティが追加できます。</p>
+        <table style="width: 100%;">
+          <tr><th>プロパティ名</th><th>簡単な説明</th></tr>
+          <tr><td><span class="inline">"default"</span></td><td>プロパティのデフォルト値</td></tr>
+          <tr><td><span class="inline">"client_sync"</span></td><td>リソースで値を取得できるようにするかどうか</td></tr>
+        </table>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"property:definition_ex": {
+  "type": "int",
+  "default": 1,
+  "client_sync": true
+}</code>
+          </div>
+        </div>
+        <p>プロパティの値をMolangで取得するには、クエリ<span class="inline">q.property</span>を使います。</p>
+        <h3 class="subsec">エイリアス</h3>
+        <p>このエンティティに専用の、別のIDを新たに作成して、そのIDでプロパティの値が既に決まったエンティティをスポーンさせる(/summonなど)ことができます。</p>
+        <p>エイリアスは以下のように設定します。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"aliases": {
+  "(専用のID)": {}, // プロパティに値を指定しない場合
+  "(専用のID)": {
+    "property:(プロパティ名)": "(値)"
+  }
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">パーミュテーション</h3>
+        <p>
+          <b>パーミュテーション</b>でコンポーネントグループのようにプロパティの値によってエンティティの形態(= パーミュテーション)を変化させることができます。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"permutations": [
+  { // 1つの形態(=Perm)
+    "components": {
+      // コンポーネント
+    },
+    "condition": "(Molang式)"
+  }
+]</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">"permutations": [
+  ~#B(f00){ // 1つの形態(=Perm)
+    "components": {
+      // コンポーネント
+    },
+    "condition": "(Molang式)"
+  }B#~
+]</div>
+          </div>
+        </div>
+        <p>
+          <span class="inline">"condition"</span>のMolang式でプロパティを基にした条件式を書き、
+          その条件が満たされたとき(= プロパティが特定の値になったとき)のみ同オブジェクト内(赤枠内)の<span class="inline">"components"</span>に書かれたコンポーネントが適用されます。
+        </p>
+        <p>パーミュテーションを複数にするときは、赤枠部分を増やします：</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">"permutations": [
+  { // Perm1
+    "components": {
+      // Perm1のコンポーネント
+    },
+    "condition": "(Molang式)"
+  },
+  { // Perm2
+    "components": {
+      // Perm2のコンポーネント
+    },
+    "condition": "(Molang式)"
+  }
+]</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">"permutations": [
+  ~#B(f00){ // Perm1
+    "components": {
+      // Perm1のコンポーネント
+    },
+    "condition": "(Molang式)"
+  },B#~
+  ~#B(f00){ // Perm2
+    "components": {
+      // Perm2のコンポーネント
+    },
+    "condition": "(Molang式)"
+  }B#~
+]</div>
+          </div>
+        </div>
+        <h2 class="sec">できないこと</h2>
+        <ul>
+          <li>当たり判定(CollisionBox)が複雑なモブ(蛇など)</li>
+        </ul>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

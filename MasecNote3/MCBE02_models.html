@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>【Minecraft BE(統合版)】アドオン詳細解説「モデル(ジオメトリ)」 - ますえくNOTE</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="【Minecraft BE(統合版)】アドオン詳細解説「モデル(ジオメトリ)」 - ますえくNOTE" />
+    <meta property="og:description" content="アドオンの要素である「モデル(ジオメトリ)」について詳しく説明します。" />
+    <meta property="og:image" content="img/fav.png" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="main.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_switch">
+    <label for="sidebar_switch"><div class="sidebar_button no-select">目次</div></label>
+    <div class="header" id="header">
+      <div class="homepage_name no-select"><a href="home.html">ますえくNOTE</a></div>
+    </div>
+    <div id="header_padding"></div>
+    <noscript>表示の変更やボタンなどの一部機能にJavaScriptを利用しています。JavaScriptを有効にすることをお勧めします。</noscript>
+    <div class="root_box" id="root_box">
+      <div class="main_content" id="main_content">
+        <div class="breadcrumbs">Minecraft BE(統合版) > アドオン詳細解説 > モデル(ジオメトリ)</div>
+        <h1 class="title" id="top">アドオン詳細解説 - モデル(ジオメトリ)</h1>
+        <div class="days">アップロード:2023/01/01　最終更新:2023/01/01</div>
+        <div style="padding: 8px 0;"></div>
+        <p></p>
+        <details class="index" id="main_index" open><summary>目次 (折りたたみ可)</summary></details>
+        <h2 class="sec">機能</h2>
+        <p>エンティティやブロックのモデル(形)を作るためのものとして、<b>ジオメトリ</b>というものが用意されています。</p>
+        <p>バニラのエンティティに関しては変更ができますが、バニラのブロックのモデル変更はできません。</p>
+        <h2 class="sec">ファイルの場所</h2>
+        <p>リソースパックのmodelsフォルダにファイルを置きます。</p>
+        <div class="center">
+          <div class="box1">
+            <p>
+              リソース<br>
+              　 ┣ manifest.json<br>
+              　 ┣ pack_icon.png<br>
+              　 ┗ <b>models</b><br>
+              　 　 ┣<b>entity</b><br>
+              　 　 ┃ ┗<b>〇〇.json</b><br>
+              　 　 ┗<b>blocks</b><br>
+              　 　 　 ┗<b>〇〇.json</b>
+            </p>
+          </div>
+        </div>
+        <p>その中でさらにエンティティはentityフォルダ、ブロックはblocksフォルダに分けることができます。</p>
+        <h2 class="sec">基本の構造</h2>
+        <p>赤枠の部分を増やしてボーンを増やします。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "format_version": "1.16.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.cube",
+        "visible_bounds_width": 1.0,
+        "visible_bounds_height": 1.0,
+        "visible_bounds_offset": [ 0.0, 0.0, 0.0 ],
+        "texture_width": 64,
+        "texture_height": 32
+      },
+      "bones": [
+        {
+          "name": "body",
+          "pivot": [ 0.0, 8.0, 0.0 ],
+          "rotation": [ 0.0, 0.0, 0.0 ],
+          "cubes": [
+            {
+              "origin": [ -8.0, 0.0, -8.0 ],
+              "size": [ 16.0, 16.0, 16.0 ],
+              "pivot": [ 0.0, 8.0, 0.0 ],
+              "rotation": [ 0.0, 0.0, 0.0 ],
+              "uv": [ 0.0, 0.0 ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">{
+  "format_version": "1.16.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.cube",
+        "visible_bounds_width": 1.0,
+        "visible_bounds_height": 1.0,
+        "visible_bounds_offset": [ 0.0, 0.0, 0.0 ],
+        "texture_width": 64,
+        "texture_height": 32
+      },
+      "bones": [
+        ~#B(f00){
+          "name": "body",
+          "pivot": [ 0.0, 8.0, 0.0 ],
+          "rotation": [ 0.0, 0.0, 0.0 ],
+          "cubes": [
+            ~#B(00f){
+              "origin": [ -8.0, 0.0, -8.0 ],
+              "size": [ 16.0, 16.0, 16.0 ],
+              "pivot": [ 0.0, 8.0, 0.0 ],
+              "rotation": [ 0.0, 0.0, 0.0 ],
+              "uv": [ 0.0, 0.0 ]
+            }B#~
+          ]
+        }B#~
+      ]
+    }
+  ]
+}</div>
+          </div>
+        </div>
+        <h3 class="subsec">identifier</h3>
+        <p>ジオメトリのID。</p>
+        <h3 class="subsec">texture_width, texture_height</h3>
+        <p>
+          <span class="inline">texture_width</span>がこのモデルに貼るテクスチャの横幅、
+          <span class="inline">texture_height</span>が縦幅。
+        </p>
+        <h3 class="subsec">visible_bounds_width, visible_bounds_height</h3>
+        <p>
+          3Dゲームでは当たり前の、視界から外れたらモデルが非表示になるやつです。
+          <span class="inline">visible_bounds_width</span>が横幅、<span class="inline">visible_bounds_height</span>が縦幅の長方形で指定します。<br>
+          たとえば、横に長いモブを作ったときに<span class="inline">visible_bounds_width</span>が短いと、
+          そのモブに近づいて横を見ると目の前でモデルがパッと消えることがあります。
+        </p>
+        <h2 class="sec">ボーン</h2>
+        <p>
+          ボーンとは具体的に「<b>関節を含まないキューブのグループ</b>」のことを指します。
+          よって、あとで<u>アニメーションで動かす部分を考慮して</u>キューブのグループを決める必要があります。
+        </p>
+        <p>
+          たとえば、腕をモデリングする際に<ruby><rb>肘</rb><rp>(</rp><rt>ひじ</rt><rp>)</rp></ruby>が曲がらなくてもいいなら
+          片腕で<u>1つのボーン</u>にしますが、曲げる必要があるならば片腕だけでも上半分と下半分で<u>2つのボーン</u>に分ける必要があります。
+        </p>
+        <div class="center"><img src="img/MCBE02_models_01.png" class="default_setting"></div>
+        <h3 class="subsec">name</h3>
+        <p>ボーンの名前。アルファベット、アンダーバー( _ )、数字(頭文字以外)で決めます。アニメーションはこの名前で紐づけます。</p>
+        <h3 class="subsec"><ruby><rb>pivot</rb><rp>(</rp><rt>ピボット</rt><rp>)</rp></ruby></h3>
+        <p>回転の中心。たとえば腕なら、肩の位置にピボットを持ってこないと明らかに変になります。</p>
+        <h3 class="subsec">rotation</h3>
+        <p>それぞれx, y, z軸を軸とした回転。</p>
+        <div class="center"><img src="img/MCBE02_models_02.png" class="default_setting"></div>
+        <h2 class="sec">キューブ</h2>
+        <p>キューブはそのまま、モデルに含まれる一つひとつの直方体すべてです。0個以上のキューブが複数集まってボーンを形成することができます。</p>
+        <div class="center"><img src="img/MCBE02_models_03.png" class="default_setting"></div>
+        <h3 class="subsec">origin, size</h3>
+        <p><span class="inline">origin</span>を基準点として、そこから<span class="inline">size</span>の値の辺の長さをもった直方体を構成します。</p>
+        <div class="center"><img src="img/MCBE02_models_04.png" class="default_setting"></div>
+        <h3 class="subsec">pivot</h3>
+        <p>回転の中心。使い方はボーンのpivotと同じ。</p>
+        <h3 class="subsec">rotation</h3>
+        <p>それぞれx, y, z軸を軸とした回転。</p>
+        <h3 class="subsec">uv</h3>
+        <p>テクスチャを切り取る基準座標。<u>左上が原点</u>で、<u>右が</u><span class="inline">u+</span><u>、下が</u><span class="inline">v+</span><u>。</u></p>
+        <div class="center"><img src="img/MCBE02_models_05.png" class="default_setting"></div>
+        <h2 class="sec">面ごとにUVを指定する</h2>
+        <p>キューブに対して、UVを面ごとに指定できます。</p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "origin": [ -8.0, 0.0, -8.0 ],
+  "size": [ 16.0, 16.0, 16.0 ],
+  "pivot": [ 0.0, 8.0, 0.0 ],
+  "uv": {
+    "north": { // 北
+      "uv": [ 32.0, 16.0 ], "uv_size": [ 16.0, 16.0 ]
+    },
+    "south": { // 南
+      "uv": [ 16.0, 16.0 ], "uv_size": [ 16.0, 16.0 ]
+    },
+    "east": { // 東
+      "uv": [  0.0, 16.0 ], "uv_size": [ 16.0, 16.0 ]
+    },
+    "west": { // 西
+      "uv": [ 48.0, 16.0 ], "uv_size": [ 16.0, 16.0 ]
+    },
+    "up": { // 上
+      "uv": [ 16.0,  0.0 ], "uv_size": [ 16.0, 16.0 ]
+    },
+    "down": { // 下
+      "uv": [ 32.0,  0.0 ], "uv_size": [ 16.0, 16.0 ]
+    }
+  }
+}</code>
+          </div>
+          <div class="rich_code:marker_container">
+            <div class="rich_code:markers">~#B(00f){
+  "origin": [ -8.0, 0.0, -8.0 ],
+  "size": [ 16.0, 16.0, 16.0 ],
+  "pivot": [ 0.0, 8.0, 0.0 ],
+  "uv": {
+    "north": { // 北
+      "uv": [ 32.0, 16.0 ], "uv_size": [ 16.0, 16.0 ]
+    },
+    "south": { // 南
+      "uv": [ 16.0, 16.0 ], "uv_size": [ 16.0, 16.0 ]
+    },
+    "east": { // 東
+      "uv": [  0.0, 16.0 ], "uv_size": [ 16.0, 16.0 ]
+    },
+    "west": { // 西
+      "uv": [ 48.0, 16.0 ], "uv_size": [ 16.0, 16.0 ]
+    },
+    "up": { // 上
+      "uv": [ 16.0,  0.0 ], "uv_size": [ 16.0, 16.0 ]
+    },
+    "down": { // 下
+      "uv": [ 32.0,  0.0 ], "uv_size": [ 16.0, 16.0 ]
+    }
+  }
+}B#~</div>
+          </div>
+        </div>
+        <h3 class="subsec">uv_size</h3>
+        <p>切り取る長方形の大きさ(形)。</p>
+        <h2 class="sec">Blockbenchを使う</h2>
+        <p>
+          難しいモデルを組み立てるとき、モデルの完成図を見ずにJSONとにらめっこするだけではかなりキビシイときがあります。
+          そういうときには便利なツール「<ruby><rb>Blockbench</rb><rp>(</rp><rt>ブロックベンチ</rt><rp>)</rp></ruby>」を使いましょう。
+        </p>
+        <a href="https://web.blockbench.net/" class="link_card">
+          <div class="img_field no-select"><img src="https://web.blockbench.net/icon_full.png"></div>
+          <div class="text_field">
+            <h3>Blockbench</h3>
+            <p></p>
+          </div>
+        </a>
+        <p>使い方はまたいつか書きます。</p>
+        <h2 class="sec">メッシュでキューブを構成する</h2>
+        <div class="center"><img src="img/MCBE02_models_06.png" class="default_setting"></div>
+        <p>
+          本来、モデルはいくつかの直方体で構成されますが、エンティティに限りポリゴンメッシュでモデリングできます。
+          ポリゴンメッシュは、直方体はもちろん、それ以外の立体を構成できます。
+        </p>
+        <div class="rich_code">
+          <div class="rich_code:tab is_dark">
+            <div class="rich_code:title"></div>
+            <div class="rich_code:buttons">
+              <button class="rich_code:disp_all no-select">全て表示</button>
+              <button class="rich_code:copy no-select">コピー</button>
+            </div>
+          </div>
+          <div class="rich_code:content">
+            <code class="json">{
+  "name": "body",
+  "pivot": [ 0, 0, 0 ],
+  "poly_mesh": {
+    "normalized_uvs": true,
+    "positions": [
+      [ -8, 0, 8 ],
+      [ 8, 0, 8 ],
+      [ 8, 0, -8 ],
+      [ -8, 0, -8 ],
+      [ 0, 16, 0 ]
+    ],
+    "normals": [
+      [ 0.8944, 0.4472, 0 ],
+      [ 0, 0.4472, 0.8944 ],
+      [ 0, -1, 0 ],
+      [ -0.8944, 0.4472, 0 ],
+      [ 0, 0.4472, -0.8944 ]
+    ],
+    "uvs": [
+      [ 0.0, 0.0 ],
+      [ 1.0, 0.0 ],
+      [ 0.0, 1.0 ],
+      [ 1.0, 1.0 ],
+      [ 0.5, 1.0 ]
+    ],
+    "polys": [
+      [ [ 0, 0, 1 ], [ 4, 0, 4 ], [ 1, 0, 0 ], [ 0, 0, 1 ] ],
+      [ [ 1, 1, 1 ], [ 4, 1, 4 ], [ 2, 1, 0 ], [ 1, 1, 1 ] ],
+      [ [ 0, 2, 0 ], [ 1, 2, 1 ], [ 2, 2, 3 ], [ 3, 2, 2 ] ],
+      [ [ 2, 3, 1 ], [ 4, 3, 4 ], [ 3, 3, 0 ], [ 2, 3, 1 ] ],
+      [ [ 3, 4, 1 ], [ 4, 4, 4 ], [ 0, 4, 0 ], [ 3, 4, 1 ] ]
+    ]
+  }
+}</code>
+          </div>
+        </div>
+        <h3 class="subsec">positions</h3>
+        <p>頂点の座標。普通のキューブのときと数がズレていたりはしません。</p>
+        <h3 class="subsec">normals</h3>
+        <p>法線。1つの面に対して1つ決め、その面のどっちが表かを決める。その面に垂直な、裏から表を向く3次元ベクトル。</p>
+        <h3 class="subsec">uvs</h3>
+        <p>テクスチャを切り取る多角形の頂点。<u>左下が原点で、右にu、上にv、0.0～1.0の割合で位置を決める。</u></p>
+        <h3 class="subsec">polys</h3>
+        <p>多角形(面)。4つの値で頂点を指定する。それぞれの値はpositions、normals、uvsのインデックスを指定する。</p>
+        <div class="center"><img src="img/MCBE02_models_07.png" class="default_setting"></div>
+        <h2 class="sec">ツールを使って作成</h2>
+        <p>各種ツールを利用してある程度簡単に作ることができます。</p>
+        <h3 class="subsec">モデリング</h3>
+        <p>Blockbenchを使ってできます。しかし、通常のモデリングとは最初の画面から違うので説明します。</p>
+        <div class="center"><img src="img/MCBE02_models_08.png" class="default_setting"></div>
+        <p>
+          新規作成のこの画面では「Bedrock Entity」は選ばずに、1番上の「<b>Generic Model</b>」(画像の赤枠部分)<b>を選択</b>し
+          「<b>→Create New Model</b>」を押して編集画面に移動します。
+        </p>
+        <p>直後に現れるウィンドウでは通常のモデリングと同じ、ファイル名やモデルのIDを決めます。</p>
+        <div class="center"><img src="img/MCBE02_models_09.png" class="default_setting"></div>
+        <p>
+          画面右にある<b>ダイヤモンドのようなアイコン</b>を押すと<u>立体が追加できます</u>。
+          追加するときに、図形とその図形に関するいくつかの数値を指定します。図形と数値の意味は以下の通りです：
+        </p>
+        <table style="width: 100%;">
+          <tr><th>図形</th><th>数値1</th><th>数値2</th><th>数値3</th><th>数値4</th></tr>
+          <tr>
+            <td>Cuboid<br>直方体</td>
+            <td>Diameter<br>縦横の長さ(共通)</td>
+            <td>Height<br>高さ</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Pyramid<br>ピラミッド形(正四角錐)</td>
+            <td>Diameter<br>縦横の長さ(共通)</td>
+            <td>Height<br>高さ</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Plane<br>平面(正方形)</td>
+            <td>Diameter<br>一辺の長さ</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Circle<br>円(正多角形)</td>
+            <td>Diameter<br>一辺の長さ</td>
+            <td>Sides<br>辺の数</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Cylinder<br>円柱(正多角柱)</td>
+            <td>Diameter<br>多角形の一辺の長さ</td>
+            <td>Height<br>高さ</td>
+            <td>Sides<br>多角形の辺の数</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Tube<br>トイレットペーパー形正多角柱</td>
+            <td>Diameter<br>多角形の一辺の長さ</td>
+            <td>Height<br>高さ</td>
+            <td>Sides<br>多角形の辺の数</td>
+            <td>Thickness<br>厚さ</td>
+          </tr>
+          <tr>
+            <td>Cone<br>円錐(正多角錐)</td>
+            <td>Diameter<br>多角形の一辺の長さ</td>
+            <td>Height<br>高さ</td>
+            <td>Sides<br>多角形の辺の数</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Sphere<br>球</td>
+            <td>Diameter<br>半径</td>
+            <td>Sides<br>赤道の辺の数</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Torus<br>トーラス(ドーナツ型)</td>
+            <td>Diameter<br>半径</td>
+            <td>Sides<br>外周の辺の数</td>
+            <td>Thickness<br>幅</td>
+            <td>Minor Sides<br>断面の辺の数</td>
+          </tr>
+        </table>
+        <p>円盤や球は、デフォルトだと尖ってしまいますが、Sidesを大きい数にすると円盤や球に見えるようになります(完全な曲線・曲面はできません)。</p>
+        <div class="center"><img src="img/MCBE02_models_10.png" class="default_setting"></div>
+        <p>画面上部にある4つのアイコンを押すと、(ダイヤモンドのようなものから順に右へ)立体・面・辺・頂点を選択するようにモードが切り替わります。</p>
+        <div class="center"><img src="img/MCBE02_models_11.png" class="default_setting"></div>
+        <p>エクスポートするときは左上のタブ「<b>File</b>」から「<b>Export</b>」「<b>Export OBJ Model</b>」<b>を選択</b>します。</p>
+        <p>そして実際にダウンロードできるのは.zipファイルなので、<b>解凍して中にある.objファイルを取り出します</b>。</p>
+        <h4>Blenderでもできる</h4>
+        <p>Blenderが使えて、そちらのほうが慣れているならばBlenderで編集してOBJファイルをエクスポートしてもOKです。</p>
+        <h3 class="subsec">OBJファイルをJSONに変換</h3>
+        <p>エリンギ(<a href="https://twitter.com/McbeEringi?s=20&t=MkGzXwfbUMN8QznW-kwsXQ">@McbeEringi</a>)さんのツールを使います。</p>
+        <a href="https://mcbeeringi.github.io/apps/mc/poly.html" class="link_card">
+          <div class="img_field no-select"><img src="https://mcbeeringi.github.io/img/icon.png"></div>
+          <div class="text_field">
+            <h3>McbeEringi poly_mesh</h3>
+            <p>mcbe model json converter</p>
+          </div>
+        </a>
+        <ol>
+          <li>上部にある、ファイルを選択するところで作ったOBJファイルを選択します。</li>
+          <li>「settings」項目の「geometry.」の隣の枠にジオメトリのIDを入れます。</li>
+          <li>「mcbe geometry」項目の「file」を選択するとファイルがダウンロードされるように、「text」を選択すると下のテキストボックスに結果が出力されて、コピペすることになります。</li>
+          <li> 他は何もいじらずに下の「Run」ボタンを押すと、選んだモードによってそれぞれダウンロードされるか結果がテキストで出力されます。</li>
+        </ol>
+      </div>
+      <div class="side_content" id="side_content"></div>
+    </div>
+    <div class="sidebar no-select">
+      <div class="cancel_index"><label for="sidebar_switch">×</label></div>
+      <div class="mokuzi">もくじ</div>
+      <div class="to_top"><span onclick="jumpTo('top', -66.7)">ページのトップへ</span></div>
+      <div class="content" id="index_content"></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>
