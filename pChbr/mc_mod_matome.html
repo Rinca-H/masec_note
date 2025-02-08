@@ -1,77 +1,128 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <title>MCJE MODまとめ</title>
+    <title>MCJE Modまとめ</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width">
     <!-- <link rel="stylesheet" type="text/css" href="forMemo.css"> -->
     <style type="text/css">
+      @import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap');
+
+      @keyframes BgAnim {
+        0% { background-color: #f48; }
+        50% { background-color: #d26; }
+        100% { background-color: #f48; }
+      }
+
       body {
         margin: 0;
-        background-color: #013;
-        color: #ebebeb;
+        background-color: #383838;
+        color: #f8f8f8;
+        font-family: "Dela Gothic One", sans-serif;
+      }
+      h1, h2, h3, h4 { font-weight: normal; }
+      h1 {
+        margin: 48px 0 0 0;
+      }
+      h2 {
+        border-left: solid 8px #f48;
+        margin-top: 48px;
+        padding-left: 8px;
       }
       div.main {
         margin: 16px;
         width: calc(65% - 32px);
       }
       *::selection {
-        background-color: #0ff4;
-        color: #fff;
+        background-color: #f48;
+        color: #000;
       }
-      p { line-height: 2em; }
-      a:not(:hover) { color: #0ff; text-decoration: none; }
-      a:hover { color: #0ff; text-decoration: underline dashed #0ff; }
-      a { color: #0ff; }
-      table {
-        margin: 16px 0;
+      a:not(:hover) { color: #f48; text-decoration: none; }
+      a:hover {
+        color: #f48;
+        text-decoration: underline dashed #f48;
       }
-      th, td {
-        border-radius: 8px;
-        background-color: #fff2;
-        line-height: 2em;
-      }
-      details {
-        margin: 1em 0;
-        border-left: dashed 3px #fff4;
-      }
-      details p { padding: 0 1em; }
-      summary {
-        cursor: pointer;
-        background-color: #fff4;
-        padding: 0.5em;
-      }
+      a { color: #f48; }
       div.header-text, div.footer-text {
-        font-size: 75%;
-        color: #dddd;
-        margin: 0 .5em;
+        font-size: 10px;
+        color: #808080;
+        margin: -8px;
       }
-      div.footer-text { text-align: right; }
+      div.footer-text {
+        text-align: right;
+        margin-top: 16px;
+      }
       .no-select, summary {
         user-select: none;
         -moz-user-select: none;
         -webkit-user-select: none;
         -ms-user-select: none;
       }
-      div.section { padding-left: 16px; }
 
-      table.mods { width: 100%; }
-      table.mods tr td { display: flex; }
-      table.mods tr td a { font-size: larger; }
+
+      div.row {
+        background-color: #111;
+        border-radius: 8px;
+        box-shadow: 2px 2px 4px #000;
+        display: flex;
+        margin: 8px 0;
+        /* line-height: 2em; */
+      }
+      div.content {
+        width: 50%;
+      }
+      div.row div.content > div {
+        background-color: #282828;
+        border-bottom: solid 3px #404040;
+        border-right: solid 3px #404040;
+        border-radius: 7px;
+        overflow: auto;
+        padding: 8px 16px;
+      }
+      div.row div.main_label {
+        font-size: 20px;
+      }
+      div.row div.sub_content {
+        overflow: auto;
+      }
+      div.row div.sub_content h4 {
+        color: #e0e0e0;
+        margin: 12px 0 4px 0;
+      }
+      div.row div.sub_content span.case {
+        background: linear-gradient(#333, #000);
+        border-left: solid 2px #404040;
+        border-top: solid 2px #404040;
+        border-radius: 100px;
+        color: #e0e0e0;
+        font-size: 12px;
+        padding: 4px 8px;
+      }
+      div.row div.sub_content table {
+        border-collapse: collapse;
+        margin: 0;
+        white-space: nowrap;
+      }
+      div.row div.sub_content table td {
+        background-color: unset;
+        padding: 6px 0 6px 8px;
+      }
+
+
       span.ver {
         font-size: small;
-        color: #dddd;
+        color: #808080;
       }
       div.checkbox, div.content {
         display: inline-block;
       }
       div.checkbox {
-        background-color: #fff4;
+        background-color: #111;
         border-radius: 8px 0 0 8px;
         width: 40px;
       }
       div.content {
-        padding: 8px 16px;
+        padding: 6px;
         position: relative;
         flex: 1;
       }
@@ -91,28 +142,34 @@
         border: solid 3px #0f0;
         background-color: #0f0;
       }
+
+
       div.index {
         position: fixed;
         right: -416px;
         top: 0;
         height: 100%;
         width: 400px;
-        background-color: #124;
+        background-color: #222;
         box-shadow: -8px 0 8px #0003;
+        transition: 200ms;
       }
       div.index div.title {
-        font-size: x-large;
-        font-weight: bold;
-        background-color: #fff2;
-        padding: 18px 24px;
+        font-size: 40px;
+        /* font-weight: bold; */
+        color: #000;
+        padding: 8px 16px;
+        position: absolute; bottom: 0; right: 0;
+        text-align: right;
       }
       div.index div.elem {
-        font-size: large;
-        padding: 8px 24px;
+        font-size: 18px;
+        padding: 10px 24px;
         cursor: pointer;
       }
       div.index div.elem:hover {
-        background-color: #0ff4;
+        animation: BgAnim 1.5s ease 0s infinite normal;
+        color: #000;
       }
       label.index_switch {
         display: inline-block;
@@ -131,29 +188,2769 @@
     </style>
   </head>
   <body>
-    <div class="header-text">uploaded: 2024/10/02　last-edited: 2024/10/02</div>
     <div class="main" id="main">
-      <h1 id="top">MCJE MODまとめ</h1>
-      <hr>
+      <div class="header-text">uploaded: 2024/10/02　last-edited: 2024/10/02</div>
+      <h1 id="top">MCJE Modまとめ</h1>
+      <hr style="border: solid 1.5px #606060;">
       <h2 id="season3">Season3 (in v1.12.2?)</h2>
-      <table id="mods_s3" class="mods"></table>
+      <div class="mod_list">
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb0"><label for="cb0"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/atomicstrykers-battle-towers/files/all?page=1&pageSize=20">
+              AtomicStryker's Battle Towers
+            </a>　<span class="ver">Ver: 1.6.2 ~ 1.12.2</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb1"><label for="cb1"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/biomes-o-plenty/versions">
+              Biomes O' Plenty 
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td><span class="case">for ver ≦ 1.20.4</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/glitchcore/versions">
+                    GlitchCore
+                  </a>　<span class="ver">Ver: 1.20.1 ~ 1.21</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="case">for ver ≦ 1.18</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/terrablender/versions">
+                    TerraBlender
+                  </a>　<span class="ver">Ver: 1.18.2 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb2"><label for="cb2"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/enderio/versions">
+              Ender IO
+            </a>　<span class="ver">Ver: 1.12.2, 1.20.1 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/endercore/versions">
+                    EnderCore
+                  </a>　<span class="ver">Ver: 1.12.2</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb3"><label for="cb3"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/gravestone-mod/versions">
+              GraveStone Mod
+            </a>　<span class="ver">Ver: 1.19 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/gravestone-mod/files/all?filter-game-version=2020709689%3A6756">
+                    GraveStone Mod
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb4"><label for="cb4"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/mekanism/versions">
+              Mekanism
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb5"><label for="cb5"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/mekanism-generators/versions">
+              Mekanism Generators
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb6"><label for="cb6"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/mekanism-tools/versions">
+              Mekanism Tools
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb7"><label for="cb7"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/mmmmmmmmmmmm/versions">
+              MmmMmmMmmMmm
+            </a>　<span class="ver">Ver: 1.18 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/mmmmmmmmmmmm/files/all?filter-game-version=2020709689%3A6756">
+                    MmmMmmMmmMmm
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb8"><label for="cb8"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/quark/versions">
+              Quark
+            </a>　<span class="ver">Ver: 1.9.4 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td><span class="case">for ver ≧ 1.20.1</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/zeta/versions">
+                    Zeta
+                  </a>　<span class="ver">Ver: 1.20.1</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="case">for ver ≦ 1.19.2</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/autoreglib/versions">
+                    AutoRegLib
+                  </a>　<span class="ver">Ver: 1.12.2 ~ 1.19.2</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb9"><label for="cb9"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/roguelike-dungeons/files/all?filter-game-version=2020709689%3A6756">
+              Roguelike Dungeons
+            </a>　<span class="ver">Ver: 1.6.4 ~ 1.12.2</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/roguelikedungeons/versions">
+                    Roguelike Dungeons
+                  </a>　<span class="ver">Ver: 1.20.1 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb10"><label for="cb10"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/serene-seasons/versions">
+              Serene Seasons
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb11"><label for="cb11"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/tinkers-construct/versions">
+              Tinkers' Construct
+            </a>　<span class="ver">Ver: 1.6.4 ~ 1.19.2</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/mantle/versions">
+                    Mantle
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.19.2</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb12"><label for="cb12"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/constructs-armory/versions">
+              Construct's Armory
+            </a>　<span class="ver">Ver: 1.12.2, 1.16.5</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb13"><label for="cb13"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/tropicraft/versions">
+              Tropicraft
+            </a>　<span class="ver">Ver: 1.10.2 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb14"><label for="cb14"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/hwyla/versions">
+              Hwyla
+            </a>　<span class="ver">Ver: 1.10.2 ~ 1.16</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb15"><label for="cb15"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/jei/versions">
+              Just Enough Items
+            </a>　<span class="ver">Ver: 1.8 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+      </div>
       <h2 id="season4">Season4 (in v1.12.2)</h2>
-      <table id="mods_s4" class="mods"></table>
+      <div class="mod_list">
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb16"><label for="cb16"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/biomes-o-plenty/versions">
+              Biomes O' Plenty 
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td><span class="case">for ver ≦ 1.20.4</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/glitchcore/versions">
+                    GlitchCore
+                  </a>　<span class="ver">Ver: 1.20.1 ~ 1.21</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="case">for ver ≦ 1.18</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/terrablender/versions">
+                    TerraBlender
+                  </a>　<span class="ver">Ver: 1.18.2 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb17"><label for="cb17"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/end-ores/files/all?page=1&pageSize=20">
+              End Ores
+            </a>　<span class="ver">Ver: 1.8 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb18"><label for="cb18"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/gravestone-mod/versions">
+              GraveStone Mod
+            </a>　<span class="ver">Ver: 1.19 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/gravestone-mod/files/all?filter-game-version=2020709689%3A6756">
+                    GraveStone Mod
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb19"><label for="cb19"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/mekanism/versions">
+              Mekanism
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb20"><label for="cb20"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/mekanism-generators/versions">
+              Mekanism Generators
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb21"><label for="cb21"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/mekanism-tools/versions">
+              Mekanism Tools
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb22"><label for="cb22"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/quark/versions">
+              Quark
+            </a>　<span class="ver">Ver: 1.9.4 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td><span class="case">for ver ≧ 1.20.1</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/zeta/versions">
+                    Zeta
+                  </a>　<span class="ver">Ver: 1.20.1</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="case">for ver ≦ 1.19.2</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/autoreglib/versions">
+                    AutoRegLib
+                  </a>　<span class="ver">Ver: 1.12.2 ~ 1.19.2</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb23"><label for="cb23"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/serene-seasons/versions">
+              Serene Seasons
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb24"><label for="cb24"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/tinkers-construct/versions">
+              Tinkers' Construct
+            </a>　<span class="ver">Ver: 1.6.4 ~ 1.19.2</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/mantle/versions">
+                    Mantle
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.19.2</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb25"><label for="cb25"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/constructs-armory/versions">
+              Construct's Armory
+            </a>　<span class="ver">Ver: 1.12.2, 1.16.5</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb26"><label for="cb26"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/gregtechce/files/all?filter-game-version=2020709689%3A6756">
+              GregTech Community Edition
+            </a>　<span class="ver">Ver: 1.12.2</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/gregtech-ce-unofficial/versions">
+                    GregTech CE Unofficial
+                  </a>　<span class="ver">Ver: 1.12.2</span>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/gregtechceu-modern/versions">
+                    GregTechCEu Modern
+                  </a>　<span class="ver">Ver: 1.19.2 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb27"><label for="cb27"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/ae2/versions">
+              Applied Energistics 2
+            </a>　<span class="ver">Ver: 1.18 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/applied-energistics-2/files/all?filter-game-version=2020709689%3A6756">
+                    Applied Energistics 2
+                  </a>　<span class="ver">Ver: 1.7.2 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb28"><label for="cb28"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/botania/versions">
+              Botania
+            </a>　<span class="ver">Ver: 1.6.4 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/patchouli/versions">
+                    Patchouli
+                  </a>　<span class="ver">Ver: 1.12.2 ~ 1.21</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="case">for Forge</span></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/curios/files/all?page=1&pageSize=20">
+                    Curios API
+                  </a>　<span class="ver">Ver: 1.13.2 ~ 1.20.6</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="case">for Fabric, Quilt</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/trinkets/versions">
+                    Trinkets
+                  </a>　<span class="ver">Ver: 1.17.1 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb29"><label for="cb29"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/modular-powersuits/files/all?filter-game-version=2020709689%3A6756">
+              Modular Powersuits
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.19.2</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/numina/files/all?filter-game-version=2020709689%3A6756">
+                    Numina
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.19.2</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb30"><label for="cb30"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/draconic-evolution/versions">
+              Draconic Evolution
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/brandons-core/versions">
+                    Brandons Core
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.20.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb31"><label for="cb31"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/tinkers-evolution/versions">
+              Tinkers' Evolution
+            </a>　<span class="ver">Ver: 1.12.2</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/libnine/versions">
+                    libnine
+                  </a>　<span class="ver">Ver: 1.12</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb32"><label for="cb32"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/storagedrawers/versions">
+              Storage Drawers
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/texel-chameleon/versions">
+                    Chameleon
+                  </a>　<span class="ver">Ver: 1.8.9 ~ 1.12</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb33"><label for="cb33"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/storage-drawers-extras/files/all?filter-game-version=2020709689%3A6756">
+              Storage Drawers Extras
+            </a>　<span class="ver">Ver: 1.9.4 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb34"><label for="cb34"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/thermal-expansion/versions">
+              Thermal Expansion
+            </a>　<span class="ver">Ver: 1.16.5 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/cofh-core/versions">
+                    CoFH Core
+                  </a>　<span class="ver">Ver: 1.16.5 ~ 1.20.1</span>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/cofh-world/files/all?filter-game-version=2020709689%3A6756">
+                    CoFH World
+                  </a>　<span class="ver">Ver: 1.12</span>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/redstone-flux/files/all?filter-game-version=2020709689%3A6756">
+                    Redstone Flux
+                  </a>　<span class="ver">Ver: 1.12</span>
+                </td>
+              </tr>
+            </table>
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/thermal-expansion/files/all?filter-game-version=2020709689%3A6756">
+                    Thermal Expansion
+                  </a>　<span class="ver">Ver: 1.6.4 ~ 1.20.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb35"><label for="cb35"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/thermal-foundation/versions">
+              Thermal Foundation
+            </a>　<span class="ver">Ver: 1.16.5 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/thermal-foundation/files/all?filter-game-version=2020709689%3A6756">
+                    Thermal Foundation
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.20.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb36"><label for="cb36"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/thermal-innovation/versions">
+              Thermal Innovation
+            </a>　<span class="ver">Ver: 1.16.5 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/thermal-dynamics/files/all?filter-game-version=2020709689%3A6756">
+                    Thermal Innovation
+                  </a>　<span class="ver">Ver: 1.12.2 ~ 1.20.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb37"><label for="cb37"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/extra-utilities/files/all?filter-game-version=2020709689%3A6756">
+              Extra Utilities
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.12.2</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb38"><label for="cb38"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/enderio/versions">
+              Ender IO
+            </a>　<span class="ver">Ver: 1.12.2, 1.20.1 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/endercore/versions">
+                    EnderCore
+                  </a>　<span class="ver">Ver: 1.12.2</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb39"><label for="cb39"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/swingthroughgrass/files/all?filter-game-version=2020709689%3A6756">
+              SwingThroughGrass
+            </a>　<span class="ver">Ver: 1.10.2 ~ 1.19.2</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/swingthrough/versions">
+                    SwingThrough
+                  </a>　<span class="ver">Ver: 1.14 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb40"><label for="cb40"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/clumps/versions">
+              Clumps
+            </a>　<span class="ver">Ver: 1.10.2 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb41"><label for="cb41"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/pams-harvestcraft/files/all?filter-game-version=2020709689%3A6756">
+              Pam's HarvestCraft
+            </a>　<span class="ver">Ver: 1.7.2 ~ 1.21.2</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb42"><label for="cb42"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/spice-of-life-carrot-edition/files/all?filter-game-version=2020709689%3A6756">
+              Spice of Life: Carrot Edition
+            </a>　<span class="ver">Ver: 1.10.2 ~ 1.20.2</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/applecore/files/all?filter-game-version=2020709689%3A6756">
+                    AppleCore
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.12.2</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb43"><label for="cb43"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/codechicken-lib-1-8/files/all?filter-game-version=2020709689%3A6756">
+              CodeChicken Lib 1.8.+
+            </a>　<span class="ver">Ver: 1.9 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb44"><label for="cb44"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/comforts/versions">
+              Comforts
+            </a>　<span class="ver">Ver: 1.12.2 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+      </div>
       <h2 id="season5">Season5 (in v1.18.1)</h2>
-      <table id="mods_s5" class="mods"></table>
+      <div class="mod_list">
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb45"><label for="cb45"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/gravestone-mod/versions">
+              GraveStone Mod
+            </a>　<span class="ver">Ver: 1.19 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/gravestone-mod/files/all?filter-game-version=2020709689%3A6756">
+                    GraveStone Mod
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb46"><label for="cb46"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/jei/versions">
+              Just Enough Items
+            </a>　<span class="ver">Ver: 1.8 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb47"><label for="cb47"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/create/versions">
+              Create
+            </a>　<span class="ver">Ver: 1.18.2 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td><span class="case">for MODver < 0.5.1</span></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/flywheel/files/all?page=1&pageSize=20">
+                    Flywheel (Legacy)
+                  </a>　<span class="ver">Ver: 1.16.5 ~ 1.19.2</span>
+                </td>
+              </tr>
+            </table>
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/create/files/all?page=1&pageSize=20">
+                    Create
+                  </a>　<span class="ver">Ver: 1.14.4 ~ 1.20.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb48"><label for="cb48"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/comforts/versions">
+              Comforts
+            </a>　<span class="ver">Ver: 1.12.2 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb49"><label for="cb49"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/farmers-delight/versions">
+              Farmer's Delight
+            </a>　<span class="ver">Ver: 1.18.2 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/farmers-delight/files/all?page=1&pageSize=20">
+                    Farmer's Delight
+                  </a>　<span class="ver">Ver: 1.15.2 ~ 1.21.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb50"><label for="cb50"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/swingthroughgrass/files/all?filter-game-version=2020709689%3A6756">
+              SwingThroughGrass
+            </a>　<span class="ver">Ver: 1.10.2 ~ 1.19.2</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/swingthrough/versions">
+                    SwingThrough
+                  </a>　<span class="ver">Ver: 1.14 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb51"><label for="cb51"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/quark/versions">
+              Quark
+            </a>　<span class="ver">Ver: 1.9.4 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td><span class="case">for ver ≧ 1.20.1</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/zeta/versions">
+                    Zeta
+                  </a>　<span class="ver">Ver: 1.20.1</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="case">for ver ≦ 1.19.2</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/autoreglib/versions">
+                    AutoRegLib
+                  </a>　<span class="ver">Ver: 1.12.2 ~ 1.19.2</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+      </div>
       <h2 id="season6">Season6 (in v1.18.2)</h2>
-      <table id="mods_s6" class="mods"></table>
+      <div class="mod_list">
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb52"><label for="cb52"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/create/versions">
+              Create
+            </a>　<span class="ver">Ver: 1.18.2 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td><span class="case">for MODver < 0.5.1</span></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/flywheel/files/all?page=1&pageSize=20">
+                    Flywheel (Legacy)
+                  </a>　<span class="ver">Ver: 1.16.5 ~ 1.19.2</span>
+                </td>
+              </tr>
+            </table>
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/create/files/all?page=1&pageSize=20">
+                    Create
+                  </a>　<span class="ver">Ver: 1.14.4 ~ 1.20.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb53"><label for="cb53"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/createaddition/versions">
+              Create Crafts & Additions
+            </a>　<span class="ver">Ver: 1.18.2 ~ 1.20.2</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/createaddition/files/all?page=1&pageSize=20">
+                    Create Crafts & Additions
+                  </a>　<span class="ver">Ver: 1.16.4 ~ 1.20.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb54"><label for="cb54"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/create-chunkloading/files/all?page=1&pageSize=20">
+              Create Chunkloading
+            </a>　<span class="ver">Ver: 1.16.4 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/architectury-api/files/all?page=1&pageSize=20">
+                    Architectury API
+                  </a>　<span class="ver">Ver: 1.16.4 ~ 1.21.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb55"><label for="cb55"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/mekanism/versions">
+              Mekanism
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb56"><label for="cb56"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/mekanism-generators/versions">
+              Mekanism Generators
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb57"><label for="cb57"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/thermal-expansion/versions">
+              Thermal Expansion
+            </a>　<span class="ver">Ver: 1.16.5 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/cofh-core/versions">
+                    CoFH Core
+                  </a>　<span class="ver">Ver: 1.16.5 ~ 1.20.1</span>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/cofh-world/files/all?filter-game-version=2020709689%3A6756">
+                    CoFH World
+                  </a>　<span class="ver">Ver: 1.12</span>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/redstone-flux/files/all?filter-game-version=2020709689%3A6756">
+                    Redstone Flux
+                  </a>　<span class="ver">Ver: 1.12</span>
+                </td>
+              </tr>
+            </table>
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/thermal-expansion/files/all?filter-game-version=2020709689%3A6756">
+                    Thermal Expansion
+                  </a>　<span class="ver">Ver: 1.6.4 ~ 1.20.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb58"><label for="cb58"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/thermal-foundation/versions">
+              Thermal Foundation
+            </a>　<span class="ver">Ver: 1.16.5 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/thermal-foundation/files/all?filter-game-version=2020709689%3A6756">
+                    Thermal Foundation
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.20.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb59"><label for="cb59"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/thermal-dynamics/versions">
+              Thermal Dynamics
+            </a>　<span class="ver">Ver: 1.18.2 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/thermal-dynamics/files/all?filter-game-version=2020709689%3A6756">
+                    Thermal Dynamics
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.20.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb60"><label for="cb60"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/thermal-integration/versions">
+              Thermal Integration
+            </a>　<span class="ver">Ver: 1.18.2 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb61"><label for="cb61"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/botania/versions">
+              Botania
+            </a>　<span class="ver">Ver: 1.6.4 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/patchouli/versions">
+                    Patchouli
+                  </a>　<span class="ver">Ver: 1.12.2 ~ 1.21</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="case">for Forge</span></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/curios/files/all?page=1&pageSize=20">
+                    Curios API
+                  </a>　<span class="ver">Ver: 1.13.2 ~ 1.20.6</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="case">for Fabric, Quilt</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/trinkets/versions">
+                    Trinkets
+                  </a>　<span class="ver">Ver: 1.17.1 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb62"><label for="cb62"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/ars-nouveau/versions">
+              Ars Nouveau
+            </a>　<span class="ver">Ver: 1.18.2 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/geckolib/versions">
+                    Geckolib
+                  </a>　<span class="ver">Ver: 1.12.2 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/ars-nouveau/files/all?page=1&pageSize=20">
+                    Ars Nouveau
+                  </a>　<span class="ver">Ver: 1.15 ~ 1.21.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb63"><label for="cb63"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/ars-creo/versions">
+              Ars Creo
+            </a>　<span class="ver">Ver: 1.16.5 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb64"><label for="cb64"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/ars-elemental/files/all?page=1&pageSize=20">
+              Ars Elemental
+            </a>　<span class="ver">Ver: 1.16.4 ~ 1.21.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb65"><label for="cb65"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/ars-instrumentum/files/all?page=1&pageSize=20">
+              Ars Instrumentum
+            </a>　<span class="ver">Ver: 1.18.1 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb66"><label for="cb66"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/ars-omega/files/all?page=1&pageSize=20">
+              Ars Omega
+            </a>　<span class="ver">Ver: 1.16.5 ~ 1.19.2</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb67"><label for="cb67"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/tinkers-construct/versions">
+              Tinkers' Construct
+            </a>　<span class="ver">Ver: 1.6.4 ~ 1.19.2</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/mantle/versions">
+                    Mantle
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.19.2</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb68"><label for="cb68"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/enhanced-ai/files/all?page=1&pageSize=20">
+              Enhanced AI
+            </a>　<span class="ver">Ver: 1.16 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/insanelib/versions">
+                    InsaneLib
+                  </a>　<span class="ver">Ver: 1.18.2 ~ 1.20.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb69"><label for="cb69"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/progressive-bosses/versions">
+              Progressive Bosses
+            </a>　<span class="ver">Ver: 1.18.2 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/insanelib/versions">
+                    InsaneLib
+                  </a>　<span class="ver">Ver: 1.18.2 ~ 1.20.1</span>
+                </td>
+              </tr>
+            </table>
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/progressive-bosses/files/all?page=1&pageSize=20">
+                    Progressive Bosses
+                  </a>　<span class="ver">Ver: 1.12 ~ 1.20.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb70"><label for="cb70"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/biomes-o-plenty/versions">
+              Biomes O' Plenty 
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td><span class="case">for ver ≦ 1.20.4</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/glitchcore/versions">
+                    GlitchCore
+                  </a>　<span class="ver">Ver: 1.20.1 ~ 1.21</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="case">for ver ≦ 1.18</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/terrablender/versions">
+                    TerraBlender
+                  </a>　<span class="ver">Ver: 1.18.2 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb71"><label for="cb71"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/quark/versions">
+              Quark
+            </a>　<span class="ver">Ver: 1.9.4 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td><span class="case">for ver ≧ 1.20.1</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/zeta/versions">
+                    Zeta
+                  </a>　<span class="ver">Ver: 1.20.1</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="case">for ver ≦ 1.19.2</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/autoreglib/versions">
+                    AutoRegLib
+                  </a>　<span class="ver">Ver: 1.12.2 ~ 1.19.2</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb72"><label for="cb72"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/gravestone-mod/versions">
+              GraveStone Mod
+            </a>　<span class="ver">Ver: 1.19 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/gravestone-mod/files/all?filter-game-version=2020709689%3A6756">
+                    GraveStone Mod
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb73"><label for="cb73"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/mmmmmmmmmmmm/versions">
+              MmmMmmMmmMmm
+            </a>　<span class="ver">Ver: 1.18 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/mmmmmmmmmmmm/files/all?filter-game-version=2020709689%3A6756">
+                    MmmMmmMmmMmm
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb74"><label for="cb74"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/comforts/versions">
+              Comforts
+            </a>　<span class="ver">Ver: 1.12.2 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb75"><label for="cb75"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/swingthroughgrass/files/all?filter-game-version=2020709689%3A6756">
+              SwingThroughGrass
+            </a>　<span class="ver">Ver: 1.10.2 ~ 1.19.2</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/swingthrough/versions">
+                    SwingThrough
+                  </a>　<span class="ver">Ver: 1.14 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb76"><label for="cb76"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/clumps/versions">
+              Clumps
+            </a>　<span class="ver">Ver: 1.10.2 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb77"><label for="cb77"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/farmers-delight/versions">
+              Farmer's Delight
+            </a>　<span class="ver">Ver: 1.18.2 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/farmers-delight/files/all?page=1&pageSize=20">
+                    Farmer's Delight
+                  </a>　<span class="ver">Ver: 1.15.2 ~ 1.21.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb78"><label for="cb78"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/serene-seasons/versions">
+              Serene Seasons
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb79"><label for="cb79"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/end-ores/files/all?page=1&pageSize=20">
+              End Ores
+            </a>　<span class="ver">Ver: 1.8 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb80"><label for="cb80"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/storagedrawers/versions">
+              Storage Drawers
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/texel-chameleon/versions">
+                    Chameleon
+                  </a>　<span class="ver">Ver: 1.8.9 ~ 1.12</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb81"><label for="cb81"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/polymorph/versions">
+              Polymorph
+            </a>　<span class="ver">Ver: 1.15.2 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb82"><label for="cb82"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/immersive-engineering/files/all?page=1&pageSize=20">
+              Immersive Engineering
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.20.4</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb83"><label for="cb83"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/immersive-petroleum/files/all?page=1&pageSize=20">
+              Immersive Petroleum
+            </a>　<span class="ver">Ver: 1.10.2 ~ 1.19.2</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb84"><label for="cb84"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/ae2/versions">
+              Applied Energistics 2
+            </a>　<span class="ver">Ver: 1.18 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/applied-energistics-2/files/all?filter-game-version=2020709689%3A6756">
+                    Applied Energistics 2
+                  </a>　<span class="ver">Ver: 1.7.2 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb85"><label for="cb85"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/sakura/files/all?page=1&pageSize=20">
+              Sakura
+            </a>　<span class="ver">Ver: 1.12.2, 1.18.2</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/mmlib/versions">
+                    Mysterious Mountain Lib
+                  </a>　<span class="ver">Ver: 1.18.1 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb86"><label for="cb86"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/tofucraftreload/files/all?page=1&pageSize=20">
+              TofuCraftReload
+            </a>　<span class="ver">Ver: 1.12.2 ~ 1.21.1</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/mmlib/versions">
+                    Mysterious Mountain Lib
+                  </a>　<span class="ver">Ver: 1.18.1 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+      </div>
       <h2 id="season7">Season7 (in v1.16.5)</h2>
-      <table id="mods_s7" class="mods"></table>
+      <div class="mod_list">
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb87"><label for="cb87"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/modpacks/create-above-and-beyond/files/all?page=1&pageSize=20">
+              Create: Above and Beyond
+            </a>　<span class="ver">Ver: 1.16.5</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb88"><label for="cb88"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/swingthroughgrass/files/all?filter-game-version=2020709689%3A6756">
+              SwingThroughGrass
+            </a>　<span class="ver">Ver: 1.10.2 ~ 1.19.2</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/swingthrough/versions">
+                    SwingThrough
+                  </a>　<span class="ver">Ver: 1.14 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb89"><label for="cb89"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/mmmmmmmmmmmm/versions">
+              MmmMmmMmmMmm
+            </a>　<span class="ver">Ver: 1.18 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/mmmmmmmmmmmm/files/all?filter-game-version=2020709689%3A6756">
+                    MmmMmmMmmMmm
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb90"><label for="cb90"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/comforts/versions">
+              Comforts
+            </a>　<span class="ver">Ver: 1.12.2 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+      </div>
       <h2 id="solo1">Solo1 (in v1.16.5)</h2>
-      <table id="mods_solo1" class="mods"></table>
+      <div class="mod_list">
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb91"><label for="cb91"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/create/versions">
+              Create
+            </a>　<span class="ver">Ver: 1.18.2 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td><span class="case">for MODver < 0.5.1</span></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/flywheel/files/all?page=1&pageSize=20">
+                    Flywheel (Legacy)
+                  </a>　<span class="ver">Ver: 1.16.5 ~ 1.19.2</span>
+                </td>
+              </tr>
+            </table>
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/create/files/all?page=1&pageSize=20">
+                    Create
+                  </a>　<span class="ver">Ver: 1.14.4 ~ 1.20.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb92"><label for="cb92"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/blue-skies/versions">
+              Blue Skies
+            </a>　<span class="ver">Ver: 1.16.5 ~ 1.20.4</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/structure-gel-api/versions">
+                    Structure Gel API
+                  </a>　<span class="ver">Ver: 1.16.5 ~ 1.20.4</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb93"><label for="cb93"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/comforts/versions">
+              Comforts
+            </a>　<span class="ver">Ver: 1.12.2 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb94"><label for="cb94"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/dark-caverns/versions">
+              Dark Caverns
+            </a>　<span class="ver">Ver: 1.16</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/geckolib/versions">
+                    Geckolib
+                  </a>　<span class="ver">Ver: 1.12.2 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/dark-caverns/files/all?page=1&pageSize=20">
+                    Dark Caverns
+                  </a>　<span class="ver">Ver: 1.16</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb95"><label for="cb95"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/esencia/files/all?page=1&pageSize=20">
+              Esencia
+            </a>　<span class="ver">Ver: 1.16.4, 1.16.5</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb96"><label for="cb96"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/hals%20exploration%20mod/versions">
+              Hals Exploration Mod
+            </a>　<span class="ver">Ver: 1.16.5 ~ 1.18.2</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb97"><label for="cb97"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/hwyla/versions">
+              Hwyla
+            </a>　<span class="ver">Ver: 1.10.2 ~ 1.16</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb98"><label for="cb98"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/jei/versions">
+              Just Enough Items
+            </a>　<span class="ver">Ver: 1.8 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb99"><label for="cb99"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/mmmmmmmmmmmm/versions">
+              MmmMmmMmmMmm
+            </a>　<span class="ver">Ver: 1.18 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/mmmmmmmmmmmm/files/all?filter-game-version=2020709689%3A6756">
+                    MmmMmmMmmMmm
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb100"><label for="cb100"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/quark/versions">
+              Quark
+            </a>　<span class="ver">Ver: 1.9.4 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td><span class="case">for ver ≧ 1.20.1</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/zeta/versions">
+                    Zeta
+                  </a>　<span class="ver">Ver: 1.20.1</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="case">for ver ≦ 1.19.2</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/autoreglib/versions">
+                    AutoRegLib
+                  </a>　<span class="ver">Ver: 1.12.2 ~ 1.19.2</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb101"><label for="cb101"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/quark-oddities/versions">
+              Quark Oddities
+            </a>　<span class="ver">Ver: 1.12.2 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb102"><label for="cb102"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/soulbound-dimension/files/all?page=1&pageSize=20">
+              Soulbound Dimension
+            </a>　<span class="ver">Ver: 1.16.5 ~ 1.17.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb103"><label for="cb103"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/tinkers-construct/versions">
+              Tinkers' Construct
+            </a>　<span class="ver">Ver: 1.6.4 ~ 1.19.2</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/mantle/versions">
+                    Mantle
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.19.2</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb104"><label for="cb104"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/the-undergarden/versions">
+              The Undergarden
+            </a>　<span class="ver">Ver: 1.20.1 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/the-undergarden/files/all?page=1&pageSize=20">
+                    The Undergarden
+                  </a>　<span class="ver">Ver: 1.16.3 ~ 1.21.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb105"><label for="cb105"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/the-abyss-chapter-ii/files/all?page=1&pageSize=20">
+              The Abyss II - The Other Side
+            </a>　<span class="ver">Ver: 1.16.4 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td><span class="case">for ver 1.20.1</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/geckolib/versions">
+                    Geckolib
+                  </a>　<span class="ver">Ver: 1.12.2 ~ 1.21</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="case">for ver 1.20.1</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/patchouli/versions">
+                    Patchouli
+                  </a>　<span class="ver">Ver: 1.12.2 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb106"><label for="cb106"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/the-twilight-forest/files/all?page=1&pageSize=20">
+              The Twilight Forest
+            </a>　<span class="ver">Ver: 1.0.0 ~ 1.21.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb107"><label for="cb107"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/xenoclus-2/files/all?page=1&pageSize=20">
+              Xenoclus 2
+            </a>　<span class="ver">Ver: 1.15.2 ~ 1.16.5</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb108"><label for="cb108"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/dynamic-surroundings/files/all?page=1&pageSize=20">
+              Dynamic Surroundings
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.16.5</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb109"><label for="cb109"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/create-stuff-additions/versions">
+              Create Stuff & Additions
+            </a>　<span class="ver">Ver: 1.18.2 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/create-stuff-additions/files/all?page=1&pageSize=20">
+                    Create Stuff & Additions
+                  </a>　<span class="ver">Ver: 1.16.5 ~ 1.20.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb110"><label for="cb110"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/createaddition/versions">
+              Create Crafts & Additions
+            </a>　<span class="ver">Ver: 1.18.2 ~ 1.20.2</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/createaddition/files/all?page=1&pageSize=20">
+                    Create Crafts & Additions
+                  </a>　<span class="ver">Ver: 1.16.4 ~ 1.20.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb111"><label for="cb111"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/createfoodadditions/files/all?page=1&pageSize=20">
+              CreateFoodAdditions
+            </a>　<span class="ver">Ver: 1.16.5 ~ 1.18.2</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb112"><label for="cb112"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/chunk-loaders/versions">
+              Chunk Loaders
+            </a>　<span class="ver">Ver: 1.12 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb113"><label for="cb113"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/supermartijn642s-config-lib/versions">
+              SuperMartijn642's Config Lib
+            </a>　<span class="ver">Ver: 1.12 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb114"><label for="cb114"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/create-gears/files/all?page=1&pageSize=20">
+              Create Gears
+            </a>　<span class="ver">Ver: 1.16.3 ~ 1.16.5</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+      </div>
       <h2 id="solo2">Solo2 (in v1.20.1)</h2>
-      <table id="mods_solo2" class="mods"></table>
-      <h2 id="recommend">オヌヌメ</h2>
-      <table id="mods_recom" class="mods"></table>
+      <div class="mod_list">
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb115"><label for="cb115"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/aether/versions">
+              The Aether
+            </a>　<span class="ver">Ver: b1.7.3 ~ 1.20.4</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb116"><label for="cb116"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/better-f3/versions">
+              Better F3
+            </a>　<span class="ver">Ver: 1.12 ~ 1.20.4</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/betterf3/versions">
+                    BetterF3
+                  </a>　<span class="ver">Ver: 1.16 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb117"><label for="cb117"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/cloth-config/versions">
+              Cloth Config API
+            </a>　<span class="ver">Ver: 1.14 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb118"><label for="cb118"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/comforts/versions">
+              Comforts
+            </a>　<span class="ver">Ver: 1.12.2 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb119"><label for="cb119"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/embeddium/versions">
+              Embeddium
+            </a>　<span class="ver">Ver: 1.16.5 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb120"><label for="cb120"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/fast-leaf-decay/files/all?page=1&pageSize=20">
+              Fast Leaf Decay
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.20.6</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb121"><label for="cb121"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/ftb-ultimine-forge/files/all?page=1&pageSize=20">
+              FTB Ultimine (Forge)
+            </a>　<span class="ver">Ver: 1.10.2 ~ 1.21.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb122"><label for="cb122"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/glassbreaker/versions">
+              Glass Breaker
+            </a>　<span class="ver">Ver: 1.7.10 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb123"><label for="cb123"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/iron-chests/versions">
+              Iron Chests
+            </a>　<span class="ver">Ver: 1.16.5 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb124"><label for="cb124"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/jei/versions">
+              Just Enough Items
+            </a>　<span class="ver">Ver: 1.8 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb125"><label for="cb125"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/l_enders-cataclysm/versions">
+              L_Ender's Cataclysm
+            </a>　<span class="ver">Ver: 1.19.2, 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/lionfish-api/versions">
+                    Lionfish-API
+                  </a>　<span class="ver">Ver: 1.19.2 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb126"><label for="cb126"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/mouse-tweaks/versions">
+              Mouse Tweaks
+            </a>　<span class="ver">Ver: b1.7.3 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb127"><label for="cb127"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/oculus/versions">
+              Oculus
+            </a>　<span class="ver">Ver: 1.16.5 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb128"><label for="cb128"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/quark/versions">
+              Quark
+            </a>　<span class="ver">Ver: 1.9.4 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td><span class="case">for ver ≧ 1.20.1</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/zeta/versions">
+                    Zeta
+                  </a>　<span class="ver">Ver: 1.20.1</span>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="case">for ver ≦ 1.19.2</span></td>
+                <td>
+                  <a href="https://modrinth.com/mod/autoreglib/versions">
+                    AutoRegLib
+                  </a>　<span class="ver">Ver: 1.12.2 ~ 1.19.2</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb129"><label for="cb129"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/quark-oddities/versions">
+              Quark Oddities
+            </a>　<span class="ver">Ver: 1.12.2 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb130"><label for="cb130"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/the-twilight-forest/files/all?page=1&pageSize=20">
+              The Twilight Forest
+            </a>　<span class="ver">Ver: 1.0.0 ~ 1.21.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <h2 id="recommend">Special</h2>
+      <div class="mod_list">
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb131"><label for="cb131"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/effective/versions">
+              Effective
+            </a>　<span class="ver">Ver: 1.18.1 ~ 1.21.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb132"><label for="cb132"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/eating-animation/versions">
+              Eating Animation
+            </a>　<span class="ver">Ver: 1.16 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/eating-animation-forge/files/all?page=1&pageSize=20">
+                    Eating Animation
+                  </a>　<span class="ver">Ver: 1.16.5 ~ 1.21.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb133"><label for="cb133"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/inventory-tabs/versions">
+              Inventory Tabs
+            </a>　<span class="ver">Ver: 1.18.2 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/inventory-tabs/files/all?page=1&pageSize=20">
+                    Inventory Tabs
+                  </a>　<span class="ver">Ver: 1.16.1 ~ 1.16.4</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb134"><label for="cb134"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/fog-looks-good-now/versions">
+              Fog Looks Good Now
+            </a>　<span class="ver">Ver: 1.18.2, 1.19.2</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb135"><label for="cb135"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/blur-plus/versions">
+              Blur+
+            </a>　<span class="ver">Ver: 1.15 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/blur-forge/versions">
+                    Blur Forge (Unofficial)
+                  </a>　<span class="ver">Ver: 1.18.2 ~ 1.20.1</span>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/blur/files/all?page=1&pageSize=20">
+                    Blur
+                  </a>　<span class="ver">Ver: 1.7.10 ~ 1.16.5</span>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/reblured/versions">
+                    ReBlured
+                  </a>　<span class="ver">Ver: 1.18.2 ~ 1.20.4</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb136"><label for="cb136"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/pick-up-notifier/versions">
+              Pick Up Notifier
+            </a>　<span class="ver">Ver: 1.19 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/pick-up-notifier/files/all?page=1&pageSize=20">
+                    Pick Up Notifier [Forge & Fabric]
+                  </a>　<span class="ver">Ver: 1.11 ~ 1.21.1</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb137"><label for="cb137"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/inventory-spam/files/all?page=1&pageSize=20">
+              Inventory Spam
+            </a>　<span class="ver">Ver: 1.10.2 ~ 1.21.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb138"><label for="cb138"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/item-highlighter/versions">
+              Item Highlighter
+            </a>　<span class="ver">Ver: 1.12.2 ~ 1.21</span></div>
+            <div class="sub_content">
+            <h4>前提Mod</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://modrinth.com/mod/iceberg/versions">
+                    Iceberg
+                  </a>　<span class="ver">Ver: 1.16.5 ~ 1.21</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb139"><label for="cb139"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/universal-bone-meal/versions">
+              Universal Bone Meal
+            </a>　<span class="ver">Ver: 1.18.2 ~ 1.21.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb140"><label for="cb140"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/trade-cycling/versions">
+              Trade Cycling
+            </a>　<span class="ver">Ver: 1.19 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb141"><label for="cb141"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/cavern2/files/all?page=1&pageSize=20">
+              Cavern II
+            </a>　<span class="ver">Ver: 1.12.2</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb142"><label for="cb142"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/atum/files/all?page=1&pageSize=20">
+              Atum 2: Return to the Sands
+            </a>　<span class="ver">Ver: 1.5.2 ~ 1.16.5</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb143"><label for="cb143"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/the-midnight/versions">
+              The Midnight
+            </a>　<span class="ver">Ver: 1.12.2 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb144"><label for="cb144"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/tropicraft/versions">
+              Tropicraft
+            </a>　<span class="ver">Ver: 1.10.2 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb145"><label for="cb145"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/the-erebus/files/all?page=1&pageSize=20">
+              The Erebus
+            </a>　<span class="ver">Ver: 1.7.10, 1.12.2</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb146"><label for="cb146"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/snow-real-magic/versions">
+              Snow! Real Magic! ⛄
+            </a>　<span class="ver">Ver: 1.19.4 ~ 1.21</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb147"><label for="cb147"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/yungs-better-dungeons/versions">
+              YUNG's Better Dungeons
+            </a>　<span class="ver">Ver: 1.19.4 ~ 1.20.4</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb148"><label for="cb148"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/biomesyougo/versions">
+              Oh The Biomes You'll Go
+            </a>　<span class="ver">Ver: 1.16.4 ~ 1.19.4</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb149"><label for="cb149"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/redstoneplusplus/files/all?page=1&pageSize=20">
+              RedstonePlusPlus
+            </a>　<span class="ver">Ver: 1.11 ~ 1.12.2</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb150"><label for="cb150"></label>
+            <div class="main_label"><a href="https://www.curseforge.com/minecraft/mc-mods/not-what-it-seems/files/all?page=1&pageSize=20">
+              Not What It Seems
+            </a>　<span class="ver">Ver: 1.15.2, 1.16.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb151"><label for="cb151"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/bountiful/versions">
+              Bountiful
+            </a>　<span class="ver">Ver: 1.17.1 ~ 1.20.4</span></div>
+            <div class="sub_content">
+            <h4>代替</h4>
+            <table>
+              <tr>
+                <td></td>
+                <td>
+                  <a href="https://www.curseforge.com/minecraft/mc-mods/bountiful/files/all?page=1&pageSize=20">
+                    Bountiful
+                  </a>　<span class="ver">Ver: 1.12 ~ 1.20.4</span>
+                </td>
+              </tr>
+            </table>
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb152"><label for="cb152"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/bongo/versions">
+              Bongo
+            </a>　<span class="ver">Ver: 1.16.5 ~ 1.20.1</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+        <div class="row">
+          <div class="checkbox"></div>
+          <div class="content"><div>
+            <input type="checkbox" id="cb153"><label for="cb153"></label>
+            <div class="main_label"><a href="https://modrinth.com/mod/conjuring/versions">
+              Conjuring
+            </a>　<span class="ver">Ver: 1.16.2 ~ 1.20.4</span></div>
+            <div class="sub_content">
+            </div>
+          </div></div>
+        </div>
+      </div>
+      <div class="footer-text">©2025 Rinca Hayamine</div>
     </div>
     <div class="index" id="index">
-      <div class="title">ショートカット</div>
+      <div style="padding: 12px 0;"></div>
       <div class="elem no-select" onclick="jumpTo('season3')">Season3</div>
       <div class="elem no-select" onclick="jumpTo('season4')">Season4</div>
       <div class="elem no-select" onclick="jumpTo('season5')">Season5</div>
@@ -161,1497 +2958,36 @@
       <div class="elem no-select" onclick="jumpTo('season7')">Season7</div>
       <div class="elem no-select" onclick="jumpTo('solo1')">Solo1</div>
       <div class="elem no-select" onclick="jumpTo('solo2')">Solo2</div>
-      <div class="elem no-select" onclick="jumpTo('recommend')">オヌヌメ</div>
+      <div class="elem no-select" onclick="jumpTo('recommend')">Special</div>
+      <div class="title no-select">SHORT CUT</div>
     </div>
     <input type="checkbox" id="index_switch" style="display: none;"><label for="index_switch" class="index_switch" id="index_switch_label"></label>
-    <div class="footer-text">©2024 Rinca Hayamine</div>
   </body>
   <script>
-    let count = 0;
-
-    /**
-     * @typedef {{
-     * link: string,
-     * title: string,
-     * ver: string,
-     * depends: {
-     * link: string,
-     * title: string,
-     * subtitle: string,
-     * ver: string,
-     * }[],
-     * alternates: {
-     * link: string,
-     * title: string,
-     * subtitle: string,
-     * ver: string,
-     * }[]
-     * }[]} ModList
-     */
-
-    /** @type {ModList} */
-    const mods_season3 = [
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/atomicstrykers-battle-towers/files/all?page=1&pageSize=20',
-        title: "AtomicStryker's Battle Towers",
-        ver: '1.6.2 ~ 1.12.2'
-      },
-      {
-        link: 'https://modrinth.com/mod/biomes-o-plenty/versions',
-        title: "Biomes O' Plenty ",
-        ver: '1.7.10 ~ 1.21',
-        depends: [
-          {
-            link: 'https://modrinth.com/mod/glitchcore/versions',
-            title: 'GlitchCore',
-            subtitle: '(for ver ≦ 1.20.4)',
-            ver: '1.20.1 ~ 1.21'
-          },
-          {
-            link: 'https://modrinth.com/mod/terrablender/versions',
-            title: 'TerraBlender',
-            subtitle: '(for ver ≦ 1.18)',
-            ver: '1.18.2 ~ 1.21'
-          }
-        ]
-      },
-      {
-        link: 'https://modrinth.com/mod/enderio/versions',
-        title: "Ender IO",
-        ver: '1.12.2, 1.20.1 ~ 1.21',
-        depends: [{
-          link: 'https://modrinth.com/mod/endercore/versions',
-          title: 'EnderCore',
-          ver: '1.12.2'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/gravestone-mod/versions',
-        title: "GraveStone Mod",
-        ver: '1.19 ~ 1.21',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/gravestone-mod/files/all?filter-game-version=2020709689%3A6756',
-          title: 'GraveStone Mod',
-          ver: '1.7.10 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/mekanism/versions',
-        title: "Mekanism",
-        ver: '1.7.10 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/mekanism-generators/versions',
-        title: "Mekanism Generators",
-        ver: '1.7.10 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/mekanism-tools/versions',
-        title: "Mekanism Tools",
-        ver: '1.7.10 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/mmmmmmmmmmmm/versions',
-        title: "MmmMmmMmmMmm",
-        ver: '1.18 ~ 1.21',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/mmmmmmmmmmmm/files/all?filter-game-version=2020709689%3A6756',
-          title: 'MmmMmmMmmMmm',
-          ver: '1.7.10 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/quark/versions',
-        title: 'Quark',
-        ver: '1.9.4 ~ 1.20.1',
-        depends: [
-          {
-            link: 'https://modrinth.com/mod/zeta/versions',
-            title: 'Zeta',
-            subtitle: '(for ver ≧ 1.20.1)',
-            ver: '1.20.1'
-          },
-          {
-            link: 'https://modrinth.com/mod/autoreglib/versions',
-            title: 'AutoRegLib',
-            subtitle: '(for ver ≦ 1.19.2)',
-            ver: '1.12.2 ~ 1.19.2'
-          },
-        ]
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/roguelike-dungeons/files/all?filter-game-version=2020709689%3A6756',
-        title: 'Roguelike Dungeons',
-        ver: '1.6.4 ~ 1.12.2',
-        alternates: [{
-          link: 'https://modrinth.com/mod/roguelikedungeons/versions',
-          title: 'Roguelike Dungeons',
-          ver: '1.20.1 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/serene-seasons/versions',
-        title: 'Serene Seasons',
-        ver: '1.7.10 ~ 1.21',
-      },
-      {
-        link: 'https://modrinth.com/mod/tinkers-construct/versions',
-        title: "Tinkers' Construct",
-        ver: '1.6.4 ~ 1.19.2',
-        depends: [{
-          link: 'https://modrinth.com/mod/mantle/versions',
-          title: 'Mantle',
-          ver: '1.7.10 ~ 1.19.2'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/constructs-armory/versions',
-        title: "Construct's Armory",
-        ver: '1.12.2, 1.16.5',
-      },
-      {
-        link: 'https://modrinth.com/mod/tropicraft/versions',
-        title: 'Tropicraft',
-        ver: '1.10.2 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/hwyla/versions',
-        title: 'Hwyla',
-        ver: '1.10.2 ~ 1.16'
-      },
-      {
-        link: 'https://modrinth.com/mod/jei/versions',
-        title: 'Just Enough Items',
-        ver: '1.8 ~ 1.21'
-      },
-    ];
-
-    /** @type {ModList} */
-    const mods_season4 = [
-      {
-        link: 'https://modrinth.com/mod/biomes-o-plenty/versions',
-        title: "Biomes O' Plenty ",
-        ver: '1.7.10 ~ 1.21',
-        depends: [
-          {
-            link: 'https://modrinth.com/mod/glitchcore/versions',
-            title: 'GlitchCore',
-            subtitle: '(for ver ≦ 1.20.4)',
-            ver: '1.20.1 ~ 1.21'
-          },
-          {
-            link: 'https://modrinth.com/mod/terrablender/versions',
-            title: 'TerraBlender',
-            subtitle: '(for ver ≦ 1.18)',
-            ver: '1.18.2 ~ 1.21'
-          }
-        ]
-      },
-      {
-        link: 'https://modrinth.com/mod/enderio/versions',
-        title: "Ender IO",
-        ver: '1.12.2, 1.20.1 ~ 1.21',
-        depends: [{
-          link: 'https://modrinth.com/mod/endercore/versions',
-          title: 'EnderCore',
-          ver: '1.12.2'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/gravestone-mod/versions',
-        title: "GraveStone Mod",
-        ver: '1.19 ~ 1.21',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/gravestone-mod/files/all?filter-game-version=2020709689%3A6756',
-          title: 'GraveStone Mod',
-          ver: '1.7.10 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/mekanism/versions',
-        title: "Mekanism",
-        ver: '1.7.10 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/mekanism-generators/versions',
-        title: "Mekanism Generators",
-        ver: '1.7.10 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/mekanism-tools/versions',
-        title: "Mekanism Tools",
-        ver: '1.7.10 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/quark/versions',
-        title: 'Quark',
-        ver: '1.9.4 ~ 1.20.1',
-        depends: [
-          {
-            link: 'https://modrinth.com/mod/zeta/versions',
-            title: 'Zeta',
-            subtitle: '(for ver ≧ 1.20.1)',
-            ver: '1.20.1'
-          },
-          {
-            link: 'https://modrinth.com/mod/autoreglib/versions',
-            title: 'AutoRegLib',
-            subtitle: '(for ver ≦ 1.19.2)',
-            ver: '1.12.2 ~ 1.19.2'
-          },
-        ]
-      },
-      {
-        link: 'https://modrinth.com/mod/serene-seasons/versions',
-        title: 'Serene Seasons',
-        ver: '1.7.10 ~ 1.21',
-      },
-      {
-        link: 'https://modrinth.com/mod/tinkers-construct/versions',
-        title: "Tinkers' Construct",
-        ver: '1.6.4 ~ 1.19.2',
-        depends: [{
-          link: 'https://modrinth.com/mod/mantle/versions',
-          title: 'Mantle',
-          ver: '1.7.10 ~ 1.19.2'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/constructs-armory/versions',
-        title: "Construct's Armory",
-        ver: '1.12.2, 1.16.5',
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/gregtechce/files/all?filter-game-version=2020709689%3A6756',
-        title: 'GregTech Community Edition',
-        ver: '1.12.2',
-        alternates: [
-          {
-            link: 'https://modrinth.com/mod/gregtech-ce-unofficial/versions',
-            title: 'GregTech CE Unofficial',
-            ver: '1.12.2',
-          },
-          {
-            link: 'https://modrinth.com/mod/gregtechceu-modern/versions',
-            title: 'GregTechCEu Modern',
-            ver: '1.19.2 ~ 1.21'
-          }
-        ]
-      },
-      {
-        link: 'https://modrinth.com/mod/ae2/versions',
-        title: 'Applied Energistics 2',
-        ver: '1.18 ~ 1.21',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/applied-energistics-2/files/all?filter-game-version=2020709689%3A6756',
-          title: 'Applied Energistics 2',
-          ver: '1.7.2 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/botania/versions',
-        title: 'Botania',
-        ver: '1.6.4 ~ 1.20.1',
-        depends: [
-          {
-            link: 'https://modrinth.com/mod/patchouli/versions',
-            title: 'Patchouli',
-            ver: '1.12.2 ~ 1.21'
-          },
-          {
-            link: 'https://www.curseforge.com/minecraft/mc-mods/curios/files/all?page=1&pageSize=20',
-            title: 'Curios API',
-            subtitle: '(for Forge)',
-            ver: '1.13.2 ~ 1.20.6'
-          },
-          {
-            link: 'https://modrinth.com/mod/trinkets/versions',
-            title: 'Trinkets',
-            subtitle: '(for Fabric, Quilt)',
-            ver: '1.17.1 ~ 1.21'
-          }
-        ]
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/modular-powersuits/files/all?filter-game-version=2020709689%3A6756',
-        title: 'Modular Powersuits',
-        ver: '1.7.10 ~ 1.19.2',
-        depends: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/numina/files/all?filter-game-version=2020709689%3A6756',
-          title: 'Numina',
-          ver: '1.7.10 ~ 1.19.2'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/draconic-evolution/versions',
-        title: 'Draconic Evolution',
-        ver: '1.7.10 ~ 1.20.1',
-        depends: [{
-          link: 'https://modrinth.com/mod/brandons-core/versions',
-          title: 'Brandons Core',
-          ver: '1.7.10 ~ 1.20.1'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/tinkers-evolution/versions',
-        title: "Tinkers' Evolution",
-        ver: '1.12.2',
-        alternates: [{
-          link: 'https://modrinth.com/mod/libnine/versions',
-          title: 'libnine',
-          ver: '1.12'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/storagedrawers/versions',
-        title: 'Storage Drawers',
-        ver: '1.7.10 ~ 1.21',
-        depends: [{
-          link: 'https://modrinth.com/mod/texel-chameleon/versions',
-          title: 'Chameleon',
-          ver: '1.8.9 ~ 1.12'
-        }]
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/storage-drawers-extras/files/all?filter-game-version=2020709689%3A6756',
-        title: 'Storage Drawers Extras',
-        ver: '1.9.4 ~ 1.20.1'
-      },
-      {
-        link: 'https://modrinth.com/mod/thermal-expansion/versions',
-        title: 'Thermal Expansion',
-        ver: '1.16.5 ~ 1.20.1',
-        depends: [
-          {
-            link: 'https://modrinth.com/mod/cofh-core/versions',
-            title: 'CoFH Core',
-            ver: '1.16.5 ~ 1.20.1'
-          },
-          {
-            link: 'https://www.curseforge.com/minecraft/mc-mods/cofh-world/files/all?filter-game-version=2020709689%3A6756',
-            title: 'CoFH World',
-            ver: '1.12'
-          },
-          {
-            link: 'https://www.curseforge.com/minecraft/mc-mods/redstone-flux/files/all?filter-game-version=2020709689%3A6756',
-            title: 'Redstone Flux',
-            ver: '1.12'
-          }
-        ],
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/thermal-expansion/files/all?filter-game-version=2020709689%3A6756',
-          title: 'Thermal Expansion',
-          ver: '1.6.4 ~ 1.20.1'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/thermal-foundation/versions',
-        title: 'Thermal Foundation',
-        ver: '1.16.5 ~ 1.20.1',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/thermal-foundation/files/all?filter-game-version=2020709689%3A6756',
-          title: 'Thermal Foundation',
-          ver: '1.7.10 ~ 1.20.1'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/thermal-dynamics/versions',
-        title: 'Thermal Dynamics',
-        ver: '1.18.2 ~ 1.20.1',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/thermal-dynamics/files/all?filter-game-version=2020709689%3A6756',
-          title: 'Thermal Dynamics',
-          ver: '1.7.10 ~ 1.20.1'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/thermal-innovation/versions',
-        title: 'Thermal Innovation',
-        ver: '1.16.5 ~ 1.20.1',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/thermal-dynamics/files/all?filter-game-version=2020709689%3A6756',
-          title: 'Thermal Innovation',
-          ver: '1.12.2 ~ 1.20.1'
-        }]
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/extra-utilities/files/all?filter-game-version=2020709689%3A6756',
-        title: 'Extra Utilities',
-        ver: '1.7.10 ~ 1.12.2'
-      },
-      {
-        link: 'https://modrinth.com/mod/enderio-endergy/versions',
-        title: 'Ender IO - Endergy',
-        ver: '1.12.2'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/swingthroughgrass/files/all?filter-game-version=2020709689%3A6756',
-        title: 'SwingThroughGrass',
-        ver: '1.10.2 ~ 1.19.2',
-        alternates: [{
-          link: 'https://modrinth.com/mod/swingthrough/versions',
-          title: 'SwingThrough',
-          ver: '1.14 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/clumps/versions',
-        title: 'Clumps',
-        ver: '1.10.2 ~ 1.21',
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/pams-harvestcraft/files/all?filter-game-version=2020709689%3A6756',
-        title: "Pam's HarvestCraft",
-        ver: '1.7.2 ~ 1.21.2'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/spice-of-life-carrot-edition/files/all?filter-game-version=2020709689%3A6756',
-        title: 'Spice of Life: Carrot Edition',
-        ver: '1.10.2 ~ 1.20.2',
-        depends: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/applecore/files/all?filter-game-version=2020709689%3A6756',
-          title: 'AppleCore',
-          ver: '1.7.10 ~ 1.12.2'
-        }]
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/codechicken-lib-1-8/files/all?filter-game-version=2020709689%3A6756',
-        title: 'CodeChicken Lib 1.8.+',
-        ver: '1.9 ~ 1.20.1'
-      },
-      {
-        link: 'https://modrinth.com/mod/comforts/versions',
-        title: 'Comforts',
-        ver: '1.12.2 ~ 1.21'
-      },
-    ];
-
-    /** @type {ModList} */
-    const mods_season5 = [
-      {
-        link: 'https://modrinth.com/mod/gravestone-mod/versions',
-        title: "GraveStone Mod",
-        ver: '1.19 ~ 1.21',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/gravestone-mod/files/all?filter-game-version=2020709689%3A6756',
-          title: 'GraveStone Mod',
-          ver: '1.7.10 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/jei/versions',
-        title: 'Just Enough Items',
-        ver: '1.8 ~ 1.21'
-      },
-      {
-        link:'https://modrinth.com/mod/create/versions',
-        title: 'Create',
-        ver: '1.18.2 ~ 1.20.1',
-        depends: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/flywheel/files/all?page=1&pageSize=20',
-          title: 'Flywheel (Legacy)',
-          subtitle: '(for MODver < 0.5.1)',
-          ver: '1.16.5 ~ 1.19.2'
-        }],
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/create/files/all?page=1&pageSize=20',
-          title: 'Create',
-          ver: '1.14.4 ~ 1.20.1'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/comforts/versions',
-        title: 'Comforts',
-        ver: '1.12.2 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/farmers-delight/versions',
-        title: "Farmer's Delight",
-        ver: '1.18.2 ~ 1.21',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/farmers-delight/files/all?page=1&pageSize=20',
-          title: "Farmer's Delight",
-          ver: '1.15.2 ~ 1.21.1'
-        }]
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/swingthroughgrass/files/all?filter-game-version=2020709689%3A6756',
-        title: 'SwingThroughGrass',
-        ver: '1.10.2 ~ 1.19.2',
-        alternates: [{
-          link: 'https://modrinth.com/mod/swingthrough/versions',
-          title: 'SwingThrough',
-          ver: '1.14 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/quark/versions',
-        title: 'Quark',
-        ver: '1.9.4 ~ 1.20.1',
-        depends: [
-          {
-            link: 'https://modrinth.com/mod/zeta/versions',
-            title: 'Zeta',
-            subtitle: '(for ver ≧ 1.20.1)',
-            ver: '1.20.1'
-          },
-          {
-            link: 'https://modrinth.com/mod/autoreglib/versions',
-            title: 'AutoRegLib',
-            subtitle: '(for ver ≦ 1.19.2)',
-            ver: '1.12.2 ~ 1.19.2'
-          },
-        ]
-      },
-    ];
-
-    /** @type {ModList} */
-    const mods_season6 = [
-      {
-        link:'https://modrinth.com/mod/create/versions',
-        title: 'Create',
-        ver: '1.18.2 ~ 1.20.1',
-        depends: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/flywheel/files/all?page=1&pageSize=20',
-          title: 'Flywheel (Legacy)',
-          subtitle: '(for MODver < 0.5.1)',
-          ver: '1.16.5 ~ 1.19.2'
-        }],
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/create/files/all?page=1&pageSize=20',
-          title: 'Create',
-          ver: '1.14.4 ~ 1.20.1'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/createaddition/versions',
-        title: 'Create Crafts & Additions',
-        ver: '1.18.2 ~ 1.20.2',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/createaddition/files/all?page=1&pageSize=20',
-          title: 'Create Crafts & Additions',
-          ver: '1.16.4 ~ 1.20.1'
-        }]
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/create-chunkloading/files/all?page=1&pageSize=20',
-        title: 'Create Chunkloading',
-        ver: '1.16.4 ~ 1.20.1',
-        depends: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/architectury-api/files/all?page=1&pageSize=20',
-          title: 'Architectury API',
-          ver: '1.16.4 ~ 1.21.1'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/mekanism/versions',
-        title: "Mekanism",
-        ver: '1.7.10 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/mekanism-generators/versions',
-        title: "Mekanism Generators",
-        ver: '1.7.10 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/thermal-expansion/versions',
-        title: 'Thermal Expansion',
-        ver: '1.16.5 ~ 1.20.1',
-        depends: [
-          {
-            link: 'https://modrinth.com/mod/cofh-core/versions',
-            title: 'CoFH Core',
-            ver: '1.16.5 ~ 1.20.1'
-          },
-          {
-            link: 'https://www.curseforge.com/minecraft/mc-mods/cofh-world/files/all?filter-game-version=2020709689%3A6756',
-            title: 'CoFH World',
-            ver: '1.12'
-          },
-          {
-            link: 'https://www.curseforge.com/minecraft/mc-mods/redstone-flux/files/all?filter-game-version=2020709689%3A6756',
-            title: 'Redstone Flux',
-            ver: '1.12'
-          }
-        ],
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/thermal-expansion/files/all?filter-game-version=2020709689%3A6756',
-          title: 'Thermal Expansion',
-          ver: '1.6.4 ~ 1.20.1'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/thermal-foundation/versions',
-        title: 'Thermal Foundation',
-        ver: '1.16.5 ~ 1.20.1',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/thermal-foundation/files/all?filter-game-version=2020709689%3A6756',
-          title: 'Thermal Foundation',
-          ver: '1.7.10 ~ 1.20.1'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/thermal-dynamics/versions',
-        title: 'Thermal Dynamics',
-        ver: '1.18.2 ~ 1.20.1',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/thermal-dynamics/files/all?filter-game-version=2020709689%3A6756',
-          title: 'Thermal Dynamics',
-          ver: '1.7.10 ~ 1.20.1'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/thermal-integration/versions',
-        title: 'Thermal Integration',
-        ver: '1.18.2 ~ 1.20.1'
-      },
-      {
-        link: 'https://modrinth.com/mod/botania/versions',
-        title: 'Botania',
-        ver: '1.6.4 ~ 1.20.1',
-        depends: [
-          {
-            link: 'https://modrinth.com/mod/patchouli/versions',
-            title: 'Patchouli',
-            ver: '1.12.2 ~ 1.21'
-          },
-          {
-            link: 'https://www.curseforge.com/minecraft/mc-mods/curios/files/all?page=1&pageSize=20',
-            title: 'Curios API',
-            subtitle: '(for Forge)',
-            ver: '1.13.2 ~ 1.20.6'
-          },
-          {
-            link: 'https://modrinth.com/mod/trinkets/versions',
-            title: 'Trinkets',
-            subtitle: '(for Fabric, Quilt)',
-            ver: '1.17.1 ~ 1.21'
-          }
-        ]
-      },
-      {
-        link: 'https://modrinth.com/mod/ars-nouveau/versions',
-        title: 'Ars Nouveau',
-        ver: '1.18.2 ~ 1.20.1',
-        depends: [{
-          link: 'https://modrinth.com/mod/geckolib/versions',
-          title: 'Geckolib',
-          ver: '1.12.2 ~ 1.21'
-        }],
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/ars-nouveau/files/all?page=1&pageSize=20',
-          title: 'Ars Nouveau',
-          ver: '1.15 ~ 1.21.1'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/ars-creo/versions',
-        title: 'Ars Creo',
-        ver: '1.16.5 ~ 1.20.1'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/ars-elemental/files/all?page=1&pageSize=20',
-        title: 'Ars Elemental',
-        ver: '1.16.4 ~ 1.21.1'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/ars-instrumentum/files/all?page=1&pageSize=20',
-        title: 'Ars Instrumentum',
-        ver: '1.18.1 ~ 1.20.1'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/ars-omega/files/all?page=1&pageSize=20',
-        title: 'Ars Omega',
-        ver: '1.16.5 ~ 1.19.2'
-      },
-      {
-        link: 'https://modrinth.com/mod/tinkers-construct/versions',
-        title: "Tinkers' Construct",
-        ver: '1.6.4 ~ 1.19.2',
-        depends: [{
-          link: 'https://modrinth.com/mod/mantle/versions',
-          title: 'Mantle',
-          ver: '1.7.10 ~ 1.19.2'
-        }]
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/enhanced-ai/files/all?page=1&pageSize=20',
-        title: 'Enhanced AI',
-        ver: '1.16 ~ 1.20.1',
-        depends: [{
-          link: 'https://modrinth.com/mod/insanelib/versions',
-          title: 'InsaneLib',
-          ver: '1.18.2 ~ 1.20.1'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/progressive-bosses/versions',
-        title: 'Progressive Bosses',
-        ver: '1.18.2 ~ 1.20.1',
-        depends: [{
-          link: 'https://modrinth.com/mod/insanelib/versions',
-          title: 'InsaneLib',
-          ver: '1.18.2 ~ 1.20.1'
-        }],
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/progressive-bosses/files/all?page=1&pageSize=20',
-          title: 'Progressive Bosses',
-          ver: '1.12 ~ 1.20.1'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/biomes-o-plenty/versions',
-        title: "Biomes O' Plenty ",
-        ver: '1.7.10 ~ 1.21',
-        depends: [
-          {
-            link: 'https://modrinth.com/mod/glitchcore/versions',
-            title: 'GlitchCore',
-            subtitle: '(for ver ≦ 1.20.4)',
-            ver: '1.20.1 ~ 1.21'
-          },
-          {
-            link: 'https://modrinth.com/mod/terrablender/versions',
-            title: 'TerraBlender',
-            subtitle: '(for ver ≦ 1.18)',
-            ver: '1.18.2 ~ 1.21'
-          }
-        ]
-      },
-      {
-        link: 'https://modrinth.com/mod/quark/versions',
-        title: 'Quark',
-        ver: '1.9.4 ~ 1.20.1',
-        depends: [
-          {
-            link: 'https://modrinth.com/mod/zeta/versions',
-            title: 'Zeta',
-            subtitle: '(for ver ≧ 1.20.1)',
-            ver: '1.20.1'
-          },
-          {
-            link: 'https://modrinth.com/mod/autoreglib/versions',
-            title: 'AutoRegLib',
-            subtitle: '(for ver ≦ 1.19.2)',
-            ver: '1.12.2 ~ 1.19.2'
-          },
-        ]
-      },
-      {
-        link: 'https://modrinth.com/mod/gravestone-mod/versions',
-        title: "GraveStone Mod",
-        ver: '1.19 ~ 1.21',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/gravestone-mod/files/all?filter-game-version=2020709689%3A6756',
-          title: 'GraveStone Mod',
-          ver: '1.7.10 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/mmmmmmmmmmmm/versions',
-        title: "MmmMmmMmmMmm",
-        ver: '1.18 ~ 1.21',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/mmmmmmmmmmmm/files/all?filter-game-version=2020709689%3A6756',
-          title: 'MmmMmmMmmMmm',
-          ver: '1.7.10 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/comforts/versions',
-        title: 'Comforts',
-        ver: '1.12.2 ~ 1.21'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/swingthroughgrass/files/all?filter-game-version=2020709689%3A6756',
-        title: 'SwingThroughGrass',
-        ver: '1.10.2 ~ 1.19.2',
-        alternates: [{
-          link: 'https://modrinth.com/mod/swingthrough/versions',
-          title: 'SwingThrough',
-          ver: '1.14 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/clumps/versions',
-        title: 'Clumps',
-        ver: '1.10.2 ~ 1.21',
-      },
-      {
-        link: 'https://modrinth.com/mod/farmers-delight/versions',
-        title: "Farmer's Delight",
-        ver: '1.18.2 ~ 1.21',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/farmers-delight/files/all?page=1&pageSize=20',
-          title: "Farmer's Delight",
-          ver: '1.15.2 ~ 1.21.1'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/serene-seasons/versions',
-        title: 'Serene Seasons',
-        ver: '1.7.10 ~ 1.21',
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/end-ores/files/all?page=1&pageSize=20',
-        title: 'End Ores',
-        ver: '1.8 ~ 1.20.1',
-      },
-      {
-        link: 'https://modrinth.com/mod/storagedrawers/versions',
-        title: 'Storage Drawers',
-        ver: '1.7.10 ~ 1.21',
-        depends: [{
-          link: 'https://modrinth.com/mod/texel-chameleon/versions',
-          title: 'Chameleon',
-          ver: '1.8.9 ~ 1.12'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/polymorph/versions',
-        title: 'Polymorph',
-        ver: '1.15.2 ~ 1.21'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/immersive-engineering/files/all?page=1&pageSize=20',
-        title: 'Immersive Engineering',
-        ver: '1.7.10 ~ 1.20.4'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/immersive-petroleum/files/all?page=1&pageSize=20',
-        title: 'Immersive Petroleum',
-        ver: '1.10.2 ~ 1.19.2'
-      },
-      {
-        link: 'https://modrinth.com/mod/ae2/versions',
-        title: 'Applied Energistics 2',
-        ver: '1.18 ~ 1.21',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/applied-energistics-2/files/all?filter-game-version=2020709689%3A6756',
-          title: 'Applied Energistics 2',
-          ver: '1.7.2 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/sakura/files/all?page=1&pageSize=20',
-        title: 'Sakura',
-        ver: '1.12.2, 1.18.2',
-        alternates: [{
-          link: 'https://modrinth.com/mod/mmlib/versions',
-          title: 'Mysterious Mountain Lib',
-          ver: '1.18.1 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/tofucraftreload/files/all?page=1&pageSize=20',
-        title: 'TofuCraftReload',
-        ver: '1.12.2 ~ 1.21.1',
-        alternates: [{
-          link: 'https://modrinth.com/mod/mmlib/versions',
-          title: 'Mysterious Mountain Lib',
-          ver: '1.18.1 ~ 1.21'
-        }]
-      },
-    ];
-
-    /** @type {ModList} */
-    const mods_season7 = [
-      {
-        link: 'https://www.curseforge.com/minecraft/modpacks/create-above-and-beyond/files/all?page=1&pageSize=20',
-        title: 'Create: Above and Beyond',
-        ver: '1.16.5'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/swingthroughgrass/files/all?filter-game-version=2020709689%3A6756',
-        title: 'SwingThroughGrass',
-        ver: '1.10.2 ~ 1.19.2',
-        alternates: [{
-          link: 'https://modrinth.com/mod/swingthrough/versions',
-          title: 'SwingThrough',
-          ver: '1.14 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/mmmmmmmmmmmm/versions',
-        title: "MmmMmmMmmMmm",
-        ver: '1.18 ~ 1.21',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/mmmmmmmmmmmm/files/all?filter-game-version=2020709689%3A6756',
-          title: 'MmmMmmMmmMmm',
-          ver: '1.7.10 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/comforts/versions',
-        title: 'Comforts',
-        ver: '1.12.2 ~ 1.21'
-      },
-    ]
-
-    /** @type {ModList} */
-    const mods_solo1 = [
-      {
-        link:'https://modrinth.com/mod/create/versions',
-        title: 'Create',
-        ver: '1.18.2 ~ 1.20.1',
-        depends: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/flywheel/files/all?page=1&pageSize=20',
-          title: 'Flywheel (Legacy)',
-          subtitle: '(for MODver < 0.5.1)',
-          ver: '1.16.5 ~ 1.19.2'
-        }],
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/create/files/all?page=1&pageSize=20',
-          title: 'Create',
-          ver: '1.14.4 ~ 1.20.1'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/blue-skies/versions',
-        title: 'Blue Skies',
-        ver: '1.16.5 ~ 1.20.4',
-        depends: [{
-          link: 'https://modrinth.com/mod/structure-gel-api/versions',
-          title: 'Structure Gel API',
-          ver: '1.16.5 ~ 1.20.4'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/comforts/versions',
-        title: 'Comforts',
-        ver: '1.12.2 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/dark-caverns/versions',
-        title: 'Dark Caverns',
-        ver: '1.16',
-        depends: [{
-          link: 'https://modrinth.com/mod/geckolib/versions',
-          title: 'Geckolib',
-          ver: '1.12.2 ~ 1.21'
-        }],
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/dark-caverns/files/all?page=1&pageSize=20',
-          title: 'Dark Caverns',
-          ver: '1.16'
-        }]
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/esencia/files/all?page=1&pageSize=20',
-        title: 'Esencia',
-        ver: '1.16.4, 1.16.5'
-      },
-      {
-        link: 'https://modrinth.com/mod/hals%20exploration%20mod/versions',
-        title: 'Hals Exploration Mod',
-        ver: '1.16.5 ~ 1.18.2'
-      },
-      {
-        link: 'https://modrinth.com/mod/hwyla/versions',
-        title: 'Hwyla',
-        ver: '1.10.2 ~ 1.16'
-      },
-      {
-        link: 'https://modrinth.com/mod/jei/versions',
-        title: 'Just Enough Items',
-        ver: '1.8 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/mmmmmmmmmmmm/versions',
-        title: "MmmMmmMmmMmm",
-        ver: '1.18 ~ 1.21',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/mmmmmmmmmmmm/files/all?filter-game-version=2020709689%3A6756',
-          title: 'MmmMmmMmmMmm',
-          ver: '1.7.10 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/quark/versions',
-        title: 'Quark',
-        ver: '1.9.4 ~ 1.20.1',
-        depends: [
-          {
-            link: 'https://modrinth.com/mod/zeta/versions',
-            title: 'Zeta',
-            subtitle: '(for ver ≧ 1.20.1)',
-            ver: '1.20.1'
-          },
-          {
-            link: 'https://modrinth.com/mod/autoreglib/versions',
-            title: 'AutoRegLib',
-            subtitle: '(for ver ≦ 1.19.2)',
-            ver: '1.12.2 ~ 1.19.2'
-          },
-        ]
-      },
-      {
-        link: 'https://modrinth.com/mod/quark-oddities/versions',
-        title: 'Quark Oddities',
-        ver: '1.12.2 ~ 1.20.1'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/soulbound-dimension/files/all?page=1&pageSize=20',
-        title: 'Soulbound Dimension',
-        ver: '1.16.5 ~ 1.17.1'
-      },
-      {
-        link: 'https://modrinth.com/mod/tinkers-construct/versions',
-        title: "Tinkers' Construct",
-        ver: '1.6.4 ~ 1.19.2',
-        depends: [{
-          link: 'https://modrinth.com/mod/mantle/versions',
-          title: 'Mantle',
-          ver: '1.7.10 ~ 1.19.2'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/the-undergarden/versions',
-        title: 'The Undergarden',
-        ver: '1.20.1 ~ 1.21',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/the-undergarden/files/all?page=1&pageSize=20',
-          title: 'The Undergarden',
-          ver: '1.16.3 ~ 1.21.1'
-        }]
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/the-abyss-chapter-ii/files/all?page=1&pageSize=20',
-        title: 'The Abyss II - The Other Side',
-        ver: '1.16.4 ~ 1.20.1',
-        depends: [
-          {
-            link: 'https://modrinth.com/mod/geckolib/versions',
-            title: 'Geckolib',
-            subtitle: '(for ver 1.20.1)',
-            ver: '1.12.2 ~ 1.21'
-          },
-          {
-            link: 'https://modrinth.com/mod/patchouli/versions',
-            title: 'Patchouli',
-            subtitle: '(for ver 1.20.1)',
-            ver: '1.12.2 ~ 1.21'
-          },
-        ]
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/the-twilight-forest/files/all?page=1&pageSize=20',
-        title: 'The Twilight Forest',
-        ver: '1.0.0 ~ 1.21.1'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/xenoclus-2/files/all?page=1&pageSize=20',
-        title: 'Xenoclus 2',
-        ver: '1.15.2 ~ 1.16.5'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/dynamic-surroundings/files/all?page=1&pageSize=20',
-        title: 'Dynamic Surroundings',
-        ver: '1.7.10 ~ 1.16.5'
-      },
-      {
-        link: 'https://modrinth.com/mod/create-stuff-additions/versions',
-        title: 'Create Stuff & Additions',
-        ver: '1.18.2 ~ 1.20.1',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/create-stuff-additions/files/all?page=1&pageSize=20',
-          title: 'Create Stuff & Additions',
-          ver: '1.16.5 ~ 1.20.1'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/createaddition/versions',
-        title: 'Create Crafts & Additions',
-        ver: '1.18.2 ~ 1.20.2',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/createaddition/files/all?page=1&pageSize=20',
-          title: 'Create Crafts & Additions',
-          ver: '1.16.4 ~ 1.20.1'
-        }]
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/createfoodadditions/files/all?page=1&pageSize=20',
-        title: 'CreateFoodAdditions',
-        ver: '1.16.5 ~ 1.18.2'
-      },
-      {
-        link: 'https://modrinth.com/mod/chunk-loaders/versions',
-        title: 'Chunk Loaders',
-        ver: '1.12 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/supermartijn642s-config-lib/versions',
-        title: "SuperMartijn642's Config Lib",
-        ver: '1.12 ~ 1.21'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/create-gears/files/all?page=1&pageSize=20',
-        title: "Create Gears",
-        ver: '1.16.3 ~ 1.16.5'
-      },
-    ]
-
-    /** @type {ModList} */
-    const mods_solo2 = [
-      {
-        link: 'https://modrinth.com/mod/aether/versions',
-        title: 'The Aether',
-        ver: 'b1.7.3 ~ 1.20.4'
-      },
-      {
-        link: 'https://modrinth.com/mod/better-f3/versions',
-        title: 'Better F3',
-        ver: '1.12 ~ 1.20.4',
-        alternates: [{
-          link: 'https://modrinth.com/mod/betterf3/versions',
-          title: 'BetterF3',
-          ver: '1.16 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/cloth-config/versions',
-        title: 'Cloth Config API',
-        ver: '1.14 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/comforts/versions',
-        title: 'Comforts',
-        ver: '1.12.2 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/embeddium/versions',
-        title: 'Embeddium',
-        ver: '1.16.5 ~ 1.21'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/fast-leaf-decay/files/all?page=1&pageSize=20',
-        title: 'Fast Leaf Decay',
-        ver: '1.7.10 ~ 1.20.6'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/ftb-ultimine-forge/files/all?page=1&pageSize=20',
-        title: 'FTB Ultimine (Forge)',
-        ver: '1.10.2 ~ 1.21.1'
-      },
-      {
-        link: 'https://modrinth.com/mod/glassbreaker/versions',
-        title: 'Glass Breaker',
-        ver: '1.7.10 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/iron-chests/versions',
-        title: 'Iron Chests',
-        ver: '1.16.5 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/jei/versions',
-        title: 'Just Enough Items',
-        ver: '1.8 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/l_enders-cataclysm/versions',
-        title: "L_Ender's Cataclysm",
-        ver: '1.19.2, 1.20.1',
-        depends: [{
-          link: 'https://modrinth.com/mod/lionfish-api/versions',
-          title: 'Lionfish-API',
-          ver: '1.19.2 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/mouse-tweaks/versions',
-        title: 'Mouse Tweaks',
-        ver: 'b1.7.3 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/oculus/versions',
-        title: 'Oculus',
-        ver: '1.16.5 ~ 1.20.1'
-      },
-      {
-        link: 'https://modrinth.com/mod/quark/versions',
-        title: 'Quark',
-        ver: '1.9.4 ~ 1.20.1',
-        depends: [
-          {
-            link: 'https://modrinth.com/mod/zeta/versions',
-            title: 'Zeta',
-            subtitle: '(for ver ≧ 1.20.1)',
-            ver: '1.20.1'
-          },
-          {
-            link: 'https://modrinth.com/mod/autoreglib/versions',
-            title: 'AutoRegLib',
-            subtitle: '(for ver ≦ 1.19.2)',
-            ver: '1.12.2 ~ 1.19.2'
-          },
-        ]
-      },
-      {
-        link: 'https://modrinth.com/mod/quark-oddities/versions',
-        title: 'Quark Oddities',
-        ver: '1.12.2 ~ 1.20.1'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/the-twilight-forest/files/all?page=1&pageSize=20',
-        title: 'The Twilight Forest',
-        ver: '1.0.0 ~ 1.21.1'
-      },
-    ];
-
-    /** @type {ModList} */
-    const mods_recom = [
-      {
-        link: 'https://modrinth.com/mod/effective/versions',
-        title: 'Effective',
-        ver: '1.18.1 ~ 1.21.1'
-      },
-      {
-        link: 'https://modrinth.com/mod/eating-animation/versions',
-        title: 'Eating Animation',
-        ver: '1.16 ~ 1.21',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/eating-animation-forge/files/all?page=1&pageSize=20',
-          title: 'Eating Animation',
-          ver: '1.16.5 ~ 1.21.1'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/inventory-tabs/versions',
-        title: 'Inventory Tabs',
-        ver: '1.18.2 ~ 1.21',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/inventory-tabs/files/all?page=1&pageSize=20',
-          title: 'Inventory Tabs',
-          ver: '1.16.1 ~ 1.16.4'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/fog-looks-good-now/versions',
-        title: 'Fog Looks Good Now',
-        ver: '1.18.2, 1.19.2'
-      },
-      {
-        link: 'https://modrinth.com/mod/blur-plus/versions',
-        title: 'Blur+',
-        ver: '1.15 ~ 1.21',
-        alternates: [
-          {
-            link: 'https://modrinth.com/mod/blur-forge/versions',
-            title: 'Blur Forge (Unofficial)',
-            ver: '1.18.2 ~ 1.20.1'
-          },
-          {
-            link: 'https://www.curseforge.com/minecraft/mc-mods/blur/files/all?page=1&pageSize=20',
-            title: 'Blur',
-            ver: '1.7.10 ~ 1.16.5'
-          },
-          {
-            link: 'https://modrinth.com/mod/reblured/versions',
-            title: 'ReBlured',
-            ver: '1.18.2 ~ 1.20.4'
-          }
-        ]
-      },
-      {
-        link: 'https://modrinth.com/mod/pick-up-notifier/versions',
-        title: 'Pick Up Notifier',
-        ver: '1.19 ~ 1.21',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/pick-up-notifier/files/all?page=1&pageSize=20',
-          title: 'Pick Up Notifier [Forge & Fabric]',
-          ver: '1.11 ~ 1.21.1'
-        }]
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/inventory-spam/files/all?page=1&pageSize=20',
-        title: 'Inventory Spam',
-        ver: '1.10.2 ~ 1.21.1'
-      },
-      {
-        link: 'https://modrinth.com/mod/item-highlighter/versions',
-        title: 'Item Highlighter',
-        ver: '1.12.2 ~ 1.21',
-        depends: [{
-          link: 'https://modrinth.com/mod/iceberg/versions',
-          title: 'Iceberg',
-          ver: '1.16.5 ~ 1.21'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/universal-bone-meal/versions',
-        title: 'Universal Bone Meal',
-        ver: '1.18.2 ~ 1.21.1'
-      },
-      {
-        link: 'https://modrinth.com/mod/trade-cycling/versions',
-        title: 'Universal Bone Meal',
-        ver: '1.19 ~ 1.21'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/cavern2/files/all?page=1&pageSize=20',
-        title: 'Cavern II',
-        ver: '1.12.2'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/atum/files/all?page=1&pageSize=20',
-        title: 'Atum 2: Return to the Sands',
-        ver: '1.5.2 ~ 1.16.5'
-      },
-      {
-        link: 'https://modrinth.com/mod/the-midnight/versions',
-        title: 'The Midnight',
-        ver: '1.12.2 ~ 1.20.1'
-      },
-      {
-        link: 'https://modrinth.com/mod/tropicraft/versions',
-        title: 'Tropicraft',
-        ver: '1.10.2 ~ 1.21'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/the-erebus/files/all?page=1&pageSize=20',
-        title: 'The Erebus',
-        ver: '1.7.10, 1.12.2'
-      },
-      {
-        link: 'https://modrinth.com/mod/snow-real-magic/versions',
-        title: 'Snow! Real Magic! ⛄',
-        ver: '1.19.4 ~ 1.21'
-      },
-      {
-        link: 'https://modrinth.com/mod/yungs-better-dungeons/versions',
-        title: "YUNG's Better Dungeons",
-        ver: '1.19.4 ~ 1.20.4'
-      },
-      {
-        link: 'https://modrinth.com/mod/biomesyougo/versions',
-        title: "Oh The Biomes You'll Go",
-        ver: '1.16.4 ~ 1.19.4'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/redstoneplusplus/files/all?page=1&pageSize=20',
-        title: 'RedstonePlusPlus',
-        ver: '1.11 ~ 1.12.2'
-      },
-      {
-        link: 'https://www.curseforge.com/minecraft/mc-mods/not-what-it-seems/files/all?page=1&pageSize=20',
-        title: 'Not What It Seems',
-        ver: '1.15.2, 1.16.1'
-      },
-      {
-        link: 'https://modrinth.com/mod/bountiful/versions',
-        title: 'Bountiful',
-        ver: '1.17.1 ~ 1.20.4',
-        alternates: [{
-          link: 'https://www.curseforge.com/minecraft/mc-mods/bountiful/files/all?page=1&pageSize=20',
-          title: 'Bountiful',
-          ver: '1.12 ~ 1.20.4'
-        }]
-      },
-      {
-        link: 'https://modrinth.com/mod/bongo/versions',
-        title: 'Bongo',
-        ver: '1.16.5 ~ 1.20.1'
-      },
-      {
-        link: 'https://modrinth.com/mod/conjuring/versions',
-        title: 'Conjuring',
-        ver: '1.16.2 ~ 1.20.4'
-      },
-    ]
-
     const indexSwitch = document.getElementById('index_switch');
     const index = document.getElementById('index');
     indexSwitch.addEventListener('change', ev => {
-      if(indexSwitch.checked) {
-        index.style.right = '0';
-      } else {
-        index.style.right = '-416px';
-      }
+      index.style.right = indexSwitch.checked? '0' : '-416px';
     });
 
-    /**
-     * @param {string} id
-     * @param {ModList} li
-     */
-    function genTable(id, li) {
-      li.forEach(elem => {
-        let text = [
-          `<div class="checkbox"></div>`,
-          `<div class="content">`,
-          `  <input type="checkbox" id="cb${count}"><label for="cb${count}"></label>`,
-          `  <a href="${elem.link}">`,
-          `    ${elem.title}`,
-          `  </a>　<span class="ver">Ver: ${elem.ver}</span>`
-        ];
-        if(elem.alternates) {
-          text.push(
-            '<br>',
-            '<span>代替</span>',
-            '<div class="section">'
-          );
-          let alternates = [];
-          elem.alternates.forEach(alt => {
-            alternates.push([
-              `  <a href="${alt.link}">`,
-              `    ${alt.title}`,
-              `  </a>${alt.subtitle ?? ''}　<span class="ver">Ver: ${alt.ver}</span>`,
-            ].join('\n'));
-          });
-          text.push(alternates.join('<br>'));
-          text.push('</div>');
-        }
-        if(elem.depends) {
-          if(!elem.alternates) text.push('<br>')
-          text.push(
-            '<span>前提MOD</span>',
-            '<div class="section">'
-          );
-          let depends = [];
-          elem.depends.forEach(dep => {
-            depends.push([
-              `  <a href="${dep.link}">`,
-              `    ${dep.title}`,
-              `  </a>${dep.subtitle ?? ''}　<span class="ver">Ver: ${dep.ver}</span>`,
-            ].join('\n'));
-          });
-          text.push(depends.join('<br>'));
-          text.push('</div>');
-        }
-        text.push(`</div>`);
-        const TD = document.createElement('td');
-          TD.innerHTML = text.join('\n');
-        const TR = document.createElement('tr');
-          TR.appendChild(TD);
-        document.getElementById(id).appendChild(TR);
-        count++;
-      });
-    }
     function jumpTo(id, offset=0) {
       const target = document.getElementById(id);
       if(target) scrollBy(0, target.getBoundingClientRect().top - 16 + offset);
     }
 
     function windowLoad() {
-      if(window.innerWidth > 960) { // Wide
+      const isWindowWide = window.innerWidth > 960;
+      if(isWindowWide) {
         document.getElementById('main').style.width = 'calc(65% - 32px)';
         document.getElementById('index_switch_label').style.display = 'none';
         indexSwitch.checked = true;
         index.style.right = '0';
-      } else { // Not wide
+
+      } else {
         document.getElementById('main').style.width = 'calc(100% - 32px)';
         document.getElementById('index_switch_label').style.display = 'unset';
       }
     }
-
-    genTable('mods_s3', mods_season3);
-    genTable('mods_s4', mods_season4);
-    genTable('mods_s5', mods_season5);
-    genTable('mods_s6', mods_season6);
-    genTable('mods_s7', mods_season7);
-    genTable('mods_solo1', mods_solo1);
-    genTable('mods_solo2', mods_solo2);
-    genTable('mods_recom', mods_recom);
 
     window.onresize = windowLoad;
     windowLoad();
