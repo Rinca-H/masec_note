@@ -1,88 +1,114 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <title>公式 - 数学探検録</title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width">
-  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-  </script>
-  <!-- <link rel="shortcut icon" href="img/favicon.ico"> -->
-  <link rel="stylesheet" type="text/css" href="basic.css">
-  <link rel="stylesheet" type="text/css" href="my_sidemenu.css">
-  <style type="text/css">
-    img#equ { zoom: 1.7; }
-    div.equ { margin: 0.5em; }
-    .equ { overflow: auto; }
-  </style>
-</head>
-<body style="margin: 0px; background: #FFF5D0;">
-  <div style="margin: 8px;"><span class="desc">uploaded:2021/12/02</span></div>
-  <div>
-    <div class="main">
-      <h1 id="top">公式</h1>
-      <h3 id="sec01sec01">グルサの定理</h3>
-      <div class="equ"><img id="equ" src="img/formulae_a.svg"></div>
-      <h3 id="sec01sec02">留数定理</h3>
-      <div class="equ"><img id="equ" src="img/formulae_b.svg"></div>
-      <h3 id="sec01sec03">フーリエ変換　(Fourier Transform)</h3>
-      <div class="equ"><img id="equ" src="img/formulae_c.svg"></div>
-      <h3 id="sec01sec04">ラプラス変換　(Laplace Transform)</h3>
-      <div class="equ"><img id="equ" src="img/formulae_d.svg"></div>
-      <h3 id="sec01sec05">メリン変換　(Mellin Transform)</h3>
-      <div class="equ"><img id="equ" src="img/formulae_e.svg"></div>
-      <h3 id="sec01sec06">ポアソンの和公式　(Poisson Sum)</h3>
-      <div class="equ"><img id="equ" src="img/formulae_f.svg"></div>
-      <h3 id="sec01sec06">分数階微分</h3>
-      <div class="equ"><img id="equ" src="img/formulae_g.svg"></div>
-      <h3 id="sec01sec07">複素数階微分</h3>
-      <div class="equ"><img id="equ" src="img/formulae_h.svg"></div>
-      <h3 id="sec01sec08">正規化積　(Regularized Product)</h3>
-      <div class="equ"><img id="equ" src="img/formulae_i.svg"></div>
-      <h3 id="sec01sec09">丼積</h3>
-      <div class="equ"><img id="equ" src="img/formulae_j.svg"></div>
-    </div>
-  </div>
-  <div align="right" style="margin: 8px;"><span style="font-size: 70%;">constructed by: Rinca Hayamine</span></div>
-  <header>
-    <div class="menu-button no-select"><label for="check"><div style="margin-top: 0.75em;">三</div></label></div>
-    <input type="checkbox" name="check" id="check" style="display: none;">
-    <div class="move-box">
-      <div class="content">
-        <h2><a href="pChbr-home.html">Home</a></h2>
-        <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
-        <p>
-          ・<a href="#sec01sec01">グルサの定理</a><br>
-          ・<a href="#sec01sec02">留数定理</a><br>
-          ・<a href="#sec01sec03">フーリエ変換</a><br>
-          ・<a href="#sec01sec04">ラプラス変換</a><br>
-          ・<a href="#sec01sec05">メリン変換</a><br>
-          ・<a href="#sec01sec06">ポアソンの和公式</a><br>
-          ・<a href="#sec01sec07">分数階微分</a><br>
-          ・<a href="#sec01sec08">フーリエ変換</a><br>
-          ・<a href="#sec01sec09">ラプラス変換</a>
-        </p>
+  <head>
+    <title>公式 - 数学探検録</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+      onload="renderMathInElement(document.body, {
+        delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '$', right: '$', display: false},
+        ]
+      });"></script>
+    <!-- <link rel="shortcut icon" href="img/favicon.ico"> -->
+    <link rel="stylesheet" type="text/css" href="basic.css">
+    <link rel="stylesheet" type="text/css" href="my_sidemenu.css">
+    <style type="text/css">
+      img#equ { zoom: 1.7; }
+      div.equ { margin: 0.5em; }
+      .equ { overflow: auto; }
+    </style>
+  </head>
+  <body style="margin: 0px; background: #FFF5D0;">
+    <div style="margin: 8px;"><span class="desc">uploaded:2021/12/02</span></div>
+    <div>
+      <div class="main">
+        <h1 id="top">公式</h1>
+        <h3 id="sec01sec01">グルサの定理</h3>
+        $$f^{(n)}(a)=\frac{n!}{2\pi i}\int_C\frac{f(z)}{(z-a)^{n+1}}\,dz \qquad(n\geq 0)$$
+        <h3 id="sec01sec02">留数定理</h3>
+        $$\begin{align*}
+          \frac{1}{2\pi i}\int_C f(z)\,dz&=\sum_{a}\frac{1}{(n-1)!}\lim_{z\to a}\frac{d^{n-1}}{dz^{n-1}}(z-a)^nf(z)\\
+          &=\sum_{a}\text{Res}_{z=a}f(z)
+        \end{align*}$$
+        <h3 id="sec01sec03">フーリエ変換　(Fourier Transform)</h3>
+        $$\begin{align*}
+          \mathcal{F}[f](\xi)&=\hat{f}(\xi)=\int_{-\infty}^{\infty}f(x)e^{-2\pi i x\xi}\,dx\\
+          f(x)&=\int_{-\infty}^{\infty}\hat{f}e^{2\pi i x \xi}\,dx
+        \end{align*}$$
+        <h3 id="sec01sec04">ラプラス変換　(Laplace Transform)</h3>
+        $$\begin{align*}
+          \mathcal{L}(s)&=F(s)=\int_0^\infty f(t)e^{-st}\,dt\\
+          f(t)&=\frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}F(s)e^{st}\,ds
+        \end{align*}$$
+        <h3 id="sec01sec05">メリン変換　(Mellin Transform)</h3>
+        $$\begin{align*}
+          \mathcal{M}[f](s)&=\varphi(s)=\int_{0}^{\infty}f(x)x^{s-1}\,dx\\
+          f(x)&=\frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}\varphi(s)x^{-s}\,ds
+        \end{align*}$$
+        <h3 id="sec01sec06">ポアソンの和公式　(Poisson Sum)</h3>
+        $$\begin{align*}
+          \sum_{n\in\mathbb{Z}}f(n)=\sum_{n\in\mathbb{Z}}\mathcal{F}[f](n)
+        \end{align*}$$
+        <h3 id="sec01sec06">分数階微分</h3>
+        $$\begin{align*}
+          D^{-\alpha}f(x)=\frac{1}{\Gamma(\alpha)}\int_{0}^{x}(x-t)^{\alpha-1}f(t)\,dt
+        \end{align*}$$
+        <h3 id="sec01sec07">複素数階微分</h3>
+        $$\begin{align*}
+          D^\nu F(x)=\int_{0}^{x}Y_{-\nu}(x-y)F(y)\,dy=\left\{\begin{array}{ll}
+            \displaystyle\frac{1}{\Gamma(-\nu)}\int_0^x(x-y)^{-(\nu+1)}\theta(x-y)F(y)\,dy & (\nu\neq1,\ 2,\ 3,\ \cdots)\\
+            \displaystyle\int_0^x\delta^{(\nu)}(x-y)F(y)\,dy & (\nu=1,\ 2,\ 3,\ \cdots)
+          \end{array}\right.
+        \end{align*}$$
+        <h3 id="sec01sec08">正規化積　(Regularized Product)</h3>
+        <div class="equ"><img id="equ" src="img/formulae_i.svg"></div>
+        <h3 id="sec01sec09">丼積</h3>
+        <div class="equ"><img id="equ" src="img/formulae_j.svg"></div>
       </div>
     </div>
-  </header>
-  <script type="text/javascript">
-    window_load(); //読み込み時の表示
-    window.onresize = window_load; //ウィンドウサイズ変更時に更新
-    function window_load() {
-      for (var i = 0; i < document.querySelectorAll("img#equ").length; i++) {
-        document.querySelectorAll("img#equ")[i].classList.add('ignore');
-      }
-      if (window.innerWidth > window.innerHeight) {
+    <div align="right" style="margin: 8px;"><span style="font-size: 70%;">constructed by: Rinca Hayamine</span></div>
+    <header>
+      <div class="menu-button no-select"><label for="check"><div style="margin-top: 0.75em;">三</div></label></div>
+      <input type="checkbox" name="check" id="check" style="display: none;">
+      <div class="move-box">
+        <div class="content">
+          <h2><a href="pChbr-home.html">Home</a></h2>
+          <hr style="background-color: #64ec86; border: 1px solid #64ec86;">
+          <p>
+            ・<a href="#sec01sec01">グルサの定理</a><br>
+            ・<a href="#sec01sec02">留数定理</a><br>
+            ・<a href="#sec01sec03">フーリエ変換</a><br>
+            ・<a href="#sec01sec04">ラプラス変換</a><br>
+            ・<a href="#sec01sec05">メリン変換</a><br>
+            ・<a href="#sec01sec06">ポアソンの和公式</a><br>
+            ・<a href="#sec01sec07">分数階微分</a><br>
+            ・<a href="#sec01sec08">フーリエ変換</a><br>
+            ・<a href="#sec01sec09">ラプラス変換</a>
+          </p>
+        </div>
+      </div>
+    </header>
+    <script type="text/javascript">
+      window_load(); //読み込み時の表示
+      window.onresize = window_load; //ウィンドウサイズ変更時に更新
+      function window_load() {
         for (var i = 0; i < document.querySelectorAll("img#equ").length; i++) {
-          document.querySelectorAll("img#equ")[i].style.zoom = "1.7";
+          document.querySelectorAll("img#equ")[i].classList.add('ignore');
         }
-      } else {
-        for (var i = 0; i < document.querySelectorAll("img#equ").length; i++) {
-          document.querySelectorAll("img#equ")[i].style.zoom = "1.4";
+        if (window.innerWidth > window.innerHeight) {
+          for (var i = 0; i < document.querySelectorAll("img#equ").length; i++) {
+            document.querySelectorAll("img#equ")[i].style.zoom = "1.7";
+          }
+        } else {
+          for (var i = 0; i < document.querySelectorAll("img#equ").length; i++) {
+            document.querySelectorAll("img#equ")[i].style.zoom = "1.4";
+          }
         }
       }
-    }
-  </script>
-</body>
+    </script>
+  </body>
 </html>
