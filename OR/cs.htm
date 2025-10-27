@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>C#</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_ctrl">
+    <div id="main">
+      <h1 id="top">C#</h1>
+      <h2 id="sec01" class="sec">参考</h2>
+      <ul>
+        <li><a href="https://www.tohoho-web.com/ex/c-sharp.html">とほほのC#入門 - とほほのWWW入門</a></li>
+      </ul>
+      <h2 id="sec02" class="sec">概要</h2>
+      <h3 id="sec03sec01" class="subsec">言語の特徴</h3>
+      <table class="default">
+        <tr><th>特徴</th>
+<th>説明</th></tr>
+        <tr><td>型付け</td>
+<td>静的型付け</td></tr>
+        <tr><td>パラダイム</td>
+<td>主に <b>オブジェクト指向(OOP)</b>、ほかにも手動実行、関数型の要素あり</td></tr>
+        <tr><td>コンパイル言語</td>
+<td>C# は中間言語(IL)にコンパイルされ、.NET ランタイム上で実行</td></tr>
+        <tr><td>ガベージコレクション</td>
+<td>メモリ管理は自動で行われる(GCあり)</td></tr>
+        <tr><td>型安全性</td>
+<td>高い (型安全なコードが基本)</td></tr>
+        <tr><td>マルチパラダイム</td>
+<td>LINQ による関数型のような記述、非同期処理(async / await)など柔軟な記述が可能</td></tr>
+      </table>
+      <h3 id="sec04sec02" class="subsec">主な用途・得意分野</h3>
+      <table class="default">
+        <tr><th>分野</th>
+<th>説明</th></tr>
+        <tr><td>業務アプリケーション開発</td>
+<td>Windows 向けのデスクトップアプリ(WPF、WinForms など)</td></tr>
+        <tr><td>Webアプリ開発</td>
+<td>ASP.NET / ASP.NET Core によるサーバーサイド開発</td></tr>
+        <tr><td>クラウドアプリ</td>
+<td>Azure との親和性が高く、クラウドネイティブなアプリ構築に強い</td></tr>
+        <tr><td>ゲーム開発</td>
+<td>Unity（ゲームエンジン）で使用される主要言語</td></tr>
+        <tr><td>モバイルアプリ開発</td>
+<td>.NET MAUI や Xamarin を用いたクロスプラットフォーム開発</td></tr>
+        <tr><td>IoT・マイクロサービス</td>
+<td>.NET Core により軽量なアプリケーション開発も可能</td></tr>
+      </table>
+      <h3 id="sec05sec03" class="subsec">開発元・ライセンス・実行環境</h3>
+      <table class="default">
+        <tr><th>項目</th>
+<th>内容</th></tr>
+        <tr><td>開発元</td>
+<td>マイクロソフト(Microsoft)</td></tr>
+        <tr><td>ライセンス</td>
+<td>オープンソース（MIT ライセンスベース/.NET Foundation により管理）</td></tr>
+        <tr><td>実行環境</td>
+<td>
+  <p>.NET ランタイム(.NET 6, .NET 7, .NET 8 など)
+クロスプラットフォーム対応（Windows / macOS / Linux）</p>
+</td></tr>
+      </table>
+      <h3 id="sec06sec04" class="subsec">拡張子・基本的な実行方法</h3>
+      <table class="default">
+        <tr><th>項目</th>
+<th>内容</th></tr>
+        <tr><td>ファイル拡張子</td>
+<td><span class="inline">.cs</span>（C# ソースコードファイル）</td></tr>
+        <tr><td>ビルド・実行</td>
+<td><span class="inline">dotnet</span> CLI を使用するのが一般的</td></tr>
+        <tr><td>基本的な実行方法</td>
+<td>例：コンソールアプリを作成し、実行する流れ</td></tr>
+      </table>
+      <div class="code"># プロジェクト作成
+dotnet new console -n MyApp
+
+# ディレクトリ移動
+cd MyApp
+
+# 実行
+dotnet run</div>
+      <h2 id="sec07" class="sec">基本構文</h2>
+      <h3 id="sec08sec01" class="subsec">コメントの書き方</h3>
+      <div class="code">// この部分はコメントになる
+
+/* この部分も
+  コメントになる */</div>
+      <h3 id="sec09sec02" class="subsec">変数宣言・定義方法</h3>
+      <div class="code">int a1;			// 型 変数名
+int a2 = 123;		// 型 変数名 = 初期値
+
+var a3 = 123;		// var 変数名 = 初期値
+
+const int C4 = 123;	// const 型 定数名 = 初期値</div>
+      <h3 id="sec10sec03" class="subsec">データ型</h3>
+      <table class="default">
+        <tr><td><span class="inline">bool</span></td>
+<td>真偽値(<span class="inline">true</span> / <span class="inline">false</span>)</td></tr>
+        <tr><td><span class="inline">sbyte</span></td>
+<td>8ビット整数</td></tr>
+        <tr><td><span class="inline">byte</span></td>
+<td>8ビット非負整数</td></tr>
+        <tr><td><span class="inline">short</span></td>
+<td>16ビット整数</td></tr>
+        <tr><td><span class="inline">ushort</span></td>
+<td>16ビット非負整数</td></tr>
+        <tr><td><span class="inline">int</span></td>
+<td>32ビット整数</td></tr>
+        <tr><td><span class="inline">uint</span></td>
+<td>32ビット非負整数</td></tr>
+        <tr><td><span class="inline">long</span></td>
+<td>64ビット整数</td></tr>
+        <tr><td><span class="inline">ulong</span></td>
+<td>64ビット非負整数</td></tr>
+        <tr><td><span class="inline">char</span></td>
+<td>16ビット Unicode 文字(U+0000 ～ U+FFFF)</td></tr>
+        <tr><td><span class="inline">float</span></td>
+<td>32ビット単精度浮動小数点数(IEEE754)</td></tr>
+        <tr><td><span class="inline">double</span></td>
+<td>32ビット単精度浮動小数点数(IEEE754)</td></tr>
+        <tr><td><span class="inline">decimal</span></td>
+<td>128ビット数値(1.0e10^-128 ～ 7.9e10^28)</td></tr>
+        <tr><td><span class="inline">string</span></td>
+<td>文字列型</td></tr>
+        <tr><td><span class="inline">object</span></td>
+<td>オブジェクト</td></tr>
+        <tr><td><span class="inline">void</span></td>
+<td>値を返さないという型</td></tr>
+      </table>
+      <h3 id="sec11sec04" class="subsec">ヌル値</h3>
+      <div class="code">string str = null;
+object obj = null;
+
+int? num = null;</div>
+      <h3 id="sec12sec05" class="subsec">型判定・型変換</h3>
+      <div class="code">class Animal { public string Cry() { return "(unknown...)"; } }
+class Cat : Animal { new public string Cry() { return "miaow miaow"; } }
+class Book {}
+
+class MainClass {
+    static void Main() {
+        var c1 = new Cat();
+
+        // .GetType()とtypeof()で型を比較する
+        Console.WriteLine(c1.GetType() == typeof(Animal));	// False
+        Console.WriteLine(c1.GetType() == typeof(Cat));	// True
+        Console.WriteLine(c1.GetType() == typeof(Book));	// False
+
+        // isでその型に変換できるか確認する
+        Console.WriteLine(c1 is Animal);			// True
+        Console.WriteLine(c1 is Cat);				// True
+        Console.WriteLine(c1 is Book);			// False
+
+        // asでその型に変換する
+        Console.WriteLine(c1.Cry());				// miaow miaow
+        Console.WriteLine((c1 as Animal).Cry());		// (unknown...)
+
+        // (...)でその型に変換(キャスト)する
+        Console.WriteLine(c1.Cry());				// miaow miaow
+        Console.WriteLine(((Animal)c1).Cry());		// (unknown...)
+    }
+}</div>
+      <h2 id="sec13" class="sec">制御構文</h2>
+      <h3 id="sec14sec01" class="subsec">条件分岐</h3>
+      <div class="code">// nが100より大きければBig!、さもなくばSmall!を表示する
+if(n > 100) {
+    Console.WriteLine("Big!");
+
+} else {
+    Console.WriteLine("Small");
+
+}</div>
+      <div class="code">// nが1であればOne、2であればTwo、さもなくばManyを表示する
+switch(n) {
+    case 1:
+        Console.WriteLine("One");
+        break;
+          
+    case 2:
+        Console.WriteLine("Two");
+        break;
+          
+    default:
+        Console.WriteLine("Many");
+        break;
+}</div>
+      <h3 id="sec15sec02" class="subsec">ループ</h3>
+      <div class="code">// i=0, i=1, ..., i=9 の間ループする
+for(int i = 0; i &lt; 10; i++) {
+    Console.WriteLine(i);
+}
+
+// 文字列配列をひとつずつループ処理する
+foreach(string s in strings_list) {
+    Console.WriteLine(s);
+}</div>
+      <div class="code">// nが10より小さい間ループする
+while (n &lt; 10) {
+    Console.WriteLine(n);
+    n++;
+}
+
+// nが10より小さい間ループする
+do {
+    Console.WriteLine(n);
+    n++;
+} while(n &lt; 10);</div>
+      <div class="code">ループ {
+    // nが10より大きければループを抜ける
+    if(n > 10) {
+        break;
+    }
+}
+
+ループ
+{
+    // nが5より小さければ次のループを繰り返す
+    if(n &lt; 5) {
+        continue;
+    }
+}</div>
+      <div class="code">    // ラベルの箇所にジャンプする
+    err = Func();
+    if (err != 0) {
+        goto Error;
+    }
+
+    // ...
+
+Error:
+    return err;</div>
+      <div class="code">// foreach (int n in Range(0, 10)) { ... } で使用可能な IEnumerableインタフェースを提供
+static IEnumerable&lt;int> Range(int from, int to) {
+    for (int i = from; i &lt; to; i++) {
+        yield return i;
+    }
+
+    yield break;
+}</div>
+      <div class="code">unchecked {
+    // オーバーフローして-2147483648になる(デフォルト動作)
+    int n = int.MaxValue;
+    Console.WriteLine(n + 1);
+}
+
+checked {
+    // OverflowException例外が発生するようになる
+    int n = int.MaxValue;
+    Console.WriteLine(n + 1);
+}</div>
+      <div class="code">static void MyThread(Counter counter) {
+    for (int i = 0; i &lt; 100; i++) {
+        // マルチスレッド環境でcounterオブジェクトをロックする
+        lock (counter) {
+            var count = counter.getCount();
+            counter.setCount(count + 1);
+        }
+    }
+}</div>
+      <h3 id="sec16sec03" class="subsec">async と await</h3>
+      <div class="code">      using System;
+      using System.Collections.Generic;
+      using System.Threading;
+      using System.Threading.Tasks;
+
+      class MyClass {
+          // 同期関数(0から100までを合計した結果を返す同期処理)
+          static int CountUpTask(string name) {
+              int total = 0;
+              for (int i = 0; i &lt;= 100; i++) {
+                  total += i;
+                  Thread.Sleep(10);
+                  Console.Write(name);
+              }
+
+              return total;
+          }
+
+          // 非同期関数(上記の関数を非同期関数化したもの)
+          static async Task&lt;int> CountUpAsync(string name) {
+              int total = 0;
+              for (int i = 0; i &lt;= 100; i++) {
+                  total += i;
+                  await Task.Delay(10);
+                  Console.Write(name);
+              }
+
+              return total;
+          }
+
+          // awaitを使用するメソッドには必ずasyncをつける
+          static async Task Main() {
+              // 定常処理(ひたすら"."を書き出す)
+              bool stop = false;
+              var taskX = Task.Run(() => { while (!stop) { Console.Write("."); Thread.Sleep(10); } });
+
+              // 同期関数をタスクとして非同期的に呼び出す
+              var taskA = Task.Run(() => CountUpTask("A"));
+              Task.WhenAll(taskA);		// タスクが完了するのを待つ
+              var countA = taskA.Result;	// タスクの結果を取り出す
+
+              // 非同期関数を同期的に呼び出す(1)
+              // 非同期関数とawaitを使用すれば、上記の処理を同期関数の様に記述することができる
+              var countB = await CountUpAsync("B");
+
+              // でも、同期関数を同期的に呼び出すのとどう違うのかを示すサンプルを思いつかない...
+              var countC = CountUpTask("C");
+
+              stop = true;
+              Console.WriteLine("
+{0} {1} {2}", countA, countB, countC);
+          }
+      }</div>
+      <h3 id="sec17sec04" class="subsec">ポインタ</h3>
+      <div class="code">class MyClass {
+    // unsafeでメモリアンセーフな状態にする
+    unsafe static void Main() {
+        byte[] arr = {100, 200, 300};
+        // fixedでポインタが変動してしまうのを防ぐ
+        fixed (byte *p = arr) {
+            Console.WriteLine(*(p + 0));	// => 100
+            Console.WriteLine(*(p + 1));	// => 200
+            Console.WriteLine(*(p + 2));	// => 300
+        }
+    }
+}</div>
+      <h2 id="sec18" class="sec">関数・メソッド</h2>
+      <h3 id="sec19sec01" class="subsec">デフォルト引数、可変長引数</h3>
+      <div class="code">static void Func(params int[] list) {
+    for (int i = 0; i &lt; list.Length; i++) {
+        Console.WriteLine(list[i]);
+    }
+}
+
+static void Main() {
+    Func(1, 2, 3, 4, 5);
+}</div>
+      <h3 id="sec20sec02" class="subsec">デリゲート</h3>
+      <div class="code">// 「int引数を受け取り値は返却しないメソッド」という型を定義する
+delegate void SampleDelegate(int n);
+
+class MainClass {
+    static void Main() {
+        // SampleDelegate型変数としてfuncを定義する
+        SampleDelegate func = MyFunc;
+
+        // funcをメソッドとして呼び出す
+        func(123);
+    }
+
+    static void MyFunc(int n) {
+        Console.WriteLine(n);
+    }
+}</div>
+      <h3 id="sec21sec03" class="subsec">in / out 修飾子</h3>
+      <div class="code">static void Func(in num) {
+    // num = 999;		// 変更しようとするとコンパイルエラーとなる
+}
+
+static void Main() {
+    int num = 123;
+    Func(num);
+}</div>
+      <div class="code">static void Func(out int num) {
+    num = 999;			// 変更されない場合はエラーとなる
+}
+
+static void Main() {
+    int num = 123;
+    Func(out num);
+    Console.WriteLine(num);	// => 999
+}</div>
+      <h3 id="sec22sec04" class="subsec">ref 修飾子</h3>
+      <div class="code">static void Func(ref int num) {
+    num = 999;
+}
+
+static void Main() {
+    int num = 123;
+    Func(ref num);
+    Console.WriteLine(num);	// => 999
+}
+
+
+
+static int num = 123;
+static ref int Func() {
+    return ref num;
+}
+
+static void Main() {
+    ref int num = ref Func();
+    Console.WriteLine(num);
+}</div>
+      <h2 id="sec23" class="sec">データ構造・コレクション</h2>
+      <h3 id="sec24sec01" class="subsec">配列 / リスト</h3>
+      <div class="code">int[] a = new int[3];
+a[0] = 100;
+a[1] = 200;
+a[2] = 300;</div>
+      <div class="code">using System;
+using System.Collections.Generic;
+
+class MyClass {
+    static void Main() {
+        var list = new List&lt;string>();
+        list.Add("Red");
+        list.Add("Green");
+        list.Add("Blue");
+        Console.WriteLine(list[2]);
+    }
+}</div>
+      <h3 id="sec25sec02" class="subsec">列挙型</h3>
+      <div class="code">enum Color {
+    Red,
+    Green,
+    Blue
+}
+
+enum Color : ushort {
+    Red = 10,
+    Green = 20,
+    Blue = 30
+}</div>
+      <h2 id="sec26" class="sec">演算子</h2>
+      <div class="code">x + y		// 加算
+x - y		// 減算
+x * y		// 乗算
+x / y		// 除算
+x % y		// 剰余
+x++		// インクリメント
+x--		// デクリメント
++x		// 単項プラス演算子
+-x		// 単項マイナス演算子
+!x		// 論理否定
+x & y		// 論理積(AND)
+x | y		// 論理和(OR)
+x ^ y		// 排他的論理和(XOR)
+x && y		// xもyも真であれば真
+x || y		// xまたはyが真であれば真
+~x		// 補数
+x &lt;&lt; y		// 左シフト
+x >> y		// 右シフト
+x & y		// 論理積(AND)
+x | y		// 論理和(OR)
+x ^ y		// 排他的論理和(XOR)
+x == y		// xとyが等しければ真
+x != y		// xとyが等しくなければ真
+x &lt; y		// xがyより小さければ真
+x > y		// xがyより大きければ真
+x &lt;= y		// xがy以下であれば真
+x >= y		// xがy以上であれば真
+x += y		// x = x + yと等価
+x -= y		// x = x - yと等価
+x *= y		// x = x * yと等価
+x /= y		// x = x / yと等価
+x %= y		// x = x % yと等価
+x &= y		// x = x & yと等価
+x |= y		// x = x | yと等価
+x ^= y		// x = x ^ yと等価
+x &lt;&lt;= y		// x = x &lt;&lt; yと等価
+x >>= y		// x = x >> yと等価
+x.y		// xのメンバーyにアクセス
+x[y]		// 配列xのy番目(0ベース)の要素にアクセス
+x[^y]		// 配列xの最後からy番目(1ベース)の要素にアクセス
+x[y..z]		// 配列xのy番目からz番目(0ベース)の要素にアクセス
+x?.y		// xがnullでない時のみyにアクセス
+x?[y]		// xがnullでない時のみyにアクセス
+x ??= y		// xがnullであればy、さもなくばx
+x()		// xメソッドを呼び出す
+x ? y : z	// xが真であればy、さもなくばz
+x() => ...	// ラムダ式
+x::y		// using x = zの時、x::y でz.yにアクセス</div>
+      <h3 id="sec27sec01" class="subsec">演算子のオーバーロード</h3>
+      <div class="code">class String {
+    string _str;
+
+    public String(string str) {
+        this._str = str;
+    }
+
+    public override string ToString() {
+        return this._str;
+    }
+
+    public static String operator+ (String x, String y) {
+        return new String(x._str + y._str);
+    }
+}
+
+class MyClass {
+    static void Main() {
+        String s1 = new String("ABC");
+        String s2 = new String("XYZ");
+        String s3 = s1 + s2;
+        Console.WriteLine(s3.ToString());
+    }
+}</div>
+      <h2 id="sec28" class="sec">オブジェクト指向</h2>
+      <div class="code">class Animal {
+    public string type;
+
+    // クラス名と同じメソッドはコンストラクタとして呼び出される
+    public Animal(string type) {
+        this.type = type;
+    }
+
+    // ~クラス名のメソッドはファイナライザーとして呼び出される
+    ~Animal() {
+        // 破棄時の処理...
+    }
+}
+          
+Animal a1 = new Animal("dog");</div>
+      <div class="code">struct Point {
+    public int x, y;
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
+
+Point p1 = new Point(100, 200);</div>
+      <div class="code">class Person {
+    private string _name;		// フィールド
+    public string Name {			// プロパティ
+        get { return _name; }		// アクセッサー(get)
+        set { _name = value; }	// アクセッサー(set)
+    }
+}
+
+class MyClass {
+    static void Main() {
+        Person p1 = new Person();
+        p1.Name = "Yamada";
+        Console.WriteLine(p1.Name);
+    }
+}</div>
+      <div class="code">class MyClass {
+    public int Add(int x, int y) {
+        return x + y;
+    }
+}
+
+class MainClass {
+    static void Main() {
+        var p = new MyClass();	// クラスをインスタンス化して
+        var ans = p.Add(5, 3);	// 呼び出す
+        Console.WriteLine(ans);
+    }
+}</div>
+      <div class="code">class MyClass {
+    public static int Add(int x, int y) {
+        return x + y;
+    }
+}
+
+class MainClass {
+    static void Main() {
+        var ans = MyClass.Add(5, 3);
+        Console.WriteLine(ans);
+    }
+}</div>
+      <div class="code">class SampleCollection&lt;T> {
+    private T[] _arr = new T[100];
+
+    public T this[int i] {
+        get { return _arr[i]; }
+        set { _arr[i] = value; }
+    }
+}
+
+class MyClass {
+    static void Main() {
+        SampleCollection&lt;string> arr = new SampleCollection&lt;string>();
+        arr[0] = "Hello world!";
+        Console.WriteLine(arr[0]);
+    }
+}</div>
+      <h3 id="sec29sec01" class="subsec">継承・多態性</h3>
+      <div class="code">// Animalクラスを継承する Catクラスを定義する
+class Cat : Animal {
+    // 親クラスのコンストラクタを呼び出す
+    public Cat() : base("cat") {
+    }
+}
+
+Cat c1 = new Cat();</div>
+      <div class="code">class Cat : Animal {
+    // 親クラスが実装済みのCry()メソッドを上書きする
+    new public void Cry() {
+        Console.WriteLine("miaow miaow");
+    }
+}</div>
+      <div class="code">class Cat : Animal {
+    // 親クラスが実装済みのCry()メソッドを呼び出す
+    new public void Cry() {
+        base.Cry();
+    }
+}</div>
+      <div class="code">class Animal {
+    public virtual void Cry() { ... }
+}
+
+class Cat : Animal {
+    public override void Cry() { ... }
+}</div>
+      <div class="code">sealed class Animal { ... }
+
+class Cat : Pet {
+    sealed public override void Cry() { ... }
+}</div>
+      <h3 id="sec30sec02" class="subsec">アクセス修飾子</h3>
+      <div class="code">private			// 自クラスからのみ参照可能。
+protected		// 自クラスおよび派生クラスから参照可能。
+internal		// 自アセンブリから参照可能。
+public			// 自アセンブリ、および他アセンブリから参照可能。
+protected internal	// 自クラスおよび派生クラス、および自アセンブリから参照可能。
+private protected	// 自クラスおよび派生クラス、ただし自アセンブリに限る。</div>
+      <div class="code">class Cat {
+    readonly string name;		// フィールド
+    public Cat(string name) {   // コンストラクタでのみ値を設定可能
+        this.name = name;
+    }
+}
+
+readonly struct Point {			// 構造体
+    readonly int x, y;			// 構造体メンバ
+    public Point(int x, int y) {   // コンストラクタでのみ値を設定可能
+        (this.x, this.y) = (x, y);
+    }
+}
+
+static int num = 123;
+static ref readonly int Func2()	{ // ref参照戻り値
+    return ref num;
+}</div>
+      <h3 id="sec31sec03" class="subsec">抽象クラス / インターフェース</h3>
+      <div class="code">// Animalを抽象クラスとして定義する
+abstract class Animal {
+    // Aminalを実装するクラスはCry()というメソッドを実装すること
+    public abstract void Cry();
+}
+
+// Aminalを実装するクラスはCry()というメソッドを実装すること
+class Cat : Animal {
+    public override void Cry() {
+        Console.WriteLine("miaow miaow");
+    }
+}</div>
+      <div class="code">interface Criable&lt;T> {
+    void Cry();
+}
+
+class Cat : Criable&lt;Cat> {
+    public void Cry() {
+        Console.WriteLine("miaow miaow");
+    }
+}
+
+class MyClass {
+    static void Main() {
+        Cat c1 = new Cat();
+        c1.Cry();
+    }
+}</div>
+      <h2 id="sec32" class="sec">例外処理</h2>
+      <h3 id="sec33sec01" class="subsec">例外のスローとキャッチ</h3>
+      <div class="code">try {
+    if(/* エラーが発生したら */) {
+        // 例外を投げる
+        throw new Exception("Message...");
+    }
+    // 例外が発生するとこれ以降は実行されない
+} catch (Exception e) {
+    // 例外を受け取る
+    // ...
+} finally {
+    // 例外の有無に関われず実行する
+    // ...
+}</div>
+      <h2 id="sec34" class="sec">モジュール・パッケージ・名前空間</h2>
+      <h3 id="sec35sec01" class="subsec">モジュールの読み込み</h3>
+      <div class="code">// mypkg.cs
+using System;
+
+namespace MyPackages
+{
+    public class MyClass
+    {
+        public void MyMethod()
+        {
+            Console.WriteLine("Hello!!");
+        }
+    }
+}
+
+// main.cs
+using MyPackages;
+
+class Hello
+{
+    static void Main()
+    {
+        MyClass p = new MyClass();
+        p.MyMethod();
+    }
+}</div>
+      <div class="code">System.Console.WriteLine(...);
+//     ↓
+using System;
+Console.WriteLine(...);
+
+using sys = System;
+sys::Console.WriteLine(...);</div>
+      <h2 id="sec36" class="sec">補足・Tips</h2>
+      <div class="code">abstract	add		alias		as
+ascending	async		await		base
+bool		break		by		byte
+case		catch		char		checked
+class		const		continue	decimal
+default		delegate	descending	do
+double		dynamic		else		enum
+equals		event		explicit	extern
+false		finally		fixed		float
+for		foreach		from		get
+global		goto		group		if
+implicit	in(for)		in(修飾子)	in(LINQ)
+int		interface	internal	into
+is		join		let		lock
+long		nameof		namespace	new
+null		object		on		operator
+orderby		out		override	params
+partial		private		protected	public
+readonly	ref		return		remove
+sbyte		sealed		select		set
+short		sizeof		stackalloc	static
+string		struct		switch		this
+throw		true		try		typeof
+uint		ulong		unchecked	unmanaged
+unsafe		ushort		using		value	
+var		virtual		void		volatile
+when		where(LINQ)	where		while
+yield</div>
+      <h2 id="sec37" class="sec">実践例・スニペット</h2>
+      <h3 id="sec38sec01" class="subsec">「Hello, World!」</h3>
+      <div class="code">using System;
+
+class MainClass {
+    static void Main() {
+        Console.WriteLine("Hello, World");
+    }
+}</div>
+      <div style="padding: 50px;">
+      </div>
+    </div>
+    <label for="sidebar_ctrl" class="black"></label>
+    <div class="black">
+    </div>
+    <div id="side">
+      <h2>もくじ</h2>
+      <div class="list">
+        <details jumpto="sec01" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            参考
+          </summary>
+        </details>
+        <details jumpto="sec02" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            概要
+          </summary>
+          <div jumpto="sec03sec01" class="jump_button">
+            言語の特徴
+          </div>
+          <div jumpto="sec04sec02" class="jump_button">
+            主な用途・得意分野
+          </div>
+          <div jumpto="sec05sec03" class="jump_button">
+            開発元・ライセンス・実行環境
+          </div>
+          <div jumpto="sec06sec04" class="jump_button">
+            拡張子・基本的な実行方法
+          </div>
+        </details>
+        <details jumpto="sec07" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            基本構文
+          </summary>
+          <div jumpto="sec08sec01" class="jump_button">
+            コメントの書き方
+          </div>
+          <div jumpto="sec09sec02" class="jump_button">
+            変数宣言・定義方法
+          </div>
+          <div jumpto="sec10sec03" class="jump_button">
+            データ型
+          </div>
+          <div jumpto="sec11sec04" class="jump_button">
+            ヌル値
+          </div>
+          <div jumpto="sec12sec05" class="jump_button">
+            型判定・型変換
+          </div>
+        </details>
+        <details jumpto="sec13" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            制御構文
+          </summary>
+          <div jumpto="sec14sec01" class="jump_button">
+            条件分岐
+          </div>
+          <div jumpto="sec15sec02" class="jump_button">
+            ループ
+          </div>
+          <div jumpto="sec16sec03" class="jump_button">
+            async と await
+          </div>
+          <div jumpto="sec17sec04" class="jump_button">
+            ポインタ
+          </div>
+        </details>
+        <details jumpto="sec18" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            関数・メソッド
+          </summary>
+          <div jumpto="sec19sec01" class="jump_button">
+            デフォルト引数、可変長引数
+          </div>
+          <div jumpto="sec20sec02" class="jump_button">
+            デリゲート
+          </div>
+          <div jumpto="sec21sec03" class="jump_button">
+            in / out 修飾子
+          </div>
+          <div jumpto="sec22sec04" class="jump_button">
+            ref 修飾子
+          </div>
+        </details>
+        <details jumpto="sec23" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            データ構造・コレクション
+          </summary>
+          <div jumpto="sec24sec01" class="jump_button">
+            配列 / リスト
+          </div>
+          <div jumpto="sec25sec02" class="jump_button">
+            列挙型
+          </div>
+        </details>
+        <details jumpto="sec26" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            演算子
+          </summary>
+          <div jumpto="sec27sec01" class="jump_button">
+            演算子のオーバーロード
+          </div>
+        </details>
+        <details jumpto="sec28" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            オブジェクト指向
+          </summary>
+          <div jumpto="sec29sec01" class="jump_button">
+            継承・多態性
+          </div>
+          <div jumpto="sec30sec02" class="jump_button">
+            アクセス修飾子
+          </div>
+          <div jumpto="sec31sec03" class="jump_button">
+            抽象クラス / インターフェース
+          </div>
+        </details>
+        <details jumpto="sec32" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            例外処理
+          </summary>
+          <div jumpto="sec33sec01" class="jump_button">
+            例外のスローとキャッチ
+          </div>
+        </details>
+        <details jumpto="sec34" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            モジュール・パッケージ・名前空間
+          </summary>
+          <div jumpto="sec35sec01" class="jump_button">
+            モジュールの読み込み
+          </div>
+        </details>
+        <details jumpto="sec36" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            補足・Tips
+          </summary>
+        </details>
+        <details jumpto="sec37" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            実践例・スニペット
+          </summary>
+          <div jumpto="sec38sec01" class="jump_button">
+            「Hello, World!」
+          </div>
+        </details>
+      </div>
+    </div>
+    <label for="sidebar_ctrl" id="ctrl_label">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#444"><path d="M280-600v-80h560v80H280Zm0 160v-80h560v80H280Zm0 160v-80h560v80H280ZM160-600q-17 0-28.5-11.5T120-640q0-17 11.5-28.5T160-680q17 0 28.5 11.5T200-640q0 17-11.5 28.5T160-600Zm0 160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520q17 0 28.5 11.5T200-480q0 17-11.5 28.5T160-440Zm0 160q-17 0-28.5-11.5T120-320q0-17 11.5-28.5T160-360q17 0 28.5 11.5T200-320q0 17-11.5 28.5T160-280Z"/></svg>
+    </label>
+  </body>
+  <script src="main.js">
+  </script>
+</html>

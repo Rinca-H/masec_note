@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Batch</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_ctrl">
+    <div id="main">
+      <h1 id="top">Batch</h1>
+      <h2 id="sec01" class="sec">参考</h2>
+      <ul>
+        <li><a href="https://www.tohoho-web.com/ex/bat.html">とほほのバッチ入門 - とほほのWWW入門</a></li>
+        <li><a href="https://zenn.dev/teru_whisky/books/10fed5b398fa3a/viewer/367e42">【付録】：Windows基本コマンド一覧｜Windowsコマンドライン操作を学ぼう：基本編</a></li>
+        <li><a href="https://learn.microsoft.com/ja-jp/windows-server/administration/windows-commands/windows-commands">Windows commands | Microsoft Learn</a></li>
+      </ul>
+      <h2 id="sec02" class="sec">文字コード</h2>
+      <p>デフォルトのコマンドプロンプトの文字コードは CP932 (Microsoft版 Shift_JIS) になっています。
+バッチファイルも CP932 (メモ帳で保存する時は ANSI を指定) で作成する必要があります。
+UTF-8 のバッチファイルを実行するにはコードページ変更コマンド <b>chcp</b> を用います。</p>
+      <div class="code">chcp 932		# CP932(Shift_JIS)モードにする
+chcp 65001		# UTF-8モードにする</div>
+      <h2 id="sec03" class="sec">引数</h2>
+      <div class="code">echo コマンドは %0 です。
+echo 第1引数は %1 です。
+echo 第2引数は %2 です。
+echo 第3引数は %3 です。</div>
+      <p><span class="inline">%~1</span> <span class="inline">%~2</span>の様に<span class="inline">%</span>と数字の間に<span class="inline">~</span>をつけると、引数が<span class="inline">"</span>で囲まれていればそれを除去します。
+<span class="inline">"C:\Program Files\..."</span>など空白の入った文字列を渡す際に有効です。</p>
+      <div class="code">echo "%~1"</div>
+      <h2 id="sec04" class="sec">SHIFT</h2>
+      <div class="code">echo %1		:1番目の引数を表示
+shift
+echo %1		:2番目の引数を表示
+shift
+echo %1		:3番目の引数を表示
+      
+echo %0 %1 %2 %3 %4	:0, 1, 2, 3, 4番目の引数を表示
+shift /2
+echo %0 %1 %2 %3 %4	:0, 1, 3, 4, 5番目の引数を表示</div>
+      <h2 id="sec05" class="sec">ECHO OFF</h2>
+      <div class="code">date /T		:コマンドが表示される
+@date /T	:コマンドが表示されない</div>
+      <p><span class="inline">echo off</span>は以降のコマンドを表示しないようにします。
+<span class="inline">@echo off</span>を指定することで、<span class="inline">echo off</span>コマンド自体も表示せず、以降のコマンドも表示しなくなります。</p>
+      <div class="code">@echo off</div>
+      <h2 id="sec06" class="sec">SET</h2>
+      <div class="code">set name=Yamada
+      
+echo %name%
+      
+set name=</div>
+      <h2 id="sec07" class="sec">SETLOCAL・ENDLOCAL</h2>
+      <div class="code">set a1=123			# グローバル変数
+setlocal
+set a2=456			# ローカル変数
+echo %a1% %a2%			# 両方とも参照できる
+endlocal
+echo %a1% %a2%			# ローカル変数は参照できない</div>
+      <p>グローバル変数はバッチの実行完了後でもコマンドプロンプトの環境変数として残ってしまいます。
+バッチの中で使用した変数が実行後に悪影響を与えないよう、変数を使用するバッチは<span class="inline">startlocal</span>～<span class="inline">endlocal</span>で囲んでおいた方が無難です。</p>
+      <h2 id="sec08" class="sec">REM</h2>
+      <div class="code">rem ここにコメントを記述します</div>
+      <h2 id="sec09" class="sec">ラベル</h2>
+      <div class="code">:labelA
+echo BBB
+      
+:ラベルをコメントの代わりに使用することもできます。</div>
+      <h2 id="sec10" class="sec">GOTO文</h2>
+      <div class="code">echo AAA
+goto labelA
+echo BBB
+
+:labelA
+echo CCC</div>
+      <h2 id="sec11" class="sec">CALL文</h2>
+      <div class="code">call example2.bat arg1 arg2 srg3</div>
+      <h3 id="sec12sec01" class="subsec">サブルーチン</h3>
+      <div class="code">call :funcA "ABC" 123
+call :funcB "XYZ" 456
+exit /B 0
+
+:funcA
+  echo funcA(%1, %2)
+  exit /B 0
+
+:funcB
+  echo funcB(%1, %2)
+  exit /B 0</div>
+      <h2 id="sec13" class="sec">START文</h2>
+      <div class="code">start example2.bat arg1 arg2 arg3
+      
+start "Some Title..." example2.bat arg1 arg2 arg3
+      
+start /D C:\Temp example2.bat arg1 arg2 arg3
+      
+start /B example2.bat arg1 arg2 arg3,
+      
+start /MIN example2.bat arg1 arg2 arg3
+start /MAX example2.bat arg1 arg2 arg3
+      
+start /WAIT example2.bat arg1 arg2 arg3</div>
+      <table class="default">
+        <tr><th>オプション</th>
+<th>概要</th></tr>
+        <tr><td>".+"</td>
+<td>タイトル指定</td></tr>
+        <tr><td><span class="inline">/D</span></td>
+<td>別ウィンドウのカレントディレクトリ</td></tr>
+        <tr><td><span class="inline">/B</span></td>
+<td>別ウィンドウを開かずに同じウィンドウの中でコマンドを実行</td></tr>
+        <tr><td><span class="inline">/MIN</span>, <span class="inline">/MAX</span></td>
+<td>別ウィンドウを最小化、最大化状態で開く</td></tr>
+        <tr><td><span class="inline">/WAIT</span></td>
+<td><span class="inline">start</span>で呼び出したコマンドが終了するのを待ち合わせする</td></tr>
+      </table>
+      <h2 id="sec14" class="sec">EXIT文</h2>
+      <p>バッチやコマンドプロンプトを終了します。</p>
+      <div class="code">exit</div>
+      <p><span class="inline">ExitCode</span>には<span class="inline">-2147483648</span>～<span class="inline">2147483647</span>の整数を指定することができます。</p>
+      <div class="code">exit 123</div>
+      <p><span class="inline">ExitCode</span>の値は<span class="inline">%ERRORLEVEL%</span>で参照することができます。</p>
+      <div class="code">C:\> echo %ERRORLEVEL%
+123
+    </div>
+      <p><span class="inline">/B</span>オプションを指定するとバッチだけが終了し、バッチを起動したコマンドプロンプトは残ります。</p>
+      <div class="code">exit /B</div>
+      <h2 id="sec15" class="sec">IF文</h2>
+      <div class="code">set name=Yoshida
+if %name%==Yamada echo Yamadaです</div>
+      <p><span class="inline">not</span>をつけると条件式が偽の時にコマンドを実行します。</p>
+      <div class="code">if not %name%==Yamada echo Yamadaではありません</div>
+      <p><span class="inline">/i</span>をつけると文字列比較で大文字・小文字を区別しなくなります。</p>
+      <div class="code">if /i %name%==Yamada echo Yamadaです</div>
+      <p><span class="inline">name</span>が未定義の時にもエラーにならないようにするには<span class="inline">"</span>で囲んで比較します。</p>
+      <div class="code">if "%name%"=="Yamada" echo Yamadaです</div>
+      <p>下記の様に<span class="inline">(</span><span class="inline">)</span>を用いることで複数のコマンドを実行することができます。</p>
+      <div class="code">if %name%==Yamada (
+  echo Yamadaです
+  echo Yamadaです
+) else (
+  echo Yamadaではありません
+  echo Yamadaではありません
+)
+        
+if %name%==Yamada (
+  echo Yamadaです
+) else if %name%==Suzuki (
+  echo Suzukiです
+) else (
+  echo YamadaでもSuzukiでもありません
+)</div>
+      <p>数値の比較には<span class="inline">equ</span>などの演算子を用います。<span class="inline">not</span>は使用できません。</p>
+      <div class="code">set n=10
+if %n% equ 10 echo 10です
+if %n% neq 5  echo 5ではありません
+if %n% gtr 9  echo 9よりも大きな数字です
+if %n% geq 9  echo 9以上の数字です
+if %n% lss 11 echo 11よりも小さな数字です
+if %n% leq 11 echo 11以下の数字です</div>
+      <p>ファイルの存在有無を確認するには<span class="inline">exist</span>を用います。</p>
+      <div class="code">if exist C:Temp	est.txt echo ファイルがあります。
+if not exist C:Temp	est.txt echo ファイルが有りません。</div>
+      <p>変数が定義されているかを確認するには<span class="inline">defined</span>を用います。</p>
+      <div class="code">if defined XXXX_HOME echo 定義されてます
+if not defined XXXX_HOME echo 定義されていません</div>
+      <h2 id="sec16" class="sec">FOR文</h2>
+      <h3 id="sec17sec01" class="subsec">ファイル・ディレクトリループ</h3>
+      <p>for文は対象のファイル群に対してループ処理を行います。
+変数名は1文字に限られます。
+ファイルは空白デリミタで複数指定できます。</p>
+      <div class="code">for %%f in (*.txt) do (
+    echo %%f
+)</div>
+      <p><span class="inline">/R</span>を指定するとサブフォルダを含めて再帰的にファイルを検索します。</p>
+      <div class="code">for /R %%f in (*.txt) do (
+    echo %%f
+)</div>
+      <p><span class="inline">/D</span>を指定するとファイルではなくディレクトリを対象に処理を行います。</p>
+      <div class="code">for /D %%d in (a*) do (
+    echo %%d
+)</div>
+      <h3 id="sec18sec02" class="subsec">引数ループ</h3>
+      <div class="code">for %%a in (%*) do (
+    echo %%a
+)</div>
+      <h3 id="sec19sec03" class="subsec">N回ループ</h3>
+      <p><span class="inline">/L</span>を指定すると N回ループを実現できます。
+<span class="inline">(</span><span class="inline">)</span>の中には、初期値、増分、終了値を指定します。</p>
+      <div class="code">for /L %%n in (1, 1, 10) do (
+    echo %%n
+)</div>
+      <h3 id="sec20sec04" class="subsec">ファイルの中身に対するループ</h3>
+      <p><span class="inline">/F</span>を指定すると<span class="inline">(</span><span class="inline">)</span>で指定したファイルの中身の1行1行に対してループを実行します。</p>
+      <div class="code">for /F %%a in (xx.csv) do (
+    echo %%a
+)</div>
+      <p><span class="inline">delims</span>はトークンの区切り文字、<span class="inline">tokens</span>は参照するトークン番号を指定します。
+下記の例では区切り文字に<span class="inline">,</span>を指定し、第1トークンを<span class="inline">%%a</span>、第2トークンを<span class="inline">%%b</span>として参照します。</p>
+      <div class="code">for /F "delims=, tokens=1,2" %%a in (sample.csv) do (
+    echo %%a / %%b
+)</div>
+      <p><span class="inline">skip</span>は先頭行から指定した行数分無視します。
+下記の例では CSV ファイルの先頭行をヘッダ行とみなして無視します。</p>
+      <div class="code">for /F "skip=1 delims=, tokens=1,2" %%a in (sample.csv) do (
+    echo %%a / %%b
+)</div>
+      <p><span class="inline">eol</span>は指定した文字で始まる行を無視します。
+下記の例では<span class="inline">#</span>で始まる行をコメント行とみなして無視します。</p>
+      <div class="code">for /F "eol=#" %%a in (sample.txt) do (
+    echo %%a
+)</div>
+      <h3 id="sec21sec05" class="subsec">コマンドの実行結果に対するループ</h3>
+      <p><span class="inline">/F</span>指定時にファイル名を<span class="inline">'</span>で囲むと、<span class="inline">'</span>～<span class="inline">'</span>で指定したコマンドの実行結果の1行1行に対してループを実行します。</p>
+      <div class="code">for /F %%a in ('dir /b') do (
+    echo %%a
+)</div>
+      <h3 id="sec22sec06" class="subsec">ループの中で変数を参照する際の注意</h3>
+      <p>FOR文の中で変数を参照するには注意が必要です。
+ループの中で<span class="inline">%name%</span>を参照しても最初にFOR文を評価する時点で変数が展開されてしまうためうまく参照できません。
+この問題を解決するにはループを<span class="inline">setlocal enabledelayedexpansion</span>～<span class="inline">endlocal</span>で囲み、変数参照時の<span class="inline">%</span>を<span class="inline">!</span>に変更することで、FOR文実行時に遅延展開させることができます。</p>
+      <div class="code">setlocal enabledelayedexpansion
+for /L %%n in (1, 1, 3) do (
+    set name=Yamada%%n
+    echo My name is !name!
+)
+endlocal</div>
+      <h2 id="sec23" class="sec">配列</h2>
+      <p>配列はサポートされていませんが、変数名に<span class="inline">[</span>や<span class="inline">]</span>も使用できるので、配列っぽく見せることはできます。</p>
+      <div class="code">set a[0]=foo
+set a[1]=baa
+set a[2]=baz
+
+echo %a[0]%		# foo
+echo %a[1]%		# baa
+echo %a[2]%		# baz
+      
+set a[0]=foo
+set a[1]=baa
+set a[2]=baz
+
+for /L %%i in (0, 1, 2) do (
+    call echo a[%%i]=%%a[%%i]%%
+)</div>
+      <h2 id="sec24" class="sec">環境変数</h2>
+      <h3 id="sec25sec01" class="subsec">PATH</h3>
+      <div class="code">Path=C:\Windows;C:\Windows\system32;</div>
+      <h3 id="sec26sec02" class="subsec">ERRORLEVEL</h3>
+      <div class="code">if %errorlevel% == 0 (
+    echo OK
+) else (
+    echo NG
+)</div>
+      <h3 id="sec27sec03" class="subsec">PROMPT</h3>
+      <div class="code">set PROMPT=$P$G</div>
+      <table class="default">
+        <tr><th>記号</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">$N</span></td>
+<td>現在のドライブ名。</td></tr>
+        <tr><td><span class="inline">$P</span></td>
+<td>現在のドライブ名とパス名。</td></tr>
+        <tr><td><span class="inline">$D</span></td>
+<td>現在の日付。</td></tr>
+        <tr><td><span class="inline">$T</span></td>
+<td>現在の時刻。</td></tr>
+        <tr><td><span class="inline">$V</span></td>
+<td>Windowsバージョン。</td></tr>
+        <tr><td><span class="inline">$A</span></td>
+<td>アンパサンド(<span class="inline">&</span>)。</td></tr>
+        <tr><td><span class="inline">$B</span></td>
+<td>パイプ記号(<span class="inline">|</span>)。</td></tr>
+        <tr><td><span class="inline">$L</span></td>
+<td>小なり不等号(<span class="inline">&lt;</span>)</td></tr>
+        <tr><td><span class="inline">$G</span></td>
+<td>大なり不等号(<span class="inline">></span>)</td></tr>
+        <tr><td><span class="inline">$Q</span></td>
+<td>等号(<span class="inline">=</span>)</td></tr>
+        <tr><td><span class="inline">$F</span></td>
+<td>右括弧(<span class="inline">)</span>)</td></tr>
+        <tr><td><span class="inline">$C</span></td>
+<td>左括弧(<span class="inline">(</span>)</td></tr>
+        <tr><td><span class="inline">$H</span></td>
+<td>バックスペース(BS)</td></tr>
+        <tr><td><span class="inline">$$</span></td>
+<td>ドル記号(<span class="inline">$</span>)</td></tr>
+        <tr><td><span class="inline">$S</span></td>
+<td>半角スペース(<span class="inline"> </span>)</td></tr>
+        <tr><td><span class="inline">$E</span></td>
+<td>エスケープコード(\x1B)</td></tr>
+        <tr><td><span class="inline">$_</span></td>
+<td>改行文字(CR LF)</td></tr>
+      </table>
+      <h3 id="sec28sec04" class="subsec">RANDOM</h3>
+      <p><span class="inline">0</span>～<span class="inline">32767</span>の乱数を発生させます。</p>
+      <div class="code">echo %RANDOM%
+18703</div>
+      <h2 id="sec29" class="sec">基本コマンド一覧</h2>
+      <h3 id="sec30sec01" class="subsec"><code>dir</code></h3>
+      <p>ディレクトリの内容を表示</p>
+      <div class="code">dir [&lt;drive>:][&lt;path>][&lt;filename>] [...] [/p] [/q] [/w] [/d] [/a[[:]&lt;attributes>]][/o[[:]&lt;sortorder>]] [/t[[:]&lt;timefield>]] [/s] [/b] [/l] [/n] [/x] [/c] [/4] [/r]</div>
+      <table class="default">
+        <tr><th>パラメータ</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">[&lt;drive>:][&lt;path>]</span></td>
+<td>一覧を表示するドライブとディレクトリ</td></tr>
+        <tr><td><span class="inline">[&lt;filename>]</span></td>
+<td>一覧を表示する特定のファイルまたはファイルのグループ</td></tr>
+        <tr><td><span class="inline">/p</span></td>
+<td>一度に 1 つの一覧の画面を表示します。 次の画面を表示するには、任意のキーを押します。</td></tr>
+        <tr><td><span class="inline">[/a[[:]&lt;attributes>]]</span></td>
+<td>
+  <p>指定した属性を持つディレクトリとファイルの名前のみを表示します。
+このパラメーターを使用しない場合、このコマンドは、非表示ファイルとシステム ファイルを除くすべてのファイルの名前を表示します。
+属性を指定せずにこのパラメータを使用すると、コマンド は、隠しファイルやシステムファイルを含むすべてのファイルの名前を表示します。
+使用可能な属性値のリストは次のとおりです。</p>
+  <ul>
+    <li><span class="inline">d</span>：ディレクトリ</li>
+    <li><span class="inline">h</span>：隠しファイル</li>
+    <li><span class="inline">s</span>：システムファイル</li>
+    <li><span class="inline">l</span>：ポイントを再解析する</li>
+    <li><span class="inline">r</span>：読み取り専用ファイル</li>
+    <li><span class="inline">a</span>：アーカイブの準備ができたファイル</li>
+    <li><span class="inline">i</span>：コンテンツ索引付けされていないファイル</li>
+  </ul>
+  <p>これらの値の任意の組み合わせを使用できますが、スペースを使用して値を区切らないでください。
+コロン<span class="inline">:</span>で区切り、<span class="inline">-</span>で除外設定を表せる。</p>
+</td></tr>
+        <tr><td><span class="inline">[/o[[:]&lt;sortorder>]]</span></td>
+<td>
+  <p>次の値の任意の組み合わせであるソート順序に従って出力を並べ替えます。</p>
+  <ul>
+    <li><span class="inline">n</span>：名前のアルファベット順</li>
+    <li><span class="inline">e</span>：アルファベット順に拡張</li>
+    <li><span class="inline">g</span>：グループディレクトリを最初に設定</li>
+    <li><span class="inline">s</span>：サイズ別、最小順</li>
+    <li><span class="inline">d</span>：日付/時刻順、古いものから順に</li>
+    <li><span class="inline">-</span>：プレフィックスを使用して並べ替え順序を逆にする</li>
+  </ul>
+  <p>コロン<span class="inline">:</span>で区切り、<span class="inline">-</span>で除外設定を表せる。</p>
+</td></tr>
+        <tr><td><span class="inline">[/t[[:]&lt;timefield>]]</span></td>
+<td>
+  <p>表示または並べ替えに使用する時刻フィールドを指定します。</p>
+  <ul>
+    <li><span class="inline">c</span>：作成</li>
+    <li><span class="inline">a</span>：最終アクセス日</li>
+    <li><span class="inline">w</span>：最後に書き込まれた</li>
+  </ul>
+</td></tr>
+      </table>
+      <h3 id="sec31sec02" class="subsec"><code>cd</code></h3>
+      <p>ディレクトリの移動</p>
+      <div class="code">cd [/d] [&lt;drive>:][&lt;path>]
+cd [..]
+chdir [/d] [&lt;drive>:][&lt;path>]
+chdir [..]</div>
+      <table class="default">
+        <tr><th>パラメータ</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">/d</span></td>
+<td>現在のドライブだけでなく、ドライブの現在のディレクトリも変更します。</td></tr>
+        <tr><td><span class="inline">&lt;drive>:</span></td>
+<td>表示または変更するドライブを指定します (現在のドライブと異なる場合)。</td></tr>
+        <tr><td><span class="inline">&lt;path></span></td>
+<td>表示または変更するディレクトリへのパスを指定します。</td></tr>
+        <tr><td><span class="inline">[..]</span></td>
+<td>親フォルダーに変更するように指定します。</td></tr>
+      </table>
+      <h3 id="sec32sec03" class="subsec"><code>cls</code></h3>
+      <p>画面を閉じる</p>
+      <h3 id="sec33sec04" class="subsec"><code>exit</code></h3>
+      <p>プロンプトの終了</p>
+      <div class="code">exit [/b] [&lt;exitcode>]</div>
+      <table class="default">
+        <tr><th>パラメータ</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">/b</span></td>
+<td>Cmd.exe を終了するのではなく、現在のバッチ スクリプトを終了します。バッチ スクリプトの外部から実行された場合は、Cmd.exe を終了します。</td></tr>
+        <tr><td><span class="inline">&lt;exitcode></span></td>
+<td>数値を指定します。 <span class="inline">/b</span>を指定すると、<span class="inline">ERRORLEVEL</span>環境変数はその数値に設定されます。 コマンド インタープリターを終了する場合、プロセス終了コードは、その番号に設定されます。</td></tr>
+      </table>
+      <h3 id="sec34sec05" class="subsec"><code>command /?</code></h3>
+      <p>ヘルプ</p>
+      <h3 id="sec35sec06" class="subsec"><code>copy</code></h3>
+      <p>ファイルのコピー</p>
+      <div class="code">copy [/d] [/v] [/n] [/y | /-y] [/z] [/a | /b] &lt;source> [/a | /b] [+&lt;source> [/a | /b] [+ ...]] [&lt;destination> [/a | /b]]</div>
+      <table class="default">
+        <tr><th>パラメータ</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">&lt;source></span></td>
+<td>Required. ファイルまたは一連のファイルをコピーする場所を指定します。 ソース は、ドライブ文字とコロン、ディレクトリ名、ファイル名、またはこれらの組み合わせで構成できます。</td></tr>
+        <tr><td><span class="inline">&lt;destination></span></td>
+<td>Required. ファイルまたは一連のファイルをコピーする場所を指定します。 宛先は 、ドライブ文字とコロン、ディレクトリ名、ファイル名、またはこれらの組み合わせで構成できます。</td></tr>
+      </table>
+      <h3 id="sec36sec07" class="subsec"><code>xcopy</code></h3>
+      <p>ディレクトリのコピー(サブディレクトリ含む)</p>
+      <div class="code">xcopy &lt;Source> [&lt;Destination>] [/w] [/p] [/c] [/v] [/q] [/f] [/l] [/g] [/d [:MM-DD-YYYY]] [/u] [/i] [/s [/e]] [/t] [/k] [/r] [/h] [{/a | /m}] [/n] [/o] [/x] [/exclude:FileName1[+[FileName2]][+[FileName3]]] [{/y | /-y}] [/z] [/b] [/j] [/compress]</div>
+      <table class="default">
+        <tr><th>パラメータ</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">&lt;source></span></td>
+<td>Required. コピーするファイルの場所と名前を指定します。 このパラメーターには、ドライブまたはパスを含める必要があります。</td></tr>
+        <tr><td><span class="inline">&lt;destination></span></td>
+<td>コピーするファイルのコピー先を指定します。 このパラメーターには、ドライブ文字とコロン、ディレクトリ名、ファイル名、またはこれらの組み合わせを含めることができます。</td></tr>
+      </table>
+      <h3 id="sec37sec08" class="subsec"><code>move</code></h3>
+      <p>ファイル/ディレクトリの移動</p>
+      <div class="code">move [{/y|-y}] [&lt;source>] [&lt;target>]</div>
+      <table class="default">
+        <tr><th>パラメータ</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">/y</span></td>
+<p>既存のコピー先ファイルを上書きすることを確認するメッセージが表示されないようにします。
+このパラメーターは COPYCMD 環境変数に事前設定されている場合があります。
+このプリセットは、 <span class="inline">/-y</span> パラメーターを使用してオーバーライドできます。
+既定では、コマンドがバッチ スクリプト内から実行されない限り、ファイルを上書きする前にプロンプトが表示されます。</p></tr>
+        <tr><td><span class="inline">/-y</span></td>
+<td>既存のコピー先ファイルを上書きすることを確認するプロンプトを開始します。</td></tr>
+        <tr><td><span class="inline">&lt;source></span></td>
+<td>移動するファイルのパスと名前を指定します。ディレクトリを移動または名前変更するには、 ソース を現在のディレクトリのパスと名前にする必要があります。</td></tr>
+        <tr><td><span class="inline">&lt;destination></span></td>
+<td>ファイルの移動先のパスと名前を指定します。ディレクトリを移動または名前変更するには、 ターゲット を目的のディレクトリ パスと名前にする必要があります。</td></tr>
+      </table>
+      <h3 id="sec38sec09" class="subsec"><code>del</code></h3>
+      <p>ファイルの削除</p>
+      <div class="code">del [/p] [/f] [/s] [/q] [/a[:]&lt;attributes>] &lt;names>
+erase [/p] [/f] [/s] [/q] [/a[:]&lt;attributes>] &lt;names></div>
+      <table class="default">
+        <tr><th>パラメータ</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">&lt;names></span></td>
+<td>
+  <p>1 つ以上のファイルまたはディレクトリの一覧を指定します。
+ワイルドカードは、複数のファイルを削除するために使用できます。
+ディレクトリを指定すると、ディレクトリ内のすべてのファイルが削除されます。</p>
+</td></tr>
+        <tr><td><span class="inline">/p</span></td>
+<td>指定したファイルを削除する前に確認を求めるメッセージが表示されます。</td></tr>
+        <tr><td><span class="inline">/f</span></td>
+<td>読み取り専用ファイルを強制的に削除します。</td></tr>
+        <tr><td><span class="inline">/s</span></td>
+<td>指定したファイルを現在のディレクトリとすべてのサブディレクトリから削除します。 削除中のファイルの名前を表示します。</td></tr>
+        <tr><td><span class="inline">/q</span></td>
+<td>静音モードを指定します。 削除の確認を求めるメッセージは表示されません。</td></tr>
+        <tr><td><span class="inline">/a[:]&lt;attributes></span></td>
+<td>
+  <p>次のファイル属性に基づいてファイルを削除します。</p>
+  <ul>
+    <li><span class="inline">r</span>：読み取り専用ファイル</li>
+    <li><span class="inline">h</span>：隠しファイル</li>
+    <li><span class="inline">i</span>：コンテンツインデックスファイルでない</li>
+    <li><span class="inline">s</span>：システムファイル</li>
+    <li><span class="inline">a</span>：アーカイブ可能なファイル</li>
+    <li><span class="inline">l</span>：ポイントの再解析</li>
+    <li><span class="inline">-</span>：除外</li>
+  </ul>
+</td></tr>
+      </table>
+      <h3 id="sec39sec10" class="subsec"><code>type</code></h3>
+      <p>ファイルの内容を表示</p>
+      <div class="code">type [&lt;drive>:][&lt;path>]&lt;filename></div>
+      <table class="default">
+        <tr><th>パラメータ</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">[&lt;drive>:][&lt;path>]&lt;filename></span></td>
+<td>
+  <p>表示する 1 つまたは複数のファイルの場所と名前を指定します。
+<span class="inline">&lt;filename></span>に空白が含まれている場合は、引用符で囲む必要があります (たとえば、<span class="inline">"Filename Containing Spaces.txt"</span>)。
+また、ファイル名の間に空白を追加して、複数のファイル名を追加できます。</p>
+</td></tr>
+      </table>
+      <h3 id="sec40sec11" class="subsec"><code>ren</code></h3>
+      <p>ファイル/ディレクトリの名前変更</p>
+      <div class="code">ren [&lt;drive>:][&lt;path>]&lt;filename1> &lt;filename2></div>
+      <table class="default">
+        <tr><th>パラメータ</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">[&lt;drive>:][&lt;path>]&lt;filename1></span></td>
+<td>名前を変更するファイルまたはファイルのセットの場所と名前を指定します。<span class="inline">Filename1</span>にはワイルドカード文字(<span class="inline">*</span>と<span class="inline">?</span>) を含めることができます。</td></tr>
+        <tr><td><span class="inline">&lt;filename2></span></td>
+<td>ファイルの新しい名前を指定します。 ワイルドカード文字を使用すると、複数のファイルに新しい名前を指定できます。</td></tr>
+      </table>
+      <h3 id="sec41sec12" class="subsec"><code>mkdir</code></h3>
+      <p>新しいディレクトリの作成</p>
+      <div class="code">mkdir [&lt;drive>:]&lt;path></div>
+      <table class="default">
+        <tr><th>パラメータ</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">&lt;drive>:</span></td>
+<td>新しいディレクトリを作成するドライブを指定します。</td></tr>
+        <tr><td><span class="inline">&lt;path></span></td>
+<td>新しいディレクトリの名前と場所を指定します。 1 つのパスの最大長は、ファイル システムによって決まります。 これは必須のパラメーターです。</td></tr>
+      </table>
+      <h3 id="sec42sec13" class="subsec"><code>rmdir</code></h3>
+      <p>ディレクトリの削除</p>
+      <div class="code">rmdir [&lt;drive>:]&lt;path> [/s [/q]]</div>
+      <table class="default">
+        <tr><th>パラメータ</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">[&lt;drive>:]&lt;path></span></td>
+<td>削除するディレクトリの場所と名前を指定します。 パスは 必須です。 指定した パスの先頭に円記号 () を含めると、 パス はルートディレクトリから始まります (現在のディレクトリに関係なく)。</td></tr>
+        <tr><td><span class="inline">/s</span></td>
+<td>ディレクトリ ツリー (指定したディレクトリとそのすべてのサブディレクトリ (すべてのファイルを含む) を削除します。</td></tr>
+        <tr><td><span class="inline">/q</span></td>
+<td>静音モードを指定します。 ディレクトリ ツリーを削除するときに確認を求めません。 <span class="inline">/q</span>パラメーターは、<span class="inline">/s</span>も指定されている場合にのみ機能します。</td></tr>
+      </table>
+      <h3 id="sec43sec14" class="subsec"><code>tree</code></h3>
+      <p>ディレクトリ構造をツリー形式で表示</p>
+      <div class="code">tree [&lt;drive>:][&lt;path>] [/f] [/a]</div>
+      <table class="default">
+        <tr><th>パラメータ</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">[&lt;drive>:]</span></td>
+<td>ディレクトリ構造を表示するディスクを含むドライブを指定します。</td></tr>
+        <tr><td><span class="inline">&lt;path></span></td>
+<td>ディレクトリ構造を表示するディレクトリを指定します。</td></tr>
+        <tr><td><span class="inline">/f</span></td>
+<td>各ディレクトリ内のファイルの名前を表示します。</td></tr>
+        <tr><td><span class="inline">/a</span></td>
+<td>グラフィック文字の代わりにテキスト文字を使用して、サブディレクトリをリンクする行を表示するように指定します。</td></tr>
+      </table>
+      <h3 id="sec44sec15" class="subsec"><code>systeminfo</code></h3>
+      <p>システムの詳細情報を表示</p>
+      <div class="code">systeminfo [/s &lt;computer> [/u &lt;domain>&lt;username> [/p &lt;password>]]] [/fo {TABLE | LIST | CSV}] [/nh]</div>
+      <table class="default">
+        <tr><th>パラメータ</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">/s &lt;computer></span></td>
+<td>リモート コンピューターの名前または IP アドレスを指定します (円記号は使用しないでください)。 既定値はローカル コンピューターです。</td></tr>
+        <tr><td><span class="inline">/u [&lt;domain>]</span></td>
+<td>指定したユーザー アカウントのアカウントアクセス許可を使用してコマンドを実行します。<span class="inline">/u</span>が指定されていない場合、このコマンドは、コマンドを発行しているコンピューターに現在ログオンしているユーザーのアクセス許可を使用します。</td></tr>
+        <tr><td><span class="inline">/p &lt;password></span></td>
+<td><span class="inline">/u</span>パラメーターで指定されたユーザー アカウントのパスワードを指定します。</td></tr>
+        <tr><td><span class="inline">/fo &lt;format></span></td>
+<td>
+  <p>次のいずれかの値を使用して出力形式を指定します。</p>
+  <ul>
+    <li><span class="inline">TABLE</span>：出力をテーブルに表示する</li>
+    <li><span class="inline">LIST</span>：出力をリストで表示する</li>
+    <li><span class="inline">CSV</span>：出力 .csv 形式で表示</li>
+  </ul>
+</td></tr>
+        <tr><td><span class="inline">/nh</span></td>
+<td>出力内の列ヘッダーを抑制します。 <span class="inline">/fo</span>パラメーターが<span class="inline">TABLE</span>または<span class="inline">CSV</span>に設定されている場合に有効です。</td></tr>
+      </table>
+      <h3 id="sec45sec16" class="subsec"><code>ipconfig</code></h3>
+      <p>ネットワーク設定と IP アドレス情報を表示</p>
+      <div class="code">ipconfig [/allcompartments] [/all] [/renew [&lt;adapter>]] [/release [&lt;adapter>]] [/renew6[&lt;adapter>]] [/release6 [&lt;adapter>]] [/flushdns] [/displaydns] [/registerdns] [/showclassid &lt;adapter>] [/setclassid &lt;adapter> [&lt;classID>]]</div>
+      <h3 id="sec46sec17" class="subsec"><code>tasklist</code></h3>
+      <p>実行中のプロセス一覧を表示</p>
+      <div class="code">tasklist [/s &lt;computer> [/u [&lt;domain>]&lt;username> [/p &lt;password>]]] [{/m &lt;module> | /svc | /v}] [/fo {table | list | csv}] [/nh] [/fi &lt;filter> [/fi &lt;filter> [ ... ]]]</div>
+      <h3 id="sec47sec18" class="subsec"><code>taskkill</code></h3>
+      <p>指定したプロセスを終了</p>
+      <div class="code">taskkill [/s &lt;computer> [/u [&lt;domain>]&lt;username> [/p [&lt;password>]]]] {[/fi &lt;filter>] [...] [/pid &lt;processID> | /im &lt;imagename>]} [/f] [/t]</div>
+      <h3 id="sec48sec19" class="subsec"><code>diskpart</code></h3>
+      <p>ディスク、パーティション、ボリュームの管理</p>
+      <div class="code">diskpart &lt;parameter></div>
+      <div style="padding: 50px;">
+      </div>
+    </div>
+    <label for="sidebar_ctrl" class="black"></label>
+    <div class="black">
+    </div>
+    <div id="side">
+      <h2>もくじ</h2>
+      <div class="list">
+        <details jumpto="sec01" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            参考
+          </summary>
+        </details>
+        <details jumpto="sec02" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            文字コード
+          </summary>
+        </details>
+        <details jumpto="sec03" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            引数
+          </summary>
+        </details>
+        <details jumpto="sec04" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            SHIFT
+          </summary>
+        </details>
+        <details jumpto="sec05" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            ECHO OFF
+          </summary>
+        </details>
+        <details jumpto="sec06" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            SET
+          </summary>
+        </details>
+        <details jumpto="sec07" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            SETLOCAL・ENDLOCAL
+          </summary>
+        </details>
+        <details jumpto="sec08" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            REM
+          </summary>
+        </details>
+        <details jumpto="sec09" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            ラベル
+          </summary>
+        </details>
+        <details jumpto="sec10" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            GOTO文
+          </summary>
+        </details>
+        <details jumpto="sec11" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            CALL文
+          </summary>
+          <div jumpto="sec12sec01" class="jump_button">
+            サブルーチン
+          </div>
+        </details>
+        <details jumpto="sec13" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            START文
+          </summary>
+        </details>
+        <details jumpto="sec14" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            EXIT文
+          </summary>
+        </details>
+        <details jumpto="sec15" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            IF文
+          </summary>
+        </details>
+        <details jumpto="sec16" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            FOR文
+          </summary>
+          <div jumpto="sec17sec01" class="jump_button">
+            ファイル・ディレクトリループ
+          </div>
+          <div jumpto="sec18sec02" class="jump_button">
+            引数ループ
+          </div>
+          <div jumpto="sec19sec03" class="jump_button">
+            N回ループ
+          </div>
+          <div jumpto="sec20sec04" class="jump_button">
+            ファイルの中身に対するループ
+          </div>
+          <div jumpto="sec21sec05" class="jump_button">
+            コマンドの実行結果に対するループ
+          </div>
+          <div jumpto="sec22sec06" class="jump_button">
+            ループの中で変数を参照する際の注意
+          </div>
+        </details>
+        <details jumpto="sec23" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            配列
+          </summary>
+        </details>
+        <details jumpto="sec24" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            環境変数
+          </summary>
+          <div jumpto="sec25sec01" class="jump_button">
+            PATH
+          </div>
+          <div jumpto="sec26sec02" class="jump_button">
+            ERRORLEVEL
+          </div>
+          <div jumpto="sec27sec03" class="jump_button">
+            PROMPT
+          </div>
+          <div jumpto="sec28sec04" class="jump_button">
+            RANDOM
+          </div>
+        </details>
+        <details jumpto="sec29" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            基本コマンド一覧
+          </summary>
+          <div jumpto="sec30sec01" class="jump_button">
+            <code>dir</code>
+          </div>
+          <div jumpto="sec31sec02" class="jump_button">
+            <code>cd</code>
+          </div>
+          <div jumpto="sec32sec03" class="jump_button">
+            <code>cls</code>
+          </div>
+          <div jumpto="sec33sec04" class="jump_button">
+            <code>exit</code>
+          </div>
+          <div jumpto="sec34sec05" class="jump_button">
+            <code>command /?</code>
+          </div>
+          <div jumpto="sec35sec06" class="jump_button">
+            <code>copy</code>
+          </div>
+          <div jumpto="sec36sec07" class="jump_button">
+            <code>xcopy</code>
+          </div>
+          <div jumpto="sec37sec08" class="jump_button">
+            <code>move</code>
+          </div>
+          <div jumpto="sec38sec09" class="jump_button">
+            <code>del</code>
+          </div>
+          <div jumpto="sec39sec10" class="jump_button">
+            <code>type</code>
+          </div>
+          <div jumpto="sec40sec11" class="jump_button">
+            <code>ren</code>
+          </div>
+          <div jumpto="sec41sec12" class="jump_button">
+            <code>mkdir</code>
+          </div>
+          <div jumpto="sec42sec13" class="jump_button">
+            <code>rmdir</code>
+          </div>
+          <div jumpto="sec43sec14" class="jump_button">
+            <code>tree</code>
+          </div>
+          <div jumpto="sec44sec15" class="jump_button">
+            <code>systeminfo</code>
+          </div>
+          <div jumpto="sec45sec16" class="jump_button">
+            <code>ipconfig</code>
+          </div>
+          <div jumpto="sec46sec17" class="jump_button">
+            <code>tasklist</code>
+          </div>
+          <div jumpto="sec47sec18" class="jump_button">
+            <code>taskkill</code>
+          </div>
+          <div jumpto="sec48sec19" class="jump_button">
+            <code>diskpart</code>
+          </div>
+        </details>
+      </div>
+    </div>
+    <label for="sidebar_ctrl" id="ctrl_label">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#444"><path d="M280-600v-80h560v80H280Zm0 160v-80h560v80H280Zm0 160v-80h560v80H280ZM160-600q-17 0-28.5-11.5T120-640q0-17 11.5-28.5T160-680q17 0 28.5 11.5T200-640q0 17-11.5 28.5T160-600Zm0 160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520q17 0 28.5 11.5T200-480q0 17-11.5 28.5T160-440Zm0 160q-17 0-28.5-11.5T120-320q0-17 11.5-28.5T160-360q17 0 28.5 11.5T200-320q0 17-11.5 28.5T160-280Z"/></svg>
+    </label>
+  </body>
+  <script src="main.js">
+  </script>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>正規表現</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_ctrl">
+    <div id="main">
+      <h1 id="top">正規表現</h1>
+      <h2 id="sec01" class="sec">参考</h2>
+      <ul>
+        <li><a href="とほほの正規表現入門 - とほほのWWW入門">https://www.tohoho-web.com/ex/regexp.html</a></li>
+      </ul>
+      <h2 id="sec02" class="sec">文字・文字列</h2>
+      <h3 id="sec03sec01" class="subsec">文字</h3>
+      <div class="code">match(/A/, "A")		// マッチする
+match(/A/, "DAD")	// Aを含んでいるのでマッチする</div>
+      <h3 id="sec04sec02" class="subsec">文字列</h3>
+      <div class="code">match(/ABC/, "ABC")	// マッチする
+match(/ABC/, "DABCD")	// ABCを含んでいるのでマッチする</div>
+      <h2 id="sec05" class="sec">任意文字</h2>
+      <div class="code">match(/A...A/, "AxyzA")		// 改行を除く任意の3文字にマッチする
+match(/A.A/, "A\nA")		// 改行(\n)にはマッチしない
+match(/A.A/s, "A\nA")		// 改行にもマッチする</div>
+      <h2 id="sec06" class="sec">行頭・行末</h2>
+      <h3 id="sec07sec01" class="subsec">行頭 <span class="inline">^</span></h3>
+      <div class="code">match(/^ABC/, "ABCDEF")		// 行頭なのでマッチする
+match(/^DEF/, "ABCDEF")		// 行頭ではないのでマッチしない
+match(/^DEF/, "ABC\nDEF")	// 先頭行ではないのでマッチしない
+match(/^DEF/m, "ABC\nDEF")	// 先頭行でなくてもマッチする</div>
+      <h3 id="sec08sec02" class="subsec">行末 <span class="inline">$</span></h3>
+      <div class="code">match(/DEF$/, "ABCDEF")		// 行末なのでマッチする
+match(/DEF$/, "ABCDEF\nXYZ")	// 最終行ではないのでマッチしない
+match(/DEF$/m, "ABCDEF\nXYZ")	// 最終行でなくてもマッチする
+
+match(/DEF$/, "ABCDEF\n")	// 最後に改行(\n)があってもマッチしてしまう(Perl, PHP, Python)
+match(/DEF$/D, "ABCDEF\n")	// 最後に改行(\n)があるとマッチしなくなる(Perl)
+match(/DEF\z/, "ABCDEF\n")	// 最後に改行(\n)があるとマッチしなくなる(PHP)
+match(/DEF\Z/, "ABCDEF\n")	// 最後に改行(\n)があるとマッチしなくなる(Python)</div>
+      <h2 id="sec09" class="sec">いずれかの文字 <span class="inline">[]</span></h2>
+      <div class="code">match(/[ABC]/, "B")	// AまたはBまたはCにマッチ
+
+match(/[A-Za-z0-9]+/, "ABC123")		// 半角英数字にマッチ
+match(/[A-Za-z0-9_]+/, "ABC_123")	// アンダーバーを含む半角英数字にマッチ
+
+match(/[^ABC]*/, "ABCDEF")		// ABC以外の文字(DEF)にマッチ
+match(/[^0-9]*/, "123DEF")		// 0～9以外の文字(DEF)にマッチ
+match(/(&lt;[^>]*>)/, "&lt;ABC>&lt;DEF>")	// &lt;ABC>にマッチ</div>
+      <h2 id="sec10" class="sec">グルーピング <span class="inline">()</span></h2>
+      <div class="code">match(/(ABC)(DEF)/, "ABCDEF")		// ABCとDEFの2つのサブパターンに分けてマッチ
+match(/(ABC)+(DEF)/, "ABCABCABCDEF")	// ABCが1回以上の後、DEFが後続する文字列にマッチ</div>
+      <h2 id="sec11" class="sec">AまたはB <span class="inline">|</span></h2>
+      <div class="code">match(/A|B/, "A")		// AまたはBにマッチ
+match(/ABC|DEF/, "DEF")		// ABCまたはDEFにマッチ</div>
+      <h2 id="sec12" class="sec">繰り返し</h2>
+      <h3 id="sec13sec01" class="subsec">0回以上の繰り返し <span class="inline">*</span></h3>
+      <div class="code">match(/A*/, "AAA")		// AAAにマッチする
+match(/AB*C/, "ABC")		// ACでもABCでもABBCでもマッチする
+match(/[A-Z]*/, "ABC2021")	// ABCにマッチする
+match(/(A|B)*/, "ABBACD")	// ABBAにマッチする</div>
+      <h3 id="sec14sec02" class="subsec">1回以上の繰り返し <span class="inline">+</span></h3>
+      <div class="code">match(/AB+C/, "AC")	// 1個以上のBが無いのでマッチしない
+match(/AB+C/, "ABC")	// マッチする
+match(/AB+C/, "ABBC")	// マッチする</div>
+      <h3 id="sec15sec03" class="subsec">0回または1回 <span class="inline">?</span></h3>
+      <div class="code">match(/-?[0-9]+/, "123")	// 123にもマッチ
+match(/-?[0-9]+/, "-123")	// -123にもマッチ</div>
+      <h3 id="sec16sec04" class="subsec">n～m回の繰り返し <span class="inline">{n}</span></h3>
+      <div class="code">match(/A{4}/, "AAAAAA")		// AAAAにマッチ
+match(/[0-9]{4}/, "2021")	// 2021にマッチ</div>
+      <h2 id="sec17" class="sec">最短マッチング</h2>
+      <h3 id="sec18sec01" class="subsec">最短マッチング(0回以上) <span class="inline">*?</span></h3>
+      <div class="code">match(/&lt;.*>/, "&lt;ABC>&lt;DEF>")	// 最長マッチなので&lt;ABC>&lt;DEF>にマッチする
+match(/&lt;.*?>/, "&lt;ABC>&lt;DEF>")	// 最短マッチなので&lt;ABC>にマッチする</div>
+      <h3 id="sec19sec02" class="subsec">最短マッチング(1回以上) <span class="inline">+?</span></h3>
+      <div class="code">match(/&lt;.+>/, "&lt;ABC>&lt;DEF>")	// 最長マッチなので&lt;ABC>&lt;DEF>にマッチする
+match(/&lt;.+?>/, "&lt;ABC>&lt;DEF>")	// 最短マッチなので&lt;ABC>にマッチする</div>
+      <h3 id="sec20sec03" class="subsec">最短マッチング(0回か1回) <span class="inline">??</span></h3>
+      <div class="code">match(/AB?/, "ABC")		// 最長マッチなのでABにマッチ
+match(/AB??/, "ABC")		// 最短マッチなのでAにマッチ</div>
+      <h3 id="sec21sec04" class="subsec">最短マッチング(n～m回) <span class="inline">{m,n}?</span></h3>
+      <div class="code">match(/(A{3,5})/,  "AAAAAAA")	// 最長マッチなのでAAAAAにマッチ
+match(/(A{3,5}?)/, "AAAAAAA")	// 最短マッチなのでAAAにマッチ</div>
+      <h2 id="sec22" class="sec">エスケープシーケンス</h2>
+      <h3 id="sec23sec01" class="subsec">メタ文字</h3>
+      <div class="code">\^		- ハット(^)
+\$		- ドル記号($)
+\.		- ピリオド(.)
+\+		- プラス(+)
+\*		- アスタリスク(*)
+\/		- スラッシュ(/)
+\\		- バックスラッシュ(\)
+\[		- 大括弧([)
+\]		- 大括弧(])
+\{		- 中括弧({)
+\}		- 中括弧(})
+\(		- 丸括弧(()
+\)		- 丸括弧())</div>
+      <h3 id="sec24sec02" class="subsec">制御文字</h3>
+      <div class="code">\0		- ヌル(NUL:\x00)		(Perl:○ PHP:○ Python:○ JS:○)
+\a		- ベル(BEL:\x07)		(Perl:○ PHP:○ Python:× JS:×)
+[\b]		- バックスペース(BS:\x08)	(Perl:○ PHP:○ Python:○ JS:○)
+\t		- タブ(TAB:\x09)		(Perl:○ PHP:○ Python:○ JS:○)
+\f		- フォームフィード(FF:\x0C)	(Perl:○ PHP:○ Python:○ JS:○)
+\r		- 復帰(CR:\x0D)		(Perl:○ PHP:○ Python:○ JS:○)
+\n		- 改行(LF:\x0A)		(Perl:○ PHP:○ Python:○ JS:○)
+\v		- 垂直タブ(VT:\x0B)	(Perl:○ PHP:○ Python:○ JS:○)
+\e		- エスケープ(ESC:\x1B)	(Perl:○ PHP:○ Python:× JS:○)
+\cX		- Ctrl-X		(Perl:○ PHP:○ Python:× JS:○)</div>
+      <h3 id="sec25sec03" class="subsec">文字コード</h3>
+      <div class="code">\XXX		- 1バイト文字コード(8進数)	(例:\101 = \x41 = A)
+\xXX		- 1バイト文字コード(16進数)	(例:\x41 = A)</div>
+      <div class="code">\d	- 数字文字([0-9])*1		(Perl:○ PHP:○ Python:○ JS:○)
+\D	- \d以外の文字			(Perl:○ PHP:○ Python:○ JS:○)
+\w	- _を含む英数文字([a-zA-Z0-9_])*1	(Perl:○ PHP:○ Python:○ JS:○)
+\W	- \w以外の文字			(Perl:○ PHP:○ Python:○ JS:○)
+\s	- 空白文字 ([ \t\f\r\n\v])*1	(Perl:○ PHP:○ Python:○ JS:○)
+\S	- \s以外の文字			(Perl:○ PHP:○ Python:○ JS:○)
+\h	- 水平空白文字([ \t])*1		(Perl:○ PHP:○ Python:× JS:×)
+\H	- \h以外の文字			(Perl:○ PHP:○ Python:× JS:×)
+\v	- 垂直タブ文字([\v])		(Perl:○ PHP:○ Python:○ JS:○)
+\V	- \v以外の文字			(Perl:○ PHP:○ Python:× JS:×)
+\R	- 改行文字([\r\n])*2		(Perl:○ PHP:○ Python:× JS:×)
+\N	- \R以外の文字			(Perl:○ PHP:× Python:× JS:×)
+\C	- 1バイト文字*3			(Perl:× PHP:× Python:× JS:×)</div>
+      <h2 id="sec26" class="sec">キャプチャグループ</h2>
+      <div class="code">match(/(ABC)(\1)/, "ABCABC")		// 1番目の(...)にマッチした文字列(ABC)にマッチ
+match(/(A)(B)(\2)/, "ABB")		// 2番目の(...)にマッチした文字列(B)にマッチ
+
+// JavaScriptでキャプチャグループを参照する例
+m = "2021-01-10".match(/([0-9]{4})-([0-9]{2})-([0-9]{2})/);
+console.log(m[0]);	// => 2021-01-10
+console.log(m[1]);	// => 2021
+console.log(m[2]);	// => 01
+console.log(m[3]);	// => 10</div>
+      <h2 id="sec27" class="sec">拡張先頭・末尾判断</h2>
+      <h3 id="sec28sec01" class="subsec">単語の先頭または末尾 <span class="inline">\b</span></h3>
+      <div class="code">match(/\bJava\b/, "I like Java.")	// \bが単語の先頭・末尾なのでマッチ
+match(/\bJava\b/, "I like JavaScript.")	// \bが単語の末尾ではないのでマッチしない</div>
+      <h2 id="sec29" class="sec">後読み・先読みアサーション</h2>
+      <h3 id="sec30sec01" class="subsec">先読みアサーション <span class="inline">(?=)</span></h3>
+      <div class="code">match(/(ABC)(?=DEF)/, "ABCDEF")</div>
+      <h3 id="sec31sec02" class="subsec">否定先読みアサーション <span class="inline">(?!)</span></h3>
+      <div class="code">match(/(ABC)(?!DEF)/, "ABCXYZ")</div>
+      <h3 id="sec32sec03" class="subsec">後読みアサーション <span class="inline">(?&lt;=)</span></h3>
+      <div class="code">match(/(?&lt;=ABC)(DEF)/, "ABCDEF")</div>
+      <h3 id="sec33sec04" class="subsec">否定後読みアサーション <span class="inline">(?&lt;!)</span></h3>
+      <div class="code">match(/(?&lt;!ABC)(DEF)/, "XYZDEF")</div>
+      <h2 id="sec34" class="sec">その他</h2>
+      <h3 id="sec35sec01" class="subsec">キャプチャしない <span class="inline">(?:)</span></h3>
+      <div class="code">match(/(ABC)(?:DEF)(XYZ)/, "ABCDEFXYZ")	// $1=ABC, $2=XYZ	(Perl:○ PHP:○ Python:○ JS:○)</div>
+      <div style="padding: 50px;">
+      </div>
+    </div>
+    <label for="sidebar_ctrl" class="black"></label>
+    <div class="black">
+    </div>
+    <div id="side">
+      <h2>もくじ</h2>
+      <div class="list">
+        <details jumpto="sec01" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            参考
+          </summary>
+        </details>
+        <details jumpto="sec02" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            文字・文字列
+          </summary>
+          <div jumpto="sec03sec01" class="jump_button">
+            文字
+          </div>
+          <div jumpto="sec04sec02" class="jump_button">
+            文字列
+          </div>
+        </details>
+        <details jumpto="sec05" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            任意文字
+          </summary>
+        </details>
+        <details jumpto="sec06" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            行頭・行末
+          </summary>
+          <div jumpto="sec07sec01" class="jump_button">
+            行頭 <span class="inline">^</span>
+          </div>
+          <div jumpto="sec08sec02" class="jump_button">
+            行末 <span class="inline">$</span>
+          </div>
+        </details>
+        <details jumpto="sec09" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            いずれかの文字 <span class="inline">[]</span>
+          </summary>
+        </details>
+        <details jumpto="sec10" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            グルーピング <span class="inline">()</span>
+          </summary>
+        </details>
+        <details jumpto="sec11" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            AまたはB <span class="inline">|</span>
+          </summary>
+        </details>
+        <details jumpto="sec12" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            繰り返し
+          </summary>
+          <div jumpto="sec13sec01" class="jump_button">
+            0回以上の繰り返し <span class="inline">*</span>
+          </div>
+          <div jumpto="sec14sec02" class="jump_button">
+            1回以上の繰り返し <span class="inline">+</span>
+          </div>
+          <div jumpto="sec15sec03" class="jump_button">
+            0回または1回 <span class="inline">?</span>
+          </div>
+          <div jumpto="sec16sec04" class="jump_button">
+            n～m回の繰り返し <span class="inline">{n}</span>
+          </div>
+        </details>
+        <details jumpto="sec17" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            最短マッチング
+          </summary>
+          <div jumpto="sec18sec01" class="jump_button">
+            最短マッチング(0回以上) <span class="inline">*?</span>
+          </div>
+          <div jumpto="sec19sec02" class="jump_button">
+            最短マッチング(1回以上) <span class="inline">+?</span>
+          </div>
+          <div jumpto="sec20sec03" class="jump_button">
+            最短マッチング(0回か1回) <span class="inline">??</span>
+          </div>
+          <div jumpto="sec21sec04" class="jump_button">
+            最短マッチング(n～m回) <span class="inline">{m,n}?</span>
+          </div>
+        </details>
+        <details jumpto="sec22" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            エスケープシーケンス
+          </summary>
+          <div jumpto="sec23sec01" class="jump_button">
+            メタ文字
+          </div>
+          <div jumpto="sec24sec02" class="jump_button">
+            制御文字
+          </div>
+          <div jumpto="sec25sec03" class="jump_button">
+            文字コード
+          </div>
+        </details>
+        <details jumpto="sec26" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            キャプチャグループ
+          </summary>
+        </details>
+        <details jumpto="sec27" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            拡張先頭・末尾判断
+          </summary>
+          <div jumpto="sec28sec01" class="jump_button">
+            単語の先頭または末尾 <span class="inline">\b</span>
+          </div>
+        </details>
+        <details jumpto="sec29" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            後読み・先読みアサーション
+          </summary>
+          <div jumpto="sec30sec01" class="jump_button">
+            先読みアサーション <span class="inline">(?=)</span>
+          </div>
+          <div jumpto="sec31sec02" class="jump_button">
+            否定先読みアサーション <span class="inline">(?!)</span>
+          </div>
+          <div jumpto="sec32sec03" class="jump_button">
+            後読みアサーション <span class="inline">(?&lt;=)</span>
+          </div>
+          <div jumpto="sec33sec04" class="jump_button">
+            否定後読みアサーション <span class="inline">(?&lt;!)</span>
+          </div>
+        </details>
+        <details jumpto="sec34" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            その他
+          </summary>
+          <div jumpto="sec35sec01" class="jump_button">
+            キャプチャしない <span class="inline">(?:)</span>
+          </div>
+        </details>
+      </div>
+    </div>
+    <label for="sidebar_ctrl" id="ctrl_label">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#444"><path d="M280-600v-80h560v80H280Zm0 160v-80h560v80H280Zm0 160v-80h560v80H280ZM160-600q-17 0-28.5-11.5T120-640q0-17 11.5-28.5T160-680q17 0 28.5 11.5T200-640q0 17-11.5 28.5T160-600Zm0 160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520q17 0 28.5 11.5T200-480q0 17-11.5 28.5T160-440Zm0 160q-17 0-28.5-11.5T120-320q0-17 11.5-28.5T160-360q17 0 28.5 11.5T200-320q0 17-11.5 28.5T160-280Z"/></svg>
+    </label>
+  </body>
+  <script src="main.js">
+  </script>
+</html>

@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>JavaScript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_ctrl">
+    <div id="main">
+      <h1 id="top">JavaScript</h1>
+      <h2 id="sec01" class="sec">参考</h2>
+      <ul>
+        <li><a href="とほほのJavaScript入門 - とほほのWWW入門">https://www.tohoho-web.com/js/</a></li>
+        <li><a href="JavaScript">https://developer.mozilla.org/ja/docs/Web/JavaScript</a></li>
+      </ul>
+      <h2 id="sec02" class="sec">基本</h2>
+      <ul>
+        <li>大文字と小文字を区別する。</li>
+        <li>文末にはセミコロンを使う(単独の文の場合はあってもなくてもよい)。</li>
+        <li>変数の型は自動で変わる。</li>
+        <li>足し算のみでストリング型と数値型の結合を担う。引き算などは文字列が数であれば計算されてしまう。</li>
+        <li>バッククォートで囲んだ文字列に<span class="inline">${変数}</span>と書いて足し算を用いてつなぐ必要がなくなる。</li>
+      </ul>
+      <h3 id="sec03sec01" class="subsec">データ型</h3>
+      <table class="default">
+        <tr><th>型</th>
+<th>備考</th></tr>
+        <tr><td>Boolean</td>
+<td>真偽値。<span class="inline">true</span>または<span class="inline">false</span>。</td></tr>
+        <tr><td>null</td>
+<td></td></tr>
+        <tr><td>undefined</td>
+<td></td></tr>
+        <tr><td>Number</td>
+<td>数値。<span class="inline">20</span>や<span class="inline">3.1415</span>など。</td></tr>
+        <tr><td>BigInt</td>
+<td>長整数。<span class="inline">9007199254740992n</span>など。</td></tr>
+        <tr><td>String</td>
+<td>文字列。<span class="inline">"Hello"</span>など。</td></tr>
+        <tr><td>Symbol</td>
+<td></td></tr>
+        <tr><td>Object</td>
+<td>オブジェクト。</td></tr>
+      </table>
+      <h2 id="sec04" class="sec">構文</h2>
+      <h3 id="sec05sec01" class="subsec">コメントアウト</h3>
+      <div class="code">// コメント
+
+/*
+  複数行コメント
+*/</div>
+      <h3 id="sec06sec02" class="subsec">変数定義</h3>
+      <p><span class="inline">var</span>は基本の変数、<span class="inline">let</span>は宣言した場所のスコープブロック内でのみ定義され、<span class="inline">const</span>は定数で後から中身を変更できない。</p>
+      <p><span class="inline">var a;</span>といったように初期値なしで定義した場合、中身の値は<span class="inline">undefined</span>になる。</p>
+      <div class="code">var a = 1;
+let b = 1;
+const c = 1;</div>
+      <h4>変数の命名規則</h4>
+      <ul>
+        <li>Unicode文字、<span class="inline">_</span>、<span class="inline">$</span>が使える。</li>
+        <li>大文字と小文字を区別。</li>
+        <li>頭文字に数字は使えない。</li>
+        <li>予約語は使えない。</li>
+      </ul>
+      <h4>分割代入</h4>
+      <div class="code">let [a, b, c] = [1, 2];
+// a=1, b=2, c=undefined.
+
+let vv = new Vec3(3, 4, 5);
+let {x, y, z: z_} = vv;
+// "let [x, y, z_] = [vv.x, vv.y, vv.z];" と同じ</div>
+      <h4>多重代入</h4>
+      <div class="code">let a; let b; let c;
+a = b = c = 10;</div>
+      <h2 id="sec07" class="sec">構文</h2>
+      <h3 id="sec08sec01" class="subsec">ブロック</h3>
+      <div class="code">{
+  const a = 1;
+}
+console.log(a);   // undefined</div>
+      <h3 id="sec09sec02" class="subsec">条件分岐</h3>
+      <div class="code">if(条件) {
+  /* --- 処理 --- */
+} else {
+  /* --- 処理 --- */
+}
+
+if(条件) {
+  /* --- 処理 --- */
+} else if(条件) {
+  /* --- 処理 --- */
+} else {
+  /* --- 処理 --- */
+}</div>
+      <h3 id="sec10sec03" class="subsec"><code>switch</code>文</h3>
+      <div class="code">switch(変数) {
+  case 値1:
+    // 値1のときここが実行される
+  break;
+
+  case 値2:
+  case 値3:
+    // 値2か値3のときにここが実行される
+  break;
+
+  case 値4: {
+    // カッコを使うことができる
+  } break;
+
+  case 値5: {
+    // (※)
+  } // breakがない
+
+  case 値6: {
+    // 値6のときはここが実行され、値5のときは(※)とここが実行される
+  } break;
+
+  default:
+    // 上記のいずれでもない時にここが実行される
+}</div>
+      <h3 id="sec11sec04" class="subsec">繰り返し処理</h3>
+      <div class="code">for(let k=0; k&lt;5; k++) {
+  /* --- 処理 --- */
+}
+
+// iには'a', 'b', 'c'が順に入る
+for(let i of ['a', 'b', 'c']) {
+  console.log(i);
+}
+
+// iには'a', 'b', 'c'が順に入る
+for(let i in {a: 1, b: 2, c: 3}) {
+  console.log(i);
+}</div>
+      <h4>ループの途中から脱出</h4>
+      <div class="code">for(let i=0; i&lt;3; i++) {
+  for(let j=3; j>0; j--) {
+    if(i == j) break;
+    console.log(i, j);
+  }
+  // 脱出先はここ
+}
+
+/*
+  (i,j) =
+    (0,3), (0,2), (0,1),
+    (1,3), (1,2),
+    (2,3)
+*/</div>
+      <h4>ループを1回スキップ</h4>
+      <div class="code">for(let i=0; i&lt;3; i++) {
+  for(let j=3; j>0; j--) {
+    if(i == j) continue;
+    console.log(i, j);
+  }
+}
+
+/*
+  (i,j) =
+    (0,3), (0,2), (0,1),
+    (1,3), (1,2),
+    (2,3),        (2,1)
+*/</div>
+      <h4>ラベル</h4>
+      <p>ラベルをつけて<span class="inline">break</span>や<span class="inline">continue</span>をどの階層の<span class="inline">for</span>や<span class="inline">while</span>に対するものか指定できる。</p>
+      <div class="code">egLabel: for(let i=0; i&lt;3; i++) {
+  for(let j=3; j>0; j--) {
+    if(i == j) break egLabel;
+    console.log(i, j);
+  }
+}
+// 脱出先はここ
+
+/*
+  (i,j) =
+    (0,3), (0,2), (0,1),
+    (1,3), (1,2)
+*/</div>
+      <h4>応用</h4>
+      <p><code>for</code>文のカッコの中は毎ループ左から処理され、変数は前回のループの内容を保持する。</p>
+      <div class="code">// # 例1 フィボナッチ数列
+for(let i=j=1, c=n=0; n&lt;0; c=j, j+=i, i=c, n++){
+  console.log(i)
+}
+
+// # 例2 RegExp.exec()の処理 (2つ目のセミコロンは必須)
+for(let i;(i=reg.exec(str))&lt;b style="color: red;">;&lt;/b>) {
+  console.log(i);
+}</div>
+      <hr>
+      <p>条件が<span class="inline">false</span>になるまで繰り返す</p>
+      <div class="code">while(条件) {
+  /* --- 処理 --- */
+}
+
+do {
+  /* --- 処理 --- */
+} while(条件);</div>
+      <p><code>do</code>文はあとで条件が検証されるので、通常のwhile文と違って必ず1回は実行される。</p>
+      <h3 id="sec12sec05" class="subsec">オブジェクト参照</h3>
+      <div class="code">with(console) {
+  log('Hello, World!');
+}</div>
+      <h3 id="sec13sec06" class="subsec">例外処理</h3>
+      <div class="code">try {
+  /* --- 処理 --- */
+
+} catch(e) {
+  /* --- 処理 --- */
+
+} finally {
+  /* --- 処理 --- */
+
+}</div>
+      <h4>エラー</h4>
+      <table class="default">
+        <tr><th>エラー</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">Error</span></td>
+<td>一般的なエラー</td></tr>
+        <tr><td><span class="inline">EvalError</span></td>
+<td>eval関数のエラー</td></tr>
+        <tr><td><span class="inline">InternalError</span></td>
+<td>内部エラー</td></tr>
+        <tr><td><span class="inline">RangeError</span></td>
+<td>範囲エラー</td></tr>
+        <tr><td><span class="inline">ReferenceError</span></td>
+<td>参照エラー</td></tr>
+        <tr><td><span class="inline">SyntaxError</span></td>
+<td>構文エラー</td></tr>
+        <tr><td><span class="inline">TypeError</span></td>
+<td>型エラー</td></tr>
+        <tr><td><span class="inline">URIError</span></td>
+<td>encodeURIまたはdecodeURIのエラー</td></tr>
+      </table>
+      <h2 id="sec14" class="sec">演算子</h2>
+      <h3 id="sec15sec01" class="subsec">代入演算子</h3>
+      <div class="code">xx = 5;      // xx に 5 を代入する
+yy = xx;     // yy に xx の値(= 5)を代入する
+zz = "ABC";  // zz に文字列"ABC"を代入する</div>
+      <h3 id="sec16sec02" class="subsec">算術演算子</h3>
+      <div class="code">console.log(3 + 2); // -> 5
+console.log(3 - 2); // -> 1
+console.log(3 * 2); // -> 1
+console.log(3 / 2); // -> 1.5
+console.log(3 % 2); // -> 1 (あまり)
+console.log(3 ** 2); // -> 9
+
+a = 5;
+console.log(a++); // -> 5
+
+a = 5;
+console.log(++a); // -> 6</div>
+      <p>演算子<span class="inline">+</span>を用いるときは注意が必要。</p>
+      <div class="code">console.log("123" + 4);   // -> "1234"</div>
+      <h3 id="sec17sec03" class="subsec">比較演算子</h3>
+      <div class="code">xx = 5;
+console.log(xx == 5);  // -> true
+console.log(xx != 5);  // -> false
+console.log(xx &lt; 10);  // -> true
+console.log(xx &lt;= 10); // -> true
+console.log(xx > 10);  // -> false
+console.log(xx >= 10); // -> false</div>
+      <p>厳密比較</p>
+      <div class="code">console.log( 123  ==   123);  // -> true
+console.log("123" ==  "123"); // -> true
+console.log("123" ==   123);  // -> true
+console.log( 123  ===  123);  // -> true
+console.log("123" === "123"); // -> true
+console.log("123" ===  123);  // -> false</div>
+      <h3 id="sec18sec04" class="subsec">論理演算</h3>
+      <div class="code">console.log(true && false);       // -> false
+console.log(true || false);       // -> true
+console.log(!true);               // -> false
+console.log(true? 'abc' : 'xyz'); // -> 'abc'
+console.log("123" === "123");     // -> true
+console.log("123" ===  123);      // -> false</div>
+      <h3 id="sec19sec05" class="subsec">ビット演算子</h3>
+      <div class="code">console.log(0x87654321 & 0xffff0000); // -> 0x87650000
+console.log(0x87654321 | 0xffff0000); // -> 0xffff4321
+console.log(0xffff0000 ^ 0xff00ff00); // -> 0x00ffff00
+console.log(~0xffff0000);             // -> 0x0000ffff
+console.log(0x12345678 &lt;&lt; 8);         // -> 0x34567800
+console.log(0x12345678 >> 8);         // -> 0x00123456
+console.log(0x12345678 >>> 8);        // -> 0x00876543</div>
+      <h2 id="sec20" class="sec">関数</h2>
+      <p>下の「関数式」では「関数の巻き上げ」に対応しておらず、関数の定義より下でないとその関数が使えない。</p>
+      <div class="code">// 関数リテラル
+function f(x) {
+  /* --- 処理 --- */
+  return 戻り値;
+};
+
+// 関数式
+var g = function() {
+  /* --- 処理 --- */
+  return 戻り値;
+};</div>
+      <h4>アロー関数</h4>
+      <div class="code">// アロー関数
+(x, y) => x + y;
+
+// 従来の関数
+function f(x, y) {
+  return x + y;
+}</div>
+      <h4>任意の数の変数をもつ関数</h4>
+      <div class="code">function sum(...num) {
+  return num.reduce((sum, k) => sum + k);
+}</div>
+      <h2 id="sec21" class="sec">クラス</h2>
+      <div class="code">class Rectangle {
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
+}</div>
+      <p>インスタンスを作成</p>
+      <div class="code">const square = new Rectangle(3, 4);
+
+console.log(square.width);  // 4</div>
+      <h3 id="sec22sec01" class="subsec">プライベート</h3>
+      <div class="code">class Aminal {
+  #type = "unknown";
+  #func() {
+    // ...
+  }
+}
+
+var o1 = new Animal();
+console.log(o1.#type);       // エラー
+o1.#func();                  // エラー</div>
+      <h3 id="sec23sec02" class="subsec"><code>static</code></h3>
+      <p>静的フィールドや静的メソッドは、オブジェクトを生成しなくても、<span class="inline">className.fieldName</span>や<span class="inline">className.methodName()</span>で参照することができる。</p>
+      <div class="code">class Animal {
+  static msg = "Hello!";
+  static hello() {
+    console.log("Hello!");
+  }
+
+  // 定義に式が必要な場合
+  static x = 123.4;
+  static {
+    Foo.y = Foo.x * 2;
+  }
+}
+
+console.log(Animal.msg);   // => Hello!
+Animal.hello();            // => Hello!</div>
+      <h3 id="sec24sec03" class="subsec">ゲッターとセッター</h3>
+      <div class="code">class Animal {
+  get type() {
+    console.log("get:" + this._type);
+    return this._type;
+  }
+  set type(arg) {
+    console.log("set:" + arg);
+    this._type = arg;
+  }
+}
+
+var o1 = new Animal();
+o1.type = "Cat";         // setter メソッドが呼ばれる
+console.log(o1.type);    // getter メソッドが呼ばれる</div>
+      <h3 id="sec25sec04" class="subsec">プロトタイプ</h3>
+      <p><span class="inline">prototype</span>を用いて、定義済のクラスに変数やメソッドを追加することができる。</p>
+      <div class="code">class Animal {
+}
+Animal.prototype.type = "Unknown";
+Animal.prototype.hello = function() {
+  console.log("Hello!");
+}
+
+var o1 = new Animal();
+console.log(o1.type);
+o1.hello();</div>
+      <h3 id="sec26sec05" class="subsec">継承</h3>
+      <div class="code">class Animal {
+  constructor(type) {
+    this.type = type;
+  }
+}
+
+class Cat extends Animal {
+  constructor(name) {
+    super("Cat");
+    this.name = name;
+  }
+}
+
+var o1 = new Cat("Mii-chan");
+console.log(o1.type);        // => Cat
+console.log(o1.name);        // => Mii-chan</div>
+      <h2 id="sec27" class="sec">数値</h2>
+      <p><span class="inline">number</span>型に対して、「<span class="inline">0o</span>～」で8進数、「<span class="inline">0x</span>～」で16進数、「<span class="inline">0b</span>～」で2進数。</p>
+      <p>整数部分がゼロの場合は省略できる。<span class="inline">e</span>または<span class="inline">E</span>で指数表現ができる。</p>
+      <div class="code">3.1415926
+-.123456789
+-3.1E+12
+.1e-23</div>
+      <h4>toString</h4>
+      <p>基数表現の文字列へ変換</p>
+      <div class="code">(3).toString(2) // -> "11"</div>
+      <h4>toExponential</h4>
+      <p>指数表現の文字列へ変換</p>
+      <div class="code">(100).toExponential(2) // -> "1.00e+2"</div>
+      <h4>toFixed</h4>
+      <p>有効数字を指定した文字列へ変換</p>
+      <div class="code">(3.1415).toFixed(2) // -> "3.14"</div>
+      <h4>toLocaleString</h4>
+      <p>カンマで桁区切りした文字列へ変換</p>
+      <div class="code">(100000).toLocaleString() // -> "100,000"</div>
+      <h4>parseInt</h4>
+      <p>文字列を整数に変換</p>
+      <div class="code">Number.parseInt("123") // -> 123</div>
+      <h4>parseFloat</h4>
+      <p>文字列を小数に変換</p>
+      <div class="code">Number.parseFloat("1.23") // -> 1.23</div>
+      <h4>isNaN</h4>
+      <p>値が<span class="inline">NaN</span>かつ数値であるかどうか</p>
+      <div class="code">Number.isNaN(12) // -> false</div>
+      <h2 id="sec28" class="sec">文字列</h2>
+      <p>文字列のn文字目は配列のように取得できる。</p>
+      <div class="code">console.log('0123456789'[5]) // -> '5'</div>
+      <h4>length</h4>
+      <p>文字列の長さ</p>
+      <div class="code">'abcde'.length // -> 5</div>
+      <h4>split</h4>
+      <p>指定した文字列で分割</p>
+      <div class="code">'a,bc,d,ef,'.split(',') // -> ['a', 'bc', 'd', 'ef', '']</div>
+      <h4>replace</h4>
+      <p>文字列の一部を置換する。
+置換後の文字列には<span class="inline">$</span>を使って特殊な文字列を指定できる</p>
+      <div class="code">'abcde'.replace('cd', 'X') // -> 'abXe'</div>
+      <h4>repeat</h4>
+      <p>文字列を繰り返す</p>
+      <div class="code">'無駄'.repeat(2).repeat(3) // -> '無駄無駄無駄無駄無駄無駄'</div>
+      <h4>slice</h4>
+      <p>文字列の一部を切り出す。終了indexの文字は含まない。</p>
+      <div class="code">'012345678'.slice(3, 7) // -> '3456'</div>
+      <h4>substr</h4>
+      <p>文字列の一部を切り出す。文字数を指定できる。</p>
+      <div class="code">'012345678'.substr(2, 5) // -> '23456'</div>
+      <h4>includes</h4>
+      <p>指定した文字列が元の文字列に含まれるかどうか</p>
+      <div class="code">'abcdef'.includes('cd') // -> true</div>
+      <h4>startsWith</h4>
+      <p>元の文字列が指定した文字列で始まっているかどうか</p>
+      <div class="code">'abcdef'.startsWith('abc') // -> true</div>
+      <h4>endsWith</h4>
+      <p>元の文字列が指定した文字列で終わっているかどうか</p>
+      <div class="code">'abcdef'.endsWith('abc') // -> false</div>
+      <h4>trim</h4>
+      <p>先頭の空白だけを取り除く</p>
+      <div class="code">'   abc   '.trimStart() // -> 'abc   '</div>
+      <h4>trimEnd</h4>
+      <p>末尾の空白だけを取り除く</p>
+      <div class="code">'   abc   '.trimEnd() // -> '   abc'</div>
+      <h4>padStart</h4>
+      <p>指定した文字数まで空白で埋める</p>
+      <div class="code">'123'.padStart(5, '0') // -> '00123'</div>
+      <h2 id="sec29" class="sec">オブジェクト</h2>
+      <div class="code">let food = {type: 'fruits', color: 'red', taste: 'sweet'};
+console.log(food.type);   // -> 'fruits'</div>
+      <p>プロパティを削除するときはdelete演算子を使う。</p>
+      <div class="code">let obj = {a: 1, x: 0, b: 2};
+delete obj.x;
+console.log(obj); // -> {a: 1, b: 2}</div>
+      <h4>keys</h4>
+      <p>キーの一覧を配列にする</p>
+      <div class="code">Object.keys({a: 1, b: 2, c: 3}) // -> ['a', 'b', 'c']</div>
+      <h4>values</h4>
+      <p>値の一覧を配列にする</p>
+      <div class="code">Object.values({a: 1, b: 2, c: 3}) // -> [1, 2, 3]</div>
+      <h4>entries</h4>
+      <p>キーと値の組を配列にする</p>
+      <div class="code">Object.entries({a: 1, b: 2, c: 3}) // -> [['a', 1], ['b', 2], ['c', 3]]</div>
+      <h4>freeze</h4>
+      <p>変更を禁止する</p>
+      <div class="code">let obj = {a: 1, b: 2};
+Object.freeze(obj);
+obj.c = 3; // エラーにはならない
+console.log(obj); // -> {a: 1, b: 2}</div>
+      <h4>assign</h4>
+      <p>複数のオブジェクトを結合する</p>
+      <div class="code">Object.assign({a: 1, b: 2}, {c: 3}) // -> {a: 1, b: 2, c: 3}</div>
+      <h2 id="sec30" class="sec">配列</h2>
+      <div class="code">let a = ['apple', 'banana', 'lemmon'];
+let b = ['dog', , 'cat'];
+console.log(a[0]); // -> 'apple'
+console.log(b[1]); // -> undefined</div>
+      <p>スプレッド演算子を使って要素をばらして代入ができる。</p>
+      <div class="code">let a = [4, 5];
+let b = [1, 2, 3, ...a];
+console.log(a); // -> [1, 2, 3, 4, 5]
+
+// 総和を計算するsumが定義されているとする
+sum(1, 2, 3, 4, 5) // -> 15
+sum(...b) // -> 15</div>
+      <h4>isArray</h4>
+      <p>配列かどうかを判定する</p>
+      <div class="code">Array.isArray({0: 'a', 1: 'b'}) // -> false</div>
+      <h4>push</h4>
+      <div class="code">let a = [1, 2];
+a.push(3); // -> 3 == a.length
+console.log(a); // -> [1, 2, 3]</div>
+      <h4>unshift</h4>
+      <p>先頭に要素を追加する</p>
+      <div class="code">let a = [2, 3];
+a.unshift(1); // -> 3 == a.length
+console.log(a); // -> [1, 2, 3]</div>
+      <h4>pop</h4>
+      <p>末尾の要素を削除する</p>
+      <div class="code">let a = [1, 2, 3];
+a.pop(); // -> 3
+console.log(a); // -> [1, 2]
+
+a.length = 1; // lengthは書き換えられる
+console.log(a); // -> [1]</div>
+      <h4>shift</h4>
+      <p>先頭の要素を削除する</p>
+      <div class="code">let a = [1, 2, 3];
+a.shift(); // -> 1
+console.log(a); // -> [2, 3]</div>
+      <h4>splice</h4>
+      <p>一部を削除・置き換える</p>
+      <div class="code">let a = [0, 1, 2, 0, 5];
+a.splice(0, 1); // -> [0]
+console.log(a); // -> [1, 2, 0, 5]
+a.splice(2, 1, ...[3, 4]); // -> [0]
+console.log(a); // -> [1, 2, 3, 4, 5]</div>
+      <h4>concat</h4>
+      <p>複数の配列を結合する</p>
+      <div class="code">[1].concat([2, 3], [4]) // -> [1, 2, 3, 4]</div>
+      <h4>indexOf</h4>
+      <p>値を先頭から検索する</p>
+      <div class="code">['a', 'b', 'c'].indexOf('c') // -> 2</div>
+      <h4>lastIndexOf</h4>
+      <p>値を末尾から検索する(開始indexから左に検索する)</p>
+      <div class="code">['a', 'b', 'c'].lastIndexOf('c', 0) // -> -1</div>
+      <h4>slice</h4>
+      <p>配列の一部を切り出す(終了indexの要素は含まない)</p>
+      <div class="code">[1, 2, 3, 4, 5].slice(1, 3) // -> [2, 3]</div>
+      <h4>join</h4>
+      <p>区切り文字を挟んで値を結合し、文字列に変換する</p>
+      <div class="code">['a', 'b', 'c'].join(', ') // -> 'a, b, c'</div>
+      <h4>reverse</h4>
+      <p>値を逆順にする</p>
+      <div class="code">[1, 2, 3].reverse() // -> [3, 2, 1]</div>
+      <h4>forEach</h4>
+      <p>各要素ごとに処理をする</p>
+      <div class="code">let a = ['a', 'b', 'c'];
+a.forEach(x => console.log(x))
+// -> 'a'
+// -> 'b'
+// -> 'c'</div>
+      <h4>findIndex</h4>
+      <p>条件を満たす要素を検索し、indexを返す。</p>
+      <div class="code">['a', 'b', 'c'].findIndex(x => x == 'c') // -> 2</div>
+      <h4>find</h4>
+      <p>条件を満たす要素を検索し、見つけた要素を返す</p>
+      <div class="code">['apple', 'banana', 'cherry'].find(x => x.includes('na')) // -> 'banana'</div>
+      <h4>some</h4>
+      <p>少なくとも1つの要素が条件を満たすかどうか</p>
+      <div class="code">[1, 2, 3].some(x => x%2 == 0) // -> true</div>
+      <h4>every</h4>
+      <p>すべての要素が条件を満たすかどうか</p>
+      <div class="code">[1, 2, 3].every(x => x%2 == 0) // -> false</div>
+      <h4>sort</h4>
+      <p>要素を並び替える</p>
+      <div class="code">['bad', 'act', 'bed'].sort((x,y) => (x>y)?1:-1) // -> ['act', 'bad', 'bed']</div>
+      <h4>map</h4>
+      <p>すべての要素に処理をして要素を書き換える</p>
+      <div class="code">[1, 2, 3].map(x => x**2) // -> [1, 4, 9]</div>
+      <h4>filter</h4>
+      <p>条件を満たさない要素を削除する</p>
+      <div class="code">[1, 2, 3].filter(x => x%2==0) // -> [2]</div>
+      <h4>reduce</h4>
+      <div class="code">[1, 2, 3].reduce((sum, k) => sum + k) // -> 6</div>
+      <h2 id="sec31" class="sec">非同期処理</h2>
+      <h3 id="sec32sec01" class="subsec">Promise</h3>
+      <div class="code">function aFunc2(data) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(data * 2);
+    }, Math.random() * 1000);
+  });
+}</div>
+      <h4>成功時の処理(<span class="inline">resolve()</span> <span class="inline">then()</span>)</h4>
+      <div class="code">function sample_promise() {
+  aFunc2(100).then((data) => {
+    console.log(data);      // => 200
+  });
+}</div>
+      <p>処理を継続する場合</p>
+      <div class="code">function sample_promise3() {
+  aFunc2(100).then((data) => {
+    console.log(data);      // => 200
+    return aFunc2(data);
+  })
+  .then((data) => {
+    console.log(data);      // => 400
+    return aFunc2(data);
+  })
+  .then((data) => {
+    console.log(data);      // => 800
+  });
+}</div>
+      <h4>失敗時の処理(<span class="inline">reject()</span> <span class="inline">catch()</span>)</h4>
+      <div class="code">function aFunc3(data) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (Math.random() &lt; 0.30) {
+        reject(new Error('ERROR!'));
+      } else {
+        resolve(data * 2);
+      }
+    }, Math.random() * 1000);
+  });
+}</div>
+      <p>エラーを考慮する</p>
+      <div class="code">function sample_reject() {
+  aFunc3(100).then(
+    (data) => { console.log(data); },    // 成功時(履行時)の処理
+    (e) => { console.log(e); }           // 失敗時(拒否時)の処理
+  );
+}</div>
+      <p>上記は以下のように書くことができる</p>
+      <div class="code">function sample_catch() {
+    aFunc3(100).then((data) => {
+        console.log(data);
+        return aFunc3(data);
+    })
+    .then((data) => {
+        console.log(data);
+        return aFunc3(data);
+    })
+    .then((data) => {
+        console.log(data);
+    })
+    .catch((e) => {
+        console.log(e);
+    });
+}</div>
+      <h3 id="sec33sec02" class="subsec"><code>async</code>、<code>await</code></h3>
+      <div class="code">async function sample_async_await() {
+    var val = 100;
+    val = await aFunc2(val);
+    console.log(val);                    // 200
+    val = await aFunc2(val);
+    console.log(val);                    // 400
+    val = await aFunc2(val);
+    console.log(val);                    // 800
+}</div>
+      <h2 id="sec34" class="sec">イテレータ</h2>
+      <h3 id="sec35sec01" class="subsec">イテレーターとは</h3>
+      <p>繰り返し処理を実現するための下記特徴を持つオブジェクト。</p>
+      <ul>
+        <li><span class="inline">next()</span>メソッドを持つ。</li>
+        <li><span class="inline">next()</span>の戻り値は<span class="inline">{value: value, done: done}</span>の形式。</li>
+        <li><span class="inline">value</span>は次の値、<span class="inline">done</span>はループが継続する場合は<span class="inline">false</span>、終了する場合は<span class="inline">true</span>を返す。</li>
+      </ul>
+      <h4>実装例</h4>
+      <div class="code">class MyRangeIterator {
+  constructor(n, m) {
+    this.n = n;
+    this.m = m;
+  }
+  next() {
+    return { value: this.n, done: this.n++ > this.m };
+  }
+}</div>
+      <h3 id="sec36sec02" class="subsec">反復可能オブジェクトとは</h3>
+      <p>下記の特徴を持つオブジェクト。</p>
+      <ul>
+        <li><span class="inline">[Symbol.iterator]()</span>というメソッドを持つ。</li>
+        <li><span class="inline">[Symbol.iterator]()</span>メソッドはイテレーターを返却する。</li>
+        <li><span class="inline">for (...of...)</span>でループ参照することができる。</li>
+      </ul>
+      <h4>反復可能オブジェクトの実装例</h4>
+      <div class="code">class MyRange {
+  constructor(n, m) {
+    this.n = n;
+    this.m = m;
+  }
+  [Symbol.iterator]() {
+    return new MyRangeIterator(this.n, this.m);
+  }
+}
+
+for (var n of new MyRange(1, 5)) {
+  console.log(n);      // 1, 2, 3, 4, 5
+}</div>
+      <h3 id="sec37sec03" class="subsec">ジェネレータ</h3>
+      <p>反復可能オブジェクトを簡単に生成できる仕組み。</p>
+      <ul>
+        <li><span class="inline">function<i></span>の様に<code>function</code>の後ろにアスタリスク<span class="inline"></i></span>をつけて定義する。</li>
+        <li><span class="inline">yield</span>または<span class="inline">yield*</span>を用いて各ループの値を返却する。</li>
+      </ul>
+      <h4>ジェネレータの実装例</h4>
+      <div class="code">function* myRange(n, m) {
+  while (n &lt;= m) {
+    yield n++;
+  }
+}
+
+for (var n of myRange(1, 5)) {
+  console.log(n);          // => 1, 2, 3, 4, 5
+}</div>
+      <h2 id="sec38" class="sec">その他</h2>
+      <h3 id="sec39sec01" class="subsec">予約語</h3>
+      <div style="height: 75vh; overflow-y: auto; width: min-content; padding: 0 24px;">
+        <div style="display: inline-block;">
+          <ul>
+            <li><span class="inline">await</span></li>
+            <li><span class="inline">break</span></li>
+            <li><span class="inline">case</span></li>
+            <li><span class="inline">catch</span></li>
+            <li><span class="inline">class</span></li>
+            <li><span class="inline">const</span></li>
+            <li><span class="inline">continue</span></li>
+            <li><span class="inline">debugger</span></li>
+            <li><span class="inline">default</span></li>
+            <li><span class="inline">delete</span></li>
+            <li><span class="inline">do</span></li>
+            <li><span class="inline">else</span></li>
+            <li><span class="inline">enum</span></li>
+            <li><span class="inline">export</span></li>
+            <li><span class="inline">extends</span></li>
+            <li><span class="inline">false</span></li>
+            <li><span class="inline">finally</span></li>
+            <li><span class="inline">for</span></li>
+            <li><span class="inline">function</span></li>
+            <li><span class="inline">if</span></li>
+            <li><span class="inline">import</span></li>
+            <li><span class="inline">in</span></li>
+            <li><span class="inline">instanceof</span></li>
+            <li><span class="inline">new</span></li>
+            <li><span class="inline">null</span></li>
+            <li><span class="inline">return</span></li>
+            <li><span class="inline">super</span></li>
+            <li><span class="inline">switch</span></li>
+            <li><span class="inline">this</span></li>
+            <li><span class="inline">throw</span></li>
+            <li><span class="inline">true</span></li>
+            <li><span class="inline">try</span></li>
+            <li><span class="inline">typeof</span></li>
+            <li><span class="inline">var</span></li>
+            <li><span class="inline">void</span></li>
+            <li><span class="inline">while</span></li>
+            <li><span class="inline">with</span></li>
+            <li><span class="inline">yield</span></li>
+          </ul>
+        </div>
+      </div>
+      <h4>strictモードでの予約語</h4>
+      <ul>
+        <li><span class="inline">let</span></li>
+        <li><span class="inline">static</span></li>
+        <li><span class="inline">implements</span></li>
+        <li><span class="inline">interface</span></li>
+        <li><span class="inline">package</span></li>
+        <li><span class="inline">private</span></li>
+        <li><span class="inline">protected</span></li>
+        <li><span class="inline">public</span></li>
+      </ul>
+      <h3 id="sec40sec02" class="subsec">特殊文字のエスケープ</h3>
+      <table class="default">
+        <tr><th>文字</th>
+<th>意味</th></tr>
+        <tr><td><span class="inline">\0</span></td>
+<td>ヌル文字</td></tr>
+        <tr><td><span class="inline">\b</span></td>
+<td>バックスペース</td></tr>
+        <tr><td><span class="inline">\f</span></td>
+<td>改ページ</td></tr>
+        <tr><td><span class="inline">\n</span></td>
+<td>改行</td></tr>
+        <tr><td><span class="inline">\r</span></td>
+<td>復帰</td></tr>
+        <tr><td><span class="inline">\t</span></td>
+<td>タブ</td></tr>
+        <tr><td><span class="inline">\v</span></td>
+<td>垂直タブ</td></tr>
+        <tr><td><span class="inline">\'</span></td>
+<td>アポストロフィ</td></tr>
+        <tr><td><span class="inline">\"</span></td>
+<td>ダブルクォーテーション</td></tr>
+        <tr><td><span class="inline">\\</span></td>
+<td>バックスラッシュ</td></tr>
+        <tr><td><span class="inline">\uXXXX</span></td>
+<td>Unicodeエスケープシーケンス</td></tr>
+      </table>
+      <h3 id="sec41sec03" class="subsec">型を取得</h3>
+      <p>出力される値自体は<span class="inline">string</span>型。</p>
+      <div class="code">console.log(typeof 100);   // "number"</div>
+      <h3 id="sec42sec04" class="subsec"><code>true</code>や<code>false</code>の代わりになる値</h3>
+      <div style="display: flex;">
+        <div style="border: solid 2px #e0e0e0; background-color: #f8f8f8; padding: 0 16px; margin: 0 16px; flex: 1;">
+          <h4><code>false</code>になる値</h4>
+          <ul>
+            <li><span class="inline">false</span></li>
+            <li><span class="inline">0</span></li>
+            <li><span class="inline">-0</span></li>
+            <li><span class="inline">0n</span></li>
+            <li><span class="inline">""</span> (空文字)</li>
+            <li><span class="inline">null</span></li>
+            <li><span class="inline">undefined</span></li>
+            <li><span class="inline">NaN</span></li>
+          </ul>
+        </div>
+        <div style="border: solid 2px #e0e0e0; background-color: #f8f8f8; padding: 0 16px; margin: 0 16px; flex: 1;">
+          <h4><code>true</code>になる値</h4>
+          <ul>
+            <li><span class="inline">true</span></li>
+            <li><span class="inline">43</span></li>
+            <li><span class="inline">'Red'</span></li>
+            <li><span class="inline">[3, 4]</span></li>
+          </ul>
+        </div>
+      </div>
+      <h3 id="sec43sec05" class="subsec">正規表現</h3>
+      <h4>正規表現オブジェクト</h4>
+      <div class="code">str = "ABCDEFG";
+re = new RegExp("DEF", "ig");
+console.log(re.test(str));         // => true</div>
+      <div class="code">str = "ABCDEF";
+re = /DEF/ig;
+console.log(re.test(str));         // => true</div>
+      <h4>マッチング</h4>
+      <div class="code">const ret = "abc123".match(/[0-9]+/);
+console.log(ret);       // => ['123', index:3, input:'abc123', groups:undefined]
+console.log(ret[0]);    // マッチした文字列: '123'
+console.log(ret.index); // 見つかった場所のインデックス: 3
+console.log(ret.input); // 入力文字列: 'abc123'</div>
+      <p>グローバルフラグ<span class="inline">g</span>を指定した場合はマッチした部分文字列の配列を返す。マッチしなかった場合は<span class="inline">null</span>を返す。</p>
+      <div class="code">const ret = "abc123def456".match(/[0-9]+/g);
+console.log(ret);                             // ['123', '456']</div>
+      <h4><code>exec</code>メソッド</h4>
+      <div class="code">const re = /[0-9]+/;
+const ret = re.exec("abc123");
+console.log(ret);       // => ['123', index:3, input:'abc123', groups:undefined]
+console.log(ret[0]);    // マッチした文字列: '123'
+console.log(ret.index); // 見つかった場所のインデックス: 3
+console.log(ret.input); // 入力文字列: 'abc123'</div>
+      <h4><code>test</code>メソッド</h4>
+      <div class="code">const re = /[0-9]+/;
+console.log(re.test("abc123"));        // => true</div>
+      <h3 id="sec44sec06" class="subsec">JSON</h3>
+      <h4>エンコード</h4>
+      <div class="code">var obj = {x: 123, y: 234};
+var str = JSON.stringify(obj);
+console.log(str);                    // => {"x":123, "y":234}</div>
+      <p>replacer</p>
+      <div class="code">function replacer(key, value) {
+    return typeof value === "number" ? value * 2 : value;
+}
+var obj = {x: 123, y: 234};
+var str = JSON.stringify(obj, replacer);
+console.log(str);                    // => {"x":246, "y":468}</div>
+      <p>space</p>
+      <div class="code">var obj = {x: 123, y: 234};
+console.log(JSON.stringify(obj, null, 2));
+console.log(JSON.stringify(obj, null, "  "));</div>
+      <h4>デコード</h4>
+      <div class="code">var str = '{"x": 123, "y": 234}';
+var obj = JSON.parse(str);
+console.log(obj);                    // => {x: 123, y: 234}</div>
+      <h3 id="sec45sec07" class="subsec">モジュール</h3>
+      <div class="code">// module.js
+export function helloWorld() {
+  alert("Hello world!!");
+}
+        
+// main.js
+import { helloWorld } from "./module.js";
+helloWorld();</div>
+      <h4><code>export</code></h4>
+      <div class="code">export var a1 = 5;          // 変数 a1 をエクスポートする
+export let a2 = 5;          // 変数 a2 をエクスポートする
+export const a3 = 5;        // 定数 a3 をエクスポートする
+export function f1() {...}  // 関数 f1 をエクスポートする</div>
+      <h4><code>import</code></h4>
+      <div class="code">import "./module.js";                                // module.js からエクスポートされているものすべてをインポートする
+import { a1, a2 } from "./module.js";                // module.js から a1 と a2 をインポートする
+import { a1 as b1, a2 as b2 } from "./module.js";    // a1 を b1、a2 を b2 という名前でインポートする
+import * as mod from "./module.js";                  // mod という名前でインポートする (mod.a1, mod.a2, ...)</div>
+      <h4>JSON, CSS</h4>
+      <p>ES2025 からは下記の様に JSON やスタイルシートなども読み込めるようになりました。</p>
+      <div class="code">import json from "./foo.json" with { type: "json" };
+import style from "./style.css" with { type: "ccs" };</div>
+      <h3 id="sec46sec08" class="subsec">CommonJS と ES Modules</h3>
+      <p>モジュールの定義・読み込み方法を提供する主要な仕組み</p>
+      <table class="default">
+        <tr><th>特徴</th>
+<th>COmmonJS (CJS)</th>
+<th>ES Modules (ESM)</th></tr>
+        <tr><td>発祥</td>
+<td>Node.js (主にサーバサイド)</td>
+<td>ECMAScript 標準 (ブラウザと Node.js 両方)</td></tr>
+        <tr><td>ファイル拡張子</td>
+<td><span class="inline">.js</span> (通常)</td>
+<td><span class="inline">.js</span> <span class="inline">.mjs</span> <span class="inline">.ts</span> (設定による)</td></tr>
+        <tr><td>インポート方法</td>
+<td><span class="inline">require()</span></td>
+<td><span class="inline">import</span></td></tr>
+        <tr><td>エクスポート方法</td>
+<td><span class="inline">module.exports</span> <span class="inline">exports.foo</span></td>
+<td><span class="inline">export</span> <span class="inline">export default</span></td></tr>
+        <tr><td>読み込み方式</td>
+<td>同期的 (blocking)</td>
+<td>非同期的 (非 blocking)</td></tr>
+        <tr><td>実行順序</td>
+<td>実行時に動的に読み込む(遅延実行)</td>
+<td>静的に解析(ビルド時に依存関係がわかる)</td></tr>
+        <tr><td>ツリーシェイキング</td>
+<td>不可</td>
+<td>可能 (ビルド時に未使用コード除去)</td></tr>
+      </table>
+      <p>※ ツリーシェイキング: 不要なコードを除去</p>
+      <h4>CJS の例</h4>
+      <div class="code">// math.js
+function add(a, b) {
+  return a + b;
+}
+module.exports = { add };
+
+// app.js
+const math = require('./math');
+console.log(math.add(2, 3));</div>
+      <h4>ESM の例</h4>
+      <div class="code">// math.js
+export function add(a, b) {
+  return a + b;
+}
+
+// app.js
+import { add } from './math.js';
+console.log(add(2, 3));</div>
+      <div style="padding: 50px;">
+      </div>
+    </div>
+    <label for="sidebar_ctrl" class="black"></label>
+    <div class="black">
+    </div>
+    <div id="side">
+      <h2>もくじ</h2>
+      <div class="list">
+        <details jumpto="sec01" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            参考
+          </summary>
+        </details>
+        <details jumpto="sec02" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            基本
+          </summary>
+          <div jumpto="sec03sec01" class="jump_button">
+            データ型
+          </div>
+        </details>
+        <details jumpto="sec04" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            構文
+          </summary>
+          <div jumpto="sec05sec01" class="jump_button">
+            コメントアウト
+          </div>
+          <div jumpto="sec06sec02" class="jump_button">
+            変数定義
+          </div>
+        </details>
+        <details jumpto="sec07" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            構文
+          </summary>
+          <div jumpto="sec08sec01" class="jump_button">
+            ブロック
+          </div>
+          <div jumpto="sec09sec02" class="jump_button">
+            条件分岐
+          </div>
+          <div jumpto="sec10sec03" class="jump_button">
+            <code>switch</code>文
+          </div>
+          <div jumpto="sec11sec04" class="jump_button">
+            繰り返し処理
+          </div>
+          <div jumpto="sec12sec05" class="jump_button">
+            オブジェクト参照
+          </div>
+          <div jumpto="sec13sec06" class="jump_button">
+            例外処理
+          </div>
+        </details>
+        <details jumpto="sec14" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            演算子
+          </summary>
+          <div jumpto="sec15sec01" class="jump_button">
+            代入演算子
+          </div>
+          <div jumpto="sec16sec02" class="jump_button">
+            算術演算子
+          </div>
+          <div jumpto="sec17sec03" class="jump_button">
+            比較演算子
+          </div>
+          <div jumpto="sec18sec04" class="jump_button">
+            論理演算
+          </div>
+          <div jumpto="sec19sec05" class="jump_button">
+            ビット演算子
+          </div>
+        </details>
+        <details jumpto="sec20" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            関数
+          </summary>
+        </details>
+        <details jumpto="sec21" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            クラス
+          </summary>
+          <div jumpto="sec22sec01" class="jump_button">
+            プライベート
+          </div>
+          <div jumpto="sec23sec02" class="jump_button">
+            <code>static</code>
+          </div>
+          <div jumpto="sec24sec03" class="jump_button">
+            ゲッターとセッター
+          </div>
+          <div jumpto="sec25sec04" class="jump_button">
+            プロトタイプ
+          </div>
+          <div jumpto="sec26sec05" class="jump_button">
+            継承
+          </div>
+        </details>
+        <details jumpto="sec27" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            数値
+          </summary>
+        </details>
+        <details jumpto="sec28" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            文字列
+          </summary>
+        </details>
+        <details jumpto="sec29" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            オブジェクト
+          </summary>
+        </details>
+        <details jumpto="sec30" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            配列
+          </summary>
+        </details>
+        <details jumpto="sec31" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            非同期処理
+          </summary>
+          <div jumpto="sec32sec01" class="jump_button">
+            Promise
+          </div>
+          <div jumpto="sec33sec02" class="jump_button">
+            <code>async</code>、<code>await</code>
+          </div>
+        </details>
+        <details jumpto="sec34" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            イテレータ
+          </summary>
+          <div jumpto="sec35sec01" class="jump_button">
+            イテレーターとは
+          </div>
+          <div jumpto="sec36sec02" class="jump_button">
+            反復可能オブジェクトとは
+          </div>
+          <div jumpto="sec37sec03" class="jump_button">
+            ジェネレータ
+          </div>
+        </details>
+        <details jumpto="sec38" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            その他
+          </summary>
+          <div jumpto="sec39sec01" class="jump_button">
+            予約語
+          </div>
+          <div jumpto="sec40sec02" class="jump_button">
+            特殊文字のエスケープ
+          </div>
+          <div jumpto="sec41sec03" class="jump_button">
+            型を取得
+          </div>
+          <div jumpto="sec42sec04" class="jump_button">
+            <code>true</code>や<code>false</code>の代わりになる値
+          </div>
+          <div jumpto="sec43sec05" class="jump_button">
+            正規表現
+          </div>
+          <div jumpto="sec44sec06" class="jump_button">
+            JSON
+          </div>
+          <div jumpto="sec45sec07" class="jump_button">
+            モジュール
+          </div>
+          <div jumpto="sec46sec08" class="jump_button">
+            CommonJS と ES Modules
+          </div>
+        </details>
+      </div>
+    </div>
+    <label for="sidebar_ctrl" id="ctrl_label">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#444"><path d="M280-600v-80h560v80H280Zm0 160v-80h560v80H280Zm0 160v-80h560v80H280ZM160-600q-17 0-28.5-11.5T120-640q0-17 11.5-28.5T160-680q17 0 28.5 11.5T200-640q0 17-11.5 28.5T160-600Zm0 160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520q17 0 28.5 11.5T200-480q0 17-11.5 28.5T160-440Zm0 160q-17 0-28.5-11.5T120-320q0-17 11.5-28.5T160-360q17 0 28.5 11.5T200-320q0 17-11.5 28.5T160-280Z"/></svg>
+    </label>
+  </body>
+  <script src="main.js">
+  </script>
+</html>

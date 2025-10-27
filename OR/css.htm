@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>CSS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_ctrl">
+    <div id="main">
+      <h1 id="top">CSS</h1>
+      <h2 id="sec01" class="sec">構文</h2>
+      <h3 id="sec02sec01" class="subsec">コメントアウト</h3>
+      <div class="code">/* コメント */
+
+/*
+  複数行コメント
+*/</div>
+      <h3 id="sec03sec02" class="subsec">値の単位</h3>
+      <h4>絶対長</h4>
+      <table class="default">
+        <tr><th>Unit</th>
+<th>名前</th>
+<th>換算</th></tr>
+        <tr><td><span class="inline">cm</span></td>
+<td>センチメートル</td>
+<td>1cm = 96px/2.54</td></tr>
+        <tr><td><span class="inline">mm</span></td>
+<td>ミリメートル</td>
+<td>1mm = 1/10cm</td></tr>
+        <tr><td><span class="inline">Q</span></td>
+<td>1/4ミリメートル</td>
+<td>1Q = 1/40cm</td></tr>
+        <tr><td><span class="inline">in</span></td>
+<td>インチ</td>
+<td>1in = 2.54cm = 96px</td></tr>
+        <tr><td><span class="inline">pc</span></td>
+<td>パイカ</td>
+<td>1pc = 1inの1/6</td></tr>
+        <tr><td><span class="inline">pt</span></td>
+<td>ポイント</td>
+<td>1pt = 1inの1/72</td></tr>
+        <tr><td><span class="inline">px</span></td>
+<td>ピクセル</td>
+<td>1px = 1inの1/96</td></tr>
+      </table>
+      <h4>相対長</h4>
+      <table class="default">
+        <tr><th>Unit</th>
+<th>関係先</th></tr>
+        <tr><td>em</td>
+<td>親要素のフォントサイズ</td></tr>
+        <tr><td>ex</td>
+<td>その要素のフォントの文字<span class="inline">"x"</span>の高さ</td></tr>
+        <tr><td>ch</td>
+<td>その要素のフォントの文字<span class="inline">"0"</span>の幅</td></tr>
+        <tr><td>rem</td>
+<td>ルート要素のフォントサイズ</td></tr>
+        <tr><td>lh</td>
+<td>その要素の<span class="inline">line-hight</span>プロパティと同じ</td></tr>
+        <tr><td>vw</td>
+<td>ビューポート幅の1%</td></tr>
+        <tr><td>vh</td>
+<td>ビューポート高さの1%</td></tr>
+        <tr><td>vmin</td>
+<td>ビューポート幅と高さの小さいほうの1%</td></tr>
+        <tr><td>vmax</td>
+<td>ビューポート幅と高さの小さいほうの1%</td></tr>
+      </table>
+      <h3 id="sec04sec03" class="subsec">アニメーション</h3>
+      <div class="code">div {
+  animation: My_Animation 1s linear 0s infinite normal;
+}
+@keyframes My_Animation {
+  0% { background: red; }
+  100% { background: blue; }
+}</div>
+      <p>前半は以下と同じ</p>
+      <div class="code">div {
+  animation-name: My_Animation;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-delay: 0s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+}</div>
+      <p><span class="inline">animation-timing-function</span>で有効な値は<span class="inline">ease</span>、<span class="inline">ease-in</span>、<span class="inline">ease-out</span>、<span class="inline">ease-in-out</span>、<span class="inline">linear</span>、<span class="inline">step-start</span>、<span class="inline">step-end</span>など</p>
+      <p><span class="inline">animation-iteration-count</span>で有効な値は数値もしくは<span class="inline">infinite</span>など</p>
+      <p><span class="inline">animation-direction</span>で有効な値は<span class="inline">normal</span>、<span class="inline">reverse</span>、<span class="inline">alternate</span>、<span class="inline">alternate-reverse</span>など</p>
+      <h3 id="sec05sec04" class="subsec">共通の値</h3>
+      <h4>初期値</h4>
+      <p>CSSの全てのプロパティは<span class="inline">initial</span>で初期値を指定できる。</p>
+      <h4>unset</h4>
+      <p>親要素から継承できる場合は継承値、できない場合は初期値になる。</p>
+      <h2 id="sec06" class="sec">CSS値関数</h2>
+      <h3 id="sec07sec01" class="subsec">数学関数</h3>
+      <table class="default">
+        <tr><th>関数</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">calc()</span></td>
+<td>基本的な演算</td></tr>
+        <tr><td><span class="inline">min()</span></td>
+<td>最小値</td></tr>
+        <tr><td><span class="inline">max()</span></td>
+<td>最大値</td></tr>
+        <tr><td><span class="inline">clamp(MIN, VAL, MAX)</span></td>
+<td></td></tr>
+        <tr><td><span class="inline">round()</span></td>
+<td>四捨五入</td></tr>
+        <tr><td><span class="inline">mod(a, b)</span></td>
+<td>あまり</td></tr>
+        <tr><td><span class="inline">rem(a, b)</span></td>
+<td>あまり</td></tr>
+        <tr><td><span class="inline">sin()</span></td>
+<td>正弦</td></tr>
+        <tr><td><span class="inline">cos()</span></td>
+<td>余弦</td></tr>
+        <tr><td><span class="inline">tan()</span></td>
+<td>正接</td></tr>
+        <tr><td><span class="inline">asin()</span></td>
+<td>逆正弦</td></tr>
+        <tr><td><span class="inline">acos()</span></td>
+<td>逆余弦</td></tr>
+        <tr><td><span class="inline">atan()</span></td>
+<td>逆正接</td></tr>
+        <tr><td><span class="inline">atan2(x, y)</span></td>
+<td>逆正接</td></tr>
+        <tr><td><span class="inline">pow(x, y)</span></td>
+<td>xのy乗</td></tr>
+        <tr><td><span class="inline">sqrt()</span></td>
+<td>2乗根</td></tr>
+        <tr><td><span class="inline">hypot(...x)</span></td>
+<td>平方和の根</td></tr>
+        <tr><td><span class="inline">log()</span></td>
+<td>対数</td></tr>
+        <tr><td><span class="inline">exp()</span></td>
+<td>ネイピア数の指数関数</td></tr>
+        <tr><td><span class="inline">abs()</span></td>
+<td>絶対値</td></tr>
+        <tr><td><span class="inline">sign()</span></td>
+<td>符号関数</td></tr>
+      </table>
+      <h3 id="sec08sec02" class="subsec">フィルター関数</h3>
+      <table class="default">
+        <tr><th>関数</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">blur(radius)</span></td>
+<td>ぼかし</td></tr>
+        <tr><td><span class="inline">brightness(amount)</span></td>
+<td>明るさ</td></tr>
+        <tr><td><span class="inline">contrast(amount)</span></td>
+<td>コントラスト</td></tr>
+        <tr><td><span class="inline">drop-shadow(length, length, length, color)</span></td>
+<td>ドロップシャドウ</td></tr>
+        <tr><td><span class="inline">grayscale(amount)</span></td>
+<td>グレースケール</td></tr>
+        <tr><td><span class="inline">hue-rotate(angle)</span></td>
+<td>色相</td></tr>
+        <tr><td><span class="inline">invert(amount)</span></td>
+<td>色反転</td></tr>
+        <tr><td><span class="inline">opacity(amount)</span></td>
+<td>半透明</td></tr>
+        <tr><td><span class="inline">saturate(amount)</span></td>
+<td>彩度</td></tr>
+        <tr><td><span class="inline">sepia(amount)</span></td>
+<td>セピア</td></tr>
+      </table>
+      <h3 id="sec09sec03" class="subsec">その他</h3>
+      <table class="default">
+        <tr><th>関数</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">rgb(R, G, B, A?)</span></td>
+<td>RGB色指定</td></tr>
+        <tr><td><span class="inline">hsl(H[deg], S[%], L[%], A[%])</span></td>
+<td>HSL色指定</td></tr>
+        <tr><td><span class="inline">linear-gradient()</span></td>
+<td>線形グラデーション</td></tr>
+        <tr><td><span class="inline">radial-gradient()</span></td>
+<td>放射グラデーション</td></tr>
+        <tr><td><span class="inline">conic-gradient()</span></td>
+<td>扇形グラデーション</td></tr>
+        <tr><td><span class="inline">repeating-linear-gradient()</span></td>
+<td>繰り返す線形グラデーション</td></tr>
+        <tr><td><span class="inline">repeating-radial-gradient()</span></td>
+<td>繰り返す放射グラデーション</td></tr>
+        <tr><td><span class="inline">repeating-conic-gradient()</span></td>
+<td>繰り返す扇形グラデーション</td></tr>
+        <tr><td><span class="inline">linear()</span></td>
+<td>線形補間イージング</td></tr>
+        <tr><td><span class="inline">cubic-bezier()</span></td>
+<td>3次ベジェ曲線イージング</td></tr>
+        <tr><td><span class="inline">steps()</span></td>
+<td>ステップイージング</td></tr>
+      </table>
+      <h2 id="sec10" class="sec">プロパティ</h2>
+      <h3 id="sec11sec01" class="subsec">要素の大きさ</h3>
+      <div class="code">height: 20px;
+width: 20px;</div>
+      <div class="code">min-height: 0.5em; max-height: 0.5em;
+min-width: 0.5em; max-width: 0.5em;</div>
+      <h3 id="sec12sec02" class="subsec">要素の枠</h3>
+      <ul>
+        <li>一部の場合は<span class="inline">border-top</span>のようにする。<span class="inline">top</span>、<span class="inline">bottom</span>、<span class="inline">right</span>、<span class="inline">left</span>から選択</li>
+        <li><span class="inline">border-radius</span>で角を丸く</li>
+        <li>通常は<span class="inline">solid</span>、点線は<span class="inline">dotted</span>、破線は<span class="inline">dashed</span>、二重線は<span class="inline">double</span></li>
+      </ul>
+      <div class="code">border: solid 3px #000000;</div>
+      <h3 id="sec13sec03" class="subsec">内側の余白</h3>
+      <div class="code">padding: 10px;
+padding-top: 10px;
+padding-right: 10px;
+padding-left: 10px;
+padding-bottom: 10px;</div>
+      <p>このようにすると、上下が10px、左右が20pxになる</p>
+      <div class="code">padding: 10px 20px;</div>
+      <p>これだと上、右、下、左</p>
+      <div class="code">padding: 10px 20px 30px 40px;</div>
+      <h3 id="sec14sec04" class="subsec">外側の余白</h3>
+      <div class="code">margin: 10px;
+margin-top: 10px;
+margin-right: 10px;
+margin-left: 10px;
+margin-bottom: 10px;</div>
+      <p>このようにすると、上下が10px、左右が20pxになる</p>
+      <div class="code">margin: 10px 20px;</div>
+      <p>これだと上、右、下、左</p>
+      <div class="code">margin: 10px 20px 30px 40px;</div>
+      <h3 id="sec15sec05" class="subsec">accent-color</h3>
+      <p>一部のinput要素などのアクセントカラーを変更する。</p>
+      <div class="code">accent-color: #64ec86;</div>
+      <h3 id="sec16sec06" class="subsec">backdrop-filter</h3>
+      <p>要素の背後にグラフィック効果を適用する。</p>
+      <div class="code">backdrop-filter: blur(10px);
+backdrop-filter: invert(80%);
+backdrop-filter: sepia(90%);</div>
+      <h3 id="sec17sec07" class="subsec">background-color</h3>
+      <div class="code">background-color: #64ec86;</div>
+      <h3 id="sec18sec08" class="subsec">background-image</h3>
+      <p>背景画像を指定する。</p>
+      <div class="code">background-image: url("../../media/examples/lizard.png");</div>
+      <h3 id="sec19sec09" class="subsec">border-collapse</h3>
+      <p>表のセルの間に隙間を作るかどうか。<span class="inline">collapse</span>(作らない)か<span class="inline">separate</span>(作る)で指定。</p>
+      <div class="code">border-collapse: collapse;</div>
+      <h3 id="sec20sec10" class="subsec">box-shadow</h3>
+      <div class="code">/* 無くす場合 */
+box-shadow: none;
+
+/* オフセット(X) | オフセット(Y) | 色 */
+box-shadow: 60px -16px teal;
+
+/* オフセット(X) | オフセット(Y) | ブラー半径 | 色 */
+box-shadow: 10px 5px 5px black;
+
+/* オフセット(X) | オフセット(Y) | ブラー半径 | 拡散半径 | 色 */
+box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+
+/* inset | オフセット(X) | オフセット(Y) | 色 */
+box-shadow: inset 5em 1em gold;
+
+/* 複数の影はカンマで区切る */
+box-shadow:
+  3px 3px red,
+  -1em 0 0.4em olive;</div>
+      <h3 id="sec21sec11" class="subsec">box-sizing</h3>
+      <p>枠を外側ではなく内側に膨らませる場合：</p>
+      <div class="code">box-sizing: border-box;</div>
+      <h3 id="sec22sec12" class="subsec">caret-color</h3>
+      <p>input要素内などのキャレット(テキスト入力カーソル)の色を変更する。</p>
+      <div class="code">caret-color: red;</div>
+      <h3 id="sec23sec13" class="subsec">color</h3>
+      <p>文字の色を指定する。</p>
+      <div class="code">color: #64ec86;</div>
+      <h3 id="sec24sec14" class="subsec">cursor</h3>
+      <p>マウスカーソルの種類。画像を指定することもでき、その場合は画像指定の後にカーソルの種類も指定する必要がある。</p>
+      <div class="code">cursor: help;
+cursor: url(hand.cur), pointer;</div>
+      <details>
+        <summary>カーソルの種類</summary>
+        <div class="content">
+          <table class="default">
+            <tr><th>値</th>
+<th>概要</th></tr>
+            <tr><th style="cursor: default;">`default`</th>
+<td>デフォルト</td></tr>
+            <tr><th style="cursor: none;">`none`</th>
+<td>非表示</td></tr>
+            <tr><th style="cursor: context-menu;">`context-menu`</th>
+<td>右クリックメニューが利用できる</td></tr>
+            <tr><th style="cursor: help;">`help`</th>
+<td>ヘルプ</td></tr>
+            <tr><th style="cursor: pointer;">`pointer`</th>
+<td>ポインター</td></tr>
+            <tr><th style="cursor: progress;">`progress`</th>
+<td>ビジー状態だが操作できる</td></tr>
+            <tr><th style="cursor: wait;">`wait`</th>
+<td>ビジー状態で操作できない</td></tr>
+            <tr><th style="cursor: cell;">`cell`</th>
+<td>セル</td></tr>
+            <tr><th style="cursor: crosshair;">`crosshair`</th>
+<td>ビットマップの選択</td></tr>
+            <tr><th style="cursor: text;">`text`</th>
+<td>テキスト</td></tr>
+            <tr><th style="cursor: vertical-text;">`vertical-text`</th>
+<td>縦書きテキスト</td></tr>
+            <tr><th style="cursor: alias;">`alias`</th>
+<td>エイリアスやショートカットが作成される</td></tr>
+            <tr><th style="cursor: copy;">`copy`</th>
+<td>コピーされる</td></tr>
+            <tr><th style="cursor: move;">`move`</th>
+<td>移動される</td></tr>
+            <tr><th style="cursor: no-drop;">`no-drop`</th>
+<td>ドロップできない</td></tr>
+            <tr><th style="cursor: not-allowed;">`not-allowed`</th>
+<td>操作が禁止されている</td></tr>
+            <tr><th style="cursor: grab;">`grab`</th>
+<td>つかめる</td></tr>
+            <tr><th style="cursor: grabbing;">`grabbing`</th>
+<td>つかんでいる</td></tr>
+            <tr><th style="cursor: all-scroll;">`all-scroll`</th>
+<td>スクロール可能</td></tr>
+            <tr><th style="cursor: col-resize;">`col-resize`</th>
+<td>水平方向にスクロール可能</td></tr>
+            <tr><th style="cursor: row-resize;">`row-resize`</th>
+<td>垂直方向にスクロール可能</td></tr>
+            <tr><th style="cursor: n-resize;">`n-resize`</th>
+<td>辺の移動(上)</td></tr>
+            <tr><th style="cursor: e-resize;">`e-resize`</th>
+<td>辺の移動(右)</td></tr>
+            <tr><th style="cursor: s-resize;">`s-resize`</th>
+<td>辺の移動(下)</td></tr>
+            <tr><th style="cursor: w-resize;">`w-resize`</th>
+<td>辺の移動(左)</td></tr>
+            <tr><th style="cursor: ne-resize;">`ne-resize`</th>
+<td>辺の移動(右上)</td></tr>
+            <tr><th style="cursor: nw-resize;">`nw-resize`</th>
+<td>辺の移動(左上)</td></tr>
+            <tr><th style="cursor: se-resize;">`se-resize`</th>
+<td>辺の移動(右下)</td></tr>
+            <tr><th style="cursor: sw-resize;">`sw-resize`</th>
+<td>辺の移動(左下)</td></tr>
+            <tr><th style="cursor: ew-resize;">`ew-resize`</th>
+<td>辺の移動(左右)</td></tr>
+            <tr><th style="cursor: ns-resize;">`ns-resize`</th>
+<td>辺の移動(上下)</td></tr>
+            <tr><th style="cursor: nesw-resize;">`nesw-resize`</th>
+<td>辺の移動(右上左下)</td></tr>
+            <tr><th style="cursor: nwse-resize;">`nwse-resize`</th>
+<td>辺の移動(左上右下)</td></tr>
+            <tr><th style="cursor: zoom-in;">`zoom-in`</th>
+<td>拡大</td></tr>
+            <tr><th style="cursor: zoom-out;">`zoom-out`</th>
+<td>縮小</td></tr>
+          </table>
+        </div>
+      </details>
+      <h3 id="sec25sec15" class="subsec">direction</h3>
+      <p>文字の向きを<span class="inline">ltr</span>(左から右)または<span class="inline">rtl</span>(右から左)で指定する。</p>
+      <div class="code">direction: ltr;</div>
+      <h3 id="sec26sec16" class="subsec">display</h3>
+      <ul>
+        <li><span class="inline">block</span>：divのようなブロック要素</li>
+        <li><span class="inline">inline</span>：spanのようなインライン要素</li>
+        <li><span class="inline">inline</span>：外側にはインラインのようなふるまいをしておきながら、本体はブロックのようにふるまう</li>
+        <li><span class="inline">flex</span>：中身のブロック要素を均等に分割する</li>
+        <li><span class="inline">grid</span>：中身のブロック要素をグリッドのように分割する</li>
+      </ul>
+      <p>要素を非表示にする例：</p>
+      <div class="code">display: none;</div>
+      <h3 id="sec27sec17" class="subsec">filter</h3>
+      <p>背後の要素を色反転する例：</p>
+      <div class="code">filter: invert();</div>
+      <h3 id="sec28sec18" class="subsec">flex</h3>
+      <p>flexボックス内での横幅の比を指定する。</p>
+      <div class="code">flex: 1;</div>
+      <h3 id="sec29sec19" class="subsec">font-family</h3>
+      <p>フォントの指定。</p>
+      <div class="code">font-family: '';</div>
+      <p>.ttfファイルを読み込んで新しいフォントを定義する場合は以下の行を追加する。</p>
+      <div class="code">@font-face {
+  font-family: 'MyFont';
+  src: url(〇〇.ttf);
+}</div>
+      <div class="code">font-size</div>
+      <p>フォントの大きさ。</p>
+      <div class="code">font-size: medium;</div>
+      <details>
+        <summary>指定できる値</summary>
+        <div class="content">
+          <p>指定できる値：<span class="inline">[length]</span>、<span class="inline">[percentage]</span>、<span class="inline">xx-small</span>、<span class="inline">x-small</span>、<span class="inline">small</span>、<span class="inline">medium</span>、<span class="inline">large</span>、<span class="inline">x-large</span>、<span class="inline">xx-large</span>、<span class="inline">xxx-large</span>、<span class="inline">larger</span>、<span class="inline">smaller</span></p>
+        </div>
+      </details>
+      <h3 id="sec30sec20" class="subsec">font-weight</h3>
+      <p>フォントの太さ。
+指定できる値：<span class="inline">[number]</span>、<span class="inline">normal</span>、<span class="inline">bold</span>、<span class="inline">lighter</span>、<span class="inline">bolder</span></p>
+      <div class="code">font-weight: bold;</div>
+      <h3 id="sec31sec21" class="subsec">height</h3>
+      <div class="code">height: 20px;</div>
+      <h3 id="sec32sec22" class="subsec">letter-spacing</h3>
+      <p>文字と文字の間隔。</p>
+      <div class="code">letter-spacing: 0.5em;</div>
+      <h3 id="sec33sec23" class="subsec">line-height</h3>
+      <p>文章の行間。
+指定できる値：<span class="inline">normal</span>、<span class="inline">[number]</span>、<span class="inline">[length]</span>、<span class="inline">[percentage]</span></p>
+      <div class="code">line-height: normal;</div>
+      <h3 id="sec34sec24" class="subsec">overflow</h3>
+      <p><span class="inline">visible</span>で見えてはみ出す、<span class="inline">hidden</span>で見えずにはみ出す、<span class="inline">scroll</span>でスクロール、<span class="inline">auto</span>でおさまらないときだけスクロール</p>
+      <div class="code">overflow: visible;
+overflow-x: visible;
+overflow-y: visible;</div>
+      <h3 id="sec35sec25" class="subsec">list-style</h3>
+      <details>
+        <summary>指定できる値の種類</summary>
+        <div class="content">
+          <table class="default">
+            <tr><th>値</th>
+<th>概要</th></tr>
+            <tr><td><span class="inline">none</span></td>
+<td>非表示</td></tr>
+            <tr><td><span class="inline">disc</span></td>
+<td>黒丸</td></tr>
+            <tr><td><span class="inline">circle</span></td>
+<td>白丸</td></tr>
+            <tr><td><span class="inline">square</span></td>
+<td>黒四角</td></tr>
+            <tr><td><span class="inline">decimal</span></td>
+<td>数値</td></tr>
+            <tr><td><span class="inline">cjk-decimal</span></td>
+<td>漢数字</td></tr>
+            <tr><td><span class="inline">decimal-leading-zero</span></td>
+<td>ゼロ埋め数値</td></tr>
+            <tr><td><span class="inline">lower-roman</span></td>
+<td>小文字のローマ数字</td></tr>
+            <tr><td><span class="inline">upper-roman</span></td>
+<td>大文字のローマ数字</td></tr>
+            <tr><td><span class="inline">lower-greek</span></td>
+<td>小文字の古代ギリシャ文字</td></tr>
+            <tr><td><span class="inline">lower-latin</span></td>
+<td>小文字のASCII文字</td></tr>
+            <tr><td><span class="inline">upper-latin</span></td>
+<td>大文字のASCII文字</td></tr>
+            <tr><td><span class="inline">cjk-earthly-branch</span></td>
+<td>十二支</td></tr>
+            <tr><td><span class="inline">cjk-heavenly-stem</span></td>
+<td>十干</td></tr>
+            <tr><td><span class="inline">hiragana</span></td>
+<td>ひらがな</td></tr>
+            <tr><td><span class="inline">hiragana-iroha</span></td>
+<td>いろは</td></tr>
+            <tr><td><span class="inline">japanese-formal</span></td>
+<td>日本の公的漢数字</td></tr>
+            <tr><td><span class="inline">japanese-informal</span></td>
+<td>日本の日常的な数値</td></tr>
+            <tr><td><span class="inline">katakana</span></td>
+<td>カタカナ</td></tr>
+            <tr><td><span class="inline">katakana-iroha</span></td>
+<td>カタカナいろは</td></tr>
+            <tr><td><span class="inline">row-resize</span></td>
+<td>垂直方向にスクロール可能</td></tr>
+            <tr><td><span class="inline">n-resize</span></td>
+<td>辺の移動(上)</td></tr>
+            <tr><td><span class="inline">e-resize</span></td>
+<td>辺の移動(右)</td></tr>
+            <tr><td><span class="inline">s-resize</span></td>
+<td>辺の移動(下)</td></tr>
+            <tr><td><span class="inline">w-resize</span></td>
+<td>辺の移動(左)</td></tr>
+            <tr><td><span class="inline">ne-resize</span></td>
+<td>辺の移動(右上)</td></tr>
+            <tr><td><span class="inline">nw-resize</span></td>
+<td>辺の移動(左上)</td></tr>
+            <tr><td><span class="inline">se-resize</span></td>
+<td>辺の移動(右下)</td></tr>
+            <tr><td><span class="inline">sw-resize</span></td>
+<td>辺の移動(左下)</td></tr>
+            <tr><td><span class="inline">ew-resize</span></td>
+<td>辺の移動(左右)</td></tr>
+            <tr><td><span class="inline">ns-resize</span></td>
+<td>辺の移動(上下)</td></tr>
+            <tr><td><span class="inline">nesw-resize</span></td>
+<td>辺の移動(右上左下)</td></tr>
+            <tr><td><span class="inline">nwse-resize</span></td>
+<td>辺の移動(左上右下)</td></tr>
+            <tr><td><span class="inline">zoom-in</span></td>
+<td>拡大</td></tr>
+            <tr><td><span class="inline">zoom-out</span></td>
+<td>縮小</td></tr>
+          </table>
+        </div>
+      </details>
+      <h3 id="sec36sec26" class="subsec">opacity</h3>
+      <p>要素の不透明度。</p>
+      <div class="code">opacity: 1;</div>
+      <h3 id="sec37sec27" class="subsec">outline</h3>
+      <p>要素をフォーカスしたとき(input要素にTabでフォーカスするなど)の枠。</p>
+      <div class="code">outline: solid 1px red;</div>
+      <h3 id="sec38sec28" class="subsec">overflow-wrap</h3>
+      <p>単語中でも無理矢理改行する：</p>
+      <div class="code">overflow-wrap: break-word;</div>
+      <h3 id="sec39sec29" class="subsec">overscroll-behavior</h3>
+      <p>スクロールが端まで達した後のスクロールで、親要素のスクロールをしないようにする：</p>
+      <div class="code">overscroll-behavior: none;</div>
+      <h3 id="sec40sec30" class="subsec">pointer-events</h3>
+      <p>クリックやスクロールが貫通するようにする：</p>
+      <div class="code">pointer-events: none;</div>
+      <h3 id="sec41sec31" class="subsec">resize</h3>
+      <p>ブロック要素をリサイズ可能にする。値は<span class="inline">both</span>、<span class="inline">horizontal</span>、<span class="inline">vertical</span>、<span class="inline">none</span>。</p>
+      <div class="code">resize: horizontal;</div>
+      <h3 id="sec42sec32" class="subsec">text-align</h3>
+      <p>テキストを何揃えにするか(水平).</p>
+      <p>指定できる値：<span class="inline">start</span>、<span class="inline">end</span>、<span class="inline">left</span>、<span class="inline">right</span>、<span class="inline">center</span>、<span class="inline">justify</span>、<span class="inline">match-parent</span></p>
+      <div class="code">text-align: left;</div>
+      <h3 id="sec43sec33" class="subsec">text-decoration</h3>
+      <p>テキスト装飾を無効化する例(リンク要素など)：</p>
+      <div class="code">text-decoration: none;</div>
+      <h3 id="sec44sec34" class="subsec">text-decoration-color</h3>
+      <p>下線や取り消し線など、テキストデコレーションの色。</p>
+      <div class="code">text-decoration-color: #64ec86;</div>
+      <h3 id="sec45sec35" class="subsec">text-decoration-line</h3>
+      <p>指定できる値：<span class="inline">none</span>、<span class="inline">underline</span>、<span class="inline">overline</span>、<span class="inline">line-through</span></p>
+      <div class="code">text-decoration-line: underline;</div>
+      <h3 id="sec46sec36" class="subsec">text-decoration-style</h3>
+      <p>指定できる値：<span class="inline">solid</span>、<span class="inline">double</span>、<span class="inline">dotted</span>、<span class="inline">dashed</span>、<span class="inline">wavy</span></p>
+      <div class="code">text-decoration-style: solid;</div>
+      <h3 id="sec47sec37" class="subsec">text-decoration-thickness</h3>
+      <p>指定できる値：<span class="inline">auto</span>、<span class="inline">from-font</span>、<span class="inline">[length]</span>、<span class="inline">[percentage]</span></p>
+      <div class="code">text-decoration-thickness: auto;</div>
+      <h3 id="sec48sec38" class="subsec">text-emphasis</h3>
+      <p>テキストを強調するために&lt;span style="text-emphasis: '﹅';">ふる&lt;/span>点(圏点)。</p>
+      <div class="code">text-emphasis: '、';</div>
+      <h3 id="sec49sec39" class="subsec">text-indent</h3>
+      <div class="code">text-indent: 1em;</div>
+      <h3 id="sec50sec40" class="subsec">text-overflow</h3>
+      <p>あふれたテキストの表示。文字列を指定することもできる。あふれたテキストを「...」にする例：</p>
+      <div class="code">text-overflow: ellipsis;</div>
+      <h3 id="sec51sec41" class="subsec">text-shadow</h3>
+      <p>テキストに影を付ける。指定方法は「左右、上下、半径、色」。</p>
+      <div class="code">/* オフセット(X) | オフセット(Y) | ブラー半径 | 色 */
+text-shadow: 1px 1px 2px black;
+
+/* 色 | オフセット(X) | オフセット(Y) | ブラー半径 */
+text-shadow: #fc0 1px 0 10px;
+
+/* オフセット(X) | オフセット(Y) | 色 */
+text-shadow: 5px 5px #558abb;
+
+/* 色 | オフセット(X) | オフセット(Y) */
+text-shadow: white 2px 5px;
+
+/* オフセット(X) | オフセット(Y) */
+text-shadow: 5px 10px;</div>
+      <h3 id="sec52sec42" class="subsec">transition</h3>
+      <div class="code">要素が変化するときに、アニメーションを伴うようになる。</div>
+      <div class="code">transition: 1s;</div>
+      <h3 id="sec53sec43" class="subsec">user-select</h3>
+      <p>テキストの選択を禁止する：</p>
+      <div class="code">user-select: none;
+-moz-user-select: none;
+-webkit-user-select: none;
+-ms-user-select: none;</div>
+      <h3 id="sec54sec44" class="subsec">vertical-align</h3>
+      <p>縦向きの何揃えか。
+<span class="inline">top</span>、<span class="inline">middle</span>、<span class="inline">bottom</span>、<span class="inline">baseline</span>から選択。</p>
+      <div class="code">vertical-align: top;</div>
+      <h3 id="sec55sec45" class="subsec">white-space</h3>
+      <p>主な値は<span class="inline">normal</span>、<span class="inline">nowrap</span>、<span class="inline">pre</span>。</p>
+      <div class="code">white-space: pre;</div>
+      <h3 id="sec56sec46" class="subsec">width</h3>
+      <div class="code">width: 20px;</div>
+      <h3 id="sec57sec47" class="subsec">z-index</h3>
+      <p>要素が重なったとき、この値が大きいほど手前に表示される。</p>
+      <div class="code">z-index: 100;</div>
+      <h3 id="sec58sec48" class="subsec">zoom</h3>
+      <div class="code">zoom: 150%;</div>
+      <h2 id="sec59" class="sec">セレクター</h2>
+      <h3 id="sec60sec01" class="subsec">全称セレクター</h3>
+      <div class="code">* {
+  color: green;
+}</div>
+      <h3 id="sec61sec02" class="subsec">要素型セレクター</h3>
+      <div class="code">/* すべての&lt;a>要素。 */
+a {
+  color: red;
+}</div>
+      <h3 id="sec62sec03" class="subsec">クラスセレクター</h3>
+      <div class="code">/* class="spacious"であるすべての要素 */
+.spacious {
+  margin: 2em;
+}
+
+/* class="spacious"であるすべての&lt;li>要素 */
+li.spacious {
+  margin: 2em;
+}
+
+/* "spacious"および"elegant"の両方をクラスリストに含む&lt;li>要素すべて */
+/* 例えば、class="elegant retro spacious" */
+li.spacious.elegant {
+  margin: 2em;
+}</div>
+      <h3 id="sec63sec04" class="subsec">IDセレクター</h3>
+      <div class="code">/* id="demo" のついた要素 */
+#demo {
+  border: red 2px solid;
+}</div>
+      <h3 id="sec64sec05" class="subsec">属性セレクター</h3>
+      <div class="code">/* title属性を持つ&lt;a>要素 */
+a[title] {
+  color: purple;
+}
+
+/* hrefが"https://example.org"と一致する&lt;a>要素 */
+a[href="https://example.org"]
+{
+  color: green;
+}
+
+/* hrefに"example"を含む&lt;a>要素 */
+a[href*="example"] {
+  font-size: 2em;
+}
+
+/* hrefが"org"で終わる&lt;a>要素 */
+a[href$=".org"] {
+  font-style: italic;
+}
+
+/* &lt;a>要素のclass属性に"logo"という語が含まれているもの */
+a[class~="logo"] {
+  padding: 2px;
+}
+
+/* URLのどこかに"cAsE"があるリンクに一致
+大文字小文字の区別しない */
+a[href*="cAsE" i] {
+  color: pink;
+}
+
+/* "https"で始まり".org"で終わるリンク */
+a[href^="https"][href$=".org"] {
+  color: green;
+}</div>
+      <h3 id="sec65sec06" class="subsec">セレクターリスト</h3>
+      <div class="code">span, div {
+  border: red 2px solid;
+}</div>
+      <h3 id="sec66sec07" class="subsec">子孫結合子</h3>
+      <div class="code">/* "my-things" リストの子孫のリスト項目 */
+ul.my-things li {
+  margin: 2em;
+}</div>
+      <h3 id="sec67sec08" class="subsec">子結合子</h3>
+      <div class="code">/* "my-things"クラスを持つリストの子要素であるリスト項目 */
+ul.my-things > li {
+  margin: 2em;
+}</div>
+      <h3 id="sec68sec09" class="subsec">後続兄弟結合子</h3>
+      <div class="code">img ~ p {
+  color: red;
+}</div>
+      <h3 id="sec69sec10" class="subsec">次兄弟結合子</h3>
+      <div class="code">/* 画像の直後に来る段落 */
+img + p {
+  font-weight: bold;
+}</div>
+      <h3 id="sec70sec11" class="subsec">擬似クラス</h3>
+      <div class="code">/* ユーザーのポインターが乗っているすべてのボタン */
+button:hover {
+  color: blue;
+}</div>
+      <table class="default">
+        <tr><th>擬似クラス</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">:fullscreen</span></td>
+<td>現在全画面モードの要素</td></tr>
+        <tr><td><span class="inline">:picture-in-picture</span></td>
+<td>現在ピクチャインピクチャモードの要素</td></tr>
+        <tr><td><span class="inline">:autofill</span></td>
+<td>&lt;input>をブラウザーが自動補完した場合</td></tr>
+        <tr><td><span class="inline">:enabled</span></td>
+<td>ユーザーインターフェイス要素が有効な状態である</td></tr>
+        <tr><td><span class="inline">:disabled</span></td>
+<td>ユーザーインターフェイス要素が無効な状態である</td></tr>
+        <tr><td><span class="inline">:read-only</span></td>
+<td>ユーザーが変更できない要素</td></tr>
+        <tr><td><span class="inline">:read-write</span></td>
+<td>ユーザーが編集することができる要素</td></tr>
+        <tr><td><span class="inline">:placeholder-shown</span></td>
+<td>プレイスホルダーテキスト, 例えば<span class="inline">placeholder</span>属性のものが表示されている&lt;input>および&lt;textarea>要素</td></tr>
+        <tr><td><span class="inline">:default</span></td>
+<td>一連の要素のうち, 1つ以上の既定のUI要素</td></tr>
+        <tr><td><span class="inline">:indeterminate</span></td>
+<td>UI要素が不定状態になっている場合</td></tr>
+        <tr><td><span class="inline">:blank</span></td>
+<td>ユーザーが入力する要素が空である場合. 空文字列が入っているか, その他の空入力であること.</td></tr>
+        <tr><td><span class="inline">:valid</span></td>
+<td>内容が妥当である要素</td></tr>
+        <tr><td><span class="inline">:invalid</span></td>
+<td>無効な内容を持つ要素</td></tr>
+        <tr><td><span class="inline">:in-range</span></td>
+<td>スライダーコントロールなどの範囲制限のある要素で, 選択した値が許容範囲内にある場合</td></tr>
+        <tr><td><span class="inline">:out-of-range</span></td>
+<td>スライダーコントロールなどの範囲制限のある要素で, 選択した値が許容範囲外の場合</td></tr>
+        <tr><td><span class="inline">:required</span></td>
+<td>フォーム要素が必須項目である場合</td></tr>
+        <tr><td><span class="inline">:optional</span></td>
+<td>フォーム要素が省略可能である場合</td></tr>
+        <tr><td><span class="inline">:user-invalid</span></td>
+<td>不正確な値が入力されている要素</td></tr>
+        <tr><td><span class="inline">:dir()</span></td>
+<td>文書の言語によって決定される書字方向に基づいて要素を選択します</td></tr>
+        <tr><td><span class="inline">:lang()</span></td>
+<td>内容物の言語に基づいて要素を選択します</td></tr>
+        <tr><td><span class="inline">:any-link</span></td>
+<td>要素が<span class="inline">:link</span>または<span class="inline">:visited</span>のいずれかに一致する場合</td></tr>
+        <tr><td><span class="inline">:link</span></td>
+<td>まだ訪問していないリンク</td></tr>
+        <tr><td><span class="inline">:visited</span></td>
+<td>訪問したことのあるリンク</td></tr>
+        <tr><td><span class="inline">:local-link</span></td>
+<td>絶対URLが対象URLと同じリンク, 例えば同じページへのアンカーリンクである場合</td></tr>
+        <tr><td><span class="inline">:target</span></td>
+<td>文書の URL の対象である要素</td></tr>
+        <tr><td><span class="inline">:target-within</span></td>
+<td>文書のURLの対象である要素だけでなく, 文書URLの対象である子孫を持つ要素にも一致します</td></tr>
+        <tr><td><span class="inline">:scope</span></td>
+<td>セレクターを照合するための参照点となる要素</td></tr>
+        <tr><td><span class="inline">:playing</span></td>
+<td>その要素が再生可能なメディア要素であり, 再生中である</td></tr>
+        <tr><td><span class="inline">:paused</span></td>
+<td>その要素が再生可能なメディア要素であり, 一時停止中である</td></tr>
+        <tr><td><span class="inline">:current</span></td>
+<td>表示されている要素またはその祖先</td></tr>
+        <tr><td><span class="inline">:past</span></td>
+<td>完全に<span class="inline">:current</span>要素の前に発生する要素</td></tr>
+        <tr><td><span class="inline">:future</span></td>
+<td>完全に<span class="inline">:current</span>要素の後に発生する要素</td></tr>
+        <tr><td><span class="inline">:root</span></td>
+<td>文書のルートである要素</td></tr>
+        <tr><td><span class="inline">:empty</span></td>
+<td>ホワイトスペース文字以外に子がない要素</td></tr>
+        <tr><td><span class="inline">:nth-child</span></td>
+<td><span class="inline">An+B</span>の表記を用いて, 兄弟要素のリストから要素を選択します</td></tr>
+        <tr><td><span class="inline">:nth-last-child</span></td>
+<td><span class="inline">An+B</span>の表記を用いて, 兄弟要素のリストから, リストの末尾から逆方向に数えて要素を選択します</td></tr>
+        <tr><td><span class="inline">:first-child</span></td>
+<td>兄弟のうちの最初の要素</td></tr>
+        <tr><td><span class="inline">:last-child</span></td>
+<td>兄弟のうちの最後の要素</td></tr>
+        <tr><td><span class="inline">:only-child</span></td>
+<td>要素に兄弟がいない場合</td></tr>
+        <tr><td><span class="inline">:nth-of-type</span></td>
+<td><span class="inline">An+B</span>の表記を用いて, 兄弟要素のリストから, 特定の型に一致する要素を選択します.</td></tr>
+        <tr><td><span class="inline">:nth-last-of-type</span></td>
+<td><span class="inline">An+B</span>の表記を用いて, 兄弟要素のリストから, リストの末尾から逆方向に数えて特定の型に一致する要素を選択します</td></tr>
+        <tr><td><span class="inline">:first-of-type</span></td>
+<td>兄弟のうちの最初の特定の型に一致する要素</td></tr>
+        <tr><td><span class="inline">:last-of-type</span></td>
+<td>兄弟のうちの最後の特定の型に一致する要素</td></tr>
+        <tr><td><span class="inline">:only-of-type</span></td>
+<td>指定された型セレクターで兄弟要素がない要素</td></tr>
+        <tr><td><span class="inline">:hover</span></td>
+<td>ユーザーがポインティングデバイスでアイテムを指した場合</td></tr>
+        <tr><td><span class="inline">:active</span></td>
+<td>アイテムがクリックされるなど, ユーザーによってアクティブになっているとき</td></tr>
+        <tr><td><span class="inline">:focus</span></td>
+<td>要素にフォーカスがあるとき</td></tr>
+        <tr><td><span class="inline">:focus-visible</span></td>
+<td>要素にフォーカスがあり, ユーザーエージェントがその要素のフォーカスを可視化する必要があると判断した場合</td></tr>
+        <tr><td><span class="inline">:focus-within</span></td>
+<td><span class="inline">:focus</span>が適用される要素に加え, <span class="inline">:focus</span>が適用される子孫要素を持つ要素にも一致します.</td></tr>
+        <tr><td><span class="inline">:is()</span></td>
+<td>指定されたリストのセレクターのどれかに一致する要素</td></tr>
+        <tr><td><span class="inline">:not()</span></td>
+<td>引数で表されない要素</td></tr>
+        <tr><td><span class="inline">:where()</span></td>
+<td>指定されたリストのセレクターのいずれかに一致する要素</td></tr>
+        <tr><td><span class="inline">:has()</span></td>
+<td>付属の要素に対してアンカーを付けたときに, 相対セレクターのどれかが一致する場合</td></tr>
+      </table>
+      <h3 id="sec71sec12" class="subsec">擬似要素</h3>
+      <div class="code">/* すべての&lt;p>要素の最初の行です. */
+p::first-line {
+  color: blue;
+  text-transform: uppercase;
+}</div>
+      <table class="default">
+        <tr><th>擬似要素</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">::after</span></td>
+<td>選択した要素の最後の子要素</td></tr>
+        <tr><td><span class="inline">::backdrop</span></td>
+<td>何らかの要素が全画面モードで表示される直下に直接表示されるviewportの寸法のボックス</td></tr>
+        <tr><td><span class="inline">::before</span></td>
+<td>選択した要素の最初の子要素</td></tr>
+        <tr><td><span class="inline">::cue</span></td>
+<td>選択された要素内のWebVTTキュー</td></tr>
+        <tr><td><span class="inline">::first-letter</span></td>
+<td>ブロックレベル要素の最初の行の最初の文字</td></tr>
+        <tr><td><span class="inline">::first-line</span></td>
+<td>ブロックレベル要素の最初の行</td></tr>
+        <tr><td><span class="inline">::file-selector-button</span></td>
+<td>the button of an &lt;input> of type="file".</td></tr>
+        <tr><td><span class="inline">::marker</span></td>
+<td>リスト項目の箇条書き記号ボックス(ふつうは黒丸や番号)</td></tr>
+        <tr><td><span class="inline">::part()</span></td>
+<td>一致するpart属性を持つシャドウツリー内の要素</td></tr>
+        <tr><td><span class="inline">::placeholder</span></td>
+<td>&lt;inputまたは&lt;textarea>要素のプレイスホルダー文字列</td></tr>
+        <tr><td><span class="inline">::selection</span></td>
+<td>ユーザーが(テキストをマウスでクリックやドラッグすることで)選択した文書の一部</td></tr>
+        <tr><td><span class="inline">::slotted()</span></td>
+<td>HTML テンプレート内にあるスロットに配置された任意の要素</td></tr>
+      </table>
+      <div style="padding: 50px;">
+      </div>
+    </div>
+    <label for="sidebar_ctrl" class="black"></label>
+    <div class="black">
+    </div>
+    <div id="side">
+      <h2>もくじ</h2>
+      <div class="list">
+        <details jumpto="sec01" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            構文
+          </summary>
+          <div jumpto="sec02sec01" class="jump_button">
+            コメントアウト
+          </div>
+          <div jumpto="sec03sec02" class="jump_button">
+            値の単位
+          </div>
+          <div jumpto="sec04sec03" class="jump_button">
+            アニメーション
+          </div>
+          <div jumpto="sec05sec04" class="jump_button">
+            共通の値
+          </div>
+        </details>
+        <details jumpto="sec06" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            CSS値関数
+          </summary>
+          <div jumpto="sec07sec01" class="jump_button">
+            数学関数
+          </div>
+          <div jumpto="sec08sec02" class="jump_button">
+            フィルター関数
+          </div>
+          <div jumpto="sec09sec03" class="jump_button">
+            その他
+          </div>
+        </details>
+        <details jumpto="sec10" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            プロパティ
+          </summary>
+          <div jumpto="sec11sec01" class="jump_button">
+            要素の大きさ
+          </div>
+          <div jumpto="sec12sec02" class="jump_button">
+            要素の枠
+          </div>
+          <div jumpto="sec13sec03" class="jump_button">
+            内側の余白
+          </div>
+          <div jumpto="sec14sec04" class="jump_button">
+            外側の余白
+          </div>
+          <div jumpto="sec15sec05" class="jump_button">
+            accent-color
+          </div>
+          <div jumpto="sec16sec06" class="jump_button">
+            backdrop-filter
+          </div>
+          <div jumpto="sec17sec07" class="jump_button">
+            background-color
+          </div>
+          <div jumpto="sec18sec08" class="jump_button">
+            background-image
+          </div>
+          <div jumpto="sec19sec09" class="jump_button">
+            border-collapse
+          </div>
+          <div jumpto="sec20sec10" class="jump_button">
+            box-shadow
+          </div>
+          <div jumpto="sec21sec11" class="jump_button">
+            box-sizing
+          </div>
+          <div jumpto="sec22sec12" class="jump_button">
+            caret-color
+          </div>
+          <div jumpto="sec23sec13" class="jump_button">
+            color
+          </div>
+          <div jumpto="sec24sec14" class="jump_button">
+            cursor
+          </div>
+          <div jumpto="sec25sec15" class="jump_button">
+            direction
+          </div>
+          <div jumpto="sec26sec16" class="jump_button">
+            display
+          </div>
+          <div jumpto="sec27sec17" class="jump_button">
+            filter
+          </div>
+          <div jumpto="sec28sec18" class="jump_button">
+            flex
+          </div>
+          <div jumpto="sec29sec19" class="jump_button">
+            font-family
+          </div>
+          <div jumpto="sec30sec20" class="jump_button">
+            font-weight
+          </div>
+          <div jumpto="sec31sec21" class="jump_button">
+            height
+          </div>
+          <div jumpto="sec32sec22" class="jump_button">
+            letter-spacing
+          </div>
+          <div jumpto="sec33sec23" class="jump_button">
+            line-height
+          </div>
+          <div jumpto="sec34sec24" class="jump_button">
+            overflow
+          </div>
+          <div jumpto="sec35sec25" class="jump_button">
+            list-style
+          </div>
+          <div jumpto="sec36sec26" class="jump_button">
+            opacity
+          </div>
+          <div jumpto="sec37sec27" class="jump_button">
+            outline
+          </div>
+          <div jumpto="sec38sec28" class="jump_button">
+            overflow-wrap
+          </div>
+          <div jumpto="sec39sec29" class="jump_button">
+            overscroll-behavior
+          </div>
+          <div jumpto="sec40sec30" class="jump_button">
+            pointer-events
+          </div>
+          <div jumpto="sec41sec31" class="jump_button">
+            resize
+          </div>
+          <div jumpto="sec42sec32" class="jump_button">
+            text-align
+          </div>
+          <div jumpto="sec43sec33" class="jump_button">
+            text-decoration
+          </div>
+          <div jumpto="sec44sec34" class="jump_button">
+            text-decoration-color
+          </div>
+          <div jumpto="sec45sec35" class="jump_button">
+            text-decoration-line
+          </div>
+          <div jumpto="sec46sec36" class="jump_button">
+            text-decoration-style
+          </div>
+          <div jumpto="sec47sec37" class="jump_button">
+            text-decoration-thickness
+          </div>
+          <div jumpto="sec48sec38" class="jump_button">
+            text-emphasis
+          </div>
+          <div jumpto="sec49sec39" class="jump_button">
+            text-indent
+          </div>
+          <div jumpto="sec50sec40" class="jump_button">
+            text-overflow
+          </div>
+          <div jumpto="sec51sec41" class="jump_button">
+            text-shadow
+          </div>
+          <div jumpto="sec52sec42" class="jump_button">
+            transition
+          </div>
+          <div jumpto="sec53sec43" class="jump_button">
+            user-select
+          </div>
+          <div jumpto="sec54sec44" class="jump_button">
+            vertical-align
+          </div>
+          <div jumpto="sec55sec45" class="jump_button">
+            white-space
+          </div>
+          <div jumpto="sec56sec46" class="jump_button">
+            width
+          </div>
+          <div jumpto="sec57sec47" class="jump_button">
+            z-index
+          </div>
+          <div jumpto="sec58sec48" class="jump_button">
+            zoom
+          </div>
+        </details>
+        <details jumpto="sec59" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            セレクター
+          </summary>
+          <div jumpto="sec60sec01" class="jump_button">
+            全称セレクター
+          </div>
+          <div jumpto="sec61sec02" class="jump_button">
+            要素型セレクター
+          </div>
+          <div jumpto="sec62sec03" class="jump_button">
+            クラスセレクター
+          </div>
+          <div jumpto="sec63sec04" class="jump_button">
+            IDセレクター
+          </div>
+          <div jumpto="sec64sec05" class="jump_button">
+            属性セレクター
+          </div>
+          <div jumpto="sec65sec06" class="jump_button">
+            セレクターリスト
+          </div>
+          <div jumpto="sec66sec07" class="jump_button">
+            子孫結合子
+          </div>
+          <div jumpto="sec67sec08" class="jump_button">
+            子結合子
+          </div>
+          <div jumpto="sec68sec09" class="jump_button">
+            後続兄弟結合子
+          </div>
+          <div jumpto="sec69sec10" class="jump_button">
+            次兄弟結合子
+          </div>
+          <div jumpto="sec70sec11" class="jump_button">
+            擬似クラス
+          </div>
+          <div jumpto="sec71sec12" class="jump_button">
+            擬似要素
+          </div>
+        </details>
+      </div>
+    </div>
+    <label for="sidebar_ctrl" id="ctrl_label">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#444"><path d="M280-600v-80h560v80H280Zm0 160v-80h560v80H280Zm0 160v-80h560v80H280ZM160-600q-17 0-28.5-11.5T120-640q0-17 11.5-28.5T160-680q17 0 28.5 11.5T200-640q0 17-11.5 28.5T160-600Zm0 160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520q17 0 28.5 11.5T200-480q0 17-11.5 28.5T160-440Zm0 160q-17 0-28.5-11.5T120-320q0-17 11.5-28.5T160-360q17 0 28.5 11.5T200-320q0 17-11.5 28.5T160-280Z"/></svg>
+    </label>
+  </body>
+  <script src="main.js">
+  </script>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>TypeScript</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_ctrl">
+    <div id="main">
+      <h1 id="top">TypeScript</h1>
+      <h2 id="sec01" class="sec">参考</h2>
+      <ul>
+        <li><a href="TypeScript入門『サバイバルTypeScript』〜実務で使うなら最低限ここだけはおさえておきたいこと〜">https://typescriptbook.jp/</a></li>
+      </ul>
+      <h2 id="sec02" class="sec">型注釈</h2>
+      <h3 id="sec03sec01" class="subsec">型エイリアス</h3>
+      <div class="code">type StringOrNumber = string | number;
+let value: StringOrNumber;
+value = "hello"; // string型が代入可能
+value = 123; // number型も代入可能</div>
+      <h3 id="sec04sec02" class="subsec">型注釈の書き方</h3>
+      <h4>配列</h4>
+      <div class="code">let numbers: number[];
+let strings: Array&lt;string>;</div>
+      <h4>読み取り専用配列</h4>
+      <div class="code">const numbers: readonly number[] = [1, 2, 3];
+const strings: ReadonlyArray&lt;string> = ["hello", "world"];</div>
+      <h4>タプル型</h4>
+      <div class="code">let tuple: [string, number];</div>
+      <h4>オブジェクト</h4>
+      <div class="code">let a: { name: string; age: number };
+let b: { readonly name: string; age: number };
+let c: { name: string; age?: number };
+let d: { [key: string]: number };</div>
+      <h4><code>Map</code></h4>
+      <div class="code">let people: Map&lt;string, number>;</div>
+      <h4><code>Set</code></h4>
+      <div class="code">let numSet: Set&lt;number>;</div>
+      <h4>ユニオン型</h4>
+      <div class="code">let value: boolean | number;
+value = true; // 代入できる
+value = 100; // 代入できる</div>
+      <h4>インターセクション型</h4>
+      <div class="code">type Octopus = { swims: boolean };
+type Cat = { nightVision: boolean };
+type Octocat = Octopus & Cat;
+      
+const octocat: Octocat = { swims: true, nightVision: true };
+console.log(octocat);</div>
+      <h2 id="sec05" class="sec">列挙型</h2>
+      <div class="code">enum Color {
+  Red,
+  Green,
+  Blue,
+}</div>
+      <h3 id="sec06sec01" class="subsec">値を設定</h3>
+      <div class="code">enum Color {
+  Red = "red",
+  Green = "green",
+  Blue = "blue",
+}</div>
+      <p>値にアクセスする場合</p>
+      <div class="code">const myColor: Color = Color.Red;</div>
+      <h2 id="sec07" class="sec">型ガード関数</h2>
+      <div class="code">function isString(value: any): value is string {
+  return typeof value === "string";
+}
+      
+function printLength(value: any) {
+  if (isString(value)) {
+    // この節ではvalueはstring型として扱われる
+    console.log(value.length);
+  }
+}
+      
+printLength("hello");</div>
+      <h2 id="sec08" class="sec">ジェネリクス</h2>
+      <div class="code">// Tが型変数
+function identity&lt;T>(arg: T): T {
+  return arg;
+}
+      
+// 型変数Tにstringを割り当てる
+const output1 = identity&lt;string>("myString");
+      
+// 型変数Tにnumberを割り当てる
+const output2 = identity&lt;number>(100);</div>
+      <h2 id="sec09" class="sec">型レベルプログラミング</h2>
+      <h3 id="sec10sec01" class="subsec">typeof型演算子</h3>
+      <div class="code">const object = {
+  name: "TypeScript",
+  version: 3.9,
+};
+      
+type ObjectType = typeof object;</div>
+      <h3 id="sec11sec02" class="subsec">keyof型演算子</h3>
+      <div class="code">type Point = {
+  x: number;
+  y: number;
+};
+      
+type Key = keyof Point;
+const key1: Key = "x"; // 代入OK
+const key2: Key = "y"; // 代入OK
+const key3: Key = "z"; // 代入不可</div>
+      <h3 id="sec12sec03" class="subsec">ユーティリティ型</h3>
+      <h4><code>Required</code></h4>
+      <div class="code">type Person = {
+  name: string;
+  age?: number;
+};
+      
+type RequiredPerson = Required&lt;Person>;
+// ageがオプションでなくなっている点に注目</div>
+      <h4><code>Partial</code></h4>
+      <div class="code">type Person = {
+  name: string;
+  age: number;
+};
+      
+type OptionalPerson = Partial&lt;Person>;</div>
+      <h4><code>Readonly</code></h4>
+      <div class="code">type Person = {
+  name: string;
+  age: number;
+};
+      
+type ReadonlyPerson = Readonly&lt;Person>;</div>
+      <h4><code>Record</code></h4>
+      <div class="code">type ThreeLetterRecord = Record&lt;"one" | "two" | "three", string>;</div>
+      <h4><code>Pick</code></h4>
+      <div class="code">type Person = {
+  name: string;
+  age: number;
+  address: string;
+};
+      
+type PersonNameAndAge = Pick&lt;Person, "name" | "age">;</div>
+      <h4><code>Omit</code></h4>
+      <div class="code">type Person = {
+  name: string;
+  age: number;
+  address: string;
+};
+      
+type PersonWithoutAddress = Omit&lt;Person, "address">;</div>
+      <h4><code>Exclude</code></h4>
+      <div class="code">type T1 = number | string | boolean;
+type T2 = Exclude&lt;T1, boolean>;</div>
+      <h4><code>Extract</code></h4>
+      <div class="code">type T1 = number | string | boolean;
+type T2 = string | boolean;
+type T3 = Extract&lt;T1, T2>;</div>
+      <h4><code>NonNullable</code></h4>
+      <div class="code">type T1 = string | null | undefined;
+type T2 = NonNullable&lt;T1>;</div>
+      <h4><code>ReturnType</code></h4>
+      <div class="code">function stringify(value: number): string {
+  return `${value}`;
+}
+      
+type StringifyReturnType = ReturnType&lt;typeof stringify>;</div>
+      <h4><code>Awaited</code></h4>
+      <div class="code">const promise1 = Promise.resolve("data");
+const promise2 = Promise.resolve(Promise.resolve("data"));
+      
+type Data1 = Awaited&lt;typeof promise1>;
+type Data2 = Awaited&lt;typeof promise2>;</div>
+      <h3 id="sec13sec04" class="subsec">Mapped types</h3>
+      <div class="code">type Person = {
+  name: string;
+  age: number;
+};
+      
+type ReadOnlyPerson = { readonly [K in keyof Person]: Person[K] };</div>
+      <h3 id="sec14sec05" class="subsec">インデックスアクセス型</h3>
+      <div class="code">type Person = {
+  name: string;
+  age: number;
+};
+      
+type Name = Person["name"];</div>
+      <div style="padding: 50px;">
+      </div>
+    </div>
+    <label for="sidebar_ctrl" class="black"></label>
+    <div class="black">
+    </div>
+    <div id="side">
+      <h2>もくじ</h2>
+      <div class="list">
+        <details jumpto="sec01" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            参考
+          </summary>
+        </details>
+        <details jumpto="sec02" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            型注釈
+          </summary>
+          <div jumpto="sec03sec01" class="jump_button">
+            型エイリアス
+          </div>
+          <div jumpto="sec04sec02" class="jump_button">
+            型注釈の書き方
+          </div>
+        </details>
+        <details jumpto="sec05" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            列挙型
+          </summary>
+          <div jumpto="sec06sec01" class="jump_button">
+            値を設定
+          </div>
+        </details>
+        <details jumpto="sec07" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            型ガード関数
+          </summary>
+        </details>
+        <details jumpto="sec08" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            ジェネリクス
+          </summary>
+        </details>
+        <details jumpto="sec09" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            型レベルプログラミング
+          </summary>
+          <div jumpto="sec10sec01" class="jump_button">
+            typeof型演算子
+          </div>
+          <div jumpto="sec11sec02" class="jump_button">
+            keyof型演算子
+          </div>
+          <div jumpto="sec12sec03" class="jump_button">
+            ユーティリティ型
+          </div>
+          <div jumpto="sec13sec04" class="jump_button">
+            Mapped types
+          </div>
+          <div jumpto="sec14sec05" class="jump_button">
+            インデックスアクセス型
+          </div>
+        </details>
+      </div>
+    </div>
+    <label for="sidebar_ctrl" id="ctrl_label">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#444"><path d="M280-600v-80h560v80H280Zm0 160v-80h560v80H280Zm0 160v-80h560v80H280ZM160-600q-17 0-28.5-11.5T120-640q0-17 11.5-28.5T160-680q17 0 28.5 11.5T200-640q0 17-11.5 28.5T160-600Zm0 160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520q17 0 28.5 11.5T200-480q0 17-11.5 28.5T160-440Zm0 160q-17 0-28.5-11.5T120-320q0-17 11.5-28.5T160-360q17 0 28.5 11.5T200-320q0 17-11.5 28.5T160-280Z"/></svg>
+    </label>
+  </body>
+  <script src="main.js">
+  </script>
+</html>

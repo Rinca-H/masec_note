@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Java</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <input type="checkbox" id="sidebar_ctrl">
+    <div id="main">
+      <h1 id="top">Java</h1>
+      <h2 id="sec01" class="sec">参考</h2>
+      <ul>
+        <li><a href="とほほのJava入門 - とほほのWWW入門">https://www.tohoho-web.com/java/</a></li>
+      </ul>
+      <h2 id="sec02" class="sec"><code>Hello world</code></h2>
+      <p>Javaでは、ファイル一つひとつがクラス1つと対応している。</p>
+      <p>クラスを定義して(今回は <span class="inline">Hello</span> クラス)、<span class="inline">main</span> メソッドの定義内に処理したいプログラムの内容を書くことになる。</p>
+      <div class="code">class Hello {
+  public static void main(String[] args) {
+    System.out.println("Hello World!!");
+  }
+}</div>
+      <h2 id="sec03" class="sec">コメントアウト</h2>
+      <div class="code">// ここにコメントを記述します。
+
+a = b + c;   /* ここにもコメントを記述します。*/
+
+/*
+* 複数行にまたがるコメントも可能です。
+*/
+
+/**
+ * この部分は javadoc コマンドで抜き出すことができます。
+ */</div>
+      <h2 id="sec04" class="sec">ログ</h2>
+      <h2 id="sec05" class="sec">演算子</h2>
+      <h2 id="sec06" class="sec">変数</h2>
+      <h2 id="sec07" class="sec">修飾子</h2>
+      <h3 id="sec08sec01" class="subsec"><span class="inline">public</span>, <span class="inline">private</span>, <span class="inline">protected</span></h3>
+      <h3 id="sec09sec02" class="subsec"><span class="inline">static</span></h3>
+      <h3 id="sec10sec03" class="subsec"><span class="inline">final</span></h3>
+      <h3 id="sec11sec04" class="subsec"><span class="inline">abstract</span></h3>
+      <h3 id="sec12sec05" class="subsec"><span class="inline">native</span></h3>
+      <h3 id="sec13sec06" class="subsec"><span class="inline">synchronized</span></h3>
+      <h3 id="sec14sec07" class="subsec"><span class="inline">transient</span></h3>
+      <h3 id="sec15sec08" class="subsec"><span class="inline">volatile</span></h3>
+      <h3 id="sec16sec09" class="subsec"><span class="inline">strictfp</span></h3>
+      <h2 id="sec17" class="sec">制御構文</h2>
+      <h3 id="sec18sec01" class="subsec">条件処理</h3>
+      <div class="code">int a = 3;
+if(a == 3) {
+  System.out.println("a is 3.");
+
+} else if(a == 4) {
+  System.out.println("a is 4.");
+
+} else {
+  System.out.println("a is unknown.");
+
+}</div>
+      <h3 id="sec19sec02" class="subsec">繰り返し処理I</h3>
+      <p>回数を指定して繰り返し処理</p>
+      <div class="code">for(int i = 0; i &lt; 10; i++) {
+  System.out.println(i);
+}</div>
+      <p>要素を1つずつ取り出して要素の個数分だけ繰り返し処理</p>
+      <div class="code">String colors[] = {"Red", "Green", "Blue"};
+for(String color : colors) {
+  System.out.println(color);
+}</div>
+      <h3 id="sec20sec03" class="subsec">繰り返し処理II</h3>
+      <p>条件を満たす間繰り返し</p>
+      <div class="code">int n = 10;
+while(n > 0) {
+  System.out.println(n);
+  n--;
+}</div>
+      <h3 id="sec21sec04" class="subsec">繰り返し処理III</h3>
+      <p>条件を満たす間繰り返し(条件処理が後)</p>
+      <div class="code">int n = 10;
+do {
+  System.out.println(n);
+  n--;
+} while(n > 0);</div>
+      <h3 id="sec22sec05" class="subsec">Switch文</h3>
+      <div class="code">int n = 3;
+switch(n) {
+  case 1:
+    System.out.println("n is one.");
+  break;
+  case 2:
+    System.out.println("n is two.");
+  break;
+  case 3:
+    System.out.println("n is tree.");
+  break;
+  default:
+    System.out.println("unknwon");
+  break;
+}</div>
+      <p>式としてのswitch文</p>
+      <div class="code">String w = "Wed";
+String s = switch(w) {
+    case "Sun" -> "Sunday";
+    case "Mon" -> "Monday";
+    case "Tue" -> "Tuesday";
+    case "Wed" -> "Wednesday";
+    case "Thu" -> "Thursday";
+    case "Fri" -> "Friday";
+    case "Sat" -> "Sataday";
+    default -> "Unknown";
+};
+System.out.println(s);</div>
+      <p>複数の値を同時に分岐に指定できる</p>
+      <div class="code">switch(n) {
+  case 1, 2, 3 -> "Low";
+  case 4, 5, 6 -> "Middle";
+  case 7, 8, 9 -> "High";
+  default -> "Unknown";
+}</div>
+      <h3 id="sec23sec06" class="subsec">繰り返しを抜ける</h3>
+      <div class="code">for(int i = 0; i &lt; 10; i++) {
+  if(i == 5) {
+    break;
+  }
+  System.out.println(i);
+}
+System.out.println("finish!!");</div>
+      <h3 id="sec24sec07" class="subsec">繰り返しを続ける</h3>
+      <div class="code">for (int i = 0; i &lt; 10; i++) {
+  if (i == 5) {
+    continue;
+  }
+  System.out.println(i);
+}</div>
+      <h2 id="sec25" class="sec">関数(メソッド)</h2>
+      <h3 id="sec26sec01" class="subsec">ラムダ式</h3>
+      <div class="code">public static void main(String[] args) {
+  Runnable r = () -> {
+    System.out.println("Hello!");
+  };
+  r.run();
+}</div>
+      <h3 id="sec27sec02" class="subsec">関数型インターフェース</h3>
+      <p>JavaScriptなどのように関数(ラムダ式)を値として扱うときの型</p>
+      <div class="code">@FunctionalInterface
+interface MyFunctionalInterface {
+  public abstract int run(String arg);
+}</div>
+      <table class="default">
+        <tr><th>クラス</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">Function&lt;T, R></span></td>
+<td><span class="inline">T</span> 型の引数を受け取り、<span class="inline">R</span> 型の戻り値を返す。メソッドは <span class="inline">R apply(T)</span> 。</td></tr>
+        <tr><td><span class="inline">BiFunction&lt;T, U, R></span></td>
+<td><span class="inline">T</span> 型, <span class="inline">U</span> 型の2つの引数を受け取り、<span class="inline">R</span> 型の戻り値を返す。メソッドは <span class="inline">R apply(T, U)</span> 。</td></tr>
+        <tr><td><span class="inline">UnaryOperator&lt;T></span></td>
+<td><span class="inline">T</span> 型の引数を1つ受け取り、<span class="inline">T</span> 型の戻り値を返す。メソッドは <span class="inline">T apply(T)</span> 。</td></tr>
+        <tr><td><span class="inline">BinaryOperator&lt;T></span></td>
+<td><span class="inline">T</span> 型の引数を2つうけとり、<span class="inline">T</span> 型の戻り値を返す。メソッドは <span class="inline">T apply(T, T)</span> 。</td></tr>
+        <tr><td><span class="inline">Consumer&lt;T></span></td>
+<td><span class="inline">T</span> 型の引数を受け取り、値を返さない。メソッドは <span class="inline">void accept(T)</span>。</td></tr>
+        <tr><td><span class="inline">BiConsumer&lt;T, U></span></td>
+<td><span class="inline">T</span> 型, <span class="inline">U</span> 型の2つの引数を受け取り、値を返さない。メソッドは <span class="inline">void accept(T, U)</span> 。</td></tr>
+        <tr><td><span class="inline">Predicate&lt;T></span></td>
+<td><span class="inline">T</span> 型の引数を受け取り、真偽を返す。メソッドは <span class="inline">boolean test(T)</span> 。</td></tr>
+        <tr><td><span class="inline">BiPredicate&lt;T, U></span></td>
+<td><span class="inline">T</span> 型, <span class="inline">U</span> 型の2つの引数を受け取り、真偽を返す。メソッドは <span class="inline">boolean test(T, U)</span> 。</td></tr>
+        <tr><td><span class="inline">Supplier&lt;R></span></td>
+<td>引数を受け取らず、<span class="inline">R</span> 型の戻り値を返す。メソッドは <span class="inline">R get()</span> 。</td></tr>
+      </table>
+      <p>例(Java)</p>
+      <div class="code">import java.util.function.*;
+
+public class Main {
+  public static void main(String[] args) {
+    Function&lt;String, Integer> strLength = (str) -> { return str.length(); };
+    int len = strLength.apply("ABC");
+    System.out.println(len);
+
+    BiFunction&lt;String, Integer, Character> charAt = (str, n) -> { return str.charAt(n); };
+    char c = charAt.apply("ABCDEFG", 3);
+    System.out.println(c);
+
+    BiPredicate&lt;String, String> strEqual = (str1, str2) -> { return str1 == str2; };
+    boolean b = strEqual.test("ABC", "ABC");
+    System.out.println(b);
+  }
+}</div>
+      <p>同じのをJavaScriptで</p>
+      <div class="code">const strLength = str => { return str.length; };
+let len = strLength("ABC");
+console.log(len);
+
+const charAt = (str, n) => { return str[n]; };
+let c = charAt("ABCDEFG", 3);
+console.log(c);
+
+const strEqual = (str1, str2) => { return str1 == str2; };
+let b = strEqual("ABC", "ABC");
+console.log(b);</div>
+      <h2 id="sec28" class="sec">クラス</h2>
+      <div class="code">class TestClass {
+  TypeName FieldName;
+  TypeName MethodName(Args) {
+    // ...
+  }
+}</div>
+      <p>インスタンスの作り方</p>
+      <div class="code">TestClass o = new TestClass();</div>
+      <h3 id="sec29sec01" class="subsec">コンストラクタ</h3>
+      <div class="code">class Person {
+  String myName;
+  Person(String myName) {
+    this.myName = myName;
+  }
+}</div>
+      <h3 id="sec30sec02" class="subsec">インナークラス</h3>
+      <p>クラスの中で定義されるクラス</p>
+      <div class="code">class OuterClass {
+  class InnerClass {
+    // ...
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    OuterClass o = new OuterClass();
+    OuterClass.InnerClass o2 = o.new InnerClass();
+  }
+}</div>
+      <h3 id="sec31sec03" class="subsec">クラスの継承</h3>
+      <div class="code">class SuperClass {                                      // 親クラス
+  void method1() { System.out.println("method1"); }
+}
+
+class SubClass extends SuperClass {                     // 子クラス
+  void method2() { System.out.println("method2"); }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    SubClass o = new SubClass();
+    o.method1();                    // 親クラスのメソッドも呼び出せる 
+    o.method2();                    // 子クラスのメソッドも呼び出せる
+  }
+}</div>
+      <h3 id="sec32sec04" class="subsec">親クラス</h3>
+      <div class="code">class SuperClass {
+  String name;
+  SuperClass(String name) { this.name = name; }
+  void printName() { System.out.println(this.name); }
+}
+
+class SubClass extends SuperClass {
+  SubClass(String name) {
+    super(name);                        // 親クラスのコンストラクタを呼び出す
+    System.out.println(super.name);     // 親クラスのフィールドを参照する
+    super.printName();                  // 親クラスのメソッドを呼び出す
+  }
+}</div>
+      <h3 id="sec33sec05" class="subsec"><span class="inline">instanceof</span> 演算子</h3>
+      <div class="code">SubClass o = new SubClass();
+if(o instanceof SuperClass) {
+  System.out.println("属してます");
+}</div>
+      <h3 id="sec34sec06" class="subsec">ジェネリクス</h3>
+      <div class="code">class Test&lt;T> {
+  T value;
+  Test(T value) {
+    this.value = value;
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Test&lt;String>t1 = new Test&lt;String>("ABC");
+    Test&lt;Integer>t2 = new Test&lt;Integer>(123);
+    System.out.println(t1.value);
+    System.out.println(t2.value);
+  }
+}</div>
+      <h3 id="sec35sec07" class="subsec">レコード</h3>
+      <div class="code">record Book(String title, String author) {
+  // ...
+}</div>
+      <h3 id="sec36sec08" class="subsec">インターフェース</h3>
+      <div class="code">interface InterfaceA {
+  public void methodA(String msg);
+  public void methodB(int arg);
+}
+
+class Test implements InterfaceA {
+  public void methodA(String msg) {
+    System.out.println(msg);
+  }
+  public void methodB(int arg) {
+    System.out.println(arg);
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Test o = new Test();
+    o.methodA("ABC");
+    o.methodB(123);
+  }
+}</div>
+      <h2 id="sec37" class="sec">数値(整数型, 小数型)</h2>
+      <h2 id="sec38" class="sec">文字列</h2>
+      <h3 id="sec39sec01" class="subsec">テキストブロック</h3>
+      <h3 id="sec40sec02" class="subsec">文字列の長さ</h3>
+      <h3 id="sec41sec03" class="subsec">各種メソッド</h3>
+      <p><a href="https://www.tohoho-web.com/java/string.htm">https://www.tohoho-web.com/java/string.htm</a></p>
+      <h2 id="sec42" class="sec">コレクション</h2>
+      <h3 id="sec43sec01" class="subsec"><span class="inline">ArrayList</span></h3>
+      <div class="code">import java.util.*;
+
+class Main {
+  public static void main(String[] args) {
+    ArrayList&lt;String> list = new ArrayList&lt;String>();
+    list.add("AAA");
+    list.add("BBB");
+    list.add("CCC");
+
+    for(String s : list) {
+      System.out.println(s);
+    }
+  }
+}</div>
+      <table class="default">
+        <tr><th>メソッド</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">list.add(o)</span></td>
+<td>オブジェクト <span class="inline">o</span> を配列の末尾に追加する</td></tr>
+        <tr><td><span class="inline">list.add(n, o)</span></td>
+<td>オブジェクトを <span class="inline">n</span> で指定した場所に追加する</td></tr>
+        <tr><td><span class="inline">list.get(n)</span></td>
+<td>n番目の要素を得る</td></tr>
+        <tr><td><span class="inline">list.remove(n)</span></td>
+<td>n番目の要素を削除する</td></tr>
+        <tr><td><span class="inline">list.set(n, o)</span></td>
+<td>n番目の要素をオブジェクト <span class="inline">o</span> で置き換える</td></tr>
+        <tr><td><span class="inline">list.size() </span></td>
+<td>要素の個数を得る</td></tr>
+        <tr><td><span class="inline">list.isEmpty() </span></td>
+<td>空かどうか調べる</td></tr>
+        <tr><td><span class="inline">list.indexOf(o)</span></td>
+<td>オブジェクト <span class="inline">o</span> と等しい要素のインデックスを探す</td></tr>
+        <tr><td><span class="inline">list.contains(o)</span></td>
+<td>オブジェクト <span class="inline">o</span> と等しい要素があるか調べる</td></tr>
+        <tr><td><span class="inline">list.addAll(list2)</span></td>
+<td>配列の末尾に配列 <span class="inline">list2</span> を追加する</td></tr>
+      </table>
+      <h3 id="sec44sec02" class="subsec"><span class="inline">LinkedList</span></h3>
+      <div class="code">import java.util.*;
+
+class Main {
+  public static void main(String[] args) {
+    LinkedList&lt;String> list = new LinkedList&lt;>();
+    list.add("AAA");
+    list.add("BBB");
+    list.add("CCC");
+
+    for(String s : list) {
+      System.out.println(s);
+    }
+  }
+}</div>
+      <h3 id="sec45sec03" class="subsec"><span class="inline">HashSet</span></h3>
+      <div class="code">import java.util.*;
+
+class Main {
+  public static void main(String[] args) {
+    HashSet&lt;String> hash = new HashSet&lt;>();
+    hash.add("AAA");
+    hash.add("BBB");
+    hash.add("CCC");
+
+    for(String s : hash) {
+      System.out.println(s);
+    }
+  }
+}</div>
+      <table class="default">
+        <tr><th>メソッド</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">set.add(o)</span></td>
+<td>オブジェクト <span class="inline">o</span> を配列の末尾に追加する</td></tr>
+        <tr><td><span class="inline">set.clear()</span></td>
+<td>配列をクリアする</td></tr>
+        <tr><td><span class="inline">set.contains(o)</span></td>
+<td>オブジェクト <span class="inline">o</span> と等しい要素があるか調べる</td></tr>
+        <tr><td><span class="inline">set.isEmpty()</span></td>
+<td>空かどうか調べる</td></tr>
+        <tr><td><span class="inline">set.remove(o)</span></td>
+<td>オブジェクト <span class="inline">o</span> にマッチする要素を削除する</td></tr>
+        <tr><td><span class="inline">set.size()</span></td>
+<td>要素の個数を得る</td></tr>
+      </table>
+      <h3 id="sec46sec04" class="subsec"><span class="inline">TreeSet</span></h3>
+      <div class="code">import java.util.*;
+
+class Main {
+  public static void main(String[] args) {
+    TreeSet&lt;String> tree = new TreeSet&lt;>();
+    tree.add("AAA");
+    tree.add("BBB");
+    tree.add("CCC");
+
+    System.out.println(tree);
+    for(String s : tree) {
+      System.out.println(s);
+    }
+  }
+}</div>
+      <h3 id="sec47sec05" class="subsec"><span class="inline">HashMap</span></h3>
+      <div class="code">import java.util.*;
+
+class Main {
+  public static void main(String[] args) {
+    HashMap&lt;String, Integer> map = new HashMap&lt;>();
+    map.put("Yamada", 87);
+    map.put("Tanaka", 92);
+    map.put("Suzuki", 76);
+
+    map.forEach((key, value) -> {
+      System.out.println(key + ": " + value);
+    });
+  }
+}</div>
+      <table class="default">
+        <tr><th>メソッド</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">map.put(key, value)</span></td>
+<td><span class="inline">key</span>-<span class="inline">value</span> を設定する</td></tr>
+        <tr><td><span class="inline">map.get(key)</span></td>
+<td><span class="inline">key</span> に対応する <span class="inline">value</span> を得る</td></tr>
+        <tr><td><span class="inline">map.remove(key)</span></td>
+<td><span class="inline">key</span> の要素を削除する</td></tr>
+        <tr><td><span class="inline">map.containsKey(key)</span></td>
+<td><span class="inline">key</span> の要素が存在するか否かを判別する</td></tr>
+        <tr><td><span class="inline">map.clear()</span></td>
+<td>すべての要素を削除する</td></tr>
+        <tr><td><span class="inline">map.size()</span></td>
+<td>要素の個数を得る</td></tr>
+        <tr><td><span class="inline">map.isEmpty()</span></td>
+<td>要素が空か否かを判別する</td></tr>
+        <tr><td><span class="inline">map.forEach((key, value) -> function)</span></td>
+<td>forEachループを回す</td></tr>
+      </table>
+      <h3 id="sec48sec06" class="subsec"><span class="inline">LinkedHashMap</span></h3>
+      <div class="code">import java.util.*;
+
+class Main {
+  public static void main(String[] args) {
+    LinkedHashMap&lt;String, Integer> map = new LinkedHashMap&lt;>();
+    map.put("Yamada", 87);
+    map.put("Tanaka", 92);
+    map.put("Suzuki", 76);
+
+    map.forEach((key, value) -> {
+      System.out.println(key + ": " + value);
+    });
+  }
+}</div>
+      <h3 id="sec49sec07" class="subsec"><span class="inline">TreeMap</span></h3>
+      <div class="code">import java.util.*;
+
+class Main {
+  public static void main(String[] args) {
+    TreeMap&lt;String, Integer> map = new TreeMap&lt;>();
+    map.put("Yamada", 87);
+    map.put("Tanaka", 92);
+    map.put("Suzuki", 76);
+
+    map.forEach((key, value) -> {
+      System.out.println(key + ": " + value);
+    });
+  }
+}</div>
+      <h3 id="sec50sec08" class="subsec"><span class="inline">Deque</span></h3>
+      <div class="code">import java.util.*;
+
+class Main {
+  public static void main(String[] args) {
+    Deque&lt;String> queue = new ArrayDeque&lt;>();
+    queue.addLast("AAA");
+    queue.addLast("BBB");
+    queue.addLast("CCC");
+
+    while(queue.size() > 0) {
+      System.out.println(queue.pollFirst());
+    }
+  }
+}</div>
+      <table class="default">
+        <tr><th>メソッド</th>
+<th>概要</th></tr>
+        <tr><td><span class="inline">queue.size()</span></td>
+<td>要素の個数を得る</td></tr>
+        <tr><td><span class="inline">queue.addFirst(o)</span></td>
+<td><span class="inline">o</span>をデックの先頭に追加する(エラー時は例外を返す)</td></tr>
+        <tr><td><span class="inline">queue.addLast(o)</span></td>
+<td><span class="inline">o</span>をデックの最後に追加する(エラー時は例外を返す)</td></tr>
+        <tr><td><span class="inline">queue.offerFirst(o)</span></td>
+<td><span class="inline">o</span>をデックの先頭に追加する(エラー時は<span class="inline">false</span>を返す)</td></tr>
+        <tr><td><span class="inline">queue.offerLast(o)</span></td>
+<td><span class="inline">o</span>をデックの最後に追加する(エラー時は<span class="inline">false</span>を返す)</td></tr>
+        <tr><td><span class="inline">queue.removeFirst()</span></td>
+<td>デックの先頭の値を取り出して削除する(エラー時は例外を返す)</td></tr>
+        <tr><td><span class="inline">queue.removeLast()</span></td>
+<td>デックの最後の値を取り出して削除する(エラー時は例外を返す)</td></tr>
+        <tr><td><span class="inline">queue.pollFirst()</span></td>
+<td>デックの最初の値を取り出して削除する(エラー時は<span class="inline">null</span>を返す)</td></tr>
+        <tr><td><span class="inline">queue.getFirst()</span></td>
+<td>デックの最初の値を取り出す。削除しない(エラー時は例外を返す)</td></tr>
+        <tr><td><span class="inline">queue.getLast()</span></td>
+<td>デックの最後の値を取り出す。削除しない(エラー時は例外を返す)</td></tr>
+        <tr><td><span class="inline">queue.peekFirst()</span></td>
+<td>デックの最初の値を取り出す。削除しない(エラー時は<span class="inline">null</span>を返す)</td></tr>
+        <tr><td><span class="inline">queue.peekLast()</span></td>
+<td>デックの最後の値を取り出す。削除しない(エラー時は<span class="inline">null</span>を返す)</td></tr>
+        <tr><td><span class="inline">queue.removeFirstOccurrence(o)</span></td>
+<td>デックから最初に現れる<span class="inline">o</span>を削除する。見つからなければ<span class="inline">false</span>を返す。</td></tr>
+        <tr><td><span class="inline">queue.removeLastOccurrence(o)</span></td>
+<td>デックから最後に現れる<span class="inline">o</span>を削除する。見つからなければ<span class="inline">false</span>を返す。</td></tr>
+        <tr><td><span class="inline">queue.add(o)</span></td>
+<td><span class="inline">addLast(o)</span>と同じ</td></tr>
+        <tr><td><span class="inline">queue.push(o)</span></td>
+<td><span class="inline">addFirst(o)</span>と同じ</td></tr>
+        <tr><td><span class="inline">queue.offer(o)</span></td>
+<td><span class="inline">offerLast(o)</span>と同じ</td></tr>
+        <tr><td><span class="inline">queue.remove(o)</span></td>
+<td><span class="inline">removeFirstOccurrence(o)</span>と同じ</td></tr>
+        <tr><td><span class="inline">queue.remove()</span></td>
+<td><span class="inline">removeFirst()</span>と同じ</td></tr>
+        <tr><td><span class="inline">queue.pop()</span></td>
+<td><span class="inline">removeFirst()</span>と同じ</td></tr>
+        <tr><td><span class="inline">queue.poll()</span></td>
+<td><span class="inline">pollFirst()</span>と同じ</td></tr>
+        <tr><td><span class="inline">queue.element()</span></td>
+<td><span class="inline">getFirst()</span>と同じ</td></tr>
+        <tr><td><span class="inline">queue.peek()</span></td>
+<td><span class="inline">peekFirst()</span>と同じ</td></tr>
+        <tr><td><span class="inline">queue.contains(o)</span></td>
+<td>デックに<span class="inline">o</span>が存在していれば<span class="inline">true</span>を返す。</td></tr>
+        <tr><td><span class="inline">queue.iterator()</span></td>
+<td>ループするためのイテレータを返す。</td></tr>
+        <tr><td><span class="inline">queue.descendingIterator()</span></td>
+<td>逆順でループするためのイテレータを返す。</td></tr>
+      </table>
+      <h2 id="sec51" class="sec">インポート</h2>
+      <h2 id="sec52" class="sec">その他の文法</h2>
+      <h3 id="sec53sec01" class="subsec">ラベル</h3>
+      <div class="code">loop1:
+for(int i = 0; i &lt; 10; i++) {
+  for(int j = 0; j &lt; 10; j++) {
+    if((i == 1) && (j == 5)) {
+      break loop1;
+    }
+  }
+}</div>
+      <h2 id="sec54" class="sec">予約語</h2>
+      <ul>
+        <li><span class="inline">abstract</span></li>
+        <li><span class="inline">assert</span></li>
+        <li><span class="inline">boolean</span></li>
+        <li><span class="inline">break</span></li>
+        <li><span class="inline">byte</span></li>
+        <li><span class="inline">case</span></li>
+        <li><span class="inline">catch</span></li>
+        <li><span class="inline">char</span></li>
+        <li><span class="inline">class</span></li>
+        <li><span class="inline">const</span></li>
+        <li><span class="inline">continue</span></li>
+        <li><span class="inline">default</span></li>
+        <li><span class="inline">do</span></li>
+        <li><span class="inline">double</span></li>
+        <li><span class="inline">else</span></li>
+        <li><span class="inline">enum</span></li>
+        <li><span class="inline">extends</span></li>
+        <li><span class="inline">final</span></li>
+        <li><span class="inline">finally</span></li>
+        <li><span class="inline">float</span></li>
+        <li><span class="inline">for</span></li>
+        <li><span class="inline">goto</span></li>
+        <li><span class="inline">if</span></li>
+        <li><span class="inline">implements</span></li>
+        <li><span class="inline">import</span></li>
+        <li><span class="inline">instanceof</span></li>
+        <li><span class="inline">int</span></li>
+        <li><span class="inline">interface</span></li>
+        <li><span class="inline">long</span></li>
+        <li><span class="inline">native</span></li>
+        <li><span class="inline">new</span></li>
+        <li><span class="inline">package</span></li>
+        <li><span class="inline">private</span></li>
+        <li><span class="inline">protected</span></li>
+        <li><span class="inline">public</span></li>
+        <li><span class="inline">return</span></li>
+        <li><span class="inline">short</span></li>
+        <li><span class="inline">static</span></li>
+        <li><span class="inline">strictfp</span></li>
+        <li><span class="inline">super</span></li>
+        <li><span class="inline">switch</span></li>
+        <li><span class="inline">synchronized</span></li>
+        <li><span class="inline">this</span></li>
+        <li><span class="inline">throw</span></li>
+        <li><span class="inline">throws</span></li>
+        <li><span class="inline">transient</span></li>
+        <li><span class="inline">try</span></li>
+        <li><span class="inline">void</span></li>
+        <li><span class="inline">volatile</span></li>
+        <li><span class="inline">while</span></li>
+        <li><span class="inline">_</span></li>
+      </ul>
+      <p>場合によっては以下も</p>
+      <ul>
+        <li><span class="inline">exports</span></li>
+        <li><span class="inline">module</span></li>
+        <li><span class="inline">non-sealed</span></li>
+        <li><span class="inline">open</span></li>
+        <li><span class="inline">opens</span></li>
+        <li><span class="inline">permits</span></li>
+        <li><span class="inline">provides</span></li>
+        <li><span class="inline">record</span></li>
+        <li><span class="inline">requires</span></li>
+        <li><span class="inline">sealed</span></li>
+        <li><span class="inline">to</span></li>
+        <li><span class="inline">transitive</span></li>
+        <li><span class="inline">uses</span></li>
+        <li><span class="inline">var</span></li>
+        <li><span class="inline">when</span></li>
+        <li><span class="inline">with</span></li>
+        <li><span class="inline">yield</span></li>
+      </ul>
+      <div style="padding: 50px;">
+      </div>
+    </div>
+    <label for="sidebar_ctrl" class="black"></label>
+    <div class="black">
+    </div>
+    <div id="side">
+      <h2>もくじ</h2>
+      <div class="list">
+        <details jumpto="sec01" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            参考
+          </summary>
+        </details>
+        <details jumpto="sec02" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            <code>Hello world</code>
+          </summary>
+        </details>
+        <details jumpto="sec03" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            コメントアウト
+          </summary>
+        </details>
+        <details jumpto="sec04" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            ログ
+          </summary>
+        </details>
+        <details jumpto="sec05" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            演算子
+          </summary>
+        </details>
+        <details jumpto="sec06" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            変数
+          </summary>
+        </details>
+        <details jumpto="sec07" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            修飾子
+          </summary>
+          <div jumpto="sec08sec01" class="jump_button">
+            <span class="inline">public</span>, <span class="inline">private</span>, <span class="inline">protected</span>
+          </div>
+          <div jumpto="sec09sec02" class="jump_button">
+            <span class="inline">static</span>
+          </div>
+          <div jumpto="sec10sec03" class="jump_button">
+            <span class="inline">final</span>
+          </div>
+          <div jumpto="sec11sec04" class="jump_button">
+            <span class="inline">abstract</span>
+          </div>
+          <div jumpto="sec12sec05" class="jump_button">
+            <span class="inline">native</span>
+          </div>
+          <div jumpto="sec13sec06" class="jump_button">
+            <span class="inline">synchronized</span>
+          </div>
+          <div jumpto="sec14sec07" class="jump_button">
+            <span class="inline">transient</span>
+          </div>
+          <div jumpto="sec15sec08" class="jump_button">
+            <span class="inline">volatile</span>
+          </div>
+          <div jumpto="sec16sec09" class="jump_button">
+            <span class="inline">strictfp</span>
+          </div>
+        </details>
+        <details jumpto="sec17" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            制御構文
+          </summary>
+          <div jumpto="sec18sec01" class="jump_button">
+            条件処理
+          </div>
+          <div jumpto="sec19sec02" class="jump_button">
+            繰り返し処理I
+          </div>
+          <div jumpto="sec20sec03" class="jump_button">
+            繰り返し処理II
+          </div>
+          <div jumpto="sec21sec04" class="jump_button">
+            繰り返し処理III
+          </div>
+          <div jumpto="sec22sec05" class="jump_button">
+            Switch文
+          </div>
+          <div jumpto="sec23sec06" class="jump_button">
+            繰り返しを抜ける
+          </div>
+          <div jumpto="sec24sec07" class="jump_button">
+            繰り返しを続ける
+          </div>
+        </details>
+        <details jumpto="sec25" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            関数(メソッド)
+          </summary>
+          <div jumpto="sec26sec01" class="jump_button">
+            ラムダ式
+          </div>
+          <div jumpto="sec27sec02" class="jump_button">
+            関数型インターフェース
+          </div>
+        </details>
+        <details jumpto="sec28" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            クラス
+          </summary>
+          <div jumpto="sec29sec01" class="jump_button">
+            コンストラクタ
+          </div>
+          <div jumpto="sec30sec02" class="jump_button">
+            インナークラス
+          </div>
+          <div jumpto="sec31sec03" class="jump_button">
+            クラスの継承
+          </div>
+          <div jumpto="sec32sec04" class="jump_button">
+            親クラス
+          </div>
+          <div jumpto="sec33sec05" class="jump_button">
+            <span class="inline">instanceof</span> 演算子
+          </div>
+          <div jumpto="sec34sec06" class="jump_button">
+            ジェネリクス
+          </div>
+          <div jumpto="sec35sec07" class="jump_button">
+            レコード
+          </div>
+          <div jumpto="sec36sec08" class="jump_button">
+            インターフェース
+          </div>
+        </details>
+        <details jumpto="sec37" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            数値(整数型, 小数型)
+          </summary>
+        </details>
+        <details jumpto="sec38" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            文字列
+          </summary>
+          <div jumpto="sec39sec01" class="jump_button">
+            テキストブロック
+          </div>
+          <div jumpto="sec40sec02" class="jump_button">
+            文字列の長さ
+          </div>
+          <div jumpto="sec41sec03" class="jump_button">
+            各種メソッド
+          </div>
+        </details>
+        <details jumpto="sec42" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            コレクション
+          </summary>
+          <div jumpto="sec43sec01" class="jump_button">
+            <span class="inline">ArrayList</span>
+          </div>
+          <div jumpto="sec44sec02" class="jump_button">
+            <span class="inline">LinkedList</span>
+          </div>
+          <div jumpto="sec45sec03" class="jump_button">
+            <span class="inline">HashSet</span>
+          </div>
+          <div jumpto="sec46sec04" class="jump_button">
+            <span class="inline">TreeSet</span>
+          </div>
+          <div jumpto="sec47sec05" class="jump_button">
+            <span class="inline">HashMap</span>
+          </div>
+          <div jumpto="sec48sec06" class="jump_button">
+            <span class="inline">LinkedHashMap</span>
+          </div>
+          <div jumpto="sec49sec07" class="jump_button">
+            <span class="inline">TreeMap</span>
+          </div>
+          <div jumpto="sec50sec08" class="jump_button">
+            <span class="inline">Deque</span>
+          </div>
+        </details>
+        <details jumpto="sec51" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            インポート
+          </summary>
+        </details>
+        <details jumpto="sec52" open class="sidebar jump_button">
+          <summary>
+            <div class="fold_button">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+            </div>
+            その他の文法
+          </summary>
+          <div jumpto="sec53sec01" class="jump_button">
+            ラベル
+          </div>
+        </details>
+      </div>
+    </div>
+    <label for="sidebar_ctrl" id="ctrl_label">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#444"><path d="M280-600v-80h560v80H280Zm0 160v-80h560v80H280Zm0 160v-80h560v80H280ZM160-600q-17 0-28.5-11.5T120-640q0-17 11.5-28.5T160-680q17 0 28.5 11.5T200-640q0 17-11.5 28.5T160-600Zm0 160q-17 0-28.5-11.5T120-480q0-17 11.5-28.5T160-520q17 0 28.5 11.5T200-480q0 17-11.5 28.5T160-440Zm0 160q-17 0-28.5-11.5T120-320q0-17 11.5-28.5T160-360q17 0 28.5 11.5T200-320q0 17-11.5 28.5T160-280Z"/></svg>
+    </label>
+  </body>
+  <script src="main.js">
+  </script>
+</html>
