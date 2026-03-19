@@ -27,6 +27,7 @@
 - [数学 - 定理](https://rinca-h.github.io/masec_note/pChbr/math-theorem.html)
 - [数学 - 値](https://rinca-h.github.io/masec_note/pChbr/math-vals.html)
 - [Modまとめ](https://rinca-h.github.io/masec_note/pChbr/mc_mod_matome.html)
+- [課題集](https://rinca-h.github.io/masec_note/pChbr/problems.htm)
 - [CSS](https://rinca-h.github.io/masec_note/pChbr/pChbr-css.html)
 - [GLSL](https://rinca-h.github.io/masec_note/pChbr/pChbr-glsl.html)
 - [HTML](https://rinca-h.github.io/masec_note/pChbr/pChbr-html.html)

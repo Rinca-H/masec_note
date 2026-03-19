@@ -30,34 +30,29 @@
   </head>
   <body>
     <ol>
-      <li>$$\lim_{n\to\infty}10^{n+2}\sin\frac{1^\circ}{55\ldots 5}=\pi$$</li>
-      <li>$$\int_0^1\frac{\ln(1+x)}{x\sqrt{1-x}}\,dx\leadsto\int_0^1\frac{\ln(x+\sqrt{1+x^2})}{\sqrt{1+x^2}}\,dx=\frac{1}{2}\ln^2(1+\sqrt{2})$$</li>
       <li>$$\int x^n e^{ax}dx=\frac{e^{ax}}{a}\sum_{k=0}^n\frac{n^{\underline{k}}}{(-a)^k}x^{n-k}$$</li>
       <li>$$\sum_{k=0}^\infty\sin^{2k}n=\tan^2 n\qquad(n\in\mathbb{N})$$</li>
-      <li>$$\sum_{n=1}^\infty\frac{12n^2-1}{(2n-1)^2(2n)^2(2n+1)^2}=\frac{\pi^2}{12}-\frac{1}{2}$$</li>
-      <li>$$\sum_{n=1}^\infty\frac{(-1)^{n-1}H_n'}{(2n+1)}\qquad H_n':=\sum_{k=1}^n\frac{(-1)^{k-1}}{k}$$</li>
-      <li>
-        $$\sum_{n=1}^\infty\frac{2^n}{n^2\binom{2n}{n}}=\frac{\pi^2}{8}$$
-        <p>$(\sin^{-1}x)^2$ のマクローリン展開</p>
-      </li>
-      <li>
-        $$\sum_{n=1}^\infty\sum_{m=1}^\infty\frac{(-1)^{m-1}}{n(2m+2n-1)}=\beta(2)-\frac{\pi\ln 2}{4}$$
-        <p>積分, $\tan$ 置換, $\ln\cos$ のフーリエ</p>
-      </li>
-      <li>$$-\ln\cos x=\sum_{k=1}^\infty(-1)^k\frac{\cos(2kx)}{k}+\ln2$$</li>
       <li>
         $$\int_0^\infty\frac{\tan^{-1}2t}{e^{2\pi t}-1}\,dt=\frac{1-\ln 2}{4}$$
         <p>ビネの第2公式</p>
       </li>
-      <li>$$\sum_{n=1}^\infty\frac{(-1)^nH_{2n}}{2n+1}=-\frac{\pi\ln 2}{8}$$</li>
       <li>$$\int_0^\infty\frac{b\sin(ax)-a\sin(bx)}{x^2}\,dx=ab\ln\frac{b}{a}$$</li>
-      <li>$$\lim_{n\to\infty}e^{-n}\sum_{k=0}^n\frac{n^k}{k!}=?$$</li>
-      <li>$$\int_0^\infty\frac{t^{x-1}}{1+t}\,dt=\frac{\pi}{\sin\pi x}$$</li>
       <li>$$\int_0^\frac{\pi}{2}\tan^{2x-1}\theta\,d\theta=\frac{\pi}{2\sin\pi x}$$</li>
       <li>$$\sum_{n=1}^\infty\frac{1}{n^2 2^n}=\frac{\pi^2}{12}-\frac{\ln^2 2}{2}$$</li>
-      <li>$$\int_{-\frac{\pi}{2}}^\frac{\pi}{2}\ln(1 + e^{-\pi\tan x})e^{\pi\tan x}\,dx=\pi\gamma$$</li>
-      <li>$$\infty!^4=\infty\sharp,\quad\infty!=\sqrt{2\pi}$$</li>
       <li>$$\prod_{k=1}^n\cos\frac{k\pi}{2n+1}=\frac{1}{2^n}$$</li>
+      <li>$$\int_0^1\left\{\frac{1}{x}\right\}\,dx=1-\gamma$$</li>
+      <li>$$\sum_{n=1}^\infty\frac{1}{2^{2n-1}(2n-1)}=\ln\sqrt{3}$$</li>
+      <li>$$\int_0^1\frac{\ln^2 x}{(a+x)^2}\,dx=-\frac{2}{a}\text{Li}_2\left(-\frac{1}{a}\right)$$</li>
+      <li>$$\int_0^1\frac{x^4(1-x)^4}{1+x^2}\,dx=\frac{22}{7}-\pi$$</li>
+      <li>$$\sum_{k=1}^x k^{\overline{n}}=\frac{x^{\overline{n+1}}}{n+1}$$</li>
+      <li>$$\prod_{k=1}^\infty\left(1+\frac{1}{k^2}\right)=\frac{e^\pi-e^{-\pi}}{2\pi}$$</li>
+      <li>$$\int_0^\frac{\pi}{2}\frac{dx}{\sqrt[3]{\cos^2 x}}\,dx=\frac{\sqrt{\pi}\Gamma\left(\frac{1}{6}\right)}{2\Gamma\left(\frac{2}{3}\right)}$$</li>
+      <li>$$\sum_{n=0}^\infty\frac{(-1)^n}{3^n(2n+1)}=\frac{\pi}{2\sqrt{3}}$$</li>
+      <li>$$\int_0^\frac{\pi}{4}\cos x\ln(\sec x+\tan x)\,dx=\frac{\ln(1+\sqrt{2})}{\sqrt{2}}-\frac{\ln 2}{2}$$</li>
+      <li>$$\int_0^\frac{\pi}{3}\frac{\sin x}{(\sin x + \cos x)^3}\,dx=\frac{3(2-\sqrt{3})}{4}$$</li>
+
+      <li>$$\int_0^1\frac{\ln(1+x)}{x\sqrt{1-x}}\,dx\leadsto\int_0^1\frac{\ln(x+\sqrt{1+x^2})}{\sqrt{1+x^2}}\,dx=\frac{1}{2}\ln^2(1+\sqrt{2})$$</li>
+      <li>$$\infty!^4=\infty\sharp,\quad\infty!=\sqrt{2\pi}$$</li>
       <li>$$\int_0^\frac{\pi}{2}\frac{x}{\tan x}\,dx=\pi\ln \sqrt{2}$$</li>
       <li>
         $$\begin{align*}
@@ -67,25 +62,34 @@
           &=\sum_{n=0}^\infty\frac{(-1)^n\beta(2n+1)}{(2n)!}
         \end{align*}$$
       </li>
-      <li>$$\int_0^1\left\{\frac{1}{x}\right\}\,dx=1-\gamma$$</li>
-      <li>$$\int_0^\frac{\pi}{2}\left\{\tan x\right\}\,dx=1+i\ln\left(-\frac{1}{i!}\sqrt{\frac{\pi}{\sinh\pi}}\right)$$</li>
-      <li>$$\sum_{n=0}^\infty\frac{1}{(3n+1)(4n+1)}=\frac{\sqrt{3}-3}{6}\pi-\frac{3}{2}\ln 3+3\ln 2$$</li>
       <li>$$\sum_{n=1}^\infty\binom{2n}{n}^{-1}=\frac{9+2\sqrt{3}\pi}{27}$$</li>
-      <li>$$\sum_{n=1}^\infty\frac{1}{2^{2n-1}(2n-1)}=\ln\sqrt{3}$$</li>
+      <li>$$\int_0^\infty\frac{\sin x}{\sqrt[4]{x}}\,dx=\Gamma\left(\frac{3}{4}\right)\sin\frac{3\pi}{8}$$</li>
+
+      <li>$$\sum_{n=1}^\infty\frac{(-1)^{n-1}H_n'}{(2n+1)^2}\qquad H_n':=\sum_{k=1}^n\frac{(-1)^{k-1}}{k}$$</li>
+      <li>
+        $$\sum_{n=1}^\infty\frac{2^n}{n^2\binom{2n}{n}}=\frac{\pi^2}{8}$$
+        <p>$(\sin^{-1}x)^2$ のマクローリン展開</p>
+      </li>
+      <li>
+        $$\sum_{n=1}^\infty\sum_{m=1}^\infty\frac{(-1)^{m-1}}{n(2m+2n-1)}=\beta(2)-\frac{\pi\ln 2}{4}$$
+        <p>積分, $\tan$ 置換, $\ln\cos$ のフーリエ</p>
+        $$-\ln\cos x=\sum_{k=1}^\infty(-1)^k\frac{\cos(2kx)}{k}+\ln2$$
+      </li>
+      <li>$$\sum_{n=1}^\infty\frac{(-1)^nH_{2n}}{2n+1}=-\frac{\pi\ln 2}{8}$$</li>
+      <li>$$\lim_{n\to\infty}e^{-n}\sum_{k=0}^n\frac{n^k}{k!}=?$$</li>
+      <li>$$\int_0^\infty\frac{t^{x-1}}{1+t}\,dt=\frac{\pi}{\sin\pi x}$$</li>
+      <li>$$\int_{-\frac{\pi}{2}}^\frac{\pi}{2}\ln(1 + e^{-\pi\tan x})e^{\pi\tan x}\,dx=\pi\gamma$$</li>
+      <li>$$\int_0^\frac{\pi}{2}\left\{\tan x\right\}\,dx=1+i\ln\left(-\frac{1}{i!}\sqrt{\frac{\pi}{\sinh\pi}}\right)$$</li>
+      <li>$$\sum_{n=0}^\infty\frac{1}{(3n+1)(4n+1)}=-\frac{\sqrt{3}-3}{6}\pi-\frac{3}{2}\ln 3+3\ln 2$$</li>
       <li>$$\int_0^\frac{\pi}{2}\frac{\sin 8x}{\sin x}\,dx=\frac{152}{105}$$</li>
       <li>$$\lim_{n\to\infty}2n^2xe^{-n^2x^2}=2x\delta(x^2)$$</li>
-      <li>$$\int_0^1\frac{\ln^2 x}{(a+x)^2}\,dx=-\frac{2}{a}\text{Li}_{2}\left(-\frac{1}{a}\right)$$</li>
       <li>$$\int_0^1(\cos\pi m!x)^{2n}\,dx=\prod_{k=1}^n\frac{2k-1}{2k}$$</li>
-      <li>$$\int_0^\infty\frac{\sin x}{\sqrt[4]{x}}\,dx=\Gamma\left(\frac{3}{4}\right)\sin\frac{3\pi}{8}$$</li>
       <li>$$\sum_{n=0}^\infty\sum_{r=1}^n\frac{(-1)^r}{2^{2n+1}r(2n+2-r)}=\ln\frac{1}{2}\ln\frac{3}{2}-\text{Li}_2\left(-\frac{1}{4}\right)$$</li>
       <li>$$\int_0^\pi\sin\theta\ln^2\tan\frac{\theta}{2}\,d\theta=\frac{\pi^2}{6}$$</li>
       <li>$$\int_{-1}^1\ln^2\frac{1-t}{1+t}\,dt,\ \int_0^\infty\frac{u\ln^2 u}{(1+u^2)^2}\,du$$</li>
-      <li>$$\int_0^1\frac{x^4(1-x)^4}{1+x^2}\,dx=\frac{22}{7}-\pi$$</li>
       <li>$$\int_0^\infty\frac{\cosh zx}{\cosh x}\,dx=\frac{\pi}{2}\sec\frac{\pi}{2}z$$</li>
       <li>$$\int_0^\infty\frac{\sinh zx}{\sinh x}\,dx=\frac{\pi}{2}\tan\frac{\pi}{2}z$$</li>
       <li>$$\int_0^\infty\frac{x^3 e^x}{(e^x-1)^2}\,dx=?$$</li>
-      <li>$$\sum_{k=1}^x k^{\overline{n}}=\frac{x^{\overline{n+1}}}{n+1}$$</li>
-      <li>$$\prod_{k=1}^\infty\left(1+\frac{1}{k^2}\right)=\frac{e^\pi-e^{-\pi}}{2\pi}$$</li>
       <li>$$\int_0^\infty\frac{x^n}{1+x^2}\,dx=\frac{\pi}{2\cos\frac{n\pi}{2}}$$</li>
       <li>
         $$\begin{align*}
@@ -93,11 +97,11 @@
           \sum_{k=0}^n\frac{n!}{k!(n-k)!}\frac{(-1)^k}{2k+1}&=\frac{4^n(n!)^2}{(2n+1)!}
         \end{align*}$$
       </li>
-      <li>$$\int_0^\frac{\pi}{2}\frac{dx}{\sqrt[3]{\cos^2 x}}\,dx=\frac{\sqrt{\pi}\Gamma\left(\frac{1}{6}\right)}{2\Gamma\left(\frac{2}{3}\right)}$$</li>
-      <li>$$\sum_{n=0}^\infty\frac{(-1)^n}{3^n(2n+1)}=\frac{\pi}{2\sqrt{3}}$$</li>
       <li>$$\int_0^\infty\frac{\tan^{-1}(\ln x)}{1+x^2}\,dx=0$$</li>
+      
+      <li>$$\lim_{n\to\infty}10^{n+2}\sin\frac{1^\circ}{55\ldots 5}=\pi$$</li>
+      <li>$$\sum_{n=1}^\infty\frac{12n^2-1}{(2n-1)^2(2n)^2(2n+1)^2}=\frac{\pi^2}{12}-\frac{1}{2}$$</li>
       <li>$$\sum_{n=1}^\infty\frac{B_{2n}\pi^{2n}}{4^{1-n}n(2n)!}=\frac{1}{2}\ln\frac{\sinh\pi}{\pi}$$</li>
-      <li>$$\int_0^\frac{\pi}{4}\cos x\ln(\sec x+\tan x)\,dx=?$$</li>
     </ol>
   </body>
 </html>
